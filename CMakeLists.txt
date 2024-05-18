@@ -15,7 +15,10 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 add_executable(LSTM_Text_Generator
     main.cpp
 )
-target_link_libraries(LSTM_Text_Generator Qt${QT_VERSION_MAJOR}::Core)
+target_link_libraries(LSTM_Text_Generator PRIVATE
+    Qt${QT_VERSION_MAJOR}::Core
+    maths
+)
 
 find_package(Qt6 6.3 REQUIRED COMPONENTS
     Core
