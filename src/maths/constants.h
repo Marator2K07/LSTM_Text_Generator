@@ -1,6 +1,6 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-extern const int MAX_MATRIX_SIZE;
+const int MAX_MATRIX_SIZE = 3;
 
 #endif // CONSTANTS_H
