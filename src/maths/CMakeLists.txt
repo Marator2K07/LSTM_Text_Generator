@@ -1,5 +1,5 @@
 qt_add_library(maths STATIC
-    matrix.h matrix.cpp
+    matrix3d.h matrix3d.cpp
     constants.h
 )
 target_link_libraries(maths PRIVATE
