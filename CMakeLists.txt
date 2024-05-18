@@ -23,6 +23,8 @@ find_package(Qt6 6.3 REQUIRED COMPONENTS
     Network
 )
 
+add_subdirectory(src)
+
 include(GNUInstallDirs)
 install(TARGETS LSTM_Text_Generator
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

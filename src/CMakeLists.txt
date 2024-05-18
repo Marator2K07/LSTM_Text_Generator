@@ -1,1 +1,1 @@
-add_subdirectory(embedding)
+add_subdirectory(maths)
