@@ -1,5 +1,6 @@
 qt_add_library(lstm STATIC
     constants.h
+    numwithgradient.h numwithgradient.cpp
 )
 target_link_libraries(lstm PRIVATE
     Qt6::Core
