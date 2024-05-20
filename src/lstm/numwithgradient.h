@@ -4,9 +4,11 @@
 #include <QString>
 #include <vector>
 
+#include "num.h"
+
 using namespace std;
 
-class NumWithGradient
+class NumWithGradient : Num
 {
 private:
     double num_;
@@ -19,6 +21,9 @@ public:
 
 public:
 
+    // Num interface
+    double num() const override;
+    Num_Type type() const override;
 };
 
 #endif // NUMWITHGRADIENT_H

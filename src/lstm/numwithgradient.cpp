@@ -6,3 +6,13 @@ NumWithGradient::NumWithGradient(double num)
     , creation_op{""}
 {
 }
+
+double NumWithGradient::num() const
+{
+    return num_;
+}
+
+Num_Type NumWithGradient::type() const
+{
+    return Num_Type::WithGradient;
+}
