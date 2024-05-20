@@ -2,7 +2,6 @@
 #define NUMWITHGRADIENT_H
 
 #include <QString>
-#include <QVariant>
 #include <vector>
 
 using namespace std;
@@ -10,13 +9,13 @@ using namespace std;
 class NumWithGradient
 {
 private:
-    QVariant num;
-    QVariant gradient;
+    double num_;
+    double gradient;
     vector<double> depends_on;
     QString creation_op;
 
 public:
-    explicit NumWithGradient(QVariant num);
+    explicit NumWithGradient(double num);
 
 public:
 
