@@ -18,7 +18,7 @@ public:
     // Num interface
 public:
     double num() const override;
-    QString type() const override;
+    Num_Type type() const override;
 };
 
 #endif // SIMPLENUM_H
