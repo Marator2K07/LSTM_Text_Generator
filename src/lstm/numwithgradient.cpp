@@ -1,8 +1,8 @@
 #include "numwithgradient.h"
 
 NumWithGradient::NumWithGradient(double num,
-                                 vector<double> depends_on = vector<double>{},
-                                 QString creation_op = "")
+                                 vector<NumWithGradient> depends_on,
+                                 QString creation_op)
     : num_{num}
     , gradient{0}
     , depends_on{depends_on}
@@ -18,7 +18,7 @@ NumWithGradient NumWithGradient::ensureNum(Num *num)
     case Num_Type::WithGradient:
         return *(NumWithGradient*)num;
     default:
-        return NumWithGradient(0);
+        return NumWithGradient(1);
     }
 }
 

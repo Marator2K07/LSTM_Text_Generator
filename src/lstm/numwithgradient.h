@@ -2,7 +2,6 @@
 #define NUMWITHGRADIENT_H
 
 #include <vector>
-
 #include "num.h"
 
 using namespace std;
@@ -12,7 +11,7 @@ class NumWithGradient : Num
 private:
     double num_;
     double gradient;
-    vector<double> depends_on;
+    vector<NumWithGradient> depends_on;
     QString creation_op;
 
 private:
@@ -26,7 +25,8 @@ private:
 
 public:
     explicit NumWithGradient(double num,
-                             vector<double> depends_on = vector<double>{},
+                             vector<NumWithGradient> depends_on
+                                = vector<NumWithGradient>{},
                              QString creation_op = "");
 
 public:
