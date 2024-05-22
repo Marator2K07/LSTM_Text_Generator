@@ -10,6 +10,30 @@ NumWithGradient::NumWithGradient(double num,
 {
 }
 
+NumWithGradient NumWithGradient::operator+(Num *other)
+{
+    // сначала формируем список зависимостей
+    vector<NumWithGradient> depends_on{*this};
+    NumWithGradient otherNum = ensureNum(other);
+    depends_on.push_back(otherNum);
+    // и в итоге создаем новый обьект числа с градиентом
+    return NumWithGradient(this->num() + otherNum.num(),
+                           depends_on,
+                           "add");
+}
+
+NumWithGradient NumWithGradient::operator*(Num *other)
+{
+    // сначала формируем список зависимостей
+    vector<NumWithGradient> depends_on{*this};
+    NumWithGradient otherNum = ensureNum(other);
+    depends_on.push_back(otherNum);
+    // и в итоге создаем новый обьект числа с градиентом
+    return NumWithGradient(this->num() * otherNum.num(),
+                           depends_on,
+                           "mul");
+}
+
 NumWithGradient NumWithGradient::ensureNum(Num *num)
 {
     switch (num->type()) {

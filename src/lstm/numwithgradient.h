@@ -30,6 +30,9 @@ public:
                              QString creation_op = "");
 
 public:
+    NumWithGradient operator+(Num *other);
+    NumWithGradient operator*(Num *other);
+
     // Num interface
     double num() const override;
     Num_Type type() const override;
