@@ -1,7 +1,6 @@
 #ifndef NUMWITHGRADIENT_H
 #define NUMWITHGRADIENT_H
 
-#include <QString>
 #include <vector>
 
 #include "num.h"
@@ -26,7 +25,9 @@ private:
     NumWithGradient ensureNum(Num *num);
 
 public:
-    explicit NumWithGradient(double num);
+    explicit NumWithGradient(double num,
+                             vector<double> depends_on = vector<double>{},
+                             QString creation_op = "");
 
 public:
     // Num interface

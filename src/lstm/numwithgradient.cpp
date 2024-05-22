@@ -1,9 +1,12 @@
 #include "numwithgradient.h"
 
-NumWithGradient::NumWithGradient(double num)
+NumWithGradient::NumWithGradient(double num,
+                                 vector<double> depends_on = vector<double>{},
+                                 QString creation_op = "")
     : num_{num}
     , gradient{0}
-    , creation_op{""}
+    , depends_on{depends_on}
+    , creation_op{creation_op}
 {
 }
 
