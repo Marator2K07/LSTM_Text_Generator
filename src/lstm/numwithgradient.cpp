@@ -5,6 +5,7 @@ NumWithGradient::NumWithGradient(double num,
                                  QString creation_op)
     : num_{num}
     , gradient{0}
+    , gradient_{0}
     , depends_on{depends_on}
     , creation_op{creation_op}
 {
@@ -35,6 +36,11 @@ NumWithGradient NumWithGradient::operator*(Num *other)
 }
 
 NumWithGradient NumWithGradient::ensureNum(Num *num)
+double NumWithGradient::gradient()
+{
+    return gradient_;
+}
+
 {
     switch (num->type()) {
     case Num_Type::Simple:

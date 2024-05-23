@@ -10,8 +10,8 @@ class NumWithGradient : Num
 {
 private:
     double num_;
-    double gradient;
     vector<NumWithGradient> depends_on;
+    double gradient_;
     QString creation_op;
 
 private:
@@ -32,6 +32,7 @@ public:
 public:
     NumWithGradient operator+(Num *other);
     NumWithGradient operator*(Num *other);
+    double gradient();
 
     // Num interface
     double num() const override;
