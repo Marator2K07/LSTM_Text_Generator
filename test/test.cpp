@@ -14,6 +14,10 @@ private slots:
     /// простого 'уравнения' и его тестирование с помощью
     /// нахождения градиента (производной)
     void testNumWithGradientOne();
+    ///
+    /// \brief testNumWithGradientTwo составляем уже более
+    /// сложное 'уравнение' и его тестирование с помощью
+    /// нахождения градиента (производной)
     void testNumWithGradientTwo();
 };
 
@@ -52,6 +56,10 @@ void Test::testNumWithGradientTwo()
 
     e.backward();
 
+    // на данный у нас есть уравнение типа:
+    // d = (4a + 3) * (a + 2) = 4a^2 + 11a + 6,
+    // где производная dd/da = 8a + 11;
+    // тогда при a = 3 - градиент = 8 * 3 + 11 = 35;
     double answer = 35;
     QCOMPARE(answer, a.gradient());
 }
