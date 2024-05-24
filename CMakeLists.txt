@@ -28,6 +28,7 @@ find_package(Qt6 6.3 REQUIRED COMPONENTS
 )
 
 add_subdirectory(src)
+add_subdirectory(test)
 
 include(GNUInstallDirs)
 install(TARGETS LSTM_Text_Generator
