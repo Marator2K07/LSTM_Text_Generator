@@ -32,6 +32,7 @@ public:
 public:
     NumWithGradient operator+(Num *other);
     NumWithGradient operator*(Num *other);
+    void backward(double backwardGradient = 0);
     double gradient();
 
     // Num interface
