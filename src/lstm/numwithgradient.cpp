@@ -1,10 +1,9 @@
 #include "numwithgradient.h"
 
 NumWithGradient::NumWithGradient(double num,
-                                 vector<NumWithGradient> depends_on,
+                                 vector<NumWithGradient *> depends_on,
                                  QString creation_op)
     : num_{num}
-    , gradient{0}
     , gradient_{0}
     , depends_on{depends_on}
     , creation_op{creation_op}
@@ -13,12 +12,12 @@ NumWithGradient::NumWithGradient(double num,
 
 NumWithGradient NumWithGradient::operator+(Num *other)
 {
-    // сначала формируем список зависимостей
-    vector<NumWithGradient> depends_on{*this};
-    NumWithGradient otherNum = ensureNum(other);
+    // сначала формируем список зависимостей    
+    vector<NumWithGradient *> depends_on{this};
+    NumWithGradient *otherNum = ensureNum(other);
     depends_on.push_back(otherNum);
     // и в итоге создаем новый обьект числа с градиентом
-    return NumWithGradient(this->num() + otherNum.num(),
+    return NumWithGradient(this->num() + otherNum->num(),
                            depends_on,
                            "add");
 }
@@ -26,29 +25,29 @@ NumWithGradient NumWithGradient::operator+(Num *other)
 NumWithGradient NumWithGradient::operator*(Num *other)
 {
     // сначала формируем список зависимостей
-    vector<NumWithGradient> depends_on{*this};
-    NumWithGradient otherNum = ensureNum(other);
+    vector<NumWithGradient *> depends_on{this};
+    NumWithGradient *otherNum = ensureNum(other);
     depends_on.push_back(otherNum);
     // и в итоге создаем новый обьект числа с градиентом
-    return NumWithGradient(this->num() * otherNum.num(),
+    return NumWithGradient(this->num() * otherNum->num(),
                            depends_on,
                            "mul");
 }
 
-NumWithGradient NumWithGradient::ensureNum(Num *num)
 double NumWithGradient::gradient()
 {
     return gradient_;
 }
 
+NumWithGradient *NumWithGradient::ensureNum(Num *num)
 {
     switch (num->type()) {
     case Num_Type::Simple:
-        return NumWithGradient(num->num());
+        return new NumWithGradient(num->num());
     case Num_Type::WithGradient:
-        return *(NumWithGradient*)num;
+        return (NumWithGradient*)num;
     default:
-        return NumWithGradient(1);
+        return new NumWithGradient(1);
     }
 }
 

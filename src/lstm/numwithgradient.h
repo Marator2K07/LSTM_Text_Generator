@@ -10,8 +10,8 @@ class NumWithGradient : Num
 {
 private:
     double num_;
-    vector<NumWithGradient> depends_on;
     double gradient_;
+    vector<NumWithGradient *> depends_on;
     QString creation_op;
 
 private:
@@ -21,12 +21,12 @@ private:
     /// с градиентом и его возвращение
     /// \param num - пришедшее абстрактное число
     /// с градиентом или без
-    NumWithGradient ensureNum(Num *num);
+    NumWithGradient *ensureNum(Num *num);
 
 public:
     explicit NumWithGradient(double num,
-                             vector<NumWithGradient> depends_on
-                                = vector<NumWithGradient>{},
+                             vector<NumWithGradient *> depends_on
+                                = vector<NumWithGradient *>{},
                              QString creation_op = "");
 
 public:
