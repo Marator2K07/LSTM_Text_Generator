@@ -10,7 +10,7 @@ find_package(Qt6 REQUIRED COMPONENTS
 qt_standard_project_setup()
 
 qt_add_executable(LSTM_Text_Generator_Test
-    numwithgradient_test.cpp
+    test.cpp
 )
 
 target_link_libraries(LSTM_Text_Generator_Test PRIVATE
