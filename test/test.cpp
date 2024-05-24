@@ -28,6 +28,8 @@ void Test::testNumWithGradientOne()
 
     c.backward();
 
+    // на данный момент у нас уравнение вида:
+    // c = (a * 4) + 5, где при а = 3, градиент = 4
     double answer = 4;
     QCOMPARE(answer, a.gradient());
 }
