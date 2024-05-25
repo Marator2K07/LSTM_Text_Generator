@@ -76,7 +76,14 @@ void Test::testNumWithGradientTwo()
     // где производная dd/da = 8a + 11;
     // тогда при a = 3 - градиент = 8 * 3 + 11 = 35;
     double answer = 35;
+    // также можно найти производную 'вручную', используя
+    // составленный специально для этого примера метод
+    double answerOther = ((forwardFuncForTestTwo(3.01)
+                          - forwardFuncForTestTwo(2.99))
+                          / 0.02);
+
     QCOMPARE(answer, a.gradient());
+    QCOMPARE(answerOther, a.gradient());
 }
 
 QTEST_MAIN(Test)
