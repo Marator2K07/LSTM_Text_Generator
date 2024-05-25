@@ -8,6 +8,14 @@ class Test : public QObject
 {
     Q_OBJECT
 
+private:
+    ///
+    /// \brief forwardFuncForTestTwo имитация решения
+    /// уравнения вида 4a^2 + 11a + 6 для использования
+    ///  в тестируемом методе testNumWithGradientTwo
+    /// \param num зависимая переменная уравнения
+    double forwardFuncForTestTwo(double num);
+
 private slots:
     ///
     /// \brief testNumWithGradientOne составление
@@ -20,6 +28,13 @@ private slots:
     /// нахождения градиента (производной)
     void testNumWithGradientTwo();
 };
+
+double Test::forwardFuncForTestTwo(double num)
+{
+    double b = num * 4;
+    double c = b + 3;
+    return c * (num + 2);
+}
 
 void Test::testNumWithGradientOne()
 {
