@@ -17,4 +17,5 @@ target_link_libraries(LSTM_Text_Generator_Test PRIVATE
     Qt6::Core
     Qt6::Test
     lstm
+    loss
 )

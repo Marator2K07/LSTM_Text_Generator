@@ -1,8 +1,12 @@
 #include <QObject>
+#include <vector>
 #include <QtTest/QtTest>
 
 #include "simplenum.h"
 #include "numwithgradient.h"
+#include "lossactivationfunctions.h"
+
+using namespace std;
 
 class Test : public QObject
 {
@@ -27,6 +31,10 @@ private slots:
     /// сложное 'уравнение' и его тестирование с помощью
     /// нахождения градиента (производной)
     void testNumWithGradientTwo();
+
+    ///
+    /// \brief testSoftmaxOne
+    void testSoftmaxOne();
 };
 
 double Test::forwardFuncForTestTwo(double num)
@@ -84,6 +92,19 @@ void Test::testNumWithGradientTwo()
 
     QCOMPARE(answer, a.gradient());
     QCOMPARE(answerOther, a.gradient());
+}
+
+void Test::testSoftmaxOne()
+{
+    vector<double> init{5,3,2};
+    vector<double> currentResult
+        = LossActivationFunctions::softmax(init);
+    for (double &value : currentResult) {
+        value = round(value * 1000)/1000;
+    }
+
+    vector<double> properResult{0.844, 0.114, 0.042};
+    QCOMPARE(currentResult, properResult);
 }
 
 QTEST_MAIN(Test)
