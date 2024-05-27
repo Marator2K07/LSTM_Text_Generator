@@ -8,6 +8,14 @@ class Test : public QObject
 {
     Q_OBJECT
 
+private:
+    ///
+    /// \brief forwardFuncForTestTwo имитация решения
+    /// уравнения вида 4a^2 + 11a + 6 для использования
+    ///  в тестируемом методе testNumWithGradientTwo
+    /// \param num зависимая переменная уравнения
+    double forwardFuncForTestTwo(double num);
+
 private slots:
     ///
     /// \brief testNumWithGradientOne составление
@@ -20,6 +28,13 @@ private slots:
     /// нахождения градиента (производной)
     void testNumWithGradientTwo();
 };
+
+double Test::forwardFuncForTestTwo(double num)
+{
+    double b = num * 4;
+    double c = b + 3;
+    return c * (num + 2);
+}
 
 void Test::testNumWithGradientOne()
 {
@@ -61,7 +76,14 @@ void Test::testNumWithGradientTwo()
     // где производная dd/da = 8a + 11;
     // тогда при a = 3 - градиент = 8 * 3 + 11 = 35;
     double answer = 35;
+    // также можно найти производную 'вручную', используя
+    // составленный специально для этого примера метод
+    double answerOther = ((forwardFuncForTestTwo(3.01)
+                          - forwardFuncForTestTwo(2.99))
+                          / 0.02);
+
     QCOMPARE(answer, a.gradient());
+    QCOMPARE(answerOther, a.gradient());
 }
 
 QTEST_MAIN(Test)
