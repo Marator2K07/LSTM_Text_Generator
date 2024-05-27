@@ -1,22 +1,27 @@
 #include "matrix3d.h"
 
-Matrix3D::Matrix(QObject *parent)
-    : QObject{parent}
-    , sizes{0,0,0}
+template<typename T>
+Matrix3D<T>::Matrix3D()
+    : _size{0}
+    , _rows{0}
+    , _cols{0}
 {
 }
 
-const int Matrix3D::width()
+template<typename T>
+const int Matrix3D<T>::rows()
 {
-    return sizes[0];
+    return _rows;
 }
 
-const int Matrix3D::height()
+template<typename T>
+const int Matrix3D<T>::cols()
 {
-    return sizes[1];
+    return _cols;
 }
 
-const int Matrix3D::depth()
+template<typename T>
+const int Matrix3D<T>::size()
 {
-    return sizes[2];
+    return _size;
 }

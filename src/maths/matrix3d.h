@@ -1,30 +1,27 @@
 #ifndef MATRIX3D_H
 #define MATRIX3D_H
 
-#include <QObject>
 #include <constants.h>
 #include <vector>
-#include <array>
 
 using namespace std;
 
 template<typename T>
-class Matrix3D : public QObject
+class Matrix3D
 {
-    Q_OBJECT
 private:
-    int sizes[MAX_MATRIX_SIZE];
+    vector<vector<vector<T>>> data;
+    int _rows;
+    int _cols;
+    int _size;
 
 public:
-    explicit Matrix3D(QObject *parent = nullptr);
+    explicit Matrix3D();
 
 public:
-    const int width();
-    const int height();
-    const int depth();
-
-signals:
-
+    const int rows();
+    const int cols();
+    const int size();
 };
 
 #endif // MATRIX3D_H
