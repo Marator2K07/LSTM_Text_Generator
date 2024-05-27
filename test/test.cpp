@@ -33,7 +33,9 @@ private slots:
     void testNumWithGradientTwo();
 
     ///
-    /// \brief testSoftmaxOne
+    /// \brief testSoftmaxOne многопеременная логистическая
+    /// функция, - более чувствительное отношение
+    /// к максимальным значениям
     void testSoftmaxOne();
 };
 
