@@ -1,6 +1,6 @@
-#include "lossactivationfunctions.h"
+#include "activationfunctions.h"
 
-vector<double> LossActivationFunctions::softmax(const vector<double> p)
+vector<double> ActivationFunctions::softmax(const vector<double> p)
 {
     // сначала находим общий знаменатель
     double denominator = 0;
@@ -15,7 +15,7 @@ vector<double> LossActivationFunctions::softmax(const vector<double> p)
     return result;
 }
 
-vector<vector<double>> LossActivationFunctions::batchSoftmax(const vector<vector<double> > predictions)
+vector<vector<double>> ActivationFunctions::batchSoftmax(const vector<vector<double> > predictions)
 {
     // построчно обрабатываем предсказания
     vector<vector<double>> result;

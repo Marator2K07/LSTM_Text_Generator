@@ -4,7 +4,7 @@
 
 #include "simplenum.h"
 #include "numwithgradient.h"
-#include "lossactivationfunctions.h"
+#include "activationfunctions.h"
 
 using namespace std;
 
@@ -104,7 +104,7 @@ void Test::testSoftmax()
 {
     vector<double> init{5,3,2};
     vector<double> currentResult
-        = LossActivationFunctions::softmax(init);
+        = ActivationFunctions::softmax(init);
     for (double &value : currentResult) {
         value = round(value * 1000)/1000;
     }
@@ -119,7 +119,7 @@ void Test::testBatchSoftmax()
                                 {7,1,5},
                                 {3,1,4}};
     vector<vector<double>> currentResult
-        = LossActivationFunctions::batchSoftmax(init);
+        = ActivationFunctions::batchSoftmax(init);
     for (vector<double> &p : currentResult) {
         for (double &value : p) {
             value = round(value * 1000)/1000;

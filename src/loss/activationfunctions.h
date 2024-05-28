@@ -1,5 +1,5 @@
-#ifndef LOSSACTIVATIONFUNCTIONS_H
-#define LOSSACTIVATIONFUNCTIONS_H
+#ifndef ACTIVATIONFUNCTIONS_H
+#define ACTIVATIONFUNCTIONS_H
 
 #include <vector>
 #include <cmath>
@@ -9,7 +9,7 @@ using namespace std;
 ///
 /// \brief The LossActivationFunctions class
 /// для определения функций активации
-class LossActivationFunctions
+class ActivationFunctions
 {
 public:
     ///
@@ -25,4 +25,4 @@ public:
         batchSoftmax(const vector<vector<double>> predictions);
 };
 
-#endif // LOSSACTIVATIONFUNCTIONS_H
+#endif // ACTIVATIONFUNCTIONS_H
