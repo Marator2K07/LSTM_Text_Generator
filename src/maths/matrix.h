@@ -8,6 +8,7 @@
 class Matrix
 {
 public:
+    virtual bool sameShape(const Matrix *) = 0;
     virtual Matrix *addition(Matrix *) = 0;
     virtual Matrix *subtraction(Matrix *) = 0;
     virtual Matrix *multiplication(Matrix *) = 0;
