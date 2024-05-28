@@ -1,5 +1,6 @@
 qt_add_library(loss STATIC
     iloss.h
+    softmaxcrossentropyloss.h softmaxcrossentropyloss.cpp
     lossactivationfunctions.h lossactivationfunctions.cpp
 )
 target_link_libraries(loss PRIVATE
