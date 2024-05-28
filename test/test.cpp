@@ -33,10 +33,14 @@ private slots:
     void testNumWithGradientTwo();
 
     ///
-    /// \brief testSoftmaxOne многопеременная логистическая
+    /// \brief testSoftmax многопеременная логистическая
     /// функция, - более чувствительное отношение
     /// к максимальным значениям
-    void testSoftmaxOne();
+    void testSoftmax();
+    ///
+    /// \brief testBatchSoftmax расширенный тест для
+    /// обработки партии предсказаний
+    void testBatchSoftmax();
 };
 
 double Test::forwardFuncForTestTwo(double num)
@@ -96,7 +100,7 @@ void Test::testNumWithGradientTwo()
     QCOMPARE(answerOther, a.gradient());
 }
 
-void Test::testSoftmaxOne()
+void Test::testSoftmax()
 {
     vector<double> init{5,3,2};
     vector<double> currentResult
@@ -106,6 +110,25 @@ void Test::testSoftmaxOne()
     }
 
     vector<double> properResult{0.844, 0.114, 0.042};
+    QCOMPARE(currentResult, properResult);
+}
+
+void Test::testBatchSoftmax()
+{
+    vector<vector<double>> init{{5,3,2},
+                                {7,1,5},
+                                {3,1,4}};
+    vector<vector<double>> currentResult
+        = LossActivationFunctions::batchSoftmax(init);
+    for (vector<double> &p : currentResult) {
+        for (double &value : p) {
+            value = round(value * 1000)/1000;
+        }
+    }
+
+    vector<vector<double>> properResult{{0.844, 0.114, 0.042},
+                                        {0.879, 0.002, 0.119},
+                                        {0.259, 0.035, 0.705}};
     QCOMPARE(currentResult, properResult);
 }
 
