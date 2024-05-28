@@ -14,3 +14,13 @@ vector<double> LossActivationFunctions::softmax(const vector<double> p)
     }
     return result;
 }
+
+vector<vector<double>> LossActivationFunctions::batchSoftmax(const vector<vector<double> > predictions)
+{
+    // построчно обрабатываем предсказания
+    vector<vector<double>> result;
+    for (const vector<double> &p : predictions) {
+        result.push_back(softmax(p));
+    }
+    return result;
+}
