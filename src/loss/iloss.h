@@ -1,7 +1,9 @@
 #ifndef ILOSS_H
 #define ILOSS_H
 
-#include "matrix.h"
+#include <vector>
+
+using namespace std;
 
 ///
 /// \brief The ILoss interface
@@ -15,11 +17,12 @@ public:
     /// \brief forward подготовка вычисления значения потерь(штрафа)
     /// \param prediction матрица предсказанных результатов
     /// \param target целевая матрица
-    virtual double forward(Matrix *prediction, Matrix *target) = 0;
+    virtual double forward(vector<vector<double>> prediction,
+                           vector<vector<double>> target) = 0;
     ///
     /// \brief backward подготовка возврата назад градиента для
     /// каждого элемента прогноза относительно потери
-    virtual Matrix *backward() = 0;
+    virtual vector<vector<double>> backward() = 0;
 
 private:
     ///
@@ -28,7 +31,7 @@ private:
     ///
     /// \brief inputGradient непосредственное вычисление
     /// градиента ошибки по входу функции потерь
-    virtual Matrix *inputGradient() = 0;
+    virtual vector<vector<double>> inputGradient() = 0;
 };
 
 #endif // ILOSS_H
