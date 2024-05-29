@@ -5,12 +5,13 @@ SoftmaxCrossEntropyLoss::SoftmaxCrossEntropyLoss()
 
 }
 
-double SoftmaxCrossEntropyLoss::forward(Matrix *prediction, Matrix *target)
+double SoftmaxCrossEntropyLoss::forward(vector<vector<double>> prediction,
+                                        vector<vector<double>> target)
 {
 
 }
 
-Matrix *SoftmaxCrossEntropyLoss::backward()
+vector<vector<double> > SoftmaxCrossEntropyLoss::backward()
 {
 
 }
@@ -20,7 +21,7 @@ double SoftmaxCrossEntropyLoss::calculate()
 
 }
 
-Matrix *SoftmaxCrossEntropyLoss::inputGradient()
+vector<vector<double> > SoftmaxCrossEntropyLoss::inputGradient()
 {
 
 }
