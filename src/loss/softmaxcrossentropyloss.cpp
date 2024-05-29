@@ -1,8 +1,8 @@
 #include "softmaxcrossentropyloss.h"
 
-SoftmaxCrossEntropyLoss::SoftmaxCrossEntropyLoss()
+SoftmaxCrossEntropyLoss::SoftmaxCrossEntropyLoss(double stabBorder)
+    : stabBorder{stabBorder}
 {
-
 }
 
 double SoftmaxCrossEntropyLoss::forward(vector<vector<double>> prediction,
@@ -27,7 +27,11 @@ vector<vector<double> > SoftmaxCrossEntropyLoss::backward()
 
 double SoftmaxCrossEntropyLoss::calculate()
 {
-
+    // 1) приводим прогнозы к нужному формату ([0,1])
+    vector<vector<double>> softmaxPrediction
+        = ActivationFunctions::batchSoftmax(_prediction);
+    // 2) обрезаем обработанные предсказания,
+    // дабы избежать числовой нестабильности
 }
 
 vector<vector<double> > SoftmaxCrossEntropyLoss::inputGradient()

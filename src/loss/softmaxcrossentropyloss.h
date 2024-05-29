@@ -20,7 +20,7 @@ private:
     vector<vector<double>> inputGradient() override;
 
 public:
-    SoftmaxCrossEntropyLoss();    
+    SoftmaxCrossEntropyLoss(double stabBorder = 1e-9);
 
 public:
     // ILoss interface
