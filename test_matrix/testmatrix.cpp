@@ -7,12 +7,12 @@
 
 using namespace std;
 
-class TestMaths: public QObject
+class TestMatrix: public QObject
 {
     Q_OBJECT
 
 private slots:
 };
 
-QTEST_MAIN(TestMaths)
-#include "testmaths.moc"
+QTEST_MAIN(TestMatrix)
+#include "testmatrix.moc"

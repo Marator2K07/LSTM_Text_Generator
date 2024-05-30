@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(Test_Maths LANGUAGES CXX)
+project(Test_Matrix LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS
     Core
@@ -9,12 +9,12 @@ find_package(Qt6 REQUIRED COMPONENTS
 
 qt_standard_project_setup()
 
-qt_add_executable(Test_Maths 
-    testmaths.cpp
+qt_add_executable(Test_Matrix
+    testmatrix.cpp
 )
 
-target_link_libraries(Test_Maths PRIVATE
+target_link_libraries(Test_Matrix PRIVATE
     Qt6::Core
     Qt6::Test
-    maths
+    matrix
 )

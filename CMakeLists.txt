@@ -17,7 +17,7 @@ add_executable(LSTM_Text_Generator
 )
 target_link_libraries(LSTM_Text_Generator PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
-    maths
+    matrix
     lstm
 )
 
@@ -30,7 +30,7 @@ find_package(Qt6 6.3 REQUIRED COMPONENTS
 add_subdirectory(src)
 add_subdirectory(test)
 add_subdirectory(test_loss)
-add_subdirectory(test_maths)
+add_subdirectory(test_matrix)
 
 include(GNUInstallDirs)
 install(TARGETS LSTM_Text_Generator

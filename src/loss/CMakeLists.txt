@@ -7,6 +7,6 @@ target_link_libraries(loss PRIVATE
     Qt6::Core
 )
 target_link_libraries(loss PRIVATE
-    maths
+    matrix
 )
 target_include_directories(loss PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
