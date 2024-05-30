@@ -1,7 +1,8 @@
 qt_add_library(maths STATIC
     matrix3d.h matrix3d.cpp
     constants.h
-    matrix.h
+    imatrix.h
+    matrix2d.h matrix2d.cpp
 )
 target_link_libraries(maths PRIVATE
     Qt6::Core
