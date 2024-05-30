@@ -1,9 +1,7 @@
 #include <QObject>
-#include <vector>
 #include <QtTest/QtTest>
 
-#include <matrix2d.h>
-#include <matrix3d.h>
+#include <matrix.h>
 
 using namespace std;
 
