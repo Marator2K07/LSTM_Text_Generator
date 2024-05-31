@@ -47,7 +47,30 @@ template<typename T>
 vector<vector<T>> Matrix2d<T>::multiplication(const vector<vector<T>> matrixA,
                                               const vector<vector<T>> matrixB)
 {
+    // подготовка
+    vector<vector<T>> result;
+    if (canMult(matrixA, matrixB)) {
+        return result;
+    }
+    int index = 0;
+    // заполнение выходной матрицы
+    for (const vector<T> rowA : matrixA) {
+        result.push_back(vector<T>());
+        int innerIndex = 0;
+        // вычисление значений строки результирующей матрицы
+        for (int indexB = 0; indexB < matrixB[0].size(); ++indexB) {
+            // вычисление значения ячейки
+            T stepRes = 0;
+            for (int indexA = 0; indexA < rowA.size(); ++indexA) {
+                stepRes += matrixB[indexA][innerIndex] * rowA[indexA];
+            }
+            result[index].push_back(stepRes);
+            innerIndex++;
+        }
+        index++;
+    }
 
+    return result;
 }
 
 template<typename T>
