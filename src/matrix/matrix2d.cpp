@@ -97,3 +97,31 @@ vector<vector<T>> Matrix2d<T>::transposition(const vector<vector<T>> matrix)
 {
 
 }
+
+template<typename T>
+vector<vector<T>> Matrix2d<T>::clip(const vector<vector<T>> matrix,
+                                    T leftBorder)
+{
+    // подготовка
+    vector<vector<T>> result;
+    int index = 0;
+    T rightBorder = 1 - leftBorder;
+    // заполнение результирующей матрицы
+    for (const vector<T> row : matrix) {
+        result.push_back(vector<T>());
+        for (const T value : row) {
+            T newValue;
+            if (value <= leftBorder) {
+                newValue = leftBorder;
+            } else if (value >= rightBorder) {
+                newValue = rightBorder;
+            } else {
+                newValue = value;
+            }
+            result[index].push_back(newValue);
+        }
+        index++;
+    }
+
+    return result;
+}

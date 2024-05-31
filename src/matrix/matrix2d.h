@@ -44,6 +44,10 @@ public:
     // транспозиция матрицы
     static vector<vector<T>>
         transposition(const vector<vector<T>> matrix);
+
+    // обрезка значений по границе [leftBorder, 1-leftBorder]
+    static vector<vector<T>> clip(const vector<vector<T>> matrix,
+                                  T leftBorder);
 };
 
 #endif // MATRIX2D_H
