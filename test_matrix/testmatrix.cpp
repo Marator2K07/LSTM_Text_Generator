@@ -25,6 +25,11 @@ private slots:
     /// \brief test3MatrixMultMatrix
     /// версия для плохого случая перемножения
     void test3MatrixMultMatrix();
+    ///
+    /// \brief testMatrixClip
+    /// тест обрезки матрицы по границе
+    /// в пределах: [leftBorder, 1-leftBorder]
+    void testMatrixClip();
 };
 
 void TestMatrix::testMatrix2dMultNumber()
@@ -85,6 +90,20 @@ void TestMatrix::test3MatrixMultMatrix()
         = Matrix2d<double>::multiplication(matrixA, matrixB);
 
     vector<vector<double>> properMatrix;
+    QCOMPARE(resultMatrix, properMatrix);
+}
+
+void TestMatrix::testMatrixClip()
+{
+    vector<vector<double>> matrix {{1,0.42,0.22},
+                                   {0.642,0.33,0}};
+    double leftBorder = 1e-9;
+
+    vector<vector<double>> resultMatrix
+        = Matrix2d<double>::clip(matrix, leftBorder);
+
+    vector<vector<double>> properMatrix {{1-(1e-9),0.42,0.22},
+                                         {0.642,0.33,1e-9}};
     QCOMPARE(resultMatrix, properMatrix);
 }
 
