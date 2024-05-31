@@ -17,6 +17,14 @@ private slots:
     /// \brief test1MatrixMultMatrix
     /// первое тестовое умножение матриц
     void test1MatrixMultMatrix();
+    ///
+    /// \brief test2MatrixMultMatrix
+    /// усложенная версия умножения матриц
+    void test2MatrixMultMatrix();
+    ///
+    /// \brief test3MatrixMultMatrix
+    /// версия для плохого случая перемножения
+    void test3MatrixMultMatrix();
 };
 
 void TestMatrix::testMatrix2dMultNumber()
@@ -46,6 +54,37 @@ void TestMatrix::test1MatrixMultMatrix()
     vector<vector<double>> properMatrix {{13,16,30},
                                          {25,36,54},
                                          {34,56,44}};
+    QCOMPARE(resultMatrix, properMatrix);
+}
+
+void TestMatrix::test2MatrixMultMatrix()
+{
+    vector<vector<double>> matrixA {{1,2},
+                                    {3,4},
+                                    {7,7},
+                                    {9,3}};
+    vector<vector<double>> matrixB {{1,6,2},
+                                    {3,2,2}};
+    vector<vector<double>> resultMatrix
+        = Matrix2d<double>::multiplication(matrixA, matrixB);
+
+    vector<vector<double>> properMatrix {{7,10,6},
+                                         {15,26,14},
+                                         {28,56,28},
+                                         {18,60,24}};
+    QCOMPARE(resultMatrix, properMatrix);
+}
+
+void TestMatrix::test3MatrixMultMatrix()
+{
+    vector<vector<double>> matrixA {{1},
+                                    {3}};
+    vector<vector<double>> matrixB {{1,6,2},
+                                    {3,2,2}};
+    vector<vector<double>> resultMatrix
+        = Matrix2d<double>::multiplication(matrixA, matrixB);
+
+    vector<vector<double>> properMatrix;
     QCOMPARE(resultMatrix, properMatrix);
 }
 
