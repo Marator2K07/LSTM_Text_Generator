@@ -17,6 +17,8 @@ public:
     // соответствие матриц
     static bool sameShape(const vector<vector<T>> matrixA,
                           const vector<vector<T>> matrixB);
+    static bool canMult(const vector<vector<T>> matrixA,
+                        const vector<vector<T>> matrixB);
 
     // сумма матриц (или матрицы и числа)
     static vector<vector<T>>
