@@ -57,6 +57,9 @@ public:
 
     // нахождение логарифма каждого элемента матрицы
     static vector<vector<T>> logn(const vector<vector<T>> matrix);
+
+    // общая сумма всех элементов матрицы
+    static T totalSum(const vector<vector<T>> matrix);
 };
 
 #endif // MATRIX2D_H

@@ -183,3 +183,18 @@ vector<vector<T>> Matrix2d<T>::logn(const vector<vector<T>> matrix)
 
     return result;
 }
+
+template<typename T>
+T Matrix2d<T>::totalSum(const vector<vector<T>> matrix)
+{
+    // подготовка
+    T result;
+    // вычисление
+    for (const vector<T> row : matrix) {
+        for (const T value : row) {
+            result += value;
+        }
+    }
+
+    return result;
+}
