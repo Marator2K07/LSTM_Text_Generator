@@ -33,7 +33,19 @@ template<typename T>
 vector<vector<T>> Matrix2d<T>::subtraction(const vector<vector<T>> matrixA,
                                            const vector<vector<T>> matrixB)
 {
+    // подготовка
+    vector<vector<T>> result;
+    // заполнение выходной матрицы
+    for (int rowI = 0; rowI < matrixA.size(); ++rowI) {
+        result.push_back(vector<T>());
+        for (int colI = 0; colI < matrixA[0].size(); ++colI) {
+            result[rowI].push_back(
+                matrixA[rowI][colI] - matrixB[rowI][colI]
+            );
+        }
+    }
 
+    return result;
 }
 
 template<typename T>
