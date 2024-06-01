@@ -3,6 +3,7 @@
 
 #include <constants.h>
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
@@ -44,6 +45,9 @@ public:
     // транспозиция матрицы
     static vector<vector<T>>
         transposition(const vector<vector<T>> matrix);
+
+    // округление значений матрицы до определенной степени
+    static void floorM(vector<vector<T>> &matrix, int multDegree);
 
     // обрезка значений по границе [leftBorder, 1-leftBorder]
     static vector<vector<T>> clip(const vector<vector<T>> matrix,

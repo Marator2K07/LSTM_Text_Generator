@@ -99,6 +99,16 @@ vector<vector<T>> Matrix2d<T>::transposition(const vector<vector<T>> matrix)
 }
 
 template<typename T>
+void Matrix2d<T>::floorM(vector<vector<T>> &matrix, int multDegree)
+{
+    for (vector<T> &row : matrix) {
+        for (T &value : row) {
+            value = floor(value * multDegree) / multDegree;
+        }
+    }
+}
+
+template<typename T>
 vector<vector<T>> Matrix2d<T>::clip(const vector<vector<T>> matrix,
                                     T leftBorder)
 {
