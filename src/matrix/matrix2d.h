@@ -52,6 +52,9 @@ public:
     // обрезка значений по границе [leftBorder, 1-leftBorder]
     static vector<vector<T>> clip(const vector<vector<T>> matrix,
                                   T leftBorder);
+
+    // нахождение логарифма каждого элемента матрицы
+    static vector<vector<T>> logn(const vector<vector<T>> matrix);
 };
 
 #endif // MATRIX2D_H

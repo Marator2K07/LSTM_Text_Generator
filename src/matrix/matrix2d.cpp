@@ -135,3 +135,21 @@ vector<vector<T>> Matrix2d<T>::clip(const vector<vector<T>> matrix,
 
     return result;
 }
+
+template<typename T>
+vector<vector<T>> Matrix2d<T>::logn(const vector<vector<T>> matrix)
+{
+    // подготовка
+    vector<vector<T>> result;
+    int index = 0;
+    // заполнение результирующей матрицы
+    for (const vector<T> row : matrix) {
+        result.push_back(vector<T>());
+        for (const T value : row) {
+            result[index].push_back(log(value));
+        }
+        index++;
+    }
+
+    return result;
+}
