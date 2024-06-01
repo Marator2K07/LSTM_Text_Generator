@@ -28,12 +28,14 @@ public:
     static vector<vector<T>>
         addition(const vector<vector<T>> matrix, T num);
 
-    // разность матриц (или матрицы и числа)
+    // разность матриц (или матрицы и числа, с учетом
+    // обратного порядка операндов)
     static vector<vector<T>>
         subtraction(const vector<vector<T>> matrixA,
                     const vector<vector<T>> matrixB);    
     static vector<vector<T>>
-        subtraction(const vector<vector<T>> matrix, T num);
+        subtraction(const vector<vector<T>> matrix,
+                    T num, bool reverseOrder = false);
 
     // умножение матриц (или матрицы и числа)
     static vector<vector<T>>

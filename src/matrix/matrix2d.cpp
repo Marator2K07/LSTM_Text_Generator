@@ -38,7 +38,7 @@ vector<vector<T>> Matrix2d<T>::subtraction(const vector<vector<T>> matrixA,
 
 template<typename T>
 vector<vector<T>> Matrix2d<T>::subtraction(const vector<vector<T>> matrix,
-                                           T num)
+                                           T num, bool reverseOrder)
 {
 
 }
