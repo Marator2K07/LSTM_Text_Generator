@@ -14,14 +14,16 @@ class ILoss
 public:
     ILoss();
     ///
-    /// \brief forward подготовка вычисления значения потерь(штрафа)
+    /// \brief forward прямой проход вычисления потерь
+    /// (подготовка вычисления значения потерь(штрафа) + вычисление)
     /// \param prediction матрица предсказанных результатов
     /// \param target целевая матрица
     virtual double forward(vector<vector<double>> prediction,
                            vector<vector<double>> target) = 0;
     ///
-    /// \brief backward подготовка возврата назад градиента для
-    /// каждого элемента прогноза относительно потери
+    /// \brief backward обратный проход работы с потерями
+    /// (подготовка возврата назад градиента для каждого
+    /// элемента прогноза относительно потери)
     virtual vector<vector<double>> backward() = 0;
 
 private:
