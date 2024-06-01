@@ -10,6 +10,10 @@ class TestMatrix: public QObject
 
 private slots:
     ///
+    /// \brief testMatrixSubtrMatrix
+    /// тест разности матриц
+    void testMatrixSubtrMatrix();
+    ///
     /// \brief testMatrixSubtrNumDirectOrder
     /// проверка разности матрицы и
     /// числа в прямом порядке вычисления
@@ -46,6 +50,24 @@ private slots:
     /// каждого элемента матрицы
     void testMatrixLogn();
 };
+
+void TestMatrix::testMatrixSubtrMatrix()
+{
+    vector<vector<double>> matrixA {{1,2,3},
+                                    {4,7,7},
+                                    {9,3,0}};
+    vector<vector<double>> matrixB {{6,2,3},
+                                    {2,2,0},
+                                    {6,1,7}};
+
+    vector<vector<double>> resultMatrix
+        = Matrix2d<double>::subtraction(matrixA, matrixB);
+    vector<vector<double>> properMatrix {{-5,0,0},
+                                         {2,5,7},
+                                         {3,2,-7}};
+
+    QCOMPARE(resultMatrix, properMatrix);
+}
 
 void TestMatrix::testMatrixSubtrNumDirectOrder()
 {
