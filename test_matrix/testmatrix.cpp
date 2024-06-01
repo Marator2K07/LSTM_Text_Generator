@@ -30,6 +30,11 @@ private slots:
     /// тест обрезки матрицы по границе
     /// в пределах: [leftBorder, 1-leftBorder]
     void testMatrixClip();
+    ///
+    /// \brief testMatrixLog
+    /// тест нахождения логарифма
+    /// каждого элемента матрицы
+    void testMatrixLogn();
 };
 
 void TestMatrix::testMatrix2dMultNumber()
@@ -104,6 +109,21 @@ void TestMatrix::testMatrixClip()
 
     vector<vector<double>> properMatrix {{1-(1e-9),0.42,0.22},
                                          {0.642,0.33,1e-9}};
+    QCOMPARE(resultMatrix, properMatrix);
+}
+
+void TestMatrix::testMatrixLogn()
+{
+    vector<vector<double>> matrix {{0.33,0.12,0.777},
+                                   {0.642,0.33,0.123}};
+
+    vector<vector<double>> resultMatrix
+        = Matrix2d<double>::logn(matrix);
+    // округляем значения
+    Matrix2d<double>::floorM(resultMatrix, 1000);
+
+    vector<vector<double>> properMatrix {{-1.109,-2.121,-0.253},
+                                         {-0.444,-1.109,-2.096}};
     QCOMPARE(resultMatrix, properMatrix);
 }
 
