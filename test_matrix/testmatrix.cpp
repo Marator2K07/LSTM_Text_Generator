@@ -15,6 +15,11 @@ private slots:
     /// числа в прямом порядке вычисления
     void testMatrixSubtrNumDirectOrder();
     ///
+    /// \brief testMatrixSubtrNumReverseOrder
+    /// проверка разницы матрицы и числа
+    /// при обратном порядке операндов
+    void testMatrixSubtrNumReverseOrder();
+    ///
     /// \brief testMatrix2dMultNumber
     /// умножение матрицы на число
     void testMatrix2dMultNumber();
@@ -52,6 +57,22 @@ void TestMatrix::testMatrixSubtrNumDirectOrder()
     vector<vector<double>> properMatrix {{-1,0,1},
                                          {5,1,3},
                                          {7,1,-1}};
+    QCOMPARE(resultMatrix, properMatrix);
+}
+
+void TestMatrix::testMatrixSubtrNumReverseOrder()
+{
+    vector<vector<double>> matrix {{0.5,0.2,0.3},
+                                   {0.7,0.3,0.5},
+                                   {0.9,0.3,0.1}};
+
+    vector<vector<double>> resultMatrix
+        = Matrix2d<double>::subtraction(matrix, 1, true);
+    Matrix2d<double>::floorM(resultMatrix, 100);
+
+    vector<vector<double>> properMatrix {{0.5,0.8,0.7},
+                                         {0.3,0.7,0.5},
+                                         {0.09,0.7,0.9}};
     QCOMPARE(resultMatrix, properMatrix);
 }
 
