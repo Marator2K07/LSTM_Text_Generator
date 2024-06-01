@@ -49,6 +49,11 @@ private slots:
     /// тест нахождения логарифма
     /// каждого элемента матрицы
     void testMatrixLogn();
+    ///
+    /// \brief testTotalMatrixSum
+    /// тестирование общей суммы
+    /// всех элементов матрицы
+    void testTotalMatrixSum();
 };
 
 void TestMatrix::testMatrixSubtrMatrix()
@@ -201,6 +206,18 @@ void TestMatrix::testMatrixLogn()
                                          {-0.444,-1.109,-2.096}};
 
     QCOMPARE(resultMatrix, properMatrix);
+}
+
+void TestMatrix::testTotalMatrixSum()
+{
+    // инициализация
+    vector<vector<double>> matrix {{0.33,0.12,0.777},
+                                   {0.642,0.33,0.123}};
+    // итоговый и ожидаемый результаты
+    double resultSum = Matrix2d<double>::totalSum(matrix);
+    double properSum = 2.322;
+
+    QCOMPARE(resultSum, properSum);
 }
 
 QTEST_MAIN(TestMatrix)
