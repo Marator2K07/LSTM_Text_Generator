@@ -40,7 +40,25 @@ template<typename T>
 vector<vector<T>> Matrix2d<T>::subtraction(const vector<vector<T>> matrix,
                                            T num, bool reverseOrder)
 {
+    // подготовка
+    vector<vector<T>> result;
+    int index = 0;
+    // заполнение выходной матрицы
+    for (const vector<T> row : matrix) {
+        result.push_back(vector<T>());
+        for (const T value : row) {
+            T resValue;
+            if (reverseOrder) {
+                resValue = num - value;
+            } else {
+                resValue = value - num;
+            }
+            result[index].push_back(resValue);
+        }
+        index++;
+    }
 
+    return result;
 }
 
 template<typename T>
