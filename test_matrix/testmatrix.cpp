@@ -10,6 +10,11 @@ class TestMatrix: public QObject
 
 private slots:
     ///
+    /// \brief testMatrixSameShape
+    /// тест на полное соотвествие
+    /// матриц по размерам
+    void testMatrixSameShape();
+    ///
     /// \brief testMatrixSubtrMatrix
     /// тест разности матриц
     void testMatrixSubtrMatrix();
@@ -55,6 +60,27 @@ private slots:
     /// всех элементов матрицы
     void testTotalMatrixSum();
 };
+
+void TestMatrix::testMatrixSameShape()
+{
+    // инициализация
+    vector<vector<double>> matrixA {{1,2,3},
+                                    {4,7,7},
+                                    {9,3,0}};
+    vector<vector<double>> matrixB {{6,2,3},
+                                    {2,2,0},
+                                    {6,1,7}};
+    vector<vector<double>> matrixC {{1,1,1},
+                                    {2,2,2}};
+    // итоговые результаты
+    bool resultFlag1
+        = Matrix2d<double>::sameShape(matrixA, matrixB);
+    bool resultFlag2
+        = Matrix2d<double>::sameShape(matrixA, matrixC);
+
+    QCOMPARE(resultFlag1, true);
+    QCOMPARE(resultFlag2, false);
+}
 
 void TestMatrix::testMatrixSubtrMatrix()
 {
