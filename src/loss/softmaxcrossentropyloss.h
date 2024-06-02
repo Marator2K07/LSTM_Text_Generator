@@ -12,6 +12,7 @@ private:
     double stabBorder; // стабилизирующая граница для вывода softmax
     vector<vector<double>> _prediction;
     vector<vector<double>> _target;
+    vector<vector<double>> _softmaxPrediction; // предсказания в пределах [0,1]
 
 private:
     // ILoss interface
