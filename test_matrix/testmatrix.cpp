@@ -1,8 +1,8 @@
 #include <QObject>
 #include <QtTest/QtTest>
 
-#include <matrix2d.h>
-#include <matrix2d.cpp>
+#include "matrix2d.h"
+#include "matrix2d.cpp"
 
 class TestMatrix: public QObject
 {
@@ -221,12 +221,16 @@ void TestMatrix::test3MatrixMultMatrix()
                                     {3}};
     vector<vector<double>> matrixB {{1,6,2},
                                     {3,2,2}};
-    // итоговый и ожидаемый результаты
-    vector<vector<double>> resultMatrix
-        = Matrix2d<double>::multiplication(matrixA, matrixB);
-    vector<vector<double>> properMatrix;
+    // результаты
+    try {
+        vector<vector<double>> resultMatrix
+            = Matrix2d<double>::multiplication(matrixA, matrixB);
 
-    QCOMPARE(resultMatrix, properMatrix);
+        // Т.к. код до сюда не дойдет, тест будет пройден
+        QCOMPARE(resultMatrix, matrixB);
+    } catch (const MatrixException& e) {
+        e.what();
+    }
 }
 
 void TestMatrix::testMatrixClip()
