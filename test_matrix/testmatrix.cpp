@@ -10,62 +10,63 @@ class TestMatrix: public QObject
 
 private slots:
     ///
-    /// \brief testMatrixSameShape
-    /// тест на полное соотвествие
-    /// матриц по размерам
-    void testMatrixSameShape();
+    /// \brief testMatrix2dSameShape
+    /// тест на полное соотвествие матриц по размерам
+    void testMatrix2dSameShape();
     ///
-    /// \brief testMatrixCanMultMatrix
+    /// \brief testMatrix2dCanMultMatrix2d
     /// тест на возможность перемножения матриц
-    void testMatrixCanMultMatrix();
+    void testMatrix2dCanMultMatrix2d();
     ///
-    /// \brief testMatrixSubtrMatrix
+    /// \brief testMatrix2dSubtrMatrix2d
     /// тест разности матриц
-    void testMatrixSubtrMatrix();
+    void testMatrix2dSubtrMatrix2d();
     ///
-    /// \brief testMatrixSubtrNumDirectOrder
+    /// \brief testMatrix2dSubtrNumDirectOrder
     /// проверка разности матрицы и
     /// числа в прямом порядке вычисления
-    void testMatrixSubtrNumDirectOrder();
+    void testMatrix2dSubtrNumDirectOrder();
     ///
-    /// \brief testMatrixSubtrNumReverseOrder
+    /// \brief testMatrix2dSubtrNumReverseOrder
     /// проверка разницы матрицы и числа
     /// при обратном порядке операндов
-    void testMatrixSubtrNumReverseOrder();
+    void testMatrix2dSubtrNumReverseOrder();
     ///
     /// \brief testMatrix2dMultNumber
     /// умножение матрицы на число
     void testMatrix2dMultNumber();
     ///
-    /// \brief test1MatrixMultMatrix
-    /// первое тестовое умножение матриц
-    void test1MatrixMultMatrix();
+    /// \brief test1Matrix2dMultMatrix2d
+    /// первое тестовое матричное умножение
+    void test1Matrix2dMultMatrix2d();
     ///
-    /// \brief test2MatrixMultMatrix
-    /// усложенная версия умножения матриц
-    void test2MatrixMultMatrix();
+    /// \brief test2Matrix2dMultMatrix2d
+    /// усложенная версия матричного умножения
+    void test2Matrix2dMultMatrix2d();
     ///
-    /// \brief test3MatrixMultMatrix
-    /// версия для плохого случая перемножения
-    void test3MatrixMultMatrix();
+    /// \brief test3Matrix2dMultMatrix2d
+    /// версия для плохого случая матричного умножения
+    void test3Matrix2dMultMatrix2d();
     ///
-    /// \brief testMatrixClip
+    /// \brief testMatrix2dSimplMultMatrix2d
+    /// тест упрощенного поэлеметного умножения матриц
+    void testMatrix2dSimplMultMatrix2d();
+    ///
+    /// \brief testMatrix2dClip
     /// тест обрезки матрицы по границе
     /// в пределах: [leftBorder, 1-leftBorder]
-    void testMatrixClip();
+    void testMatrix2dClip();
     ///
-    /// \brief testMatrixLog
-    /// тест нахождения логарифма
-    /// каждого элемента матрицы
-    void testMatrixLogn();
+    /// \brief testMatrix2dLogn
+    /// тест нахождения логарифма каждого элемента матрицы
+    void testMatrix2dLogn();
     ///
-    /// \brief testTotalMatrixSum
-    /// тестирование общей суммы
-    /// всех элементов матрицы
-    void testTotalMatrixSum();
+    /// \brief testTotalMatrix2dSum
+    /// тестирование общей суммы всех элементов матрицы
+    void testTotalMatrix2dSum();
 };
 
-void TestMatrix::testMatrixSameShape()
+void TestMatrix::testMatrix2dSameShape()
 {
     // инициализация
     vector<vector<double>> matrixA {{1,2,3},
@@ -86,7 +87,7 @@ void TestMatrix::testMatrixSameShape()
     QCOMPARE(resultFlag2, false);
 }
 
-void TestMatrix::testMatrixCanMultMatrix()
+void TestMatrix::testMatrix2dCanMultMatrix2d()
 {
     // инициализация
     vector<vector<double>> matrixA {{1,2},
@@ -107,7 +108,7 @@ void TestMatrix::testMatrixCanMultMatrix()
     QCOMPARE(resultFlag2, false);
 }
 
-void TestMatrix::testMatrixSubtrMatrix()
+void TestMatrix::testMatrix2dSubtrMatrix2d()
 {
     // инициализация
     vector<vector<double>> matrixA {{1,2,3},
@@ -126,7 +127,7 @@ void TestMatrix::testMatrixSubtrMatrix()
     QCOMPARE(resultMatrix, properMatrix);
 }
 
-void TestMatrix::testMatrixSubtrNumDirectOrder()
+void TestMatrix::testMatrix2dSubtrNumDirectOrder()
 {
     // инициализация
     vector<vector<double>> matrix {{1,2,3},
@@ -142,7 +143,7 @@ void TestMatrix::testMatrixSubtrNumDirectOrder()
     QCOMPARE(resultMatrix, properMatrix);
 }
 
-void TestMatrix::testMatrixSubtrNumReverseOrder()
+void TestMatrix::testMatrix2dSubtrNumReverseOrder()
 {
     // инициализация
     vector<vector<double>> matrix {{0.5,0.2,0.3},
@@ -175,7 +176,7 @@ void TestMatrix::testMatrix2dMultNumber()
     QCOMPARE(resultMatrix, properMatrix);
 }
 
-void TestMatrix::test1MatrixMultMatrix()
+void TestMatrix::test1Matrix2dMultMatrix2d()
 {
     // инициализация
     vector<vector<double>> matrixA {{1,2,3},
@@ -194,7 +195,7 @@ void TestMatrix::test1MatrixMultMatrix()
     QCOMPARE(resultMatrix, properMatrix);
 }
 
-void TestMatrix::test2MatrixMultMatrix()
+void TestMatrix::test2Matrix2dMultMatrix2d()
 {
     // инициализация
     vector<vector<double>> matrixA {{1,2},
@@ -214,7 +215,7 @@ void TestMatrix::test2MatrixMultMatrix()
     QCOMPARE(resultMatrix, properMatrix);
 }
 
-void TestMatrix::test3MatrixMultMatrix()
+void TestMatrix::test3Matrix2dMultMatrix2d()
 {
     // инициализация
     vector<vector<double>> matrixA {{1},
@@ -233,7 +234,34 @@ void TestMatrix::test3MatrixMultMatrix()
     }
 }
 
-void TestMatrix::testMatrixClip()
+void TestMatrix::testMatrix2dSimplMultMatrix2d()
+{
+    // инициализация
+    vector<vector<double>> matrixA {{1,2},
+                                    {3,9}};
+    vector<vector<double>> matrixB {{7,4},
+                                    {2,6}};
+    vector<vector<double>> matrixC {{1,6,2},
+                                    {3,2,2}};
+     // проверка корректного случая
+    vector<vector<double>> resultMatrixAB
+        = Matrix2d<double>::simplifiedMult(matrixA, matrixB);
+    vector<vector<double>> properMatrixAB {{7,8},
+                                           {6,54}};
+    QCOMPARE(resultMatrixAB, properMatrixAB);
+    // проверка случая с исключением
+    try {
+        vector<vector<double>> resultMatrixBC
+            = Matrix2d<double>::simplifiedMult(matrixB, matrixC);
+
+        // Т.к. код до сюда не дойдет, тест будет пройден
+        QCOMPARE(resultMatrixBC, matrixB);
+    } catch (const MatrixException& e) {
+        e.what();
+    }
+}
+
+void TestMatrix::testMatrix2dClip()
 {
     // инициализация
     vector<vector<double>> matrix {{1,0.42,0.22},
@@ -248,7 +276,7 @@ void TestMatrix::testMatrixClip()
     QCOMPARE(resultMatrix, properMatrix);
 }
 
-void TestMatrix::testMatrixLogn()
+void TestMatrix::testMatrix2dLogn()
 {
     // инициализация
     vector<vector<double>> matrix {{0.33,0.12,0.777},
@@ -263,7 +291,7 @@ void TestMatrix::testMatrixLogn()
     QCOMPARE(resultMatrix, properMatrix);
 }
 
-void TestMatrix::testTotalMatrixSum()
+void TestMatrix::testTotalMatrix2dSum()
 {
     // инициализация
     vector<vector<double>> matrix {{0.33,0.12,0.777},
