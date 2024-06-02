@@ -15,7 +15,7 @@ vector<double> ActivationFunctions::softmax(const vector<double> p)
     return result;
 }
 
-vector<vector<double>> ActivationFunctions::batchSoftmax(const vector<vector<double> > predictions)
+vector<vector<double>> ActivationFunctions::batchSoftmax(const vector<vector<double>> predictions)
 {
     // построчно обрабатываем предсказания
     vector<vector<double>> result;
