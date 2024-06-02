@@ -12,7 +12,7 @@ template<typename T>
 bool Matrix2d<T>::canMult(const vector<vector<T>> matrixA,
                           const vector<vector<T>> matrixB)
 {
-    return matrixA[0].size() != matrixB.size();
+    return matrixA[0].size() == matrixB.size();
 }
 
 template<typename T>
