@@ -2,7 +2,6 @@
 #define SOFTMAXCROSSENTROPYLOSS_H
 
 #include "iloss.h"
-#include "activationfunctions.h"
 
 ///
 /// \brief The SoftmaxCrossEntropyLoss class

@@ -2,6 +2,9 @@
 #define ILOSS_H
 
 #include <vector>
+#include "matrix2d.h"
+#include "matrix2d.cpp"
+#include "activationfunctions.h"
 
 using namespace std;
 
@@ -12,7 +15,6 @@ using namespace std;
 class ILoss
 {
 public:
-    ILoss();
     ///
     /// \brief forward прямой проход вычисления потерь
     /// (подготовка вычисления значения потерь(штрафа) + вычисление)
