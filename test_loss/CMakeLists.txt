@@ -18,4 +18,5 @@ target_link_libraries(Test_Loss PRIVATE
     Qt6::Test
     loss
     matrix
+    exception
 )

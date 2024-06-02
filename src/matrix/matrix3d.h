@@ -1,7 +1,6 @@
 #ifndef MATRIX3D_H
 #define MATRIX3D_H
 
-#include <constants.h>
 #include <vector>
 
 using namespace std;

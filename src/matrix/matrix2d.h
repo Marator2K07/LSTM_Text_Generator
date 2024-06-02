@@ -1,9 +1,9 @@
 #ifndef MATRIX2D_H
 #define MATRIX2D_H
 
-#include <constants.h>
 #include <vector>
 #include <cmath>
+#include "matrixexception.h"
 
 using namespace std;
 

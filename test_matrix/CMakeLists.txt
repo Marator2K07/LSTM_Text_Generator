@@ -17,4 +17,5 @@ target_link_libraries(Test_Matrix PRIVATE
     Qt6::Core
     Qt6::Test
     matrix
+    exception
 )

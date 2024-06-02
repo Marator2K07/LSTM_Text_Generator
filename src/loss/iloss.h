@@ -1,7 +1,9 @@
 #ifndef ILOSS_H
 #define ILOSS_H
 
+#include <iostream>
 #include <vector>
+
 #include "matrix2d.h"
 #include "matrix2d.cpp"
 #include "activationfunctions.h"

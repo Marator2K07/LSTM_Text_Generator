@@ -8,5 +8,6 @@ target_link_libraries(loss PRIVATE
 )
 target_link_libraries(loss PRIVATE
     matrix
+    exception
 )
 target_include_directories(loss PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
