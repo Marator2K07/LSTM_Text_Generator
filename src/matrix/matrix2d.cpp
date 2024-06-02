@@ -113,6 +113,31 @@ vector<vector<T>> Matrix2d<T>::multiplication(const vector<vector<T>> matrixA,
 }
 
 template<typename T>
+vector<vector<T>> Matrix2d<T>::simplifiedMult(const vector<vector<T>> matrixA,
+                                              const vector<vector<T>> matrixB)
+{
+    // подготовка
+    vector<vector<T>> result;
+    // возможность операции
+    if (!sameShape(matrixA, matrixB)) {
+        throw MatrixException(
+            "Impossible to find matrix simplified multiplication, sizes do not match."
+        );
+    }
+    // заполнение выходной матрицы
+    for (int rowI = 0; rowI < matrixA.size(); ++rowI) {
+        result.push_back(vector<T>());
+        for (int colI = 0; colI < matrixA[0].size(); ++colI) {
+            result[rowI].push_back(
+                matrixA[rowI][colI] * matrixB[rowI][colI]
+            );
+        }
+    }
+
+    return result;
+}
+
+template<typename T>
 vector<vector<T>> Matrix2d<T>::multiplication(const vector<vector<T>> matrix,
                                               T num)
 {

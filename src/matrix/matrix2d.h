@@ -76,6 +76,14 @@ public:
     multiplication(const vector<vector<T>> matrixA,
                    const vector<vector<T>> matrixB);
     ///
+    /// \brief simplifiedMult упрощенное поэлементное умножение
+    /// \param matrixA первая входящая матрица
+    /// \param matrixB вторая входящая матрица
+    /// \return результирующая матрица
+    static vector<vector<T>>
+    simplifiedMult(const vector<vector<T>> matrixA,
+                   const vector<vector<T>> matrixB);
+    ///
     /// \brief multiplication умножение матрицы на число
     /// \param matrix входящая матрица
     /// \param num мультипликатор умножения
