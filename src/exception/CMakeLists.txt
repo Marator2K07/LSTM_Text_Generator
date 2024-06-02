@@ -1,4 +1,5 @@
 qt_add_library(exception STATIC
+    matrixexception.h matrixexception.cpp
 )
 target_link_libraries(exception PRIVATE
     Qt6::Core
