@@ -35,6 +35,12 @@ vector<vector<T>> Matrix2d<T>::subtraction(const vector<vector<T>> matrixA,
 {
     // подготовка
     vector<vector<T>> result;
+    // возможность операции
+    if (!sameShape(matrixA, matrixB)) {
+        throw MatrixException(
+            "Impossible to find matrix subtraction, the sizes do not match."
+        );
+    }
     // заполнение выходной матрицы
     for (int rowI = 0; rowI < matrixA.size(); ++rowI) {
         result.push_back(vector<T>());
@@ -79,10 +85,13 @@ vector<vector<T>> Matrix2d<T>::multiplication(const vector<vector<T>> matrixA,
 {
     // подготовка
     vector<vector<T>> result;
-    if (canMult(matrixA, matrixB)) {
-        return result;
-    }
     int index = 0;
+    // возможность операции
+    if (!canMult(matrixA, matrixB)) {
+        throw MatrixException(
+            "Unable to multiply matrices, dimensions are not correct."
+        );
+    }    
     // заполнение выходной матрицы
     for (const vector<T> rowA : matrixA) {
         result.push_back(vector<T>());
@@ -131,6 +140,7 @@ vector<vector<T>> Matrix2d<T>::transposition(const vector<vector<T>> matrix)
 template<typename T>
 void Matrix2d<T>::floorM(vector<vector<T>> &matrix, int multDegree)
 {
+    // округление значений
     for (vector<T> &row : matrix) {
         for (T &value : row) {
             value = floor(value * multDegree) / multDegree;
