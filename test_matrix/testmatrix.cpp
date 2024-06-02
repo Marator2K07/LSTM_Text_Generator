@@ -15,6 +15,10 @@ private slots:
     /// матриц по размерам
     void testMatrixSameShape();
     ///
+    /// \brief testMatrixCanMultMatrix
+    /// тест на возможность перемножения матриц
+    void testMatrixCanMultMatrix();
+    ///
     /// \brief testMatrixSubtrMatrix
     /// тест разности матриц
     void testMatrixSubtrMatrix();
@@ -77,6 +81,27 @@ void TestMatrix::testMatrixSameShape()
         = Matrix2d<double>::sameShape(matrixA, matrixB);
     bool resultFlag2
         = Matrix2d<double>::sameShape(matrixA, matrixC);
+
+    QCOMPARE(resultFlag1, true);
+    QCOMPARE(resultFlag2, false);
+}
+
+void TestMatrix::testMatrixCanMultMatrix()
+{
+    // инициализация
+    vector<vector<double>> matrixA {{1,2},
+                                    {4,7},
+                                    {9,3}};
+    vector<vector<double>> matrixB {{6,2,3,7},
+                                    {2,2,0,1}};
+    vector<vector<double>> matrixC {{1,1,1},
+                                    {2,2,2},
+                                    {3,3,3}};
+    // итоговые результаты
+    bool resultFlag1
+        = Matrix2d<double>::canMult(matrixA, matrixB);
+    bool resultFlag2
+        = Matrix2d<double>::canMult(matrixA, matrixC);
 
     QCOMPARE(resultFlag1, true);
     QCOMPARE(resultFlag2, false);
