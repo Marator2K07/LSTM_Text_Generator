@@ -26,6 +26,11 @@ private slots:
     /// вычисления штрафа сети в виде double числа
     /// при прямом проходе
     void testSoftmaxCrossEntropyLossForward();
+    ///
+    /// \brief expertTestSoftmaxCrossEntropyLoss
+    /// расширенный тест потерь - анализ значений в
+    /// зависимости от входных данных
+    void expertTestSoftmaxCrossEntropyLoss();
 };
 
 void TestLoss::testSoftmax()
@@ -87,6 +92,36 @@ void TestLoss::testSoftmaxCrossEntropyLossForward()
     } catch (const LossException &e) {
         cerr << e.what() << endl;
     }
+}
+
+void TestLoss::expertTestSoftmaxCrossEntropyLoss()
+{
+    // инициализация
+    SoftmaxCrossEntropyLoss SCELoss;
+    vector<vector<double>> target{{0.55,0.33,0.22},
+                                  {0.78,0.67,0.11},
+                                  {0.77,0.11,0.33}};
+    vector<vector<double>> predictionOne{{5.55,3.33,2.12},
+                                         {4.26,10.10,2.25},
+                                         {3.33,1.19,7.12}};
+    vector<vector<double>> predictionTwo{{5.45,3.14,2.12},
+                                         {7.16,5.79,10.99},
+                                         {6.98,1.09,3.14}};
+    vector<vector<double>> predictionThree{{15.55,33.33,9.12},
+                                           {14.26,10.10,9.25},
+                                           {3.33,15.19,17.12}};
+    // результаты (штрафы или потери)
+    double resultPenaltyOne = SCELoss.forward(predictionOne, target);
+    double resultPenaltyTwo = SCELoss.forward(predictionTwo, target);
+    double resultPenaltyThree = SCELoss.forward(predictionThree, target);
+
+    QCOMPARE(resultPenaltyTwo < resultPenaltyOne, true);
+    QCOMPARE(resultPenaltyTwo < resultPenaltyThree, true);
+    QCOMPARE(resultPenaltyOne < resultPenaltyThree, true);
+
+    cout << resultPenaltyTwo << " "
+         << resultPenaltyOne << " "
+         << resultPenaltyThree;
 }
 
 QTEST_MAIN(TestLoss)
