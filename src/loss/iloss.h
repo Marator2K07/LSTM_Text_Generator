@@ -7,6 +7,7 @@
 #include "matrix2d.h"
 #include "matrix2d.cpp"
 #include "activationfunctions.h"
+#include "lossexception.h"
 
 using namespace std;
 

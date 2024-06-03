@@ -54,7 +54,9 @@ double SoftmaxCrossEntropyLoss::calculate()
         // 4) нахождение и возврат штрафа сети
         return Matrix2d<double>::totalSum(softmaxCrossEntropyLoss);
     } catch (const MatrixException &e) {
-        cout << "Matrix exception:\n[" << e.what() << "]" << endl;
+        // если поймали исключение, то делаем его частью нового
+        throw LossException(QString("Catch loss exception:\n[%1]\n")
+                                .arg(e.what()));
     }
 }
 
