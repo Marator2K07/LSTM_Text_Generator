@@ -22,10 +22,9 @@ private slots:
     /// обработки партии предсказаний
     void testBatchSoftmax();
     ///
-    /// \brief testLossCalculate тестирование
-    /// вычисления штрафа сети в виде double числа
-    /// при прямом проходе
-    void testSoftmaxCrossEntropyLossForward();
+    /// \brief testSoftmaxCrossEntropyLossFull тестирование
+    /// вычисления штрафа сети и градиента входных данных
+    void testSoftmaxCrossEntropyLossFull();
     ///
     /// \brief expertTestSoftmaxCrossEntropyLoss
     /// расширенный тест потерь - анализ значений в
@@ -64,26 +63,34 @@ void TestLoss::testBatchSoftmax()
     QCOMPARE(currentResult, properResult);
 }
 
-void TestLoss::testSoftmaxCrossEntropyLossForward()
+void TestLoss::testSoftmaxCrossEntropyLossFull()
 {
     // инициализация
     SoftmaxCrossEntropyLoss SCELoss;
-    vector<vector<double>> target{{5,3,2},
-                                  {7,6,11},
-                                  {7,1,3}};
+    vector<vector<double>> target{{0.55,0.33,0.22},
+                                  {0.78,0.67,0.11},
+                                  {0.77,0.11,0.33}};
     vector<vector<double>> predictionBad{{5,3},
                                          {7,6},
                                          {7,1}};
     vector<vector<double>> prediction{{5.55,3.33,2.12},
                                       {4.26,10.10,2.25},
                                       {3.33,1.19,7.12}};
-    // результаты
+    // результаты (штраф или потеря)
     double resultPenalty = SCELoss.forward(prediction, target);
     resultPenalty = floor(resultPenalty * 1000) / 1000;
-    double properPenalty = 130.139;
+    double properPenalty = 16.063;
+    // результаты (градиент)
+    vector<vector<double>> resultGradient = SCELoss.backward();
+    Matrix2d<double>::floorM(resultGradient, 1000);
+    vector<vector<double>> properGradient{{0.326,-0.235,-0.192},
+                                          {-0.778,0.326,-0.11},
+                                          {-0.748,-0.108,0.645}};
 
     QCOMPARE(resultPenalty, properPenalty);
+    QCOMPARE(resultGradient, properGradient);
 
+    // случай с исключением
     try {
         double resultPenalty = SCELoss.forward(predictionBad, target);
 
