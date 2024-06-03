@@ -33,12 +33,12 @@ public:
 
 private:
     ///
-    /// \brief calculate непосредственное вычисление штрафа сети
-    virtual double calculate() = 0;
+    /// \brief calcLoss непосредственное вычисление штрафа сети
+    virtual double calcLoss() = 0;
     ///
-    /// \brief inputGradient непосредственное вычисление
+    /// \brief calcInputGradient непосредственное вычисление
     /// градиента ошибки по входу функции потерь
-    virtual vector<vector<double>> inputGradient() = 0;
+    virtual vector<vector<double>> calcInputGradient() = 0;
 };
 
 #endif // ILOSS_H

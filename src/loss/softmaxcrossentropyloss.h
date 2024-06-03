@@ -14,10 +14,11 @@ private:
     vector<vector<double>> _target;
     vector<vector<double>> _softmaxPrediction; // предсказания в пределах [0,1]
 
+
 private:
     // ILoss interface
-    double calculate() override;
-    vector<vector<double>> inputGradient() override;
+    double calcLoss() override;
+    vector<vector<double>> calcInputGradient() override;
 
 public:
     SoftmaxCrossEntropyLoss(double stabBorder = 1e-9);

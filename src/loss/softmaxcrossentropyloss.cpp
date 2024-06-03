@@ -12,7 +12,7 @@ double SoftmaxCrossEntropyLoss::forward(vector<vector<double>> prediction,
     _prediction = prediction;
     _target = target;
     // возвращаем расчитанную потерю
-    return calculate();
+    return calcLoss();
 }
 
 vector<vector<double>> SoftmaxCrossEntropyLoss::backward()
@@ -20,7 +20,7 @@ vector<vector<double>> SoftmaxCrossEntropyLoss::backward()
 
 }
 
-double SoftmaxCrossEntropyLoss::calculate()
+double SoftmaxCrossEntropyLoss::calcLoss()
 {
     try {
         // 1) приводим прогнозы к нужному формату ([0,1])
@@ -60,7 +60,7 @@ double SoftmaxCrossEntropyLoss::calculate()
     }
 }
 
-vector<vector<double>> SoftmaxCrossEntropyLoss::inputGradient()
+vector<vector<double>> SoftmaxCrossEntropyLoss::calcInputGradient()
 {
 
 }
