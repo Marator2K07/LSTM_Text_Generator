@@ -8,7 +8,7 @@ SoftmaxCrossEntropyLoss::SoftmaxCrossEntropyLoss(double stabBorder)
 double SoftmaxCrossEntropyLoss::forward(vector<vector<double>> prediction,
                                         vector<vector<double>> target)
 {
-    // остальные операции...
+    // подготовительные операции
     _prediction = prediction;
     _target = target;
     // возвращаем расчитанную потерю
@@ -17,7 +17,11 @@ double SoftmaxCrossEntropyLoss::forward(vector<vector<double>> prediction,
 
 vector<vector<double>> SoftmaxCrossEntropyLoss::backward()
 {
-
+    // подготовительные операции
+    _inputGradient = calcInputGradient();
+    // ...
+    // вовзращаем расчитанный градиент
+    return _inputGradient;
 }
 
 double SoftmaxCrossEntropyLoss::calcLoss()
@@ -31,7 +35,7 @@ double SoftmaxCrossEntropyLoss::calcLoss()
         _softmaxPrediction = Matrix2d<double>::clip(
             _softmaxPrediction,
             stabBorder
-            );
+        );
         // 3) Вычисление матрицы потерь
         vector<vector<double>> firstOperand
             = Matrix2d<double>::simplifiedMult(
@@ -62,5 +66,11 @@ double SoftmaxCrossEntropyLoss::calcLoss()
 
 vector<vector<double>> SoftmaxCrossEntropyLoss::calcInputGradient()
 {
-
+    try {
+        return Matrix2d<double>::subtraction(_softmaxPrediction, _target);
+    } catch (const MatrixException &e) {
+        // если поймали исключение, то делаем его частью нового
+        throw LossException(QString("Catch loss exception:\n[%1]\n")
+                                .arg(e.what()));
+    }
 }
