@@ -34,21 +34,21 @@ double SoftmaxCrossEntropyLoss::calculate()
             );
         // 3) Вычисление матрицы потерь
         vector<vector<double>> firstOperand
-            = Matrix2d<double>::multiplication(
+            = Matrix2d<double>::simplifiedMult(
                 Matrix2d<double>::multiplication(_target, -1),
                 Matrix2d<double>::logn(_softmaxPrediction)
-                );
+            );
         vector<vector<double>> secondOperand
-            = Matrix2d<double>::multiplication(
+            = Matrix2d<double>::simplifiedMult(
                 Matrix2d<double>::subtraction(_target, 1.0, true),
                 Matrix2d<double>::logn(
                     Matrix2d<double>::subtraction(
                         _softmaxPrediction,
                         1.0,
                         true
-                        )
                     )
-                );
+                )
+            );
         vector<vector<double>> softmaxCrossEntropyLoss
             = Matrix2d<double>::subtraction(firstOperand, secondOperand);
         // 4) нахождение и возврат штрафа сети
