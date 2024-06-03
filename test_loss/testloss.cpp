@@ -51,13 +51,9 @@ void TestLoss::testBatchSoftmax()
     // итоговый и ожидаемый результаты
     vector<vector<double>> currentResult
         = ActivationFunctions::batchSoftmax(init);
-    for (vector<double> &p : currentResult) {
-        for (double &value : p) {
-            value = round(value * 1000)/1000;
-        }
-    }
-    vector<vector<double>> properResult{{0.844, 0.114, 0.042},
-                                        {0.879, 0.002, 0.119},
+    Matrix2d<double>::floorM(currentResult, 1000);
+    vector<vector<double>> properResult{{0.843, 0.114, 0.042},
+                                        {0.878, 0.002, 0.118},
                                         {0.259, 0.035, 0.705}};
 
     QCOMPARE(currentResult, properResult);
