@@ -15,12 +15,14 @@ public:
     ///
     /// \brief softmax многопеременная логистическая функция
     /// \param p вектор вероятностей(прогнозов)
+    /// \return обработанный вектор
     static vector<double> softmax(const vector<double> p);
 
     ///
     /// \brief batchSoftmax расширенная версия softmax
     /// для взаимодействия с партией предсказаний
     /// \param prediction партия предсказаний
+    /// \return партия обработанных векторов(матрица)
     static vector<vector<double>>
         batchSoftmax(const vector<vector<double>> predictions);
 };
