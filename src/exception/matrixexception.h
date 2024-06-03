@@ -16,7 +16,7 @@ private:
     QByteArray _message;
 
 public:
-    MatrixException(QString message = "Ошибка не описана");
+    MatrixException(QString message = "Error not described");
 
 public:
     // exception interface

@@ -10,10 +10,17 @@ using namespace std;
 ///
 /// \brief The MatrixException class
 /// исключений, связанных с потерями
-class LossException
+class LossException : exception
 {
+private:
+    QByteArray _message;
+
 public:
-    LossException();
+    LossException(QString message = "Error not described");
+
+public:
+    // exception interface
+    const char *what() const noexcept override;
 };
 
 #endif // LOSSEXCEPTION_H
