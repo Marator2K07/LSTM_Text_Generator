@@ -1,5 +1,10 @@
 qt_add_library(neuralnetwork STATIC
     ineuralnetworkmodel.h
+    autodifferentiation/num.h
+    autodifferentiation/numwithgradient.h
+    autodifferentiation/numwithgradient.cpp
+    autodifferentiation/simplenum.h
+    autodifferentiation/simplenum.cpp
 )
 target_link_libraries(neuralnetwork PRIVATE
     Qt6::Core
