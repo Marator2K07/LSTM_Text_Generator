@@ -2,11 +2,11 @@
 #define NUMWITHGRADIENT_H
 
 #include <vector>
-#include "num.h"
+#include "inum.h"
 
 using namespace std;
 
-class NumWithGradient : Num
+class NumWithGradient : INum
 {
 private:
     double num_;
@@ -21,7 +21,7 @@ private:
     /// с градиентом и его возвращение
     /// \param num - пришедшее абстрактное число
     /// с градиентом или без
-    NumWithGradient *ensureNum(Num *num);
+    NumWithGradient *ensureNum(INum *num);
 
 public:
     explicit NumWithGradient(double num,
@@ -30,8 +30,8 @@ public:
                              QString creation_op = "");
 
 public:
-    NumWithGradient operator+(Num *other);
-    NumWithGradient operator*(Num *other);
+    NumWithGradient operator+(INum *other);
+    NumWithGradient operator*(INum *other);
     void backward(double backwardGradient = 0);
     double gradient();
 

@@ -16,5 +16,5 @@ qt_add_executable(Test_AutoDifferentiation
 target_link_libraries(Test_AutoDifferentiation PRIVATE
     Qt6::Core
     Qt6::Test
-    neuralnetwork
+    autodifferentiation
 )

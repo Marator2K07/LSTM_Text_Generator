@@ -1,13 +1,13 @@
 #ifndef SIMPLENUM_H
 #define SIMPLENUM_H
 
-#include "num.h"
+#include "inum.h"
 
 ///
 /// \brief The SimpleNum class
 /// формально класс обертка для простого числа
 /// с плавающей точкой без "добавок"
-class SimpleNum : Num
+class SimpleNum : INum
 {
 private:
     double num_;

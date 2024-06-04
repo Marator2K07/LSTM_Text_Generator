@@ -1,8 +1,8 @@
 #include <QObject>
 #include <QtTest/QtTest>
 
-#include "autodifferentiation/simplenum.h"
-#include "autodifferentiation/numwithgradient.h"
+#include "simplenum.h"
+#include "numwithgradient.h"
 
 using namespace std;
 
@@ -43,10 +43,10 @@ void TestAutoDiff::testNumWithGradientOne()
     NumWithGradient a(3);
 
     SimpleNum forB(4);
-    NumWithGradient b(a * (Num *)(&forB));
+    NumWithGradient b(a * (INum *)(&forB));
 
     SimpleNum forC(5);
-    NumWithGradient c(b + (Num *)(&forC));
+    NumWithGradient c(b + (INum *)(&forC));
 
     c.backward();
 
@@ -61,15 +61,15 @@ void TestAutoDiff::testNumWithGradientTwo()
     NumWithGradient a(3);
 
     SimpleNum forB(4);
-    NumWithGradient b(a * (Num *)(&forB));
+    NumWithGradient b(a * (INum *)(&forB));
 
     SimpleNum forC(3);
-    NumWithGradient c(b + (Num *)(&forC));
+    NumWithGradient c(b + (INum *)(&forC));
 
     SimpleNum forD(2);
-    NumWithGradient d(a + (Num *)(&forD));
+    NumWithGradient d(a + (INum *)(&forD));
 
-    NumWithGradient e(c * (Num *)&d);
+    NumWithGradient e(c * (INum *)&d);
 
     e.backward();
 

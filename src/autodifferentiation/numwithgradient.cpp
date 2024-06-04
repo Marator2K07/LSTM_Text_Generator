@@ -10,7 +10,7 @@ NumWithGradient::NumWithGradient(double num,
 {
 }
 
-NumWithGradient NumWithGradient::operator+(Num *other)
+NumWithGradient NumWithGradient::operator+(INum *other)
 {
     // сначала формируем список зависимостей    
     vector<NumWithGradient *> depends_on{this};
@@ -22,7 +22,7 @@ NumWithGradient NumWithGradient::operator+(Num *other)
                            "add");
 }
 
-NumWithGradient NumWithGradient::operator*(Num *other)
+NumWithGradient NumWithGradient::operator*(INum *other)
 {
     // сначала формируем список зависимостей
     vector<NumWithGradient *> depends_on{this};
@@ -76,7 +76,7 @@ double NumWithGradient::gradient()
     return gradient_;
 }
 
-NumWithGradient *NumWithGradient::ensureNum(Num *num)
+NumWithGradient *NumWithGradient::ensureNum(INum *num)
 {
     switch (num->type()) {
     case Num_Type::Simple:
