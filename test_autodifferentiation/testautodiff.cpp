@@ -1,12 +1,12 @@
 #include <QObject>
 #include <QtTest/QtTest>
 
-#include "simplenum.h"
-#include "numwithgradient.h"
+#include "autodifferentiation/simplenum.h"
+#include "autodifferentiation/numwithgradient.h"
 
 using namespace std;
 
-class Test : public QObject
+class TestAutoDiff : public QObject
 {
     Q_OBJECT
 
@@ -31,14 +31,14 @@ private slots:
     void testNumWithGradientTwo();
 };
 
-double Test::forwardFuncForTestTwo(double num)
+double TestAutoDiff::forwardFuncForTestTwo(double num)
 {
     double b = num * 4;
     double c = b + 3;
     return c * (num + 2);
 }
 
-void Test::testNumWithGradientOne()
+void TestAutoDiff::testNumWithGradientOne()
 {
     NumWithGradient a(3);
 
@@ -56,7 +56,7 @@ void Test::testNumWithGradientOne()
     QCOMPARE(answer, a.gradient());
 }
 
-void Test::testNumWithGradientTwo()
+void TestAutoDiff::testNumWithGradientTwo()
 {
     NumWithGradient a(3);
 
@@ -88,5 +88,5 @@ void Test::testNumWithGradientTwo()
     QCOMPARE(answerOther, a.gradient());
 }
 
-QTEST_MAIN(Test)
-#include "test.moc"
+QTEST_MAIN(TestAutoDiff)
+#include "testautodiff.moc"
