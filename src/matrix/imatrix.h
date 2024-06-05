@@ -1,6 +1,7 @@
 #ifndef IMATRIX_H
 #define IMATRIX_H
 
+#include <memory>
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -28,7 +29,7 @@ public:
     /// \brief addition сложение элементов текущей и другой матрицы
     /// \param other другая матрицы для сложения
     /// \return результирующая матрица
-    virtual IMatrix<T> *addition(const IMatrix<T> *other) = 0;
+    virtual unique_ptr<IMatrix<T>> addition(const IMatrix<T> *other) = 0;
 
 public:
     virtual ~IMatrix() {}
