@@ -23,6 +23,11 @@ private slots:
     /// \brief testMatrix3dSameShapeMatrix3d
     /// тест на полное соотвествие 3d матриц по размерам
     void testMatrix3dSameShapeMatrix3d();
+    ///
+    /// \brief testMatrix2dAddMatrix2d
+    /// тест на сложение двумерных матриц
+    void testMatrix2dAddMatrix2d();
+
 
     ///
     /// \brief testMatrix2dCanMultMatrix2d
@@ -141,6 +146,35 @@ void TestMatrix::testMatrix3dSameShapeMatrix3d()
     QCOMPARE(resultFlag2, false);
     QCOMPARE(resultFlag3, false);
     QCOMPARE(resultFlag4, false);
+}
+
+void TestMatrix::testMatrix2dAddMatrix2d()
+{
+    // инициализация
+    Matrix2d<double> matrixA {{1,2,3},
+                             {4,7,7},
+                             {9,3,0}};
+    Matrix2d<double> matrixB {{6,2,3},
+                             {2,2,0},
+                             {6,1,7}};
+    Matrix2d<double> matrixC {{6,2,3},
+                             {2,2,0}};
+    // плохой случай
+    try {
+        Matrix2d<double> *resultMatrix2
+            = (Matrix2d<double> *)matrixA
+                  .addition(&matrixC).release();
+    } catch (const MatrixException &e) {
+        cout << e.what() << endl;
+    }
+    // нормальный случай
+    Matrix2d<double> *resultMatrix
+        = (Matrix2d<double> *)matrixA.addition(&matrixB).release();
+    Matrix2d<double> properMatrix {{7,4,6},
+                                  {6,9,7},
+                                  {15,4,7}};
+
+    QCOMPARE(resultMatrix->data(), properMatrix.data());
 }
 
 void TestMatrix::testMatrix2dCanMultMatrix2d()
