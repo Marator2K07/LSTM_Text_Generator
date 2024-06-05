@@ -7,7 +7,7 @@
 /// \brief The Matrix2d class
 /// частный случай - двумерная матрица
 template<typename T>
-class Matrix2d : IMatrix<T>
+class Matrix2d : public IMatrix<T>
 {
 private:
     vector<vector<T>> _data;
@@ -21,6 +21,8 @@ public:
     void print();
     const vector<vector<T>> data();
 
+    // IMatrix interface
+    bool sameShape(const IMatrix<T> *other) override;
 
 public:
     ///
