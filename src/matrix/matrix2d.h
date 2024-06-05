@@ -1,19 +1,22 @@
 #ifndef MATRIX2D_H
 #define MATRIX2D_H
 
-#include <vector>
-#include <cmath>
-#include "matrixexception.h"
-
-using namespace std;
+#include "imatrix.h"
 
 ///
 /// \brief The Matrix2d class
-/// определение основных операций
-/// над элементами двумерного матричного типа
+/// частный случай - двумерная матрица
 template<typename T>
-class Matrix2d
+class Matrix2d : IMatrix<T>
 {
+private:
+    vector<vector<T>> data;
+
+public:
+    Matrix2d();
+    Matrix2d(vector<vector<T>> data);
+    Matrix2d(initializer_list<initializer_list<T>> list);
+
 public:
     ///
     /// \brief sameShape проверка на полное

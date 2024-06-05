@@ -1,6 +1,25 @@
 #include "matrix2d.h"
 
 template<typename T>
+Matrix2d<T>::Matrix2d()
+{
+}
+
+template<typename T>
+Matrix2d<T>::Matrix2d(vector<vector<T>> data)
+    : data{data}
+{
+}
+
+template<typename T>
+Matrix2d<T>::Matrix2d(initializer_list<initializer_list<T>> list)
+{
+    for (initializer_list<T> row : list) {
+        data.push_back(row);
+    }
+}
+
+template<typename T>
 bool Matrix2d<T>::sameShape(const vector<vector<T>> matrixA,
                             const vector<vector<T>> matrixB)
 {

@@ -1,7 +1,12 @@
 #ifndef IMATRIX_H
 #define IMATRIX_H
 
+#include <iostream>
 #include <vector>
+#include <cmath>
+#include <algorithm>
+
+#include "matrixexception.h"
 
 using namespace std;
 
@@ -14,6 +19,8 @@ class IMatrix
 {
 public:
 
+public:
+    virtual ~IMatrix() {}
 };
 
 #endif // IMATRIX_H
