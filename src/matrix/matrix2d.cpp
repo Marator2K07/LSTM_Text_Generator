@@ -7,7 +7,7 @@ Matrix2d<T>::Matrix2d()
 
 template<typename T>
 Matrix2d<T>::Matrix2d(vector<vector<T>> data)
-    : data{data}
+    : _data{data}
 {
 }
 
@@ -15,7 +15,7 @@ template<typename T>
 Matrix2d<T>::Matrix2d(initializer_list<initializer_list<T>> list)
 {
     for (initializer_list<T> row : list) {
-        data.push_back(row);
+        _data.push_back(row);
     }
 }
 
@@ -23,7 +23,7 @@ template<typename T>
 void Matrix2d<T>::print()
 {
     cout << '[';
-    for (const vector<T> row : data) {
+    for (const vector<T> row : _data) {
         cout << endl <<  '[';
         for (const T value : row) {
             cout << ' ' << value << ' ';
@@ -31,6 +31,12 @@ void Matrix2d<T>::print()
         cout << ']';
     }
     cout << endl << ']';
+}
+
+template<typename T>
+const vector<vector<T>> Matrix2d<T>::data()
+{
+    return _data;
 }
 
 template<typename T>

@@ -10,7 +10,7 @@ template<typename T>
 class Matrix2d : IMatrix<T>
 {
 private:
-    vector<vector<T>> data;
+    vector<vector<T>> _data;
 
 public:
     Matrix2d();
@@ -19,6 +19,8 @@ public:
 
 public:
     void print();
+    const vector<vector<T>> data();
+
 
 public:
     ///

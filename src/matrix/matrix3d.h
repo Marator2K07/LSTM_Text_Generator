@@ -12,7 +12,7 @@ template<typename T>
 class Matrix3d : IMatrix<T>
 {
 private:
-    vector<Matrix2d<T>> data;
+    vector<Matrix2d<T>> _data;
 
 public:
     Matrix3d();
@@ -21,6 +21,7 @@ public:
 
 public:
     void print();
+    const vector<Matrix2d<T>> data();
 
 };
 
