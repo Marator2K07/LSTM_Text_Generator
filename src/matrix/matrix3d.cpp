@@ -20,7 +20,13 @@ Matrix3d<T>::Matrix3d(initializer_list<initializer_list<initializer_list<T>>> li
 }
 
 template<typename T>
-vector<vector<vector<T>>> Matrix3d<T>::transposition(const vector<vector<vector<T>>> matrix)
+void Matrix3d<T>::print()
+{
+    for (Matrix2d<T> matrix : data) {
+        matrix.print();
+    }
+}
+
 {
 
 }

@@ -19,6 +19,9 @@ public:
     Matrix3d(vector<Matrix2d<T>> data);
     Matrix3d(initializer_list<initializer_list<initializer_list<T>>> list);
 
+public:
+    void print();
+
 };
 
 #endif // MATRIX3D_H
