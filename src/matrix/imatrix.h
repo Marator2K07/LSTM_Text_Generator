@@ -24,6 +24,11 @@ public:
     /// \param other другая матрица
     /// \return флаг соответствия всех размеров
     virtual bool sameShape(const IMatrix<T> *other) = 0;
+    ///
+    /// \brief addition сложение элементов текущей и другой матрицы
+    /// \param other другая матрицы для сложения
+    /// \return результирующая матрица
+    virtual IMatrix<T> *addition(const IMatrix<T> *other) = 0;
 
 public:
     virtual ~IMatrix() {}
