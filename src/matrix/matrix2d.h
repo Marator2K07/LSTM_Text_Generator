@@ -23,6 +23,7 @@ public:
 
     // IMatrix interface
     bool sameShape(const IMatrix<T> *other) override;
+    unique_ptr<IMatrix<T>> addition(const IMatrix<T> *other) override;
 
 public:
     ///

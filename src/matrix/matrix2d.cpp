@@ -49,9 +49,38 @@ bool Matrix2d<T>::sameShape(const IMatrix<T> *other)
     } catch (...) {
         throw MatrixException(
             QString("\nMatrix exception \n[%1]\n")
-                .arg("Attempt to compare matrices with different dimensions (2d && 3d")
+                .arg("Attempt to compare matrices with different dimensions (2d && 3d)")
         );
     }
+}
+
+template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::addition(const IMatrix<T> *other)
+{
+    // подготовка
+    try {
+        if (!this->sameShape(other)) {
+            throw MatrixException(
+                QString("\nMatrix addition exception \n[%1]\n")
+                    .arg("Impossible to find matrix addition, the sizes do not match.")
+            );
+        }
+    // если поймали исключение при выполнении 'this->sameShape(other)'
+    } catch (const MatrixException &e) {
+        throw e;
+    }
+    // создание и заполнение результирующей матрицы
+    Matrix2d<double> *matrix = (Matrix2d<double>*)(other);
+    vector<vector<T>> resultData;
+    for (int rowI = 0; rowI < this->data().size(); ++rowI) {
+        resultData.push_back(vector<T>());
+        for (int colI = 0; colI < this->data().size(); ++colI) {
+            resultData[rowI].push_back(
+                this->data()[rowI][colI] + matrix->data()[rowI][colI]
+            );
+        }
+    }
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
 template<typename T>
