@@ -18,6 +18,9 @@ public:
     Matrix2d(initializer_list<initializer_list<T>> list);
 
 public:
+    void print();
+
+public:
     ///
     /// \brief sameShape проверка на полное
     /// соотвествие размеров входящих матриц

@@ -20,6 +20,20 @@ Matrix2d<T>::Matrix2d(initializer_list<initializer_list<T>> list)
 }
 
 template<typename T>
+void Matrix2d<T>::print()
+{
+    cout << '[';
+    for (const vector<T> row : data) {
+        cout << endl <<  '[';
+        for (const T value : row) {
+            cout << ' ' << value << ' ';
+        }
+        cout << ']';
+    }
+    cout << endl << ']';
+}
+
+template<typename T>
 bool Matrix2d<T>::sameShape(const vector<vector<T>> matrixA,
                             const vector<vector<T>> matrixB)
 {
