@@ -3,12 +3,19 @@
 
 #include "matrix2d.h"
 #include "matrix2d.cpp"
+#include "matrix3d.h"
+#include "matrix3d.cpp"
 
 class TestMatrix: public QObject
 {
     Q_OBJECT
 
 private slots:
+    ///
+    /// \brief testMatrix2dSameShapeMatrix3d
+    /// попытка сломать код, сравнивая матрицы с разными измерениями
+    void testMatrix2dSameShapeMatrix3d();
+
     ///
     /// \brief testMatrix2dSameShape
     /// тест на полное соотвествие матриц по размерам
@@ -65,6 +72,27 @@ private slots:
     /// тестирование общей суммы всех элементов матрицы
     void testTotalMatrix2dSum();
 };
+
+void TestMatrix::testMatrix2dSameShapeMatrix3d()
+{
+    // инициализация
+    Matrix2d<double> matrix2d{{1,2,3},
+                              {4,7,7},
+                              {9,3,0}};
+    Matrix3d<double> matrix3d{{{2,7,7},
+                               {4,1,1},
+                               {2,3,5}},
+                              {{2,7,7},
+                               {4,1,1},
+                               {2,3,5}}};
+    // результаты
+    try {
+        matrix3d.sameShape(&matrix2d);
+        matrix2d.sameShape(&matrix3d);
+    } catch (const MatrixException &e) {
+        cout << e.what() << endl;
+    }
+}
 
 void TestMatrix::testMatrix2dSameShape()
 {
