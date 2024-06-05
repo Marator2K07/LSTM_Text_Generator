@@ -39,7 +39,7 @@ bool Matrix3d<T>::sameShape(const IMatrix<T> *other)
     try {
         Matrix3d<double> *matrix = (Matrix3d<double>*)(other);
         return this->data().size() == matrix->data().size() &&
-               this->sameShape(&matrix->data()[0]);
+               _data[0].sameShape(&(matrix->data()[0]));
     } catch (...) {
         throw MatrixException(
             QString("\nMatrix exception \n[%1]\n")
