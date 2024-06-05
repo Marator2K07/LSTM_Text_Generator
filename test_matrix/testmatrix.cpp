@@ -19,6 +19,10 @@ private slots:
     /// \brief testMatrix2dSameShapeMatrix2d
     /// тест на полное соотвествие 2d матриц по размерам
     void testMatrix2dSameShapeMatrix2d();
+    ///
+    /// \brief testMatrix3dSameShapeMatrix3d
+    /// тест на полное соотвествие 3d матриц по размерам
+    void testMatrix3dSameShapeMatrix3d();
 
     ///
     /// \brief testMatrix2dCanMultMatrix2d
@@ -111,6 +115,32 @@ void TestMatrix::testMatrix2dSameShapeMatrix2d()
 
     QCOMPARE(resultFlag1, true);
     QCOMPARE(resultFlag2, false);
+}
+
+void TestMatrix::testMatrix3dSameShapeMatrix3d()
+{
+    // инициализация
+    Matrix3d<double> matrixA {{{1,2,3}, {4,7,7}, {9,3,0}},
+                              {{1,2,3}, {4,7,7}, {9,3,0}},
+                              {{1,2,3}, {4,7,7}, {9,3,0}}};
+    Matrix3d<double> matrixB {{{1,2,3}, {4,7,7}, {9,3,0}},
+                              {{1,2,3}, {4,7,7}, {9,3,0}},
+                              {{1,2,3}, {4,7,7}, {9,3,0}}};
+    Matrix3d<double> matrixC {{{1,2,3}, {4,7,7}, {9,3,0}},
+                              {{1,2,3}, {4,7,7}, {9,3,0}}};
+    Matrix3d<double> matrixD {{{1,2,3}, {4,7,7}},
+                              {{1,2,3}, {4,7,7}},
+                              {{1,2,3}, {4,7,7}}};
+    // результаты
+    bool resultFlag1 = matrixA.sameShape(&matrixB);
+    bool resultFlag2 = matrixB.sameShape(&matrixC);
+    bool resultFlag3 = matrixB.sameShape(&matrixC);
+    bool resultFlag4 = matrixA.sameShape(&matrixD);
+
+    QCOMPARE(resultFlag1, true);
+    QCOMPARE(resultFlag2, false);
+    QCOMPARE(resultFlag3, false);
+    QCOMPARE(resultFlag4, false);
 }
 
 void TestMatrix::testMatrix2dCanMultMatrix2d()
