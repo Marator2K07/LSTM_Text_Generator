@@ -33,6 +33,17 @@ const vector<Matrix2d<T>> Matrix3d<T>::data()
     return _data;
 }
 
+template<typename T>
+bool Matrix3d<T>::sameShape(const IMatrix<T> *other)
 {
-
+    try {
+        Matrix3d<double> *matrix = (Matrix3d<double>*)(other);
+        return this->data().size() == matrix->data().size() &&
+               this->sameShape(&matrix->data()[0]);
+    } catch (...) {
+        throw MatrixException(
+            QString("\nMatrix exception \n[%1]\n")
+                .arg("Attempt to compare matrices with different dimensions (3d && 2d")
+            );
+    }
 }

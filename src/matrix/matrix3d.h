@@ -9,7 +9,7 @@
 /// важное замечание, данный класс является
 /// надстройкой над классом Matrix2d
 template<typename T>
-class Matrix3d : IMatrix<T>
+class Matrix3d : public IMatrix<T>
 {
 private:
     vector<Matrix2d<T>> _data;
@@ -23,6 +23,8 @@ public:
     void print();
     const vector<Matrix2d<T>> data();
 
+    // IMatrix interface
+    bool sameShape(const IMatrix<T> *other) override;
 };
 
 #endif // MATRIX3D_H
