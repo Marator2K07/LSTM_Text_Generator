@@ -69,7 +69,7 @@ bool Matrix2d<T>::sameShape(const IMatrix<T> *other)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::addition(const IMatrix<T> *other)
 {
-    // подготовка
+    // проверки
     try {
         if (!this->sameShape(other)) {
             throw MatrixException(
@@ -81,12 +81,13 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::addition(const IMatrix<T> *other)
     } catch (const MatrixException &e) {
         throw e;
     }
-    // создание и заполнение результирующей матрицы
+    // подготовка
     Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(other);
-    QVariant otherMatrixD = otherMatrix->data();
+    QVariant otherMatrixAutoData = otherMatrix->data();
     vector<vector<T>> otherMatrixData
-        = otherMatrixD.value<vector<vector<T>>>();
+        = otherMatrixAutoData.value<vector<vector<T>>>();
     vector<vector<T>> resultData;
+    // создание и заполнение результирующей матрицы
     for (int rowI = 0; rowI < _data.size(); ++rowI) {
         resultData.push_back(vector<T>());
         for (int colI = 0; colI < _data[0].size(); ++colI) {
