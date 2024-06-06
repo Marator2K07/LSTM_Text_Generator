@@ -39,6 +39,17 @@ const QVariant Matrix2d<T>::data()
     return QVariant::fromValue(_data);
 }
 
+template<typename T>
+const vector<int> Matrix2d<T>::sizes()
+{
+    try {
+        return vector<int>{_data.size(), _data[0].size()};
+    } catch (...) {
+        throw MatrixException(
+            QString("\nMatrix exception \n[%1]\n")
+                .arg("Trying to use uninitialized matrix")
+        );
+    }
 }
 
 template<typename T>

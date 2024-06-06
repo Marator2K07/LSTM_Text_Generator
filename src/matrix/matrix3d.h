@@ -24,6 +24,7 @@ public:
 
     // IMatrix interface
     const QVariant data() override;
+    const vector<int> sizes() override;
     bool sameShape(const IMatrix<T> *other) override;
 };
 

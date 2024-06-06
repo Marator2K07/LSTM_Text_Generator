@@ -33,6 +33,20 @@ const QVariant Matrix3d<T>::data()
     return QVariant::fromValue(_data);
 }
 
+template<typename T>
+const vector<int> Matrix3d<T>::sizes()
+{
+    try {
+        vector<int> sizes{_data.size()};
+        vector<int> sizesInner{_data[0].sizes()};
+        sizes.insert(sizes.end(), sizesInner.begin(), sizesInner.end());
+        return sizes;
+    } catch (...) {
+        throw MatrixException(
+            QString("\nMatrix exception \n[%1]\n")
+                .arg("Trying to use uninitialized matrix")
+        );
+    }
 }
 
 template<typename T>
