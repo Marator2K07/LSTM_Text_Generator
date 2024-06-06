@@ -6,6 +6,7 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
+#include <QVariant>
 
 #include "matrixexception.h"
 
@@ -19,6 +20,14 @@ template<typename T>
 class IMatrix
 {
 public:
+    ///
+    /// \brief data универсальный геттер
+    /// \return данные вектора внутри обертки матрицы
+    virtual const QVariant data() = 0;
+    ///
+    /// \brief sizes нахождение размеров матрицы
+    /// \return вектор с размерами матрицы ('глубина'-высота-ширина)
+    virtual const vector<int> sizes() = 0;
     ///
     /// \brief sameShape проверка на полное
     /// соотвествие размеров этой и другой матрицы
