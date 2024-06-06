@@ -28,9 +28,11 @@ void Matrix3d<T>::print()
 }
 
 template<typename T>
-const vector<Matrix2d<T>> Matrix3d<T>::data()
+const QVariant Matrix3d<T>::data()
 {
-    return _data;
+    return QVariant::fromValue(_data);
+}
+
 }
 
 template<typename T>

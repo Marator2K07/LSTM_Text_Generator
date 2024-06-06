@@ -21,9 +21,9 @@ public:
 
 public:
     void print();
-    const vector<Matrix2d<T>> data();
 
     // IMatrix interface
+    const QVariant data() override;
     bool sameShape(const IMatrix<T> *other) override;
 };
 

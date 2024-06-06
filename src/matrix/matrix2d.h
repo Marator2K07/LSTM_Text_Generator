@@ -19,9 +19,9 @@ public:
 
 public:
     void print();
-    const vector<vector<T>> data();
 
     // IMatrix interface
+    const QVariant data() override;
     bool sameShape(const IMatrix<T> *other) override;
     unique_ptr<IMatrix<T>> addition(const IMatrix<T> *other) override;
 
