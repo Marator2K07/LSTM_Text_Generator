@@ -56,9 +56,8 @@ template<typename T>
 bool Matrix2d<T>::sameShape(const IMatrix<T> *other)
 {
     try {
-        Matrix2d<double> *matrix = (Matrix2d<double>*)(other);
-        return this->data().size() == matrix->data().size() &&
-               this->data()[0].size() == matrix->data()[0].size();
+        Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(other);
+        return sizes() == otherMatrix->sizes();
     } catch (...) {
         throw MatrixException(
             QString("\nMatrix exception \n[%1]\n")
@@ -83,13 +82,16 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::addition(const IMatrix<T> *other)
         throw e;
     }
     // создание и заполнение результирующей матрицы
-    Matrix2d<double> *matrix = (Matrix2d<double>*)(other);
+    Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(other);
+    QVariant otherMatrixD = otherMatrix->data();
+    vector<vector<T>> otherMatrixData
+        = otherMatrixD.value<vector<vector<T>>>();
     vector<vector<T>> resultData;
-    for (int rowI = 0; rowI < this->data().size(); ++rowI) {
+    for (int rowI = 0; rowI < _data.size(); ++rowI) {
         resultData.push_back(vector<T>());
-        for (int colI = 0; colI < this->data().size(); ++colI) {
+        for (int colI = 0; colI < _data[0].size(); ++colI) {
             resultData[rowI].push_back(
-                this->data()[rowI][colI] + matrix->data()[rowI][colI]
+                _data[rowI][colI] + otherMatrixData[rowI][colI]
             );
         }
     }
