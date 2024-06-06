@@ -14,6 +14,7 @@ private:
 
 public:
     Matrix2d();
+    Matrix2d(QVariant data);
     Matrix2d(vector<vector<T>> data);
     Matrix2d(initializer_list<initializer_list<T>> list);
 

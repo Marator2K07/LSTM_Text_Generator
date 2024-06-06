@@ -6,6 +6,12 @@ Matrix2d<T>::Matrix2d()
 }
 
 template<typename T>
+Matrix2d<T>::Matrix2d(QVariant data)
+    : _data{data.value<vector<vector<T>>>()}
+{
+}
+
+template<typename T>
 Matrix2d<T>::Matrix2d(vector<vector<T>> data)
     : _data{data}
 {
