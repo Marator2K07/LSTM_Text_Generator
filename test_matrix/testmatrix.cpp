@@ -168,8 +168,7 @@ void TestMatrix::testMatrix2dAddMatrix2d()
         cout << e.what() << endl;
     }
     // нормальный случай
-    Matrix2d<double> *resultMatrix
-        = (Matrix2d<double> *)matrixA.addition(&matrixB).release();
+    auto resultMatrix = matrixA.addition(&matrixB);
     Matrix2d<double> properMatrix {{7,4,6},
                                   {6,9,7},
                                   {15,4,7}};
