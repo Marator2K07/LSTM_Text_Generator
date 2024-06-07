@@ -28,6 +28,7 @@ public:
     vector<int> sizes() const override;
     bool sameShape(const IMatrix<T> *other) override;
     unique_ptr<IMatrix<T>> addition(const IMatrix<T> *other) override;
+    unique_ptr<IMatrix<T> > addition(T num) override;
 
 public:
     ///
