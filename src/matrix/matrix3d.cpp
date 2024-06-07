@@ -166,3 +166,32 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::subtraction(T num, bool reverseOrder)
     }
     return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
 }
+
+template<typename T>
+unique_ptr<IMatrix<T>> Matrix3d<T>::simplifiedMult(const IMatrix<T> *other)
+{
+    // проверки
+    try {
+        if (!this->sameShape(other)) {
+            throw MatrixException(
+                QString("\nMatrix exception \n[%1]\n")
+                    .arg("Impossible to find matrix simplified multiplication, the sizes do not match.")
+                );
+        }
+        // если поймали исключение при выполнении 'this->sameShape(other)'
+    } catch (const MatrixException &e) {
+        throw e;
+    }
+    // подготовка
+    Matrix3d<T> *otherMatrix = (Matrix3d<T>*)(other);
+    QVariant otherMatrixAutoData = otherMatrix->data();
+    vector<Matrix2d<T>> otherMatrixData
+        = otherMatrixAutoData.value<vector<Matrix2d<T>>>();
+    vector<Matrix2d<T>> resultData;
+    // создание и заполнение результирующей матрицы
+    for (int i = 0; i < _data.size(); ++i) {
+        Matrix2d<T> stepMatrix(_data[i].simplifiedMult(&otherMatrixData[i])->data());
+        resultData.push_back(stepMatrix);
+    }
+    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+}
