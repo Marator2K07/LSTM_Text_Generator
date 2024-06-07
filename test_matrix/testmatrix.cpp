@@ -39,16 +39,15 @@ private slots:
     /// \brief testMatrix3dAddNum
     /// тест на сложение 3д матрицы и числа
     void testMatrix3dAddNum();
-
-
-    ///
-    /// \brief testMatrix2dCanMultMatrix2d
-    /// тест на возможность перемножения матриц
-    void testMatrix2dCanMultMatrix2d();
     ///
     /// \brief testMatrix2dSubtrMatrix2d
     /// тест разности матриц
     void testMatrix2dSubtrMatrix2d();
+
+    ///
+    /// \brief testMatrix2dCanMultMatrix2d
+    /// тест на возможность перемножения матриц
+    void testMatrix2dCanMultMatrix2d();    
     ///
     /// \brief testMatrix2dSubtrNumDirectOrder
     /// проверка разности матрицы и
@@ -274,6 +273,24 @@ void TestMatrix::testMatrix3dAddNum()
     QCOMPARE(resultMatrix2 == properMatrix2, false);
 }
 
+void TestMatrix::testMatrix2dSubtrMatrix2d()
+{
+    // инициализация
+    Matrix2d<double> matrixA {{1,2,3},
+                             {4,7,7},
+                             {9,3,0}};
+    Matrix2d<double> matrixB {{6,2,3},
+                             {2,2,0},
+                             {6,1,7}};
+    // результаты
+    auto resultMatrix = matrixA.subtraction(&matrixB);
+    Matrix2d<double> properMatrix {{-5,0,0},
+                                  {2,5,7},
+                                  {3,2,-7}};
+
+    QCOMPARE(resultMatrix->data(), properMatrix.data());
+}
+
 void TestMatrix::testMatrix2dCanMultMatrix2d()
 {
     // инициализация
@@ -293,25 +310,6 @@ void TestMatrix::testMatrix2dCanMultMatrix2d()
 
     QCOMPARE(resultFlag1, true);
     QCOMPARE(resultFlag2, false);
-}
-
-void TestMatrix::testMatrix2dSubtrMatrix2d()
-{
-    // инициализация
-    vector<vector<double>> matrixA {{1,2,3},
-                                    {4,7,7},
-                                    {9,3,0}};
-    vector<vector<double>> matrixB {{6,2,3},
-                                    {2,2,0},
-                                    {6,1,7}};
-    // итоговый и ожидаемый результаты
-    vector<vector<double>> resultMatrix
-        = Matrix2d<double>::subtraction(matrixA, matrixB);
-    vector<vector<double>> properMatrix {{-5,0,0},
-                                         {2,5,7},
-                                         {3,2,-7}};
-
-    QCOMPARE(resultMatrix, properMatrix);
 }
 
 void TestMatrix::testMatrix2dSubtrNumDirectOrder()
