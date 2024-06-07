@@ -185,9 +185,7 @@ void TestMatrix::testMatrix2dAddMatrix2d()
 
     // плохой случай
     try {
-        Matrix2d<double> *resultMatrix2
-            = (Matrix2d<double> *)matrixA
-                  .addition(&matrixC).release();
+        auto resultMatrix2 = matrixA.addition(&matrixC);
     } catch (const MatrixException &e) {
         cout << e.what() << endl;
     }

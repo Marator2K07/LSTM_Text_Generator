@@ -40,6 +40,14 @@ void Matrix2d<T>::print()
 }
 
 template<typename T>
+vector<vector<T>> Matrix2d<T>::dataToVector(const IMatrix<T> *other)
+{
+    Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(other);
+    QVariant otherMatrixAutoData = otherMatrix->data();
+    return otherMatrixAutoData.value<vector<vector<T>>>();
+}
+
+template<typename T>
 bool Matrix2d<T>::operator==(Matrix2d<T> &other)
 {
     return this->data() == other.data();
@@ -91,7 +99,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::addition(const IMatrix<T> *other)
     try {
         if (!this->sameShape(other)) {
             throw MatrixException(
-                QString("\nMatrix addition exception \n[%1]\n")
+                QString("\nMatrix exception \n[%1]\n")
                     .arg("Impossible to find matrix addition, the sizes do not match.")
             );
         }
@@ -100,10 +108,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::addition(const IMatrix<T> *other)
         throw e;
     }
     // подготовка
-    Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(other);
-    QVariant otherMatrixAutoData = otherMatrix->data();
-    vector<vector<T>> otherMatrixData
-        = otherMatrixAutoData.value<vector<vector<T>>>();
+    vector<vector<T>> otherMatrixData = dataToVector(other);
     vector<vector<T>> resultData;
     // создание и заполнение результирующей матрицы
     for (int rowI = 0; rowI < _data.size(); ++rowI) {
@@ -150,10 +155,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::subtraction(const IMatrix<T> *other)
         throw e;
     }
     // подготовка
-    Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(other);
-    QVariant otherMatrixAutoData = otherMatrix->data();
-    vector<vector<T>> otherMatrixData
-        = otherMatrixAutoData.value<vector<vector<T>>>();
+    vector<vector<T>> otherMatrixData = dataToVector(other);
     vector<vector<T>> resultData;
     // создание и заполнение результирующей матрицы
     for (int rowI = 0; rowI < _data.size(); ++rowI) {
@@ -200,10 +202,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::simplifiedMult(const IMatrix<T> *other)
         throw e;
     }
     // подготовка
-    Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(other);
-    QVariant otherMatrixAutoData = otherMatrix->data();
-    vector<vector<T>> otherMatrixData
-        = otherMatrixAutoData.value<vector<vector<T>>>();
+    vector<vector<T>> otherMatrixData = dataToVector(other);
     vector<vector<T>> resultData;
     // создание и заполнение результирующей матрицы
     for (int rowI = 0; rowI < _data.size(); ++rowI) {
