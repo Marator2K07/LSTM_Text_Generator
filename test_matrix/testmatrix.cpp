@@ -161,8 +161,15 @@ void TestMatrix::testMatrix2dAddMatrix2d()
     Matrix2d<double> matrixB {{6,2,3},
                              {2,2,0},
                              {6,1,7}};
+    Matrix2d<double> matrixD {{1,2,3},
+                             {4,7,7},
+                             {9,3,0}};
     Matrix2d<double> matrixC {{6,2,3},
                              {2,2,0}};
+
+    QCOMPARE(matrixA == matrixD, true);
+    QCOMPARE(matrixA == matrixB, false);
+
     // плохой случай
     try {
         Matrix2d<double> *resultMatrix2
