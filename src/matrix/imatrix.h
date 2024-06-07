@@ -56,6 +56,11 @@ public:
     /// \param reverseOrder порядок операндов
     /// \return результирующая матрица
     virtual unique_ptr<IMatrix<T>> subtraction(T num, bool reverseOrder = false) = 0;
+    ///
+    /// \brief simplifiedMult упрощенное поэлементное умножение элементов матриц
+    /// \param other другая матрицы для операции
+    /// \return результирующая матрица
+    virtual unique_ptr<IMatrix<T>> simplifiedMult(const IMatrix<T> *other) = 0;
 
 public:
     virtual ~IMatrix() {}
