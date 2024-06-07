@@ -30,6 +30,7 @@ public:
     unique_ptr<IMatrix<T>> addition(const IMatrix<T> *other) override;
     unique_ptr<IMatrix<T>> addition(T num) override;
     unique_ptr<IMatrix<T>> subtraction(const IMatrix<T> *other) override;
+    unique_ptr<IMatrix<T>> subtraction(T num, bool reverseOrder = false) override;
 
 public:
     ///
@@ -140,6 +141,7 @@ public:
     /// \param matrix входящая матрица
     /// \return сумма всех элементов входной матрицы
     static T totalSum(const vector<vector<T>> matrix);
+
 };
 
 #endif // MATRIX2D_H

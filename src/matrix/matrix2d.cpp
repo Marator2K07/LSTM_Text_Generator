@@ -167,6 +167,23 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::subtraction(const IMatrix<T> *other)
     return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
+template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::subtraction(T num, bool reverseOrder)
+{
+    // подготовка
+    vector<vector<T>> resultData;
+    // создание и заполнение результирующей матрицы
+    for (int rowI = 0; rowI < _data.size(); ++rowI) {
+        resultData.push_back(vector<T>());
+        for (int colI = 0; colI < _data[0].size(); ++colI) {
+            T stepValue = reverseOrder ? num - _data[rowI][colI]
+                                       : _data[rowI][colI] - num;
+            resultData[rowI].push_back(stepValue);
+        }
+    }
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+}
+
 
 template<typename T>
 bool Matrix2d<T>::sameShape(const vector<vector<T>> matrixA,
