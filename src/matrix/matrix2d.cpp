@@ -40,6 +40,17 @@ void Matrix2d<T>::print()
 }
 
 template<typename T>
+bool Matrix2d<T>::operator==(Matrix2d<T> &other)
+{
+    return this->data() == other.data();
+}
+
+template<typename T>
+bool Matrix2d<T>::operator!=(Matrix2d<T> &other)
+{
+    return this->data() != other.data();
+}
+
 template<typename T>
 QVariant Matrix2d<T>::data() const
 {

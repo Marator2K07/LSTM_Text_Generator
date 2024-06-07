@@ -20,6 +20,8 @@ public:
 
 public:
     void print();
+    bool operator==(Matrix2d<T> &other);
+    bool operator!=(Matrix2d<T> &other);
 
     // IMatrix interface
     QVariant data() const override;
