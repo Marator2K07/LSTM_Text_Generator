@@ -49,6 +49,13 @@ public:
     /// \param other другая матрицы для текущей операции
     /// \return результирующая матрица
     virtual unique_ptr<IMatrix<T>> subtraction(const IMatrix<T> *other) = 0;
+    ///
+    /// \brief subtraction поэлементная разность матрицы и числа
+    /// (или числа и матрицы), где порядок операндов зависит от reverseOrder
+    /// \param num число для разности
+    /// \param reverseOrder порядок операндов
+    /// \return результирующая матрица
+    virtual unique_ptr<IMatrix<T>> subtraction(T num, bool reverseOrder = false) = 0;
 
 public:
     virtual ~IMatrix() {}
