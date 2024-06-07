@@ -55,7 +55,10 @@ private slots:
     /// \brief testMatrix3dSubtrNumDirectAndReverseOrder
     /// тест разности 3d матрицы и числа, числа и матрицы 3d
     void testMatrix3dSubtrNumDirectAndReverseOrder();
-
+    ///
+    /// \brief testMatrix2dSimplMultMatrix2d
+    /// тест упрощенного поэлеметного умножения матриц
+    void testMatrix2dSimplMultMatrix2d();
 
     ///
     /// \brief testMatrix2dCanMultMatrix2d
@@ -76,11 +79,7 @@ private slots:
     ///
     /// \brief test3Matrix2dMultMatrix2d
     /// версия для плохого случая матричного умножения
-    void test3Matrix2dMultMatrix2d();
-    ///
-    /// \brief testMatrix2dSimplMultMatrix2d
-    /// тест упрощенного поэлеметного умножения матриц
-    void testMatrix2dSimplMultMatrix2d();
+    void test3Matrix2dMultMatrix2d();    
     ///
     /// \brief testMatrix2dClip
     /// тест обрезки матрицы по границе
@@ -353,6 +352,29 @@ void TestMatrix::testMatrix3dSubtrNumDirectAndReverseOrder()
     QCOMPARE(resultMatrixReverse == properMatrixReverse, true);
 }
 
+void TestMatrix::testMatrix2dSimplMultMatrix2d()
+{
+    // инициализация
+    Matrix2d<double> matrixA {{1,2},
+                             {3,9}};
+    Matrix2d<double> matrixB {{7,4},
+                             {2,6}};
+    Matrix2d<double> matrixC {{1,6,2},
+                             {3,2,2}};
+    // плохой случай
+    try {
+        auto resultMatrix = matrixB.simplifiedMult(&matrixC);
+    } catch (const MatrixException& e) {
+        cout << e.what() << endl;
+    }
+    // результаты
+    auto resultMatrixAB = matrixA.simplifiedMult(&matrixB);
+    Matrix2d<double> properMatrixAB {{7,8},
+                                    {6,54}};
+
+    QCOMPARE(resultMatrixAB->data(), properMatrixAB.data());
+}
+
 void TestMatrix::testMatrix2dCanMultMatrix2d()
 {
     // инициализация
@@ -443,33 +465,6 @@ void TestMatrix::test3Matrix2dMultMatrix2d()
 
         // Т.к. код до сюда не дойдет, тест будет пройден
         QCOMPARE(resultMatrix, matrixB);
-    } catch (const MatrixException& e) {
-        e.what();
-    }
-}
-
-void TestMatrix::testMatrix2dSimplMultMatrix2d()
-{
-    // инициализация
-    vector<vector<double>> matrixA {{1,2},
-                                    {3,9}};
-    vector<vector<double>> matrixB {{7,4},
-                                    {2,6}};
-    vector<vector<double>> matrixC {{1,6,2},
-                                    {3,2,2}};
-     // проверка корректного случая
-    vector<vector<double>> resultMatrixAB
-        = Matrix2d<double>::simplifiedMult(matrixA, matrixB);
-    vector<vector<double>> properMatrixAB {{7,8},
-                                           {6,54}};
-    QCOMPARE(resultMatrixAB, properMatrixAB);
-    // проверка случая с исключением
-    try {
-        vector<vector<double>> resultMatrixBC
-            = Matrix2d<double>::simplifiedMult(matrixB, matrixC);
-
-        // Т.к. код до сюда не дойдет, тест будет пройден
-        QCOMPARE(resultMatrixBC, matrixB);
     } catch (const MatrixException& e) {
         e.what();
     }
