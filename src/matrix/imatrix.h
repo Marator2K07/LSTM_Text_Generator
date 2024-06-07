@@ -66,6 +66,10 @@ public:
     /// \param num мультипликатор умножения
     /// \return увеличенная в num раз матрица
     virtual unique_ptr<IMatrix<T>> multiplication(T num) = 0;
+    ///
+    /// \brief floorM округление текущей матрицы до num цифр после запятой
+    /// \param num количество цифр после запятой
+    virtual void floorM(T num) = 0;
 
 public:
     virtual ~IMatrix() {}

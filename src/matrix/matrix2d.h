@@ -34,6 +34,7 @@ public:
     unique_ptr<IMatrix<T>> subtraction(T num, bool reverseOrder = false) override;
     unique_ptr<IMatrix<T>> simplifiedMult(const IMatrix<T> *other) override;
     unique_ptr<IMatrix<T>> multiplication(T num) override;
+    void floorM(T num) override;
 
 public:
     ///

@@ -208,3 +208,8 @@ unique_ptr<IMatrix<T> > Matrix3d<T>::multiplication(T num)
     return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
 }
 
+template<typename T>
+void Matrix3d<T>::floorM(T num)
+{
+
+}

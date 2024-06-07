@@ -233,6 +233,12 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::multiplication(T num)
     return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
+template<typename T>
+void Matrix2d<T>::floorM(T num)
+{
+
+}
+
 
 template<typename T>
 bool Matrix2d<T>::sameShape(const vector<vector<T>> matrixA,
