@@ -28,6 +28,7 @@ public:
     QVariant data() const override;
     vector<int> sizes() const override;
     bool sameShape(const IMatrix<T> *other) override;
+    std::unique_ptr<IMatrix<T>> addition(const IMatrix<T> *other) override;
 };
 
 #endif // MATRIX3D_H
