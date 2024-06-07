@@ -135,6 +135,40 @@ unique_ptr<IMatrix<T> > Matrix2d<T>::addition(T num)
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::subtraction(const IMatrix<T> *other)
+{
+    // проверки
+    try {
+        if (!this->sameShape(other)) {
+            throw MatrixException(
+                QString("\nMatrix subtraction exception \n[%1]\n")
+                    .arg("Impossible to find matrix subtraction, the sizes do not match.")
+                );
+        }
+        // если поймали исключение при выполнении 'this->sameShape(other)'
+    } catch (const MatrixException &e) {
+        throw e;
+    }
+    // подготовка
+    Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(other);
+    QVariant otherMatrixAutoData = otherMatrix->data();
+    vector<vector<T>> otherMatrixData
+        = otherMatrixAutoData.value<vector<vector<T>>>();
+    vector<vector<T>> resultData;
+    // создание и заполнение результирующей матрицы
+    for (int rowI = 0; rowI < _data.size(); ++rowI) {
+        resultData.push_back(vector<T>());
+        for (int colI = 0; colI < _data[0].size(); ++colI) {
+            resultData[rowI].push_back(
+                _data[rowI][colI] - otherMatrixData[rowI][colI]
+            );
+        }
+    }
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+}
+
+
+template<typename T>
 bool Matrix2d<T>::sameShape(const vector<vector<T>> matrixA,
                             const vector<vector<T>> matrixB)
 {
