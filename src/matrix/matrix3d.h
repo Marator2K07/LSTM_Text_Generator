@@ -16,6 +16,7 @@ private:
 
 public:
     Matrix3d();
+    Matrix3d(QVariant data);
     Matrix3d(vector<Matrix2d<T>> data);
     Matrix3d(initializer_list<initializer_list<initializer_list<T>>> list);
 
