@@ -43,6 +43,10 @@ private slots:
     /// \brief testMatrix2dSubtrMatrix2d
     /// тест разности матриц
     void testMatrix2dSubtrMatrix2d();
+    ///
+    /// \brief testMatrix3dSubtrMatrix3d
+    /// тест разности трехмерных матриц
+    void testMatrix3dSubtrMatrix3d();
 
     ///
     /// \brief testMatrix2dCanMultMatrix2d
@@ -289,6 +293,25 @@ void TestMatrix::testMatrix2dSubtrMatrix2d()
                                   {3,2,-7}};
 
     QCOMPARE(resultMatrix->data(), properMatrix.data());
+}
+
+void TestMatrix::testMatrix3dSubtrMatrix3d()
+{
+    qRegisterMetaType<Matrix2d<double>>();
+    // инициализация
+    Matrix3d<double> matrixA {{{1,2,3}, {1,2,8}, {1,5,1}},
+                             {{1,1,5}, {3,1,4}, {1,1,4}},
+                             {{7,7,6}, {1,1,1}, {1,1,1}}};
+    Matrix3d<double> matrixB {{{1,1,1}, {1,3,0}, {1,1,3}},
+                             {{1,8,6}, {1,1,1}, {11,1,1}},
+                             {{1,1,1}, {1,1,1}, {1,7,2}}};
+    // результаты
+    Matrix3d<double> resultMatrix(matrixA.subtraction(&matrixB)->data());
+    Matrix3d<double> properMatrix {{{0,1,2}, {0,-1,8}, {0,4,-2}},
+                                  {{0,-7,-1}, {2,0,3}, {-10,0,3}},
+                                  {{6,6,5}, {0,0,0}, {0,-6,-1}}};
+
+    QCOMPARE(resultMatrix == properMatrix, true);
 }
 
 void TestMatrix::testMatrix2dCanMultMatrix2d()
