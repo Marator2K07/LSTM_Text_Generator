@@ -34,6 +34,19 @@ void Matrix3d<T>::print()
 }
 
 template<typename T>
+bool Matrix3d<T>::operator==(Matrix3d<T> &other)
+{
+    QVariant autoData = other.data();
+    vector<Matrix2d<T>> otherMatrixData
+        = autoData.value<vector<Matrix2d<T>>>();
+    for (int i = 0; i < _data.size(); ++i) {
+        if (_data[i] != otherMatrixData[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
 template<typename T>
 QVariant Matrix3d<T>::data() const
 {
@@ -60,8 +73,8 @@ template<typename T>
 bool Matrix3d<T>::sameShape(const IMatrix<T> *other)
 {
     try {
-        Matrix3d<double> *matrix = (Matrix3d<double>*)(other);
-        return sizes() == matrix->sizes();
+        Matrix3d<double> *otherMatrix = (Matrix3d<double>*)(other);
+        return sizes() == otherMatrix->sizes();
     } catch (...) {
         throw MatrixException(
             QString("\nMatrix exception \n[%1]\n")

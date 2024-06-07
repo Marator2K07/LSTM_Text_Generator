@@ -22,6 +22,7 @@ public:
 
 public:
     void print();
+    bool operator==(Matrix3d<T> &other);
 
     // IMatrix interface
     QVariant data() const override;
