@@ -27,6 +27,10 @@ private slots:
     /// \brief testMatrix2dAddMatrix2d
     /// тест на сложение двумерных матриц
     void testMatrix2dAddMatrix2d();
+    ///
+    /// \brief testMatrix3dAddMatrix3d
+    /// тест на сложение трехмерных матриц
+    void testMatrix3dAddMatrix3d();
 
 
     ///
@@ -174,6 +178,33 @@ void TestMatrix::testMatrix2dAddMatrix2d()
                                   {15,4,7}};
 
     QCOMPARE(resultMatrix->data(), properMatrix.data());
+}
+
+void TestMatrix::testMatrix3dAddMatrix3d()
+{
+    qRegisterMetaType<Matrix2d<double>>();
+    // инициализация
+    Matrix3d<double> matrixA {{{1,2,3}, {1,2,8}, {1,5,1}},
+                             {{1,1,5}, {3,1,4}, {1,1,4}},
+                             {{7,7,7}, {1,1,1}, {1,1,1}}};
+    Matrix3d<double> matrixB {{{1,1,1}, {1,3,0}, {1,1,3}},
+                             {{1,8,6}, {1,1,1}, {11,1,1}},
+                             {{1,1,1}, {1,1,1}, {1,7,2}}};
+    Matrix3d<double> matrixC {{{1,2,3}, {4,7,7}, {9,3,0}},
+                             {{1,2,3}, {4,7,7}, {9,3,0}}};
+    // плохой случай
+    try {
+        auto resultMatrix2 = matrixB.addition(&matrixC);
+    } catch (const MatrixException &e) {
+        cout << e.what() << endl;
+    }
+    // нормальный случай
+    Matrix3d<double> resultMatrix(matrixA.addition(&matrixB)->data());
+    Matrix3d<double> properMatrix {{{2,3,4}, {2,5,8}, {2,6,4}},
+                                  {{2,9,11}, {4,2,5}, {12,2,5}},
+                                  {{8,8,8}, {2,2,2}, {2,8,3}}};
+
+    QCOMPARE(resultMatrix == properMatrix, true);
 }
 
 void TestMatrix::testMatrix2dCanMultMatrix2d()
