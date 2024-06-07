@@ -51,6 +51,10 @@ private slots:
     /// \brief testMatrix2dSubtrNumReverseAndDirectOrder
     /// тест разности матрицы и числа, числа и матрицы
     void testMatrix2dSubtrNumDirectAndReverseOrder();
+    ///
+    /// \brief testMatrix3dSubtrNumDirectAndReverseOrder
+    /// тест разности 3d матрицы и числа, числа и матрицы 3d
+    void testMatrix3dSubtrNumDirectAndReverseOrder();
 
 
     ///
@@ -327,6 +331,26 @@ void TestMatrix::testMatrix2dSubtrNumDirectAndReverseOrder()
 
     QCOMPARE(resultMatrixDirect->data(), properMatrixDirect.data());
     QCOMPARE(resultMatrixReverse->data(), properMatrixReverse.data());
+}
+
+void TestMatrix::testMatrix3dSubtrNumDirectAndReverseOrder()
+{
+    // инициализация
+    Matrix3d<double> matrixA {{{1,2,3}, {1,2,8}, {1,5,1}},
+                             {{1,1,5}, {3,1,4}, {1,1,4}},
+                             {{7,7,6}, {1,1,1}, {1,1,1}}};
+    // результаты
+    Matrix3d<double> resultMatrixDirect (matrixA.subtraction(5)->data());
+    Matrix3d<double> properMatrixDirect {{{-4,-3,-2},{-4,-3,3},{-4,0,-4}},
+                                        {{-4,-4,0},{-2,-4,-1},{-4,-4,-1}},
+                                        {{2,2,1},{-4,-4,-4},{-4,-4,-4}}};
+    Matrix3d<double> resultMatrixReverse (matrixA.subtraction(2.5, true)->data());
+    Matrix3d<double> properMatrixReverse {{{1.5,0.5,-0.5},{1.5,0.5,-5.5},{1.5,-2.5,1.5}},
+                                         {{1.5,1.5,-2.5},{-0.5,1.5,-1.5},{1.5,1.5,-1.5}},
+                                         {{-4.5,-4.5,-3.5},{1.5,1.5,1.5},{1.5,1.5,1.5}}};
+
+    QCOMPARE(resultMatrixDirect == properMatrixDirect, true);
+    QCOMPARE(resultMatrixReverse == properMatrixReverse, true);
 }
 
 void TestMatrix::testMatrix2dCanMultMatrix2d()
