@@ -31,6 +31,10 @@ private slots:
     /// \brief testMatrix3dAddMatrix3d
     /// тест на сложение трехмерных матриц
     void testMatrix3dAddMatrix3d();
+    ///
+    /// \brief testMatrix2dAddNum
+    /// тест на простое сложение матрицы с числом
+    void testMatrix2dAddNum();
 
 
     ///
@@ -212,6 +216,32 @@ void TestMatrix::testMatrix3dAddMatrix3d()
                                   {{8,8,8}, {2,2,2}, {2,8,3}}};
 
     QCOMPARE(resultMatrix == properMatrix, true);
+}
+
+void TestMatrix::testMatrix2dAddNum()
+{
+    // инициализация
+    Matrix2d<double> matrixA {{1,2,3},
+                             {4,7,7},
+                             {9,3,0}};
+    Matrix2d<double> matrixB {{6,2,3},
+                             {2,2,0},
+                             {6,1,7}};
+    double numA = 3.33;
+    double numB = 4.44;
+
+    // результаты
+    auto resultMatrix1 = matrixA.addition(numA);
+    Matrix2d<double> properMatrix1 {{4.33,5.33,6.33},
+                                   {7.33,10.33,10.33},
+                                   {12.33,6.33,3.33}};
+    auto resultMatrix2 = matrixB.addition(numB);
+    Matrix2d<double> properMatrix2 {{7,4,6},
+                                   {6,9,7},
+                                   {15,4,7}};
+
+    QCOMPARE(resultMatrix1->data() == properMatrix1.data(), true);
+    QCOMPARE(resultMatrix2->data() == properMatrix2.data(), false);
 }
 
 void TestMatrix::testMatrix2dCanMultMatrix2d()
