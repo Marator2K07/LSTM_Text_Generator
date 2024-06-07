@@ -247,7 +247,26 @@ void Matrix2d<T>::floorM(T num)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::clipM(T leftBorder, T rightBorder)
 {
-
+    // подготовка
+    vector<vector<T>> resultData;
+    int index = 0;
+    // заполнение результирующей матрицы
+    for (const vector<T> row : _data) {
+        resultData.push_back(vector<T>());
+        for (const T value : row) {
+            T newValue;
+            if (value <= leftBorder) {
+                newValue = leftBorder;
+            } else if (value >= rightBorder) {
+                newValue = rightBorder;
+            } else {
+                newValue = value;
+            }
+            resultData[index].push_back(newValue);
+        }
+        index++;
+    }
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
 

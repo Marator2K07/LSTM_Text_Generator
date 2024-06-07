@@ -75,6 +75,10 @@ private slots:
     /// \brief testFloorMatrix2dAndMatrix3d
     /// тест округления 2д и 3д матриц
     void testFloorMatrix2dAndMatrix3d();
+    ///
+    /// \brief testMatrix2dAndMatrix3dClip
+    /// тестирование обрезки 3д и 2д матриц по границам
+    void testMatrix2dAndMatrix3dClip();
 
     ///
     /// \brief testMatrix2dCanMultMatrix2d
@@ -91,12 +95,7 @@ private slots:
     ///
     /// \brief test3Matrix2dMultMatrix2d
     /// версия для плохого случая матричного умножения
-    void test3Matrix2dMultMatrix2d();    
-    ///
-    /// \brief testMatrix2dClip
-    /// тест обрезки матрицы по границе
-    /// в пределах: [leftBorder, 1-leftBorder]
-    void testMatrix2dClip();
+    void test3Matrix2dMultMatrix2d();
     ///
     /// \brief testMatrix2dLogn
     /// тест нахождения логарифма каждого элемента матрицы
@@ -456,6 +455,32 @@ void TestMatrix::testFloorMatrix2dAndMatrix3d()
     QCOMPARE(matrix2d == properMatrix2d, true);
 }
 
+void TestMatrix::testMatrix2dAndMatrix3dClip()
+{
+    // инициализация
+    Matrix2d<double> matrix2d {{1,0.42,0.22},
+                              {0.642,0.33,0}};
+    Matrix3d<double> matrix3d {{{1,0.42,0.22},{0.642,0.33,0}},
+                              {{1,0.42,0.22},{0.642,0.33,0}}};
+    double leftBorder = 1e-9;
+    double rightBorder = 1-leftBorder;
+    // результаты
+    auto resultMatrix2d = matrix2d.clipM(leftBorder,rightBorder);
+    resultMatrix2d->floorM(9); // 'совпадает' с 1e-9
+    Matrix2d<double> properMatrix2dReal(resultMatrix2d->data());
+    Matrix2d<double> properMatrix2d {{1-(1e-9),0.42,0.22},
+                                    {0.642,0.33,1e-9}};
+    auto resultMatrix3d = matrix3d.clipM(leftBorder,rightBorder);
+    resultMatrix3d->floorM(9); // 'совпадает' с 1e-9
+    Matrix3d<double> properMatrix3dReal(resultMatrix3d->data());
+    properMatrix3dReal.print();
+    Matrix3d<double> properMatrix3d {{{1-(1e-9),0.42,0.22}, {0.642,0.33,1e-9}},
+                                    {{1-(1e-9),0.42,0.22}, {0.642,0.33,1e-9}}};
+
+    QCOMPARE(properMatrix2dReal == properMatrix2d, true);
+    QCOMPARE(properMatrix3dReal == properMatrix3d, true);
+}
+
 void TestMatrix::testMatrix2dCanMultMatrix2d()
 {
     // инициализация
@@ -533,21 +558,6 @@ void TestMatrix::test3Matrix2dMultMatrix2d()
     } catch (const MatrixException& e) {
         e.what();
     }
-}
-
-void TestMatrix::testMatrix2dClip()
-{
-    // инициализация
-    vector<vector<double>> matrix {{1,0.42,0.22},
-                                   {0.642,0.33,0}};
-    double leftBorder = 1e-9;
-    // итоговый и ожидаемый результаты
-    vector<vector<double>> resultMatrix
-        = Matrix2d<double>::clip(matrix, leftBorder);
-    vector<vector<double>> properMatrix {{1-(1e-9),0.42,0.22},
-                                         {0.642,0.33,1e-9}};
-
-    QCOMPARE(resultMatrix, properMatrix);
 }
 
 void TestMatrix::testMatrix2dLogn()
