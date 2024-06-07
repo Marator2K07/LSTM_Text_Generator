@@ -71,6 +71,10 @@ private slots:
     /// \brief testMatrix3dMultNumber
     /// тест умножения трехмерной матрицы на число
     void testMatrix3dMultNumber();
+    ///
+    /// \brief testFloorMatrix2dAndMatrix3d
+    /// тест округления 2д и 3д матриц
+    void testFloorMatrix2dAndMatrix3d();
 
     ///
     /// \brief testMatrix2dCanMultMatrix2d
@@ -427,6 +431,29 @@ void TestMatrix::testMatrix3dMultNumber()
                                   {{23.38,23.38,20.04},{3.34,3.34,3.34}}};
 
     QCOMPARE(resultMatrix == properMatrix, true);
+}
+
+void TestMatrix::testFloorMatrix2dAndMatrix3d()
+{
+    // инициализация
+    Matrix3d<double> matrix3d {{{1.5346,2.7651,3.8931},{1.1111,2.6957,8.5894}},
+                              {{8.9888,5.5555,5.5555},{3.5894,1.2352,4.4567}},
+                              {{7.7777,7.7777,6.5352},{1.1234,1.5654,1.5657}}};
+    Matrix2d<double> matrix2d {{1.5365,2.2345,3.6767},
+                              {7.7777,3.3333,5.5555},
+                              {9.8888,3.3676,1.1111}};
+    // результаты
+    matrix3d.floorM(3);
+    matrix2d.floorM(3);
+    Matrix3d<double> properMatrix3d {{{1.534,2.765,3.893},{1.111,2.695,8.589}},
+                                    {{8.988,5.555,5.555},{3.589,1.235,4.456}},
+                                    {{7.777,7.777,6.535},{1.123,1.565,1.565}}};
+    Matrix2d<double> properMatrix2d {{1.536,2.234,3.676},
+                                    {7.777,3.333,5.555},
+                                    {9.888,3.367,1.111}};
+
+    QCOMPARE(matrix3d == properMatrix3d, true);
+    QCOMPARE(matrix2d == properMatrix2d, true);
 }
 
 void TestMatrix::testMatrix2dCanMultMatrix2d()
