@@ -59,6 +59,10 @@ private slots:
     /// \brief testMatrix2dSimplMultMatrix2d
     /// тест упрощенного поэлеметного умножения матриц
     void testMatrix2dSimplMultMatrix2d();
+    ///
+    /// \brief testMatrix3dSimplMultMatrix3d
+    /// тест упрощенного поэлеметного умножения трехмерных матриц
+    void testMatrix3dSimplMultMatrix3d();
 
     ///
     /// \brief testMatrix2dCanMultMatrix2d
@@ -373,6 +377,24 @@ void TestMatrix::testMatrix2dSimplMultMatrix2d()
                                     {6,54}};
 
     QCOMPARE(resultMatrixAB->data(), properMatrixAB.data());
+}
+
+void TestMatrix::testMatrix3dSimplMultMatrix3d()
+{
+    // инициализация
+    Matrix3d<double> matrixA {{{1,2,3}, {1,2,8}},
+                             {{8,5,5}, {3,1,4}},
+                             {{7,7,6}, {1,1,1}}};
+    Matrix3d<double> matrixB {{{3,5,3}, {1,3,0}},
+                             {{1,8,6}, {0,3,1}},
+                             {{1,2,3}, {2,2,8}}};
+    // результаты
+    Matrix3d<double> resultMatrix(matrixA.simplifiedMult(&matrixB)->data());
+    Matrix3d<double> properMatrix {{{3,10,9},{1,6,0}},
+                                  {{8,40,30},{0,3,4}},
+                                  {{7,14,18},{2,2,8}}};
+
+    QCOMPARE(resultMatrix == properMatrix, true);
 }
 
 void TestMatrix::testMatrix2dCanMultMatrix2d()
