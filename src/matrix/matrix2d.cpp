@@ -216,6 +216,23 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::simplifiedMult(const IMatrix<T> *other)
     return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
+template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::multiplication(T num)
+{
+    // подготовка
+    vector<vector<T>> resultData;
+    // создание и заполнение результирующей матрицы
+    for (int rowI = 0; rowI < _data.size(); ++rowI) {
+        resultData.push_back(vector<T>());
+        for (int colI = 0; colI < _data[0].size(); ++colI) {
+            resultData[rowI].push_back(
+                _data[rowI][colI] * num
+            );
+        }
+    }
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+}
+
 
 template<typename T>
 bool Matrix2d<T>::sameShape(const vector<vector<T>> matrixA,

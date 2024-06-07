@@ -63,15 +63,15 @@ private slots:
     /// \brief testMatrix3dSimplMultMatrix3d
     /// тест упрощенного поэлеметного умножения трехмерных матриц
     void testMatrix3dSimplMultMatrix3d();
-
-    ///
-    /// \brief testMatrix2dCanMultMatrix2d
-    /// тест на возможность перемножения матриц
-    void testMatrix2dCanMultMatrix2d();
     ///
     /// \brief testMatrix2dMultNumber
     /// умножение матрицы на число
     void testMatrix2dMultNumber();
+
+    ///
+    /// \brief testMatrix2dCanMultMatrix2d
+    /// тест на возможность перемножения матриц
+    void testMatrix2dCanMultMatrix2d();    
     ///
     /// \brief test1Matrix2dMultMatrix2d
     /// первое тестовое матричное умножение
@@ -395,6 +395,21 @@ void TestMatrix::testMatrix3dSimplMultMatrix3d()
     QCOMPARE(resultMatrix == properMatrix, true);
 }
 
+void TestMatrix::testMatrix2dMultNumber()
+{
+    // инициализация
+    Matrix2d<double> matrix {{1,2,3},
+                            {7,3,5},
+                            {9,3,1}};
+    // результаты
+    auto resultMatrix = matrix.multiplication(2.5);
+    Matrix2d<double> properMatrix {{2.5,5,7.5},
+                                  {17.5,7.5,12.5},
+                                  {22.5,7.5,2.5}};
+
+    QCOMPARE(resultMatrix->data(), properMatrix.data());
+}
+
 void TestMatrix::testMatrix2dCanMultMatrix2d()
 {
     // инициализация
@@ -414,22 +429,6 @@ void TestMatrix::testMatrix2dCanMultMatrix2d()
 
     QCOMPARE(resultFlag1, true);
     QCOMPARE(resultFlag2, false);
-}
-
-void TestMatrix::testMatrix2dMultNumber()
-{
-    // инициализация
-    vector<vector<double>> matrix {{1,2,3},
-                                   {7,3,5},
-                                   {9,3,1}};
-    // итоговый и ожидаемый результаты
-    vector<vector<double>> resultMatrix
-        = Matrix2d<double>::multiplication(matrix, -2);
-    vector<vector<double>> properMatrix {{-2,-4,-6},
-                                         {-14,-6,-10},
-                                         {-18,-6,-2}};
-
-    QCOMPARE(resultMatrix, properMatrix);
 }
 
 void TestMatrix::test1Matrix2dMultMatrix2d()
