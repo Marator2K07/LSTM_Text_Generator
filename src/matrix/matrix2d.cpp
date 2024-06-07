@@ -244,6 +244,12 @@ void Matrix2d<T>::floorM(T num)
     }
 }
 
+template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::clipM(T leftBorder, T rightBorder)
+{
+
+}
+
 
 template<typename T>
 bool Matrix2d<T>::sameShape(const vector<vector<T>> matrixA,

@@ -70,6 +70,12 @@ public:
     /// \brief floorM округление текущей матрицы до num цифр после запятой
     /// \param num количество цифр после запятой
     virtual void floorM(T num) = 0;
+    ///
+    /// \brief clipM обрезка значений текущей матрицы
+    /// \param leftBorder левая граница обрезки
+    /// \param rightBorder правая граница обрезки
+    /// \return обрезанная по границам [leftBorder, rightBorder] матрица
+    virtual unique_ptr<IMatrix<T>> clipM(T leftBorder, T rightBorder) = 0;
 
 public:
     virtual ~IMatrix() {}

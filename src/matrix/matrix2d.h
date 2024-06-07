@@ -35,6 +35,7 @@ public:
     unique_ptr<IMatrix<T>> simplifiedMult(const IMatrix<T> *other) override;
     unique_ptr<IMatrix<T>> multiplication(T num) override;
     void floorM(T num) override;
+    unique_ptr<IMatrix<T>> clipM(T leftBorder, T rightBorder) override;
 
 public:
     ///
@@ -130,7 +131,7 @@ public:
     /// \brief clip обрезка значений матрицы по границе
     /// \param matrix входящая матрица
     /// \param leftBorder граница обрезки
-    /// \return обрезанная по границам [leftBorder, 1-leftBorder] матрица
+    /// \return
     static vector<vector<T>> clip(const vector<vector<T>> matrix,
                                   T leftBorder);
 

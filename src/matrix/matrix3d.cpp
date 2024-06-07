@@ -215,3 +215,9 @@ void Matrix3d<T>::floorM(T num)
         matrix.floorM(num);
     }
 }
+
+template<typename T>
+unique_ptr<IMatrix<T>> Matrix3d<T>::clipM(T leftBorder, T rightBorder)
+{
+
+}
