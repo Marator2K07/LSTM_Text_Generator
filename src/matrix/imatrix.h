@@ -39,6 +39,11 @@ public:
     /// \param other другая матрицы для сложения
     /// \return результирующая матрица
     virtual unique_ptr<IMatrix<T>> addition(const IMatrix<T> *other) = 0;
+    ///
+    /// \brief addition поэлементное сложение матрицы и числа
+    /// \param num число для сложения
+    /// \return результирующая матрица
+    virtual unique_ptr<IMatrix<T>> addition(T num) = 0;
 
 public:
     virtual ~IMatrix() {}
