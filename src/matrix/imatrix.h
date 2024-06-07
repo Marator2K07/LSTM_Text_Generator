@@ -44,6 +44,11 @@ public:
     /// \param num число для сложения
     /// \return результирующая матрица
     virtual unique_ptr<IMatrix<T>> addition(T num) = 0;
+    ///
+    /// \brief subtraction вычитание элементов текущей и другой матриц
+    /// \param other другая матрицы для текущей операции
+    /// \return результирующая матрица
+    virtual unique_ptr<IMatrix<T>> subtraction(const IMatrix<T> *other) = 0;
 
 public:
     virtual ~IMatrix() {}
