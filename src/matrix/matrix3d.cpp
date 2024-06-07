@@ -28,13 +28,14 @@ void Matrix3d<T>::print()
 }
 
 template<typename T>
-const QVariant Matrix3d<T>::data()
+template<typename T>
+QVariant Matrix3d<T>::data() const
 {
     return QVariant::fromValue(_data);
 }
 
 template<typename T>
-const vector<int> Matrix3d<T>::sizes()
+vector<int> Matrix3d<T>::sizes() const
 {
     try {
         vector<int> sizes{_data.size()};

@@ -22,8 +22,8 @@ public:
     void print();
 
     // IMatrix interface
-    const QVariant data() override;
-    const vector<int> sizes() override;
+    QVariant data() const override;
+    vector<int> sizes() const override;
     bool sameShape(const IMatrix<T> *other) override;
     unique_ptr<IMatrix<T>> addition(const IMatrix<T> *other) override;
 

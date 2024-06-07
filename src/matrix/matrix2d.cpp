@@ -40,13 +40,14 @@ void Matrix2d<T>::print()
 }
 
 template<typename T>
-const QVariant Matrix2d<T>::data()
+template<typename T>
+QVariant Matrix2d<T>::data() const
 {
     return QVariant::fromValue(_data);
 }
 
 template<typename T>
-const vector<int> Matrix2d<T>::sizes()
+vector<int> Matrix2d<T>::sizes() const
 {
     try {
         return vector<int>{_data.size(), _data[0].size()};
