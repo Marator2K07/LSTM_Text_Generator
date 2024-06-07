@@ -31,6 +31,7 @@ public:
     unique_ptr<IMatrix<T>> addition(const IMatrix<T> *other) override;
     unique_ptr<IMatrix<T>> addition(T num) override;
     unique_ptr<IMatrix<T>> subtraction(const IMatrix<T> *other) override;
+    unique_ptr<IMatrix<T>> subtraction(T num, bool reverseOrder = false) override;
 };
 
 #endif // MATRIX3D_H

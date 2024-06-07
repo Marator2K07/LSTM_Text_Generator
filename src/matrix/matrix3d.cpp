@@ -153,3 +153,16 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::subtraction(const IMatrix<T> *other)
     }
     return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
 }
+
+template<typename T>
+unique_ptr<IMatrix<T>> Matrix3d<T>::subtraction(T num, bool reverseOrder)
+{
+    // подготовка
+    vector<Matrix2d<T>> resultData;
+    // создание и заполнение результирующей матрицы
+    for (int i = 0; i < _data.size(); ++i) {
+        Matrix2d<T> stepMatrix(_data[i].subtraction(num, reverseOrder)->data());
+        resultData.push_back(stepMatrix);
+    }
+    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+}
