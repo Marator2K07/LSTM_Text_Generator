@@ -67,6 +67,10 @@ private slots:
     /// \brief testMatrix2dMultNumber
     /// умножение матрицы на число
     void testMatrix2dMultNumber();
+    ///
+    /// \brief testMatrix3dMultNumber
+    /// тест умножения трехмерной матрицы на число
+    void testMatrix3dMultNumber();
 
     ///
     /// \brief testMatrix2dCanMultMatrix2d
@@ -408,6 +412,21 @@ void TestMatrix::testMatrix2dMultNumber()
                                   {22.5,7.5,2.5}};
 
     QCOMPARE(resultMatrix->data(), properMatrix.data());
+}
+
+void TestMatrix::testMatrix3dMultNumber()
+{
+    // инициализация
+    Matrix3d<double> matrix {{{1,2,3}, {1,2,8}},
+                            {{8,5,5}, {3,1,4}},
+                            {{7,7,6}, {1,1,1}}};
+    // результаты
+    Matrix3d<double> resultMatrix(matrix.multiplication(3.34)->data());
+    Matrix3d<double> properMatrix {{{3.34,6.68,10.02},{3.34,6.68,26.72}},
+                                  {{26.72,16.7,16.7},{10.02,3.34,13.36}},
+                                  {{23.38,23.38,20.04},{3.34,3.34,3.34}}};
+
+    QCOMPARE(resultMatrix == properMatrix, true);
 }
 
 void TestMatrix::testMatrix2dCanMultMatrix2d()
