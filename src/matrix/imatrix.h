@@ -61,6 +61,11 @@ public:
     /// \param other другая матрицы для операции
     /// \return результирующая матрица
     virtual unique_ptr<IMatrix<T>> simplifiedMult(const IMatrix<T> *other) = 0;
+    ///
+    /// \brief multiplication умножение матрицы на число
+    /// \param num мультипликатор умножения
+    /// \return увеличенная в num раз матрица
+    virtual unique_ptr<IMatrix<T>> multiplication(T num) = 0;
 
 public:
     virtual ~IMatrix() {}
