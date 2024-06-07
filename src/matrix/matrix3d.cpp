@@ -211,5 +211,7 @@ unique_ptr<IMatrix<T> > Matrix3d<T>::multiplication(T num)
 template<typename T>
 void Matrix3d<T>::floorM(T num)
 {
-
+    for (Matrix2d<T> &matrix : _data) {
+        matrix.floorM(num);
+    }
 }

@@ -236,7 +236,12 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::multiplication(T num)
 template<typename T>
 void Matrix2d<T>::floorM(T num)
 {
-
+    int multiplier = pow(10, num);
+    for (vector<T> &row : _data) {
+        for (T &value : row) {
+            value = floor(value * multiplier) / multiplier;
+        }
+    }
 }
 
 
