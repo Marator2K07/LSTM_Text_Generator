@@ -47,21 +47,16 @@ private slots:
     /// \brief testMatrix3dSubtrMatrix3d
     /// тест разности трехмерных матриц
     void testMatrix3dSubtrMatrix3d();
+    ///
+    /// \brief testMatrix2dSubtrNumReverseAndDirectOrder
+    /// тест разности матрицы и числа, числа и матрицы
+    void testMatrix2dSubtrNumDirectAndReverseOrder();
+
 
     ///
     /// \brief testMatrix2dCanMultMatrix2d
     /// тест на возможность перемножения матриц
-    void testMatrix2dCanMultMatrix2d();    
-    ///
-    /// \brief testMatrix2dSubtrNumDirectOrder
-    /// проверка разности матрицы и
-    /// числа в прямом порядке вычисления
-    void testMatrix2dSubtrNumDirectOrder();
-    ///
-    /// \brief testMatrix2dSubtrNumReverseOrder
-    /// проверка разницы матрицы и числа
-    /// при обратном порядке операндов
-    void testMatrix2dSubtrNumReverseOrder();
+    void testMatrix2dCanMultMatrix2d();
     ///
     /// \brief testMatrix2dMultNumber
     /// умножение матрицы на число
@@ -314,6 +309,26 @@ void TestMatrix::testMatrix3dSubtrMatrix3d()
     QCOMPARE(resultMatrix == properMatrix, true);
 }
 
+void TestMatrix::testMatrix2dSubtrNumDirectAndReverseOrder()
+{
+    // инициализация
+    Matrix2d<double> matrix {{1,2,3},
+                            {7,3,5},
+                            {9,3,1}};
+    // результаты
+    auto resultMatrixDirect = matrix.subtraction(2);
+    Matrix2d<double> properMatrixDirect {{-1,0,1},
+                                        {5,1,3},
+                                        {7,1,-1}};
+    auto resultMatrixReverse = matrix.subtraction(2, true);
+    Matrix2d<double> properMatrixReverse {{1,0,-1},
+                                         {-5,-1,-3},
+                                         {-7,-1,1}};
+
+    QCOMPARE(resultMatrixDirect->data(), properMatrixDirect.data());
+    QCOMPARE(resultMatrixReverse->data(), properMatrixReverse.data());
+}
+
 void TestMatrix::testMatrix2dCanMultMatrix2d()
 {
     // инициализация
@@ -333,39 +348,6 @@ void TestMatrix::testMatrix2dCanMultMatrix2d()
 
     QCOMPARE(resultFlag1, true);
     QCOMPARE(resultFlag2, false);
-}
-
-void TestMatrix::testMatrix2dSubtrNumDirectOrder()
-{
-    // инициализация
-    vector<vector<double>> matrix {{1,2,3},
-                                   {7,3,5},
-                                   {9,3,1}};
-    // итоговый и ожидаемый результаты
-    vector<vector<double>> resultMatrix
-        = Matrix2d<double>::subtraction(matrix, 2);
-    vector<vector<double>> properMatrix {{-1,0,1},
-                                         {5,1,3},
-                                         {7,1,-1}};
-
-    QCOMPARE(resultMatrix, properMatrix);
-}
-
-void TestMatrix::testMatrix2dSubtrNumReverseOrder()
-{
-    // инициализация
-    vector<vector<double>> matrix {{0.5,0.2,0.3},
-                                   {0.7,0.3,0.5},
-                                   {0.9,0.3,0.1}};
-    // итоговый и ожидаемый результаты
-    vector<vector<double>> resultMatrix
-        = Matrix2d<double>::subtraction(matrix, 1, true);
-    Matrix2d<double>::floorM(resultMatrix, 100); // округляем для сравнения
-    vector<vector<double>> properMatrix {{0.5,0.8,0.7},
-                                         {0.3,0.7,0.5},
-                                         {0.09,0.7,0.9}};
-
-    QCOMPARE(resultMatrix, properMatrix);
 }
 
 void TestMatrix::testMatrix2dMultNumber()
