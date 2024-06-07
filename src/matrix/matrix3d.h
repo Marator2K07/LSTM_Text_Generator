@@ -22,6 +22,7 @@ public:
 
 public:
     void print();
+    vector<Matrix2d<T>> dataToVector(const IMatrix<T> *other);
     bool operator==(Matrix3d<T> &other);
 
     // IMatrix interface
