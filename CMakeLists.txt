@@ -17,8 +17,6 @@ add_executable(LSTM_Text_Generator
 )
 target_link_libraries(LSTM_Text_Generator PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
-    matrix
-    lstm
 )
 
 find_package(Qt6 6.3 REQUIRED COMPONENTS

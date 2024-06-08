@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 
-#include "activationfunctions.h"
 #include "imatrix.h"
 #include "lossexception.h"
 

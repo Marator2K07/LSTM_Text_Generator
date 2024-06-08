@@ -16,6 +16,7 @@ qt_add_executable(Test_Matrix
 target_link_libraries(Test_Matrix PRIVATE
     Qt6::Core
     Qt6::Test
+    loss
     matrix
     exception
 )
