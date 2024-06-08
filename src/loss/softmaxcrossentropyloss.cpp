@@ -21,42 +21,38 @@ unique_ptr<IMatrix<double>> SoftmaxCrossEntropyLoss::backward()
     _inputGradient = calcInputGradient();
     // ...
     // вовзращаем расчитанный градиент
-    return _inputGradient;
+    return unique_ptr<IMatrix<double>>(_inputGradient);
 }
 
 double SoftmaxCrossEntropyLoss::calcLoss()
 {
     try {
         // 1) приводим прогнозы к нужному формату ([0,1])
-        _softmaxPrediction = ActivationFunctions::batchSoftmax(_prediction);
+        _softmaxPrediction = _prediction->softmaxM().release();
         // 2) обрезаем обработанные предсказания
         // ([stabBorder, 1-stabBorder]),
         // дабы избежать числовой нестабильности
-        _softmaxPrediction = Matrix2d<double>::clip(
-            _softmaxPrediction,
-            _stabBorder
-        );
+        _softmaxPrediction = _softmaxPrediction->clipM(
+            _stabBorder,
+            1-_stabBorder
+        ).release();
         // 3) Вычисление матрицы потерь
-        vector<vector<double>> firstOperand
-            = Matrix2d<double>::simplifiedMult(
-                Matrix2d<double>::multiplication(_target, -1),
-                Matrix2d<double>::logn(_softmaxPrediction)
-            );
-        vector<vector<double>> secondOperand
-            = Matrix2d<double>::simplifiedMult(
-                Matrix2d<double>::subtraction(_target, 1.0, true),
-                Matrix2d<double>::logn(
-                    Matrix2d<double>::subtraction(
-                        _softmaxPrediction,
-                        1.0,
-                        true
-                    )
-                )
-            );
-        vector<vector<double>> softmaxCrossEntropyLoss
-            = Matrix2d<double>::subtraction(firstOperand, secondOperand);
+        IMatrix<double> *firstOperand
+            = _target->multiplication(-1)
+                  ->simplifiedMult(
+                      _softmaxPrediction->lognM().release()
+                      ).release();
+        IMatrix<double> *secondOperand
+            = _target->subtraction(1.0, true)
+                  ->simplifiedMult(
+                      _softmaxPrediction->subtraction(1.0, true)
+                          ->lognM().release()
+                      ).release();
+
+        IMatrix<double> *softmaxCrossEntropyLoss
+            = firstOperand->subtraction(secondOperand).release();
         // 4) нахождение и возврат штрафа сети
-        return Matrix2d<double>::totalSum(softmaxCrossEntropyLoss);
+        return softmaxCrossEntropyLoss->totalSum();
     } catch (const MatrixException &e) {
         // если поймали исключение, то делаем его частью нового
         throw LossException(QString("Catch loss exception:\n[%1]\n")
@@ -67,7 +63,7 @@ double SoftmaxCrossEntropyLoss::calcLoss()
 IMatrix<double> *SoftmaxCrossEntropyLoss::calcInputGradient()
 {
     try {
-        return Matrix2d<double>::subtraction(_softmaxPrediction, _target);
+        return _softmaxPrediction->subtraction(_target).release();
     } catch (const MatrixException &e) {
         // если поймали исключение, то делаем его частью нового
         throw LossException(QString("Catch loss exception:\n[%1]\n")
