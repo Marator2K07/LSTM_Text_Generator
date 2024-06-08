@@ -13,6 +13,13 @@
 using namespace std;
 
 ///
+/// \brief The Dimensions enum
+/// определение количества измерений матрицы как типа
+enum class Dimensions {
+    TWO, THREE
+};
+
+///
 /// \brief The IMatrix interface
 /// определение функциональности для
 /// вложенных векторов - матриц
@@ -20,6 +27,10 @@ template<typename T>
 class IMatrix
 {
 public:
+    ///
+    /// \brief type вывод количества измерений матрицы
+    /// \return перечисление Dimensions
+    virtual Dimensions type() const = 0;
     ///
     /// \brief data универсальный геттер
     /// \return данные вектора внутри обертки матрицы
