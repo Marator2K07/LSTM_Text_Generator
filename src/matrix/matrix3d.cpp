@@ -241,3 +241,13 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::lognM()
     }
     return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
 }
+
+template<typename T>
+T Matrix3d<T>::totalSum()
+{
+    T result;
+    for (Matrix2d<T> matrix : _data) {
+        result += matrix.totalSum();
+    }
+    return result;
+}

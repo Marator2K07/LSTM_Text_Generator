@@ -286,6 +286,19 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::lognM()
     return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
+template<typename T>
+T Matrix2d<T>::totalSum()
+{
+    T result;
+    // заполнение результирующей матрицы
+    for (const vector<T> row : _data) {
+        for (const T value : row) {
+            result += value;
+        }
+    }
+    return result;
+}
+
 
 template<typename T>
 bool Matrix2d<T>::sameShape(const vector<vector<T>> matrixA,
