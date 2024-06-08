@@ -293,7 +293,12 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::lognM()
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::softmaxM()
 {
-
+    // подготовка и заполнение результирующей матрицы
+    vector<vector<T>> resultData;
+    for (const vector<T> row : _data) {
+        resultData.push_back(ActivationFunctions::softmax(row));
+    }
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
 template<typename T>
