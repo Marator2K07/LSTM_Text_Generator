@@ -80,6 +80,10 @@ public:
     /// \brief lognM нахождение алгоритма каждого элемента матрицы
     /// \return матрица с найденными алгоритмами
     virtual unique_ptr<IMatrix<T>> lognM() = 0;
+    ///
+    /// \brief totalSum нахождение суммы всех элементов матрицы
+    /// \return сумма всех элементов входной матрицы
+    virtual T totalSum() = 0;
 
 public:
     virtual ~IMatrix() {}
