@@ -56,6 +56,12 @@ bool Matrix3d<T>::operator==(Matrix3d<T> &other)
 }
 
 template<typename T>
+Dimensions Matrix3d<T>::type() const
+{
+    return Dimensions::THREE;
+}
+
+template<typename T>
 QVariant Matrix3d<T>::data() const
 {
     return QVariant::fromValue(_data);

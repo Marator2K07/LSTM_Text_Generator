@@ -25,6 +25,7 @@ public:
     bool operator!=(Matrix2d<T> &other);
 
     // IMatrix interface
+    Dimensions type() const override;
     QVariant data() const override;
     vector<int> sizes() const override;
     bool sameShape(const IMatrix<T> *other) override;

@@ -60,6 +60,12 @@ bool Matrix2d<T>::operator!=(Matrix2d<T> &other)
 }
 
 template<typename T>
+Dimensions Matrix2d<T>::type() const
+{
+    return Dimensions::TWO;
+}
+
+template<typename T>
 QVariant Matrix2d<T>::data() const
 {
     return QVariant::fromValue(_data);
