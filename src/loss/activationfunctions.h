@@ -21,14 +21,6 @@ public:
     /// \param prediction вектор вероятностей(прогнозов)
     /// \return обработанный вектор
     static vector<double> softmax(const vector<double> prediction);
-
-    ///
-    /// \brief batchSoftmax расширенная версия softmax
-    /// для взаимодействия с матрицей предсказаний
-    /// \param prediction партия предсказаний
-    /// \return партия обработанных векторов(матрица)
-    static unique_ptr<IMatrix<double>>
-    batchSoftmax(const IMatrix<double> *predictions);
 };
 
 #endif // ACTIVATIONFUNCTIONS_H

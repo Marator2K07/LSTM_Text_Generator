@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <QVariant>
 
+#include "activationfunctions.h"
 #include "matrixexception.h"
 
 using namespace std;
@@ -91,6 +92,11 @@ public:
     /// \brief lognM нахождение алгоритма каждого элемента матрицы
     /// \return матрица с найденными алгоритмами
     virtual unique_ptr<IMatrix<T>> lognM() = 0;
+    ///
+    /// \brief softmaxM обработка значений матрицы с помощью
+    /// многопеременной логистической функции softmax
+    /// \return обработанная матрица
+    virtual unique_ptr<IMatrix<T>> softmaxM() = 0;
     ///
     /// \brief totalSum нахождение суммы всех элементов матрицы
     /// \return сумма всех элементов входной матрицы
