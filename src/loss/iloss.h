@@ -39,7 +39,7 @@ private:
     /// \brief calcInputGradient непосредственное вычисление
     /// градиента ошибки по входу функции потерь
     /// \return матрица с найденными градиентами
-    virtual unique_ptr<IMatrix<double>> calcInputGradient() = 0;
+    virtual IMatrix<double> *calcInputGradient() = 0;
 };
 
 #endif // ILOSS_H

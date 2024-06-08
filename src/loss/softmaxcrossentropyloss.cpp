@@ -15,7 +15,7 @@ double SoftmaxCrossEntropyLoss::forward(IMatrix<double> *prediction,
     return calcLoss();
 }
 
-unique_ptr<IMatrix<double> > SoftmaxCrossEntropyLoss::backward()
+unique_ptr<IMatrix<double>> SoftmaxCrossEntropyLoss::backward()
 {
     // подготовительные операции
     _inputGradient = calcInputGradient();
@@ -64,7 +64,7 @@ double SoftmaxCrossEntropyLoss::calcLoss()
     }
 }
 
-unique_ptr<IMatrix<double>> SoftmaxCrossEntropyLoss::calcInputGradient()
+IMatrix<double> *SoftmaxCrossEntropyLoss::calcInputGradient()
 {
     try {
         return Matrix2d<double>::subtraction(_softmaxPrediction, _target);

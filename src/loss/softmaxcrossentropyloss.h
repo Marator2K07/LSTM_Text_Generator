@@ -2,7 +2,7 @@
 #define SOFTMAXCROSSENTROPYLOSS_H
 
 #include "iloss.h"
-#include "matrix2d.h"
+#include "imatrix.h"
 
 ///
 /// \brief The SoftmaxCrossEntropyLoss class
@@ -19,7 +19,7 @@ private:
 private:
     // ILoss interface
     double calcLoss() override;
-    unique_ptr<IMatrix<double>> calcInputGradient() override;
+    IMatrix<double> *calcInputGradient() override;
 
 public:
     SoftmaxCrossEntropyLoss(double stabBorder = 1e-9);
