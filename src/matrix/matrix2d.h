@@ -20,7 +20,7 @@ public:
 
 public:
     void print();
-    vector<vector<T>> dataToVector(const IMatrix<T> *other);
+    vector<vector<T>> dataToVector() const;
     bool operator==(Matrix2d<T> &other);
     bool operator!=(Matrix2d<T> &other);
 

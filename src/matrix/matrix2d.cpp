@@ -40,11 +40,9 @@ void Matrix2d<T>::print()
 }
 
 template<typename T>
-vector<vector<T>> Matrix2d<T>::dataToVector(const IMatrix<T> *other)
+vector<vector<T>> Matrix2d<T>::dataToVector() const
 {
-    Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(other);
-    QVariant otherMatrixAutoData = otherMatrix->data();
-    return otherMatrixAutoData.value<vector<vector<T>>>();
+    return _data;
 }
 
 template<typename T>
