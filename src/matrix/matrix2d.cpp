@@ -291,6 +291,12 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::lognM()
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::softmaxM()
+{
+
+}
+
+template<typename T>
 T Matrix2d<T>::totalSum()
 {
     T result;
