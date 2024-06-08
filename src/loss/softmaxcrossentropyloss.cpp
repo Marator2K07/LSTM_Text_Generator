@@ -1,12 +1,12 @@
 #include "softmaxcrossentropyloss.h"
 
 SoftmaxCrossEntropyLoss::SoftmaxCrossEntropyLoss(double stabBorder)
-    : stabBorder{stabBorder}
+    : _stabBorder{stabBorder}
 {
 }
 
-double SoftmaxCrossEntropyLoss::forward(vector<vector<double>> prediction,
-                                        vector<vector<double>> target)
+double SoftmaxCrossEntropyLoss::forward(IMatrix<double> *prediction,
+                                        IMatrix<double> *target)
 {
     // подготовительные операции
     _prediction = prediction;
@@ -15,7 +15,7 @@ double SoftmaxCrossEntropyLoss::forward(vector<vector<double>> prediction,
     return calcLoss();
 }
 
-vector<vector<double>> SoftmaxCrossEntropyLoss::backward()
+unique_ptr<IMatrix<double> > SoftmaxCrossEntropyLoss::backward()
 {
     // подготовительные операции
     _inputGradient = calcInputGradient();
@@ -34,7 +34,7 @@ double SoftmaxCrossEntropyLoss::calcLoss()
         // дабы избежать числовой нестабильности
         _softmaxPrediction = Matrix2d<double>::clip(
             _softmaxPrediction,
-            stabBorder
+            _stabBorder
         );
         // 3) Вычисление матрицы потерь
         vector<vector<double>> firstOperand
@@ -64,7 +64,7 @@ double SoftmaxCrossEntropyLoss::calcLoss()
     }
 }
 
-vector<vector<double>> SoftmaxCrossEntropyLoss::calcInputGradient()
+unique_ptr<IMatrix<double>> SoftmaxCrossEntropyLoss::calcInputGradient()
 {
     try {
         return Matrix2d<double>::subtraction(_softmaxPrediction, _target);

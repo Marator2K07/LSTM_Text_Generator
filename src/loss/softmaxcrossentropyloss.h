@@ -2,6 +2,7 @@
 #define SOFTMAXCROSSENTROPYLOSS_H
 
 #include "iloss.h"
+#include "matrix2d.h"
 
 ///
 /// \brief The SoftmaxCrossEntropyLoss class
@@ -9,25 +10,25 @@
 class SoftmaxCrossEntropyLoss : ILoss
 {
 private:
-    double stabBorder; // стабилизирующая граница для вывода softmax
-    vector<vector<double>> _prediction;
-    vector<vector<double>> _target;
-    vector<vector<double>> _softmaxPrediction; // предсказания в пределах [0,1]
-    vector<vector<double>> _inputGradient; // градиент для входных данных
+    double _stabBorder; // стабилизирующая граница для вывода softmax
+    IMatrix<double> *_prediction;
+    IMatrix<double> *_target;
+    IMatrix<double> *_softmaxPrediction; // предсказания в пределах [0,1]
+    IMatrix<double> *_inputGradient; // градиент для входных данных
 
 private:
     // ILoss interface
     double calcLoss() override;
-    vector<vector<double>> calcInputGradient() override;
+    unique_ptr<IMatrix<double>> calcInputGradient() override;
 
 public:
     SoftmaxCrossEntropyLoss(double stabBorder = 1e-9);
 
 public:
     // ILoss interface
-    double forward(vector<vector<double>> prediction,
-                   vector<vector<double>> target) override;
-    vector<vector<double>> backward() override;
+    double forward(IMatrix<double> *prediction,
+                   IMatrix<double> *target) override;
+    unique_ptr<IMatrix<double>> backward() override;
 };
 
 #endif // SOFTMAXCROSSENTROPYLOSS_H
