@@ -4,9 +4,8 @@
 #include <iostream>
 #include <vector>
 
-#include "matrix2d.h"
-#include "matrix2d.cpp"
 #include "activationfunctions.h"
+#include "imatrix.h"
 #include "lossexception.h"
 
 using namespace std;
@@ -23,22 +22,24 @@ public:
     /// \param prediction матрица предсказанных результатов
     /// \param target целевая матрица
     /// \return значение потерь(штрафа) сети
-    virtual double forward(vector<vector<double>> prediction,
-                           vector<vector<double>> target) = 0;
+    virtual double forward(IMatrix<double> *prediction,
+                           IMatrix<double> *target) = 0;
     ///
     /// \brief backward обратный проход работы с потерями
     /// \return градиент для каждого элемента
     /// прогноза относительно потери
-    virtual vector<vector<double>> backward() = 0;
+    virtual unique_ptr<IMatrix<double>> backward() = 0;
 
 private:
     ///
     /// \brief calcLoss непосредственное вычисление штрафа сети
+    /// \return найденная потери сети
     virtual double calcLoss() = 0;
     ///
     /// \brief calcInputGradient непосредственное вычисление
     /// градиента ошибки по входу функции потерь
-    virtual vector<vector<double>> calcInputGradient() = 0;
+    /// \return матрица с найденными градиентами
+    virtual unique_ptr<IMatrix<double>> calcInputGradient() = 0;
 };
 
 #endif // ILOSS_H
