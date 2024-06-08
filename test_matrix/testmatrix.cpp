@@ -79,6 +79,10 @@ private slots:
     /// \brief testMatrix2dAndMatrix3dClip
     /// тестирование обрезки 3д и 2д матриц по границам
     void testMatrix2dAndMatrix3dClip();
+    ///
+    /// \brief testMatrix2dAndMatrix3dLogn
+    /// тестирование нахождение матриц с алгоритмами их элементов
+    void testMatrix2dAndMatrix3dLogn();
 
     ///
     /// \brief testMatrix2dCanMultMatrix2d
@@ -96,10 +100,6 @@ private slots:
     /// \brief test3Matrix2dMultMatrix2d
     /// версия для плохого случая матричного умножения
     void test3Matrix2dMultMatrix2d();
-    ///
-    /// \brief testMatrix2dLogn
-    /// тест нахождения логарифма каждого элемента матрицы
-    void testMatrix2dLogn();
     ///
     /// \brief testTotalMatrix2dSum
     /// тестирование общей суммы всех элементов матрицы
@@ -473,11 +473,34 @@ void TestMatrix::testMatrix2dAndMatrix3dClip()
     auto resultMatrix3d = matrix3d.clipM(leftBorder,rightBorder);
     resultMatrix3d->floorM(9); // 'совпадает' с 1e-9
     Matrix3d<double> properMatrix3dReal(resultMatrix3d->data());
-    properMatrix3dReal.print();
     Matrix3d<double> properMatrix3d {{{1-(1e-9),0.42,0.22}, {0.642,0.33,1e-9}},
                                     {{1-(1e-9),0.42,0.22}, {0.642,0.33,1e-9}}};
 
     QCOMPARE(properMatrix2dReal == properMatrix2d, true);
+    QCOMPARE(properMatrix3dReal == properMatrix3d, true);
+}
+
+void TestMatrix::testMatrix2dAndMatrix3dLogn()
+{
+    // инициализация
+    Matrix2d<double> matrix {{0.33,0.12,0.777},
+                            {0.642,0.33,0.123}};
+    Matrix3d<double> matrix3d {{{0.955,0.42,0.22},{0.642,0.33,0.111}},
+                              {{0.343,0.42,0.22},{0.642,0.33,0.111}}};
+    // результаты
+    auto matrixResult2d = matrix.lognM();
+    matrixResult2d->floorM(3); // округляем для сравнения
+    Matrix2d<double> properMatrix2d {{-1.109,-2.121,-0.253},
+                                    {-0.444,-1.109,-2.096}};
+
+    auto resultMatrix3d = matrix3d.lognM();
+    resultMatrix3d->floorM(3); // округляем для сравнения
+    Matrix3d<double> properMatrix3dReal(resultMatrix3d->data());
+    properMatrix3dReal.print();
+    Matrix3d<double> properMatrix3d {{{-0.047,-0.868,-1.515},{-0.444,-1.109,-2.199}},
+                                    {{-1.071,-0.868,-1.515},{-0.444,-1.109,-2.199}}};
+
+    QCOMPARE(matrixResult2d->data(), properMatrix2d.data());
     QCOMPARE(properMatrix3dReal == properMatrix3d, true);
 }
 
@@ -558,21 +581,6 @@ void TestMatrix::test3Matrix2dMultMatrix2d()
     } catch (const MatrixException& e) {
         e.what();
     }
-}
-
-void TestMatrix::testMatrix2dLogn()
-{
-    // инициализация
-    vector<vector<double>> matrix {{0.33,0.12,0.777},
-                                   {0.642,0.33,0.123}};
-    // итоговый и ожидаемый результаты
-    vector<vector<double>> resultMatrix
-        = Matrix2d<double>::logn(matrix);    
-    Matrix2d<double>::floorM(resultMatrix, 1000); // округляем для сравнения
-    vector<vector<double>> properMatrix {{-1.109,-2.121,-0.253},
-                                         {-0.444,-1.109,-2.096}};
-
-    QCOMPARE(resultMatrix, properMatrix);
 }
 
 void TestMatrix::testTotalMatrix2dSum()

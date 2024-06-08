@@ -232,5 +232,12 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::clipM(T leftBorder, T rightBorder)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::lognM()
 {
-
+    // подготовка
+    vector<Matrix2d<T>> resultData;
+    // создание и заполнение результирующей матрицы
+    for (Matrix2d<T> matrix : _data) {
+        Matrix2d<T> stepMatrix((matrix.lognM())->data());
+        resultData.push_back(stepMatrix);
+    }
+    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
 }
