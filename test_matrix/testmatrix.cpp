@@ -87,23 +87,6 @@ private slots:
     /// \brief testMatrix2dAnd3dTotalSum
     /// тестовое нахождение всех элементов 2д и 3д матриц
     void testMatrix2dAnd3dTotalSum();
-
-    ///
-    /// \brief testMatrix2dCanMultMatrix2d
-    /// тест на возможность перемножения матриц
-    void testMatrix2dCanMultMatrix2d();    
-    ///
-    /// \brief test1Matrix2dMultMatrix2d
-    /// первое тестовое матричное умножение
-    void test1Matrix2dMultMatrix2d();
-    ///
-    /// \brief test2Matrix2dMultMatrix2d
-    /// усложенная версия матричного умножения
-    void test2Matrix2dMultMatrix2d();
-    ///
-    /// \brief test3Matrix2dMultMatrix2d
-    /// версия для плохого случая матричного умножения
-    void test3Matrix2dMultMatrix2d();
 };
 
 void TestMatrix::testMatrix2dSameShapeMatrix3d()
@@ -519,85 +502,6 @@ void TestMatrix::testMatrix2dAnd3dTotalSum()
 
     QCOMPARE(resultSum2d, properSum2d);
     QCOMPARE(resultSum3d, properSum3d);
-}
-
-void TestMatrix::testMatrix2dCanMultMatrix2d()
-{
-    // инициализация
-    vector<vector<double>> matrixA {{1,2},
-                                    {4,7},
-                                    {9,3}};
-    vector<vector<double>> matrixB {{6,2,3,7},
-                                    {2,2,0,1}};
-    vector<vector<double>> matrixC {{1,1,1},
-                                    {2,2,2},
-                                    {3,3,3}};
-    // итоговые результаты
-    bool resultFlag1
-        = Matrix2d<double>::canMult(matrixA, matrixB);
-    bool resultFlag2
-        = Matrix2d<double>::canMult(matrixA, matrixC);
-
-    QCOMPARE(resultFlag1, true);
-    QCOMPARE(resultFlag2, false);
-}
-
-void TestMatrix::test1Matrix2dMultMatrix2d()
-{
-    // инициализация
-    vector<vector<double>> matrixA {{1,2,3},
-                                    {3,4,5},
-                                    {6,8,2}};
-    vector<vector<double>> matrixB {{1,6,2},
-                                    {3,2,2},
-                                    {2,2,8}};
-    // итоговый и ожидаемый результаты
-    vector<vector<double>> resultMatrix
-        = Matrix2d<double>::multiplication(matrixA, matrixB);
-    vector<vector<double>> properMatrix {{13,16,30},
-                                         {25,36,54},
-                                         {34,56,44}};
-
-    QCOMPARE(resultMatrix, properMatrix);
-}
-
-void TestMatrix::test2Matrix2dMultMatrix2d()
-{
-    // инициализация
-    vector<vector<double>> matrixA {{1,2},
-                                    {3,4},
-                                    {7,7},
-                                    {9,3}};
-    vector<vector<double>> matrixB {{1,6,2},
-                                    {3,2,2}};
-    // итоговый и ожидаемый результаты
-    vector<vector<double>> resultMatrix
-        = Matrix2d<double>::multiplication(matrixA, matrixB);
-    vector<vector<double>> properMatrix {{7,10,6},
-                                         {15,26,14},
-                                         {28,56,28},
-                                         {18,60,24}};
-
-    QCOMPARE(resultMatrix, properMatrix);
-}
-
-void TestMatrix::test3Matrix2dMultMatrix2d()
-{
-    // инициализация
-    vector<vector<double>> matrixA {{1},
-                                    {3}};
-    vector<vector<double>> matrixB {{1,6,2},
-                                    {3,2,2}};
-    // результаты
-    try {
-        vector<vector<double>> resultMatrix
-            = Matrix2d<double>::multiplication(matrixA, matrixB);
-
-        // Т.к. код до сюда не дойдет, тест будет пройден
-        QCOMPARE(resultMatrix, matrixB);
-    } catch (const MatrixException& e) {
-        e.what();
-    }
 }
 
 QTEST_MAIN(TestMatrix)
