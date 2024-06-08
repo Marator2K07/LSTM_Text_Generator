@@ -36,6 +36,7 @@ public:
     unique_ptr<IMatrix<T>> multiplication(T num) override;
     void floorM(T num) override;
     unique_ptr<IMatrix<T>> clipM(T leftBorder, T rightBorder) override;
+    unique_ptr<IMatrix<T>> lognM() override;
 
 public:
     ///

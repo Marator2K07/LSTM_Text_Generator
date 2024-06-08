@@ -228,3 +228,9 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::clipM(T leftBorder, T rightBorder)
     }
     return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
 }
+
+template<typename T>
+unique_ptr<IMatrix<T>> Matrix3d<T>::lognM()
+{
+
+}

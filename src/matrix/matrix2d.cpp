@@ -269,6 +269,12 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::clipM(T leftBorder, T rightBorder)
     return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
+template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::lognM()
+{
+
+}
+
 
 template<typename T>
 bool Matrix2d<T>::sameShape(const vector<vector<T>> matrixA,

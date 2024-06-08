@@ -76,6 +76,10 @@ public:
     /// \param rightBorder правая граница обрезки
     /// \return обрезанная по границам [leftBorder, rightBorder] матрица
     virtual unique_ptr<IMatrix<T>> clipM(T leftBorder, T rightBorder) = 0;
+    ///
+    /// \brief lognM нахождение алгоритма каждого элемента матрицы
+    /// \return матрица с найденными алгоритмами
+    virtual unique_ptr<IMatrix<T>> lognM() = 0;
 
 public:
     virtual ~IMatrix() {}
