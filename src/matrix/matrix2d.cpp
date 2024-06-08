@@ -1,4 +1,5 @@
 #include "matrix2d.h"
+#include "activationfunctions.h"
 
 template<typename T>
 Matrix2d<T>::Matrix2d()
@@ -43,6 +44,14 @@ template<typename T>
 vector<vector<T>> Matrix2d<T>::dataToVector() const
 {
     return _data;
+}
+
+template<typename T>
+vector<vector<T>> Matrix2d<T>::dataToVector(const IMatrix<T> *other)
+{
+    Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(other);
+    QVariant otherMatrixAutoData = otherMatrix->data();
+    return otherMatrixAutoData.value<vector<vector<T>>>();
 }
 
 template<typename T>
@@ -112,7 +121,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::addition(const IMatrix<T> *other)
         throw e;
     }
     // подготовка
-    vector<vector<T>> otherMatrixData = dataToVector(other);
+    vector<vector<T>> otherMatrixData = Matrix2d::dataToVector(other);
     vector<vector<T>> resultData;
     // создание и заполнение результирующей матрицы
     for (int rowI = 0; rowI < _data.size(); ++rowI) {
@@ -127,7 +136,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::addition(const IMatrix<T> *other)
 }
 
 template<typename T>
-unique_ptr<IMatrix<T> > Matrix2d<T>::addition(T num)
+unique_ptr<IMatrix<T>> Matrix2d<T>::addition(T num)
 {
     // подготовка
     vector<vector<T>> resultData;
