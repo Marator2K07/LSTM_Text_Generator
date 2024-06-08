@@ -1,6 +1,6 @@
 #include "activationfunctions.h"
 
-vector<double> ActivationFunctions::softmax(const vector<double> p)
+vector<double> ActivationFunctions::softmax(const vector<double> prediction)
 {
     // сначала находим общий знаменатель
     double denominator = 0;
@@ -15,7 +15,8 @@ vector<double> ActivationFunctions::softmax(const vector<double> p)
     return result;
 }
 
-vector<vector<double>> ActivationFunctions::batchSoftmax(const vector<vector<double>> predictions)
+unique_ptr<IMatrix<double>>
+ActivationFunctions::batchSoftmax(const IMatrix<double> *predictions)
 {
     // построчно обрабатываем предсказания
     vector<vector<double>> result;
