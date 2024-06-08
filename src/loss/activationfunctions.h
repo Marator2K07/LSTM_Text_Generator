@@ -4,10 +4,6 @@
 #include <vector>
 #include <cmath>
 
-#include "imatrix.h"
-#include "matrix2d.h"
-#include "matrix3d.h"
-
 using namespace std;
 
 ///
