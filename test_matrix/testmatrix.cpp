@@ -83,6 +83,10 @@ private slots:
     /// \brief testMatrix2dAndMatrix3dLogn
     /// тестирование нахождение матриц с алгоритмами их элементов
     void testMatrix2dAndMatrix3dLogn();
+    ///
+    /// \brief testMatrix2dAnd3dTotalSum
+    /// тестовое нахождение всех элементов 2д и 3д матриц
+    void testMatrix2dAnd3dTotalSum();
 
     ///
     /// \brief testMatrix2dCanMultMatrix2d
@@ -100,10 +104,6 @@ private slots:
     /// \brief test3Matrix2dMultMatrix2d
     /// версия для плохого случая матричного умножения
     void test3Matrix2dMultMatrix2d();
-    ///
-    /// \brief testTotalMatrix2dSum
-    /// тестирование общей суммы всех элементов матрицы
-    void testTotalMatrix2dSum();
 };
 
 void TestMatrix::testMatrix2dSameShapeMatrix3d()
@@ -504,6 +504,23 @@ void TestMatrix::testMatrix2dAndMatrix3dLogn()
     QCOMPARE(properMatrix3dReal == properMatrix3d, true);
 }
 
+void TestMatrix::testMatrix2dAnd3dTotalSum()
+{
+    // инициализация
+    Matrix2d<double> matrix {{0.33,0.12,0.777},
+                            {0.642,0.33,0.123}};
+    Matrix3d<double> matrix3d {{{0.955,0.42,0.22},{0.642,0.33,0.111}},
+                              {{0.343,0.42,0.22},{0.642,0.33,0.111}}};
+    // результаты
+    double resultSum2d = matrix.totalSum();
+    double properSum2d = 2.322;
+    double resultSum3d = matrix3d.totalSum();
+    double properSum3d = 4.744;
+
+    QCOMPARE(resultSum2d, properSum2d);
+    QCOMPARE(resultSum3d, properSum3d);
+}
+
 void TestMatrix::testMatrix2dCanMultMatrix2d()
 {
     // инициализация
@@ -581,18 +598,6 @@ void TestMatrix::test3Matrix2dMultMatrix2d()
     } catch (const MatrixException& e) {
         e.what();
     }
-}
-
-void TestMatrix::testTotalMatrix2dSum()
-{
-    // инициализация
-    vector<vector<double>> matrix {{0.33,0.12,0.777},
-                                   {0.642,0.33,0.123}};
-    // итоговый и ожидаемый результаты
-    double resultSum = Matrix2d<double>::totalSum(matrix);
-    double properSum = 2.322;
-
-    QCOMPARE(resultSum, properSum);
 }
 
 QTEST_MAIN(TestMatrix)
