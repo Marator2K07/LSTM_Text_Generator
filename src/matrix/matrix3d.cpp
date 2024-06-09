@@ -261,15 +261,15 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::lognM()
 }
 
 template<typename T>
-unique_ptr<IMatrix<T>> Matrix3d<T>::softmaxM()
+unique_ptr<IMatrix<double>> Matrix3d<T>::softmaxM()
 {
     // подготовка и заполнение результирующей матрицы
-    vector<Matrix2d<T>> resultData;
+    vector<Matrix2d<double>> resultData;
     for (Matrix2d<T> matrix : _data) {
-        Matrix2d<T> stepMatrix(matrix.softmaxM()->data());
+        Matrix2d<double> stepMatrix(matrix.softmaxM()->data());
         resultData.push_back(stepMatrix);
     }
-    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+    return unique_ptr<Matrix3d<double>>(new Matrix3d<double>(resultData));
 }
 
 template<typename T>

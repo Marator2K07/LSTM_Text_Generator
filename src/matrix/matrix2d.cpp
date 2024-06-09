@@ -1,5 +1,6 @@
 #include "matrix2d.h"
 #include "activationfunctions.h"
+#include "activationfunctions.cpp"
 
 template<typename T>
 Matrix2d<T>::Matrix2d()
@@ -315,14 +316,14 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::lognM()
 }
 
 template<typename T>
-unique_ptr<IMatrix<T>> Matrix2d<T>::softmaxM()
+unique_ptr<IMatrix<double>> Matrix2d<T>::softmaxM()
 {
     // подготовка и заполнение результирующей матрицы
-    vector<vector<T>> resultData;
+    vector<vector<double>> resultData;
     for (const vector<T> row : _data) {
-        resultData.push_back(ActivationFunctions::softmax(row));
+        resultData.push_back(ActivationFunctions<T>::softmax(row));
     }
-    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+    return unique_ptr<Matrix2d<double>>(new Matrix2d<double>(resultData));
 }
 
 template<typename T>
