@@ -57,7 +57,16 @@ vector<vector<T>> Matrix2d<T>::dataToVector(const IMatrix<T> *other)
 template<typename T>
 Matrix2d<T> Matrix2d<T>::zeroM(int height, int width)
 {
-
+    // подготовка
+    vector<vector<T>> resultData;
+    // создание и заполнение результирующей матрицы
+    for (int h = 0; h < height; ++h) {
+        resultData.push_back(vector<T>());
+        for (int w = 0; w < width; ++w) {
+            resultData[h].push_back(0);
+        }
+    }
+    return Matrix2d(resultData);
 }
 
 template<typename T>

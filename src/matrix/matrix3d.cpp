@@ -44,7 +44,13 @@ vector<Matrix2d<T>> Matrix3d<T>::dataToVector(const IMatrix<T> *other)
 template<typename T>
 Matrix3d<T> Matrix3d<T>::zeroM(int depth, int height, int width)
 {
-
+    // подготовка
+    vector<Matrix2d<T>> resultData;
+    // создание и заполнение результирующей матрицы
+    for (int d = 0; d < depth; ++d) {
+        resultData.push_back(Matrix2d<T>::zeroM(height, width));
+    }
+    return Matrix3d(resultData);
 }
 
 template<typename T>
