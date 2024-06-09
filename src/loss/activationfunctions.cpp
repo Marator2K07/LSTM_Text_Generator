@@ -1,6 +1,7 @@
 #include "activationfunctions.h"
 
-vector<double> ActivationFunctions::softmax(const vector<double> prediction)
+template<typename T>
+vector<double> ActivationFunctions<T>::softmax(const vector<T> prediction)
 {
     // сначала находим общий знаменатель
     double denominator = 0;
