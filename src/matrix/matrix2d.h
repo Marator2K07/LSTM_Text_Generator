@@ -26,7 +26,7 @@ public:
     /// \brief zeroM создание новой матрицы, состоящей из нулей
     /// \param width,height размеры новой матрицы
     /// \return нулевая матрица
-    static unique_ptr<Matrix2d<T>> zeroM(int width, int height);
+    static Matrix2d<T> zeroM(int height, int width);
     bool operator==(Matrix2d<T> &other);
     bool operator!=(Matrix2d<T> &other);
 
@@ -46,6 +46,7 @@ public:
     unique_ptr<IMatrix<T>> lognM() override;
     unique_ptr<IMatrix<T>> softmaxM() override;
     T totalSum() override;
+    //
 
 };
 

@@ -27,7 +27,7 @@ public:
     /// \brief zeroM создание новой матрицы, состоящей из нулей
     /// \param depth,width,height размеры новой матрицы
     /// \return нулевая матрица
-    static unique_ptr<Matrix3d<T>> zeroM(int depth, int width, int height);
+    static Matrix3d<T> zeroM(int depth, int height, int width);
     bool operator==(Matrix3d<T> &other);
 
     // IMatrix interface
@@ -46,6 +46,7 @@ public:
     unique_ptr<IMatrix<T>> lognM() override;
     unique_ptr<IMatrix<T>> softmaxM() override;
     T totalSum() override;
+    //
 
 };
 

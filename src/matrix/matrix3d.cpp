@@ -42,7 +42,7 @@ vector<Matrix2d<T>> Matrix3d<T>::dataToVector(const IMatrix<T> *other)
 }
 
 template<typename T>
-unique_ptr<Matrix3d<T>> Matrix3d<T>::zeroM(int depth, int width, int height)
+Matrix3d<T> Matrix3d<T>::zeroM(int depth, int height, int width)
 {
 
 }

@@ -55,7 +55,7 @@ vector<vector<T>> Matrix2d<T>::dataToVector(const IMatrix<T> *other)
 }
 
 template<typename T>
-unique_ptr<Matrix2d<T>> Matrix2d<T>::zeroM(int width, int height)
+Matrix2d<T> Matrix2d<T>::zeroM(int height, int width)
 {
 
 }
