@@ -55,6 +55,12 @@ vector<vector<T>> Matrix2d<T>::dataToVector(const IMatrix<T> *other)
 }
 
 template<typename T>
+unique_ptr<Matrix2d<T>> Matrix2d<T>::zeroM(int width, int height)
+{
+
+}
+
+template<typename T>
 bool Matrix2d<T>::operator==(Matrix2d<T> &other)
 {
     return this->data() == other.data();

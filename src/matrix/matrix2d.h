@@ -22,6 +22,11 @@ public:
     void print();
     vector<vector<T>> dataToVector() const;
     static vector<vector<T>> dataToVector(const IMatrix<T> *other);
+    ///
+    /// \brief zeroM создание новой матрицы, состоящей из нулей
+    /// \param width,height размеры новой матрицы
+    /// \return нулевая матрица
+    static unique_ptr<Matrix2d<T>> zeroM(int width, int height);
     bool operator==(Matrix2d<T> &other);
     bool operator!=(Matrix2d<T> &other);
 

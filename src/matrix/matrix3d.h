@@ -23,6 +23,11 @@ public:
 public:
     void print();
     vector<Matrix2d<T>> dataToVector(const IMatrix<T> *other);
+    ///
+    /// \brief zeroM создание новой матрицы, состоящей из нулей
+    /// \param depth,width,height размеры новой матрицы
+    /// \return нулевая матрица
+    static unique_ptr<Matrix3d<T>> zeroM(int depth, int width, int height);
     bool operator==(Matrix3d<T> &other);
 
     // IMatrix interface
