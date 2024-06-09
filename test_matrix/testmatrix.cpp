@@ -12,6 +12,10 @@ class TestMatrix: public QObject
 
 private slots:
     ///
+    /// \brief testMatrix2dMatrix3dZeroM
+    /// проверка создания нулевых 2д и 3д матриц
+    void testMatrix2dMatrix3dZeroM();
+    ///
     /// \brief testMatrix2dSameShapeMatrix3d
     /// попытка сломать код, сравнивая матрицы с разными измерениями
     void testMatrix2dSameShapeMatrix3d();
@@ -88,6 +92,25 @@ private slots:
     /// тестовое нахождение всех элементов 2д и 3д матриц
     void testMatrix2dAnd3dTotalSum();
 };
+
+void TestMatrix::testMatrix2dMatrix3dZeroM()
+{
+    // инциализация
+    Matrix2d<double> matrix2d = Matrix2d<double>::zeroM(3, 4);
+    Matrix3d<double> matrix3d = Matrix3d<double>::zeroM(2, 3, 4);
+    // результаты
+    Matrix2d<double> properMatrix2d {{0,0,0,0},
+                                    {0,0,0,0},
+                                    {0,0,0,0}};
+    matrix2d.print();
+    Matrix3d<double> properMatrix3d {{{0,0,0,0},{0,0,0,0},{0,0,0,0}},
+                                    {{0,0,0,0},{0,0,0,0},{0,0,0,0}}};
+
+    QCOMPARE(matrix2d.sameShape(&properMatrix2d), true);
+    QCOMPARE(matrix3d.sameShape(&properMatrix3d), true);
+    QCOMPARE(matrix2d == properMatrix2d, true);
+    QCOMPARE(matrix3d == properMatrix3d, true);
+}
 
 void TestMatrix::testMatrix2dSameShapeMatrix3d()
 {
