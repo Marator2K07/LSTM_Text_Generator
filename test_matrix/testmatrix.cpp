@@ -96,15 +96,15 @@ private slots:
 void TestMatrix::testMatrix2dMatrix3dZeroM()
 {
     // инциализация
-    Matrix2d<double> matrix2d = Matrix2d<double>::zeroM(3, 4);
-    Matrix3d<double> matrix3d = Matrix3d<double>::zeroM(2, 3, 4);
+    Matrix2d<int> matrix2d = Matrix2d<int>::zeroM(3, 4);
+    Matrix3d<int> matrix3d = Matrix3d<int>::zeroM(2, 3, 4);
     // результаты
-    Matrix2d<double> properMatrix2d {{0,0,0,0},
-                                    {0,0,0,0},
-                                    {0,0,0,0}};
+    Matrix2d<int> properMatrix2d {{0,0,0,0},
+                                 {0,0,0,0},
+                                 {0,0,0,0}};
     matrix2d.print();
-    Matrix3d<double> properMatrix3d {{{0,0,0,0},{0,0,0,0},{0,0,0,0}},
-                                    {{0,0,0,0},{0,0,0,0},{0,0,0,0}}};
+    Matrix3d<int> properMatrix3d {{{0,0,0,0},{0,0,0,0},{0,0,0,0}},
+                                 {{0,0,0,0},{0,0,0,0},{0,0,0,0}}};
 
     QCOMPARE(matrix2d.sameShape(&properMatrix2d), true);
     QCOMPARE(matrix3d.sameShape(&properMatrix3d), true);

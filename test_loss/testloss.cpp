@@ -33,9 +33,9 @@ private slots:
 void TestLoss::testSoftmax()
 {
     // инициализация
-    vector<double> init{5,3,2};
+    vector<int> init{5,3,2};
     // итоговый и ожидаемый результаты
-    vector<double> currentResult = ActivationFunctions::softmax(init);
+    vector<double> currentResult = ActivationFunctions<int>::softmax(init);
     for (double &value : currentResult) {
         value = round(value * 1000)/1000;
     }
