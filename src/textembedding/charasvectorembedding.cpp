@@ -92,6 +92,20 @@ Matrix2d<T> CharAsVectorEmbedding<T>::genTextIndices(int startPos)
 template<typename T>
 Matrix3d<T> CharAsVectorEmbedding<T>::genTextBanch(Matrix2d<T> indices)
 {
+    // готовим будущий результат
+    vector<Matrix2d<T>> resBatchData;
+    for (vector row : indices.dataToVector()) {
+        // подготовливаем подматрицу для заполнения
+        Matrix2d<T> seqMatrix
+            = Matrix2d<T>::zeroM(_sequenceLength, _vocabSize);
+        // cтавим единицу в уникальном месте,
+        // ради идентификации буквы как вектора
+        for (int i = 0; i < _sequenceLength; ++i) {
+            seqMatrix.setValue(i, row[i], 1);
+        }
+        // можно добавлять в данные партии
+        resBatchData.push_back(seqMatrix);
+    }
 
     return Matrix3d<T>(resBatchData);
 }
