@@ -11,8 +11,8 @@ class CharAsVectorEmbedding : public ITextEmbedding
 {
 private:
     QString _text;
-    QMap<int, char> idxToChar;
-    QMap<char, int> charToIdx;
+    QMap<int, char> _idxToChar;
+    QMap<char, int> _charToIdx;
     int _batchSize; // размер партии символов текста
     int _sequenceLength; // макс. длина последовательности для партии
     int _vocabSize; // найденный размер словаря
