@@ -3,6 +3,7 @@
 #include <QMapIterator>
 
 #include "charasvectorembedding.h"
+#include "charasvectorembedding.cpp"
 
 using namespace std;
 
@@ -26,7 +27,7 @@ void TestTextEmbedding::textFileProcessing()
 {
     try {
         // инициализация
-        CharAsVectorEmbedding txtEmbed;
+        CharAsVectorEmbedding<int> txtEmbed;
         // результаты
         QCOMPARE(txtEmbed.charToIdx().size(), txtEmbed.idxToChar().size());
         QCOMPARE(txtEmbed.text().size() > txtEmbed.idxToChar().size(), true);
@@ -45,9 +46,9 @@ void TestTextEmbedding::testGenTextEmbeddingIndices()
 {
     try {
         // инициализация
-        CharAsVectorEmbedding txtEmbed("Plain_Kate.txt", 32, 16);
+        CharAsVectorEmbedding<double> txtEmbed("Plain_Kate.txt", 32, 16);
         // результаты
-        Matrix2d<int> resIndices = txtEmbed.genTextIndices(0);
+        Matrix2d<double> resIndices = txtEmbed.genTextIndices(0);
         QString str = " Erin Bow";
         for (int i = 0; i < str.size(); ++i) {
             int idx = txtEmbed.charToIdx()[str[i].toLatin1()];
