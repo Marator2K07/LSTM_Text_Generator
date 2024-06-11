@@ -20,6 +20,7 @@ using namespace std;
 /// определение функциональности преобразователя
 /// текста в математическое представление
 /// (набор вложенных векторов - или матрицы)
+template<typename T>
 class ITextEmbedding
 {
 public:
@@ -28,13 +29,13 @@ public:
     /// индексов символов для заданного текста
     /// \param startPos точка старта генерации
     /// \return 2д матрица с индексами символов текста
-    virtual Matrix2d<int> genTextIndices(int startPos) = 0;
+    virtual Matrix2d<T> genTextIndices(int startPos) = 0;
     ///
     /// \brief genTextBanch генерация партии (3д матрицы)
     /// представлений символов для заданного текста
     /// \param indices 2д матрица индексов символов текста
     /// \return 3д матрица с матем. представлениями символов текста
-    virtual Matrix3d<int> genTextBanch(Matrix2d<int> indices) = 0;
+    virtual Matrix3d<T> genTextBanch(Matrix2d<T> indices) = 0;
 
 public:
     virtual ~ITextEmbedding() {}

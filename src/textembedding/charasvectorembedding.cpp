@@ -1,6 +1,7 @@
 #include "charasvectorembedding.h"
 
-void CharAsVectorEmbedding::processTheFile(QString fileName)
+template<typename T>
+void CharAsVectorEmbedding<T>::processTheFile(QString fileName)
 {
     QFile file(fileName);
     QByteArray filedata;
@@ -20,42 +21,48 @@ void CharAsVectorEmbedding::processTheFile(QString fileName)
     _text = QString(filedata);
 }
 
-CharAsVectorEmbedding::CharAsVectorEmbedding(int sequenceLength, int batchSize)
+template<typename T>
+CharAsVectorEmbedding<T>::CharAsVectorEmbedding(int sequenceLength, int batchSize)
     : _sequenceLength{sequenceLength}
     , _batchSize{batchSize}
 {
     processTheFile(QDir::currentPath() + "/text.txt");
 }
 
-CharAsVectorEmbedding::CharAsVectorEmbedding(QString fileName,
-                                             int sequenceLength,
-                                             int batchSize)
+template<typename T>
+CharAsVectorEmbedding<T>::CharAsVectorEmbedding(QString fileName,
+                                                int sequenceLength,
+                                                int batchSize)
     : _sequenceLength{sequenceLength}
     , _batchSize{batchSize}
 {
     processTheFile(QDir::currentPath() + '/' + fileName);
 }
 
-QString CharAsVectorEmbedding::text() const
+template<typename T>
+QString CharAsVectorEmbedding<T>::text() const
 {
     return _text;
 }
 
-QMap<int, char> CharAsVectorEmbedding::idxToChar() const
+template<typename T>
+QMap<int, char> CharAsVectorEmbedding<T>::idxToChar() const
 {
     return _idxToChar;
 }
 
-QMap<char, int> CharAsVectorEmbedding::charToIdx() const
+template<typename T>
+QMap<char, int> CharAsVectorEmbedding<T>::charToIdx() const
 {
     return _charToIdx;
 }
 
-Matrix2d<int> CharAsVectorEmbedding::genTextIndices(int startPos)
+template<typename T>
+Matrix2d<T> CharAsVectorEmbedding<T>::genTextIndices(int startPos)
 {
     // создаем матрицу нужных размеров
-    Matrix2d<int> textIndices
-        = Matrix2d<int>::zeroM(_batchSize, _sequenceLength);
+    Matrix2d<T> textIndices
+        = Matrix2d<T>::zeroM(_batchSize, _sequenceLength);
     // заранее смотрим, выходим ли за пределы текста перед алгоритмом
     if (startPos + _sequenceLength + _batchSize + 1 > _text.length()) {
         startPos = _text.length() - startPos;
@@ -73,7 +80,8 @@ Matrix2d<int> CharAsVectorEmbedding::genTextIndices(int startPos)
     return textIndices;
 }
 
-Matrix3d<int> CharAsVectorEmbedding::genTextBanch(Matrix2d<int> indices)
+template<typename T>
+Matrix3d<T> CharAsVectorEmbedding<T>::genTextBanch(Matrix2d<T> indices)
 {
 
 }

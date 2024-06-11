@@ -7,7 +7,8 @@
 /// \brief The CharAsVectorEmbedding class
 /// классический эмбеддинг с представлением символа
 /// как массива(вектора) цирф и размером в длину словаря
-class CharAsVectorEmbedding : public ITextEmbedding
+template<typename T>
+class CharAsVectorEmbedding : public ITextEmbedding<T>
 {
 private:
     QString _text;
@@ -38,8 +39,8 @@ public:
     QMap<char, int> charToIdx() const;
 
     // ITextEmbedding interface
-    Matrix2d<int> genTextIndices(int startPos) override;
-    Matrix3d<int> genTextBanch(Matrix2d<int> indices) override;
+    Matrix2d<T> genTextIndices(int startPos) override;
+    Matrix3d<T> genTextBanch(Matrix2d<T> indices) override;
     //
 
 };
