@@ -24,15 +24,17 @@ private:
 private:
     ///
     /// \brief processTheFile
-    /// обработка заданного текста после открытия,
+    /// обработка заданного файла после открытия,
     /// а именно нахождения словаря и его размера
     /// + словарей символа к индексу и наоборот
-    /// \param text полученный из файла текст
-    void processTheFile(QString text);
+    /// \param fileName полученный из файла текст
+    void processTheFile(QString fileName);
 
 public:
-    CharAsVectorEmbedding();
-    CharAsVectorEmbedding(QString fileName);
+    CharAsVectorEmbedding(int sequenceLength = 64, int batchSize = 32);
+    CharAsVectorEmbedding(QString fileName,
+                          int sequenceLength = 64,
+                          int batchSize = 32);
 
 public:
     // ITextEmbedding interface
