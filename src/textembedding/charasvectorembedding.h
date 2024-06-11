@@ -17,12 +17,21 @@ private:
     QString _text;
     QMap<int, QChar> idxToChar;
     QMap<QChar, int> charToIdx;
-    int _batchSize;
-    int _sequenceLength;
-    int _vocabSize;
+    int _batchSize; // размер партии символов текста
+    int _sequenceLength; // макс. длина последовательности для партии
+    int _vocabSize; // найденный размер словаря
+
+private:
+    ///
+    /// \brief processTheFile
+    /// обработка заданного файла после открытия,
+    /// а именно нахождения словаря и его размера
+    /// + словарей символа к индексу и наоборот
+    void processTheFile();
 
 public:
     CharAsVectorEmbedding();
+    CharAsVectorEmbedding(QString fileName);
 
 public:
     // ITextEmbedding interface
