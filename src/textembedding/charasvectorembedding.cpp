@@ -14,11 +14,16 @@ void CharAsVectorEmbedding<T>::processTheFile(QString fileName)
     }
     // заполняем оставшиеся поля класса
     filedata = file.readAll();
-    for (int i = 0; i < filedata.length(); ++i) {
-        _charToIdx.insert(filedata.at(i), filedata.at(i));
-        _idxToChar.insert(filedata.at(i), filedata.at(i));
+    unsigned long index = 0;
+    for (unsigned long i = 0; i < filedata.length(); ++i) {
+        if (!_charToIdx.contains(filedata.at(i))) {
+            _charToIdx.insert(filedata.at(i), index);
+            _idxToChar.insert(index, filedata.at(i));
+            index++;
+        }
     }
     _text = QString(filedata);
+    _vocabSize = _charToIdx.size();
 }
 
 template<typename T>
@@ -73,7 +78,11 @@ Matrix2d<T> CharAsVectorEmbedding<T>::genTextIndices(int startPos)
         for (int chIdx = startPos + i;
              chIdx < startPos + _sequenceLength + i;
              ++chIdx) {
-            textIndices.setValue(i, k++, _charToIdx[_text[chIdx].toLatin1()]);
+            textIndices.setValue(
+                i,
+                k++,
+                _charToIdx[_text[chIdx].toLatin1()]
+            );
         }
     }
 
@@ -84,4 +93,5 @@ template<typename T>
 Matrix3d<T> CharAsVectorEmbedding<T>::genTextBanch(Matrix2d<T> indices)
 {
 
+    return Matrix3d<T>(resBatchData);
 }
