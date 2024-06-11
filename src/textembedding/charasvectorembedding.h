@@ -24,10 +24,11 @@ private:
 private:
     ///
     /// \brief processTheFile
-    /// обработка заданного файла после открытия,
+    /// обработка заданного текста после открытия,
     /// а именно нахождения словаря и его размера
     /// + словарей символа к индексу и наоборот
-    void processTheFile();
+    /// \param text полученный из файла текст
+    void processTheFile(QString text);
 
 public:
     CharAsVectorEmbedding();
