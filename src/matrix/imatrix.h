@@ -38,7 +38,7 @@ public:
     ///
     /// \brief sizes нахождение размеров матрицы
     /// \return вектор с размерами матрицы ('глубина'-высота-ширина)
-    virtual vector<int> sizes() const = 0;
+    virtual vector<unsigned long long> sizes() const = 0;
     ///
     /// \brief sameShape проверка на полное
     /// соотвествие размеров этой и другой матрицы

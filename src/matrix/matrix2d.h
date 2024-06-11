@@ -39,7 +39,7 @@ public:
     // IMatrix interface
     Dimensions type() const override;
     QVariant data() const override;
-    vector<int> sizes() const override;
+    vector<unsigned long long> sizes() const override;
     bool sameShape(const IMatrix<T> *other) override;
     unique_ptr<IMatrix<T>> addition(const IMatrix<T> *other) override;
     unique_ptr<IMatrix<T>> addition(T num) override;

@@ -101,10 +101,10 @@ QVariant Matrix2d<T>::data() const
 }
 
 template<typename T>
-vector<int> Matrix2d<T>::sizes() const
+vector<unsigned long long> Matrix2d<T>::sizes() const
 {
     try {
-        return vector<int>{_data.size(), _data[0].size()};
+        return vector<unsigned long long>{_data.size(), _data[0].size()};
     } catch (...) {
         throw MatrixException(
             QString("\nMatrix exception \n[%1]\n")

@@ -80,11 +80,11 @@ QVariant Matrix3d<T>::data() const
 }
 
 template<typename T>
-vector<int> Matrix3d<T>::sizes() const
+vector<unsigned long long> Matrix3d<T>::sizes() const
 {
     try {
-        vector<int> sizes{_data.size()};
-        vector<int> sizesInner{_data[0].sizes()};
+        vector<unsigned long long> sizes{_data.size()};
+        vector<unsigned long long> sizesInner{_data[0].sizes()};
         sizes.insert(sizes.end(), sizesInner.begin(), sizesInner.end());
         return sizes;
     } catch (...) {
