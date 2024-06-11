@@ -6,6 +6,7 @@ target_link_libraries(textembedding PRIVATE
     Qt6::Core
 )
 target_link_libraries(textembedding PRIVATE
+    loss
     matrix
     exception
 )

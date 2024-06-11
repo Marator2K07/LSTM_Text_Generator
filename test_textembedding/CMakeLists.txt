@@ -19,4 +19,5 @@ target_link_libraries(Test_TextEmbedding PRIVATE
     textembedding
     exception
     matrix
+    loss
 )
