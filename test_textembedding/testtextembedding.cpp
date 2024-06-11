@@ -21,6 +21,10 @@ private slots:
     /// \brief testGenTextEmbeddingIndices
     /// тестирование генерации индексов символов в матрицу
     void testGenTextEmbeddingIndices();
+    ///
+    /// \brief testGenTextBatchEmbedding
+    /// тест генерации партии последовательностей символов как векторов
+    void testGenTextBatchEmbedding();
 };
 
 void TestTextEmbedding::textFileProcessing()
@@ -65,6 +69,29 @@ void TestTextEmbedding::testGenTextEmbeddingIndices()
             cout << it.key() << ": " << it.value() << endl;
         }
         resIndices.print();
+    } catch (const TextEmbeddingException &e) {
+        cout << e.what() << endl;
+    }
+}
+
+void TestTextEmbedding::testGenTextBatchEmbedding()
+{
+    try {
+        // инициализация
+        CharAsVectorEmbedding<double> txtEmbed("simple_text.txt", 4, 8);
+        // результаты (str = "abcdabc dacd ab")
+        Matrix2d<double> resIndices = txtEmbed.genTextIndices(0);
+        Matrix3d<double> resBatch = txtEmbed.genTextBanch(resIndices);
+        Matrix3d<double> properBanch {{{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}},
+                                     {{0,1,0,0},{0,0,1,0},{0,0,0,1},{1,0,0,0}},
+                                     {{0,0,1,0},{0,0,0,1},{1,0,0,0},{0,1,0,0}},
+                                     {{0,0,0,1},{1,0,0,0},{0,1,0,0},{0,0,1,0}},
+                                     {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}},
+                                     {{0,1,0,0},{0,0,1,0},{0,0,0,1},{1,0,0,0}},
+                                     {{0,0,1,0},{0,0,0,1},{1,0,0,0},{0,0,1,0}},
+                                     {{0,0,0,1},{1,0,0,0},{0,0,1,0},{0,0,0,1}}};
+        resBatch.print();
+        QCOMPARE(resBatch == properBanch, true);
     } catch (const TextEmbeddingException &e) {
         cout << e.what() << endl;
     }
