@@ -1,6 +1,10 @@
 #ifndef CHARASVECTOREMBEDDING_H
 #define CHARASVECTOREMBEDDING_H
 
+#include <QMap>
+#include <QFile>
+#include <QByteArray>
+
 #include "itextembedding.h"
 
 ///
@@ -9,6 +13,14 @@
 /// как массива(вектора) цирф и размером в длину словаря
 class CharAsVectorEmbedding : public ITextEmbedding
 {
+private:
+    QString _text;
+    QMap<int, QChar> idxToChar;
+    QMap<QChar, int> charToIdx;
+    int _batchSize;
+    int _sequenceLength;
+    int _vocabSize;
+
 public:
     CharAsVectorEmbedding();
 
