@@ -20,6 +20,12 @@ public:
 
 public:
     void print();
+    ///
+    /// \brief setValue задание значения для ячейки
+    /// \param hIndex индекс строки
+    /// \param wIndex индекс значения в строке
+    /// \param value новое значение ячейки
+    void setValue(int hIndex, int wIndex, T value);
     vector<vector<T>> dataToVector() const;
     static vector<vector<T>> dataToVector(const IMatrix<T> *other);
     ///

@@ -42,6 +42,12 @@ void Matrix2d<T>::print()
 }
 
 template<typename T>
+void Matrix2d<T>::setValue(int hIndex, int wIndex, T value)
+{
+    _data[hIndex][wIndex] = value;
+}
+
+template<typename T>
 vector<vector<T>> Matrix2d<T>::dataToVector() const
 {
     return _data;
