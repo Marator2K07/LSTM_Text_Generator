@@ -1,7 +1,13 @@
 #ifndef ITEXTEMBEDDING_H
 #define ITEXTEMBEDDING_H
 
+#include <QDir>
+#include <QMap>
+#include <QFile>
+#include <QByteArray>
 #include <vector>
+
+#include "textembeddingexception.h"
 #include "matrix2d.h"
 #include "matrix3d.h"
 

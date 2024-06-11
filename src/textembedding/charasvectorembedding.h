@@ -1,10 +1,6 @@
 #ifndef CHARASVECTOREMBEDDING_H
 #define CHARASVECTOREMBEDDING_H
 
-#include <QMap>
-#include <QFile>
-#include <QByteArray>
-
 #include "itextembedding.h"
 
 ///
@@ -15,8 +11,8 @@ class CharAsVectorEmbedding : public ITextEmbedding
 {
 private:
     QString _text;
-    QMap<int, QChar> idxToChar;
-    QMap<QChar, int> charToIdx;
+    QMap<int, char> idxToChar;
+    QMap<char, int> charToIdx;
     int _batchSize; // размер партии символов текста
     int _sequenceLength; // макс. длина последовательности для партии
     int _vocabSize; // найденный размер словаря
