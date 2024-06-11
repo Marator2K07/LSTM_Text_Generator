@@ -53,7 +53,24 @@ QMap<char, int> CharAsVectorEmbedding::charToIdx() const
 
 Matrix2d<int> CharAsVectorEmbedding::genTextIndices(int startPos)
 {
+    // создаем матрицу нужных размеров
+    Matrix2d<int> textIndices
+        = Matrix2d<int>::zeroM(_batchSize, _sequenceLength);
+    // заранее смотрим, выходим ли за пределы текста перед алгоритмом
+    if (startPos + _sequenceLength + _batchSize + 1 > _text.length()) {
+        startPos = _text.length() - startPos;
+    }
+    // ставим индексы символов из текста
+    for (int i = 0; i < _batchSize; ++i) {
+        int k = 0;
+        for (int chIdx = startPos + i;
+             chIdx < startPos + _sequenceLength + i;
+             ++chIdx) {
+            textIndices.setValue(i, k++, _charToIdx[_text[chIdx].toLatin1()]);
+        }
+    }
 
+    return textIndices;
 }
 
 Matrix3d<int> CharAsVectorEmbedding::genTextBanch(Matrix2d<int> indices)
