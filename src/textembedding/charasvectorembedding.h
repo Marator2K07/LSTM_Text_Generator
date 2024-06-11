@@ -33,9 +33,15 @@ public:
                           int batchSize = 32);
 
 public:
+    QString text() const;
+    QMap<int, char> idxToChar() const;
+    QMap<char, int> charToIdx() const;
+
     // ITextEmbedding interface
     Matrix2d<int> genTextIndices(int startPos) override;
     Matrix3d<int> genTextBanch(Matrix2d<int> indices) override;
+    //
+
 };
 
 #endif // CHARASVECTOREMBEDDING_H

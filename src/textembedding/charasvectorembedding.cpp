@@ -36,6 +36,21 @@ CharAsVectorEmbedding::CharAsVectorEmbedding(QString fileName,
     processTheFile(QDir::currentPath() + '/' + fileName);
 }
 
+QString CharAsVectorEmbedding::text() const
+{
+    return _text;
+}
+
+QMap<int, char> CharAsVectorEmbedding::idxToChar() const
+{
+    return _idxToChar;
+}
+
+QMap<char, int> CharAsVectorEmbedding::charToIdx() const
+{
+    return _charToIdx;
+}
+
 Matrix2d<int> CharAsVectorEmbedding::genTextIndices(int startPos)
 {
 
