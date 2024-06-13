@@ -9,7 +9,6 @@
 #include <QVariant>
 
 #include "matrixexception.h"
-#include "activationfunctions.h"
 
 using namespace std;
 
@@ -96,7 +95,7 @@ public:
     /// \brief softmaxM обработка значений матрицы с помощью
     /// многопеременной логистической функции softmax
     /// \return обработанная матрица
-    virtual unique_ptr<IMatrix<double>> softmaxM() = 0;
+    // virtual unique_ptr<IMatrix<double>> softmaxM() = 0;
     ///
     /// \brief totalSum нахождение суммы всех элементов матрицы
     /// \return сумма всех элементов входной матрицы

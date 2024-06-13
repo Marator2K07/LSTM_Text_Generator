@@ -4,6 +4,10 @@
 #include <vector>
 #include <cmath>
 
+#include "imatrix.h"
+#include "matrix2d.h"
+#include "matrix3d.h"
+
 using namespace std;
 
 ///
@@ -14,10 +18,16 @@ class ActivationFunctions
 {
 public:
     ///
+    /// \brief sigmoid гладкая монотонная возрастающая нелинейная функция,
+    /// имеющая форму буквы «S» для «сглаживания» значений некоторой величины.
+    /// \param matrix матрица входящих значений для сглаживания
+    /// \return результирующая матрица
+    static unique_ptr<IMatrix<double>> sigmoid(const IMatrix<T> *matrix);
+    ///
     /// \brief softmax многопеременная логистическая функция
-    /// \param prediction вектор вероятностей(прогнозов)
+    /// \param matrix вектор вероятностей(прогнозов)
     /// \return обработанный вектор
-    static vector<double> softmax(const vector<T> prediction);
+    static unique_ptr<IMatrix<double>> softmax(const IMatrix<T> *matrix);
 };
 
 #endif // ACTIVATIONFUNCTIONS_H

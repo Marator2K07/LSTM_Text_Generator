@@ -1,8 +1,16 @@
 #include "activationfunctions.h"
 
 template<typename T>
-vector<double> ActivationFunctions<T>::softmax(const vector<T> prediction)
+unique_ptr<IMatrix<double>> ActivationFunctions<T>::sigmoid(const IMatrix<T> *matrix)
 {
+
+}
+
+template<typename T>
+unique_ptr<IMatrix<double>> ActivationFunctions<T>::softmax(const IMatrix<T> *matrix)
+{
+    // подготовка
+    Matrix2d<double> result = new Matrix2d(matrix->data());
     // сначала находим общий знаменатель
     double denominator = 0;
     for (const double value : prediction) {
