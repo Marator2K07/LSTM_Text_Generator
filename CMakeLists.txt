@@ -29,6 +29,7 @@ add_subdirectory(src)
 add_subdirectory(test_loss)
 add_subdirectory(test_matrix)
 add_subdirectory(test_autodifferentiation)
+add_subdirectory(test_activationfunctions)
 add_subdirectory(test_textembedding)
 
 include(GNUInstallDirs)
