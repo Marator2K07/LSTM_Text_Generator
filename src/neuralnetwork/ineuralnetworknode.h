@@ -20,6 +20,14 @@ public:
     QMap<QString, Matrix2d<double>>
     forward(QMap<QString, Matrix2d<double>> in,
             QMap<QString, QMap<QString, Matrix2d<double>>> &params);
+    ///
+    /// \brief backward обратное распостранение градиента по узлу слоя
+    /// \param outGrad словарь градиентов по выходу и скрытым состояниям
+    /// \param params заданные параметры слоя для данного узла
+    /// \return словарь градиентов по входным данным и скрытым состояниям
+    QMap<QString, Matrix2d<double>>
+    backward(QMap<QString, Matrix2d<double>> outGrad,
+             QMap<QString, QMap<QString, Matrix2d<double>>> &params);
 };
 
 #endif // INEURALNETWORKNODE_H
