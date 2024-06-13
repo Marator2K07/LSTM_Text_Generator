@@ -8,5 +8,7 @@ target_link_libraries(neuralnetwork PRIVATE
 )
 target_link_libraries(neuralnetwork PRIVATE
     matrix
+    exception
+    activationfunctions
 )
 target_include_directories(neuralnetwork PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

@@ -9,6 +9,7 @@
 #include <QVariant>
 
 #include "matrixexception.h"
+#include "activationfunctions.h"
 
 using namespace std;
 

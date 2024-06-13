@@ -7,7 +7,8 @@ target_link_libraries(matrix PRIVATE
     Qt6::Core
 )
 target_link_libraries(matrix PRIVATE
-    exception
     loss
+    exception    
+    activationfunctions
 )
 target_include_directories(matrix PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

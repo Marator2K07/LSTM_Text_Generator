@@ -19,4 +19,5 @@ target_link_libraries(Test_Loss PRIVATE
     loss
     matrix
     exception
+    activationfunctions
 )

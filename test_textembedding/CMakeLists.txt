@@ -16,7 +16,8 @@ qt_add_executable(Test_TextEmbedding
 target_link_libraries(Test_TextEmbedding PRIVATE
     Qt6::Core
     Qt6::Test
-    textembedding
+    activationfunctions
+    textembedding    
     exception
     matrix
     loss
