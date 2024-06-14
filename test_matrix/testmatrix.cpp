@@ -72,6 +72,10 @@ private slots:
     /// тест упрощенного поэлементного деления двумерных матриц
     void testMatrix2dSimplDivMatrix2d();
     ///
+    /// \brief testMatrix3dSimplDivMatrix3d
+    /// тест упрощенного поэлементного деления трехмерных матриц
+    void testMatrix3dSimplDivMatrix3d();
+    ///
     /// \brief testMatrix2dMultNumber
     /// умножение матрицы на число
     void testMatrix2dMultNumber();
@@ -430,6 +434,25 @@ void TestMatrix::testMatrix2dSimplDivMatrix2d()
                                     {1.5,1.5}};
 
     QCOMPARE(resultMatrix.data(), properMatrixAB.data());
+}
+
+void TestMatrix::testMatrix3dSimplDivMatrix3d()
+{
+    // инициализация
+    Matrix3d<double> matrixA {{{1,2,3}, {1,2,8}},
+                             {{8,5,5}, {3,1,4}},
+                             {{7,7,6}, {1,1,1}}};
+    Matrix3d<double> matrixB {{{3,5,3}, {1,3,7}},
+                             {{1,8,6}, {1,3,1}},
+                             {{3,2,3}, {2,2,8}}};
+    // результаты
+    Matrix3d<double> resultMatrix(matrixA.simplifiedDiv(&matrixB)->data());
+    resultMatrix.floorM(2);
+    Matrix3d<double> properMatrixAB {{{0.33,0.4,1}, {1,0.66,1.14}},
+                                    {{8,0.62,0.83}, {3,0.33,4}},
+                                    {{2.33,3.5,2}, {0.5,0.5,0.12}}};
+
+    QCOMPARE(resultMatrix == properMatrixAB, true);
 }
 
 void TestMatrix::testMatrix2dMultNumber()
