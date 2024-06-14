@@ -16,6 +16,7 @@ private:
 
 private:
     T sum(T a, T b);
+    T sub(T a, T b);
 
     // IMatrix interface
     unique_ptr<IMatrix<T>> doOperation(const IMatrix<T> *matrix) override;
