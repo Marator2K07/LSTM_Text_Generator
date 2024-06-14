@@ -14,6 +14,12 @@ class Matrix3d : public IMatrix<T>
 private:
     vector<Matrix2d<T>> _data;
 
+private:
+    // IMatrix interface
+    unique_ptr<IMatrix<T>> doOperation(const IMatrix<T> *matrix) override;
+    unique_ptr<IMatrix<T>> doOperation(const T num, bool reverseOrder) override;
+    //
+
 public:
     Matrix3d();
     Matrix3d(QVariant data);

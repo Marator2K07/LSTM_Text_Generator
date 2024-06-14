@@ -1,6 +1,18 @@
 #include "matrix3d.h"
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix3d<T>::doOperation(const IMatrix<T> *matrix)
+{
+
+}
+
+template<typename T>
+unique_ptr<IMatrix<T>> Matrix3d<T>::doOperation(const T num, bool reverseOrder)
+{
+
+}
+
+template<typename T>
 Matrix3d<T>::Matrix3d()
 {
 }

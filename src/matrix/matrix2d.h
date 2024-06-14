@@ -12,6 +12,12 @@ class Matrix2d : public IMatrix<T>
 private:
     vector<vector<T>> _data;
 
+private:
+    // IMatrix interface
+    unique_ptr<IMatrix<T>> doOperation(const IMatrix<T> *matrix) override;
+    unique_ptr<IMatrix<T>> doOperation(const T num, bool reverseOrder) override;
+    //
+
 public:
     Matrix2d();
     Matrix2d(QVariant data);
