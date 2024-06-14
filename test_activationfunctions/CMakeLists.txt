@@ -17,5 +17,6 @@ target_link_libraries(Test_ActivationFunctions PRIVATE
     Qt6::Core
     Qt6::Test
     activationfunctions
-    matrix
+    exception
+    matrix    
 )
