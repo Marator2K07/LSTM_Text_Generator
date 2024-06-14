@@ -68,6 +68,11 @@ private slots:
     /// тест упрощенного поэлеметного умножения трехмерных матриц
     void testMatrix3dSimplMultMatrix3d();
     ///
+    /// \brief testMatrix2dSimplDivMatrix2d
+    /// тест упрощенного поэлементного деления двумерных матриц
+    void testMatrix2dSimplDivMatrix2d();
+
+    ///
     /// \brief testMatrix2dMultNumber
     /// умножение матрицы на число
     void testMatrix2dMultNumber();
@@ -406,6 +411,22 @@ void TestMatrix::testMatrix3dSimplMultMatrix3d()
                                   {{7,14,18},{2,2,8}}};
 
     QCOMPARE(resultMatrix == properMatrix, true);
+}
+
+void TestMatrix::testMatrix2dSimplDivMatrix2d()
+{
+    // инициализация
+    Matrix2d<double> matrixA {{1,2},
+                             {3,9}};
+    Matrix2d<double> matrixB {{7,4},
+                             {2,6}};
+    // результаты
+    Matrix2d<double> resultMatrix(matrixA.simplifiedDiv(&matrixB)->data());
+    resultMatrix.floorM(2);
+    Matrix2d<double> properMatrixAB {{0.14,0.5},
+                                    {1.5,1.5}};
+
+    QCOMPARE(resultMatrix.data(), properMatrixAB.data());
 }
 
 void TestMatrix::testMatrix2dMultNumber()
