@@ -3,13 +3,46 @@
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::doOperation(const IMatrix<T> *matrix)
 {
-
+    // проверки
+    try {
+        if (!this->sameShape(matrix)) {
+            throw MatrixException(
+                QString("\nMatrix exception \n[%1]\n")
+                    .arg("Impossible to find matrix addition, the sizes do not match.")
+                );
+        }
+        // если поймали исключение при выполнении 'this->sameShape(matrix)'
+    } catch (const MatrixException &e) {
+        throw e;
+    }
+    try {
+        // подготовка
+        vector<Matrix2d<T>> otherMatrixData = dataToVector(matrix);
+        vector<Matrix2d<T>> resultData;
+        // создание и заполнение результирующей матрицы
+        for (int i = 0; i < _data.size(); ++i) {
+            _data[i].setOperation(_opType); // перед выполнением нужно указать операцию!
+            Matrix2d<T> stepMatrix(_data[i].doOperation(&otherMatrixData[i])->data());
+            resultData.push_back(stepMatrix);
+        }
+        return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+    } catch (const exception &e) {
+        throw e;
+    }
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::doOperation(const T num, bool reverseOrder)
 {
-
+    // подготовка
+    vector<Matrix2d<T>> resultData;
+    // создание и заполнение результирующей матрицы
+    for (int i = 0; i < _data.size(); ++i) {
+        _data[i].setOperation(_opType); // перед выполнением нужно указать операцию!
+        Matrix2d<T> stepMatrix(_data[i].doOperation(num, reverseOrder)->data());
+        resultData.push_back(stepMatrix);
+    }
+    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
 }
 
 template<typename T>
