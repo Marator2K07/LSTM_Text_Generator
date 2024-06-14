@@ -13,10 +13,7 @@ class Matrix3d : public IMatrix<T>
 {
 private:
     vector<Matrix2d<T>> _data;
-    // указатель на операцию с матрицей
-    unique_ptr<IMatrix<T>> (Matrix2d<T>::*_operationMatrPtr)(const IMatrix<T>*);
-    // указатель на операцию с числом
-    unique_ptr<IMatrix<T>> (Matrix2d<T>::*_operationNumPtr)(T, bool);
+    OperationType _opType = OperationType::SUM;
 
 public:
     Matrix3d();
