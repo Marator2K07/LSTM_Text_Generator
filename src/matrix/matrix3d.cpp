@@ -34,6 +34,12 @@ void Matrix3d<T>::print()
 }
 
 template<typename T>
+vector<Matrix2d<T>> Matrix3d<T>::dataToVector() const
+{
+    return _data;
+}
+
+template<typename T>
 vector<Matrix2d<T>> Matrix3d<T>::dataToVector(const IMatrix<T> *other)
 {
     Matrix3d<T> *otherMatrix = (Matrix3d<T>*)(other);

@@ -22,7 +22,8 @@ public:
 
 public:
     void print();
-    vector<Matrix2d<T>> dataToVector(const IMatrix<T> *other);
+    vector<Matrix2d<T>> dataToVector() const;
+    static vector<Matrix2d<T>> dataToVector(const IMatrix<T> *other);
     ///
     /// \brief zeroM создание новой матрицы, состоящей из нулей
     /// \param depth,width,height размеры новой матрицы
