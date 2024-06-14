@@ -19,6 +19,12 @@ T Matrix2d<T>::mul(T a, T b)
 }
 
 template<typename T>
+T Matrix2d<T>::div(T a, T b)
+{
+    return a / b;
+}
+
+template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const IMatrix<T> *matrix)
 {
     // проверки
