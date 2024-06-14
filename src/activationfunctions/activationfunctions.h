@@ -31,9 +31,11 @@ public:
     /// \return результирующая матрица
     static unique_ptr<IMatrix<double>> sigmoid(const IMatrix<T> *matrix);
     ///
-    /// \brief softmax многопеременная логистическая функция
-    /// \param matrix вектор вероятностей(прогнозов)
-    /// \return обработанный вектор
+    /// \brief softmax многопеременная логистическая функция,
+    /// для "сглаживания" значений в пределах (от 0, до 1),
+    /// при этом увеличивая примерное соотношения чисел между собой
+    /// \param matrix матрица значений для преобразования
+    /// \return обработанная softmax матрица
     static unique_ptr<IMatrix<double>> softmax(const IMatrix<T> *matrix);
 };
 
