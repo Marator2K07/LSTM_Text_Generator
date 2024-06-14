@@ -3,6 +3,10 @@
 
 #include "activationfunctions.h"
 #include "activationfunctions.cpp"
+#include "matrix2d.h"
+#include "matrix2d.cpp"
+#include "matrix3d.h"
+#include "matrix3d.cpp"
 
 using namespace std;
 
@@ -22,13 +26,14 @@ private slots:
 void TestActivationFunctions::testSoftmax()
 {
     // инициализация
-    vector<int> init{5,3,2};
+    Matrix2d<double> init{{5, 3, 2}};
     // итоговый и ожидаемый результаты
-    vector<double> currentResult = ActivationFunctions<int>::softmax(init);
-    for (double &value : currentResult) {
-        value = round(value * 1000)/1000;
-    }
-    vector<double> properResult{0.844, 0.114, 0.042};
+    Matrix2d<double> currentResult(ActivationFunctions<double>::softmax(&init)->data());
+    currentResult.floorM(3);
+    Matrix2d<double> properResult{{0.843, 0.114, 0.042}};
+
+    QCOMPARE(currentResult.data(), properResult.data());
+}
 
     QCOMPARE(currentResult, properResult);
 }
