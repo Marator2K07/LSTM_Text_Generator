@@ -2,6 +2,13 @@
 #define OPERATIONS_H
 
 ///
+/// \brief The OperationType enum
+/// определение вида операции для ее изменения
+enum class OperationType {
+    SUM, SUB, MUL, DIV
+};
+
+///
 /// \brief The Operations class
 /// класс с вынесенными основными
 /// статическими простейшими операциями
