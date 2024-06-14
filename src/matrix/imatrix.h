@@ -92,6 +92,11 @@ public:
     /// \return увеличенная в num раз матрица
     virtual unique_ptr<IMatrix<T>> multiplication(T num) = 0;
     ///
+    /// \brief simplifiedDiv упрощенное поэлементное деление элементов матриц
+    /// \param other другая матрицы для операции
+    /// \return результирующая матрица
+    virtual unique_ptr<IMatrix<T>> simplifiedDiv(const IMatrix<T> *matrix) = 0;
+    ///
     /// \brief dividing поэлементное деление матрицы и числа(или числа
     /// и матрицы), где порядок порядок операндов зависит от reverseOrder
     /// \param num число для деления
