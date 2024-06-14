@@ -205,13 +205,15 @@ unique_ptr<IMatrix<T> > Matrix3d<T>::multiplication(T num)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::simplifiedDiv(const IMatrix<T> *matrix)
 {
-    
+    _opType = OperationType::DIV;
+    return doOperation(matrix);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::dividing(T num, bool reverseOrder)
 {
-    
+    _opType = OperationType::DIV;
+    return doOperation(num, reverseOrder);
 }
 
 template<typename T>
