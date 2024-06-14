@@ -16,6 +16,13 @@ using namespace std;
 template<typename T>
 class ActivationFunctions
 {
+private:
+    ///
+    /// \brief softmaxRow нахождение softmax для строки(вектора) значений
+    /// \param row входящий вектор значений
+    /// \return обработанный softmax вектор
+    static vector<double> softmaxRow(vector<T> row);
+
 public:
     ///
     /// \brief sigmoid гладкая монотонная возрастающая нелинейная функция,
