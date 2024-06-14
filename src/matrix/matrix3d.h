@@ -29,24 +29,24 @@ public:
 public:
     void print();
     vector<Matrix2d<T>> dataToVector() const;
-    static vector<Matrix2d<T>> dataToVector(const IMatrix<T> *other);
+    static vector<Matrix2d<T>> dataToVector(const IMatrix<T> *matrix);
     ///
     /// \brief zeroM создание новой матрицы, состоящей из нулей
     /// \param depth,width,height размеры новой матрицы
     /// \return нулевая матрица
     static Matrix3d<T> zeroM(int depth, int height, int width);
-    bool operator==(Matrix3d<T> &other);
+    bool operator==(Matrix3d<T> &matrix);
 
     // IMatrix interface
     Dimensions type() const override;
     QVariant data() const override;
     vector<unsigned long long> sizes() const override;
-    bool sameShape(const IMatrix<T> *other) override;
-    unique_ptr<IMatrix<T>> addition(const IMatrix<T> *other) override;
+    bool sameShape(const IMatrix<T> *matrix) override;
+    unique_ptr<IMatrix<T>> addition(const IMatrix<T> *matrix) override;
     unique_ptr<IMatrix<T>> addition(T num) override;
-    unique_ptr<IMatrix<T>> subtraction(const IMatrix<T> *other) override;
+    unique_ptr<IMatrix<T>> subtraction(const IMatrix<T> *matrix) override;
     unique_ptr<IMatrix<T>> subtraction(T num, bool reverseOrder = false) override;
-    unique_ptr<IMatrix<T>> simplifiedMult(const IMatrix<T> *other) override;
+    unique_ptr<IMatrix<T>> simplifiedMult(const IMatrix<T> *matrix) override;
     unique_ptr<IMatrix<T>> multiplication(T num) override;
     void floorM(T num) override;
     unique_ptr<IMatrix<T>> clipM(T leftBorder, T rightBorder) override;

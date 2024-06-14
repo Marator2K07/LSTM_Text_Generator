@@ -58,12 +58,12 @@ public:
     /// соотвествие размеров этой и другой матрицы
     /// \param other другая матрица
     /// \return флаг соответствия всех размеров
-    virtual bool sameShape(const IMatrix<T> *other) = 0;
+    virtual bool sameShape(const IMatrix<T> *matrix) = 0;
     ///
     /// \brief addition сложение элементов текущей и другой матрицы
     /// \param other другая матрицы для сложения
     /// \return результирующая матрица
-    virtual unique_ptr<IMatrix<T>> addition(const IMatrix<T> *other) = 0;
+    virtual unique_ptr<IMatrix<T>> addition(const IMatrix<T> *matrix) = 0;
     ///
     /// \brief addition поэлементное сложение матрицы и числа
     /// \param num число для сложения
@@ -73,7 +73,7 @@ public:
     /// \brief subtraction вычитание элементов текущей и другой матриц
     /// \param other другая матрицы для текущей операции
     /// \return результирующая матрица
-    virtual unique_ptr<IMatrix<T>> subtraction(const IMatrix<T> *other) = 0;
+    virtual unique_ptr<IMatrix<T>> subtraction(const IMatrix<T> *matrix) = 0;
     ///
     /// \brief subtraction поэлементная разность матрицы и числа
     /// (или числа и матрицы), где порядок операндов зависит от reverseOrder
@@ -85,7 +85,7 @@ public:
     /// \brief simplifiedMult упрощенное поэлементное умножение элементов матриц
     /// \param other другая матрицы для операции
     /// \return результирующая матрица
-    virtual unique_ptr<IMatrix<T>> simplifiedMult(const IMatrix<T> *other) = 0;
+    virtual unique_ptr<IMatrix<T>> simplifiedMult(const IMatrix<T> *matrix) = 0;
     ///
     /// \brief multiplication умножение матрицы на число
     /// \param num мультипликатор умножения

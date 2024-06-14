@@ -110,9 +110,9 @@ vector<vector<T>> Matrix2d<T>::dataToVector() const
 }
 
 template<typename T>
-vector<vector<T>> Matrix2d<T>::dataToVector(const IMatrix<T> *other)
+vector<vector<T>> Matrix2d<T>::dataToVector(const IMatrix<T> *matrix)
 {
-    Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(other);
+    Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(matrix);
     QVariant otherMatrixAutoData = otherMatrix->data();
     return otherMatrixAutoData.value<vector<vector<T>>>();
 }
@@ -133,15 +133,15 @@ Matrix2d<T> Matrix2d<T>::zeroM(int height, int width)
 }
 
 template<typename T>
-bool Matrix2d<T>::operator==(Matrix2d<T> &other)
+bool Matrix2d<T>::operator==(Matrix2d<T> &matrix)
 {
-    return this->data() == other.data();
+    return this->data() == matrix.data();
 }
 
 template<typename T>
-bool Matrix2d<T>::operator!=(Matrix2d<T> &other)
+bool Matrix2d<T>::operator!=(Matrix2d<T> &matrix)
 {
-    return this->data() != other.data();
+    return this->data() != matrix.data();
 }
 
 template<typename T>
@@ -170,10 +170,10 @@ vector<unsigned long long> Matrix2d<T>::sizes() const
 }
 
 template<typename T>
-bool Matrix2d<T>::sameShape(const IMatrix<T> *other)
+bool Matrix2d<T>::sameShape(const IMatrix<T> *matrix)
 {
     try {
-        Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(other);
+        Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(matrix);
         return sizes() == otherMatrix->sizes();
     } catch (...) {
         throw MatrixException(
@@ -198,11 +198,11 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::addition(T num)
 }
 
 template<typename T>
-unique_ptr<IMatrix<T>> Matrix2d<T>::subtraction(const IMatrix<T> *other)
+unique_ptr<IMatrix<T>> Matrix2d<T>::subtraction(const IMatrix<T> *matrix)
 {
     // проверки
     try {
-        if (!this->sameShape(other)) {
+        if (!this->sameShape(matrix)) {
             throw MatrixException(
                 QString("\nMatrix subtraction exception \n[%1]\n")
                     .arg("Impossible to find matrix subtraction, the sizes do not match.")
@@ -213,7 +213,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::subtraction(const IMatrix<T> *other)
         throw e;
     }
     // подготовка
-    vector<vector<T>> otherMatrixData = dataToVector(other);
+    vector<vector<T>> otherMatrixData = dataToVector(matrix);
     vector<vector<T>> resultData;
     // создание и заполнение результирующей матрицы
     for (int rowI = 0; rowI < _data.size(); ++rowI) {
@@ -245,11 +245,11 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::subtraction(T num, bool reverseOrder)
 }
 
 template<typename T>
-unique_ptr<IMatrix<T>> Matrix2d<T>::simplifiedMult(const IMatrix<T> *other)
+unique_ptr<IMatrix<T>> Matrix2d<T>::simplifiedMult(const IMatrix<T> *matrix)
 {
     // проверки
     try {
-        if (!this->sameShape(other)) {
+        if (!this->sameShape(matrix)) {
             throw MatrixException(
                 QString("\nMatrix exception \n[%1]\n")
                     .arg("Impossible to find matrix simplified multiplication, the sizes do not match.")
@@ -260,7 +260,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::simplifiedMult(const IMatrix<T> *other)
         throw e;
     }
     // подготовка
-    vector<vector<T>> otherMatrixData = dataToVector(other);
+    vector<vector<T>> otherMatrixData = dataToVector(matrix);
     vector<vector<T>> resultData;
     // создание и заполнение результирующей матрицы
     for (int rowI = 0; rowI < _data.size(); ++rowI) {

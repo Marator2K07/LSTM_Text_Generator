@@ -52,9 +52,9 @@ vector<Matrix2d<T>> Matrix3d<T>::dataToVector() const
 }
 
 template<typename T>
-vector<Matrix2d<T>> Matrix3d<T>::dataToVector(const IMatrix<T> *other)
+vector<Matrix2d<T>> Matrix3d<T>::dataToVector(const IMatrix<T> *matrix)
 {
-    Matrix3d<T> *otherMatrix = (Matrix3d<T>*)(other);
+    Matrix3d<T> *otherMatrix = (Matrix3d<T>*)(matrix);
     QVariant otherMatrixAutoData = otherMatrix->data();
     return otherMatrixAutoData.value<vector<Matrix2d<T>>>();
 }
@@ -72,9 +72,9 @@ Matrix3d<T> Matrix3d<T>::zeroM(int depth, int height, int width)
 }
 
 template<typename T>
-bool Matrix3d<T>::operator==(Matrix3d<T> &other)
+bool Matrix3d<T>::operator==(Matrix3d<T> &matrix)
 {
-    QVariant autoData = other.data();
+    QVariant autoData = matrix.data();
     vector<Matrix2d<T>> otherMatrixData
         = autoData.value<vector<Matrix2d<T>>>();
     for (int i = 0; i < _data.size(); ++i) {
@@ -114,10 +114,10 @@ vector<unsigned long long> Matrix3d<T>::sizes() const
 }
 
 template<typename T>
-bool Matrix3d<T>::sameShape(const IMatrix<T> *other)
+bool Matrix3d<T>::sameShape(const IMatrix<T> *matrix)
 {
     try {
-        Matrix3d<double> *otherMatrix = (Matrix3d<double>*)(other);
+        Matrix3d<double> *otherMatrix = (Matrix3d<double>*)(matrix);
         return sizes() == otherMatrix->sizes();
     } catch (...) {
         throw MatrixException(
@@ -128,22 +128,22 @@ bool Matrix3d<T>::sameShape(const IMatrix<T> *other)
 }
 
 template<typename T>
-unique_ptr<IMatrix<T>> Matrix3d<T>::addition(const IMatrix<T> *other)
+unique_ptr<IMatrix<T>> Matrix3d<T>::addition(const IMatrix<T> *matrix)
 {
     // проверки
     try {
-        if (!this->sameShape(other)) {
+        if (!this->sameShape(matrix)) {
             throw MatrixException(
                 QString("\nMatrix exception \n[%1]\n")
                     .arg("Impossible to find matrix addition, the sizes do not match.")
             );
         }
-        // если поймали исключение при выполнении 'this->sameShape(other)'
+        // если поймали исключение при выполнении 'this->sameShape(matrix)'
     } catch (const MatrixException &e) {
         throw e;
     }
     // подготовка
-    vector<Matrix2d<T>> otherMatrixData = dataToVector(other);
+    vector<Matrix2d<T>> otherMatrixData = dataToVector(matrix);
     vector<Matrix2d<T>> resultData;
     // создание и заполнение результирующей матрицы
     for (int i = 0; i < _data.size(); ++i) {
@@ -167,22 +167,22 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::addition(T num)
 }
 
 template<typename T>
-unique_ptr<IMatrix<T>> Matrix3d<T>::subtraction(const IMatrix<T> *other)
+unique_ptr<IMatrix<T>> Matrix3d<T>::subtraction(const IMatrix<T> *matrix)
 {
     // проверки
     try {
-        if (!this->sameShape(other)) {
+        if (!this->sameShape(matrix)) {
             throw MatrixException(
                 QString("\nMatrix exception \n[%1]\n")
                     .arg("Impossible to find matrix subtraction, the sizes do not match.")
             );
         }
-        // если поймали исключение при выполнении 'this->sameShape(other)'
+        // если поймали исключение при выполнении 'this->sameShape(matrix)'
     } catch (const MatrixException &e) {
         throw e;
     }
     // подготовка
-    vector<Matrix2d<T>> otherMatrixData = dataToVector(other);
+    vector<Matrix2d<T>> otherMatrixData = dataToVector(matrix);
     vector<Matrix2d<T>> resultData;
     // создание и заполнение результирующей матрицы
     for (int i = 0; i < _data.size(); ++i) {
@@ -206,22 +206,22 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::subtraction(T num, bool reverseOrder)
 }
 
 template<typename T>
-unique_ptr<IMatrix<T>> Matrix3d<T>::simplifiedMult(const IMatrix<T> *other)
+unique_ptr<IMatrix<T>> Matrix3d<T>::simplifiedMult(const IMatrix<T> *matrix)
 {
     // проверки
     try {
-        if (!this->sameShape(other)) {
+        if (!this->sameShape(matrix)) {
             throw MatrixException(
                 QString("\nMatrix exception \n[%1]\n")
                     .arg("Impossible to find matrix simplified multiplication, the sizes do not match.")
             );
         }
-        // если поймали исключение при выполнении 'this->sameShape(other)'
+        // если поймали исключение при выполнении 'this->sameShape(matrix)'
     } catch (const MatrixException &e) {
         throw e;
     }
     // подготовка
-    vector<Matrix2d<T>> otherMatrixData = dataToVector(other);
+    vector<Matrix2d<T>> otherMatrixData = dataToVector(matrix);
     vector<Matrix2d<T>> resultData;
     // создание и заполнение результирующей матрицы
     for (int i = 0; i < _data.size(); ++i) {
