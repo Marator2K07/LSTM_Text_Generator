@@ -244,6 +244,20 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::multiplication(T num)
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::simplifiedDiv(const IMatrix<T> *matrix)
+{
+    _operationPtr = &div;
+    return doOperation(matrix);
+}
+
+template<typename T>
+unique_ptr<IMatrix<T> > Matrix2d<T>::dividing(T num, bool reverseOrder)
+{
+    _operationPtr = &div;
+    return doOperation(num, reverseOrder);
+}
+
+template<typename T>
 void Matrix2d<T>::floorM(T num)
 {
     int multiplier = pow(10, num);
