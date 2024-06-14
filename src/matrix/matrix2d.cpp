@@ -98,6 +98,25 @@ void Matrix2d<T>::setValue(int hIndex, int wIndex, T value)
 }
 
 template<typename T>
+void Matrix2d<T>::setOperation(OperationType opType)
+{
+    switch (opType) {
+    case OperationType::SUM:
+        _operationPtr = &Operations::sum;
+        break;
+    case OperationType::SUB:
+        _operationPtr = &Operations::sub;
+        break;
+    case OperationType::MUL:
+        _operationPtr = &Operations::mul;
+        break;
+    case OperationType::DIV:
+        _operationPtr = &Operations::div;
+        break;
+    }
+}
+
+template<typename T>
 vector<vector<T>> Matrix2d<T>::dataToVector() const
 {
     return _data;

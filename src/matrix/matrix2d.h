@@ -34,6 +34,11 @@ public:
     /// \param wIndex индекс значения в строке
     /// \param value новое значение ячейки
     void setValue(int hIndex, int wIndex, T value);
+    ///
+    /// \brief setOperation обновление типа операции извне,
+    /// например, при использовании трехмерной матрицей
+    /// \param opType передаваемый тип операции
+    void setOperation(OperationType opType);
     vector<vector<T>> dataToVector() const;
     static vector<vector<T>> dataToVector(const IMatrix<T> *matrix);
     ///
