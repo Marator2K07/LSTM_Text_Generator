@@ -84,6 +84,10 @@ private slots:
     /// тест деления матрицы и числа в прямом и обратном порядках
     void testMatrix2dDivNumberDirectAndReverseOrder();
     ///
+    /// \brief testMatrix3dDivNumberDirectAndReverseOrder
+    /// тест деления трехмерной матрицы и числа в прямом и обратном порядках
+    void testMatrix3dDivNumberDirectAndReverseOrder();
+    ///
     /// \brief testMatrix3dMultNumber
     /// тест умножения трехмерной матрицы на число
     void testMatrix3dMultNumber();
@@ -490,6 +494,28 @@ void TestMatrix::testMatrix2dDivNumberDirectAndReverseOrder()
 
     QCOMPARE(resultMatrixDirectOrder.data(), properMatrixDirectOrder.data());
     QCOMPARE(resultMatrixReverseOrder.data(), properMatrixReverseOrder.data());
+}
+
+void TestMatrix::testMatrix3dDivNumberDirectAndReverseOrder()
+{
+    // инициализация
+    Matrix3d<double> matrix {{{1,2,3}, {1,2,8}},
+                            {{8,5,5}, {3,1,4}},
+                            {{7,7,6}, {1,1,1}}};
+    // результаты
+    Matrix3d<double> resultMatrixDirectOrder(matrix.dividing(3.3, false)->data());
+    Matrix3d<double> resultMatrixReverseOrder(matrix.dividing(2.22, true)->data());
+    resultMatrixDirectOrder.floorM(3);
+    resultMatrixReverseOrder.floorM(3);
+    Matrix3d<double> properMatrixDirectOrder {{{0.303,0.606,0.909},{0.303,0.606,2.424}},
+                                             {{2.424,1.515,1.515},{0.909,0.303,1.212}},
+                                             {{2.121,2.121,1.818},{0.303,0.303,0.303}}};
+    Matrix3d<double> properMatrixReverseOrder {{{2.22,1.11,0.74},{2.22,1.11,0.277}},
+                                              {{0.277,0.444,0.444},{0.74,2.22,0.555}},
+                                              {{0.317,0.317,0.37},{2.22,2.22,2.22}}};
+
+    QCOMPARE(resultMatrixDirectOrder == properMatrixDirectOrder, true);
+    QCOMPARE(resultMatrixReverseOrder == properMatrixReverseOrder, true);
 }
 
 void TestMatrix::testMatrix3dMultNumber()
