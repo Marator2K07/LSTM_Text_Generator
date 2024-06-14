@@ -186,48 +186,15 @@ bool Matrix2d<T>::sameShape(const IMatrix<T> *other)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::addition(const IMatrix<T> *matrix)
 {
-    // проверки
-    try {
-        if (!this->sameShape(other)) {
-            throw MatrixException(
-                QString("\nMatrix exception \n[%1]\n")
-                    .arg("Impossible to find matrix addition, the sizes do not match.")
-            );
-        }
-    // если поймали исключение при выполнении 'this->sameShape(other)'
-    } catch (const MatrixException &e) {
-        throw e;
-    }
-    // подготовка
-    vector<vector<T>> otherMatrixData = Matrix2d::dataToVector(other);
-    vector<vector<T>> resultData;
-    // создание и заполнение результирующей матрицы
-    for (int rowI = 0; rowI < _data.size(); ++rowI) {
-        resultData.push_back(vector<T>());
-        for (int colI = 0; colI < _data[0].size(); ++colI) {
-            resultData[rowI].push_back(
-                _data[rowI][colI] + otherMatrixData[rowI][colI]
-            );
-        }
-    }
-    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+    _operationPtr = &sum;
+    return doOperation(matrix);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::addition(T num)
 {
-    // подготовка
-    vector<vector<T>> resultData;
-    // создание и заполнение результирующей матрицы
-    for (int rowI = 0; rowI < _data.size(); ++rowI) {
-        resultData.push_back(vector<T>());
-        for (int colI = 0; colI < _data[0].size(); ++colI) {
-            resultData[rowI].push_back(
-                _data[rowI][colI] + num
-            );
-        }
-    }
-    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+    _operationPtr = &sum;
+    return doOperation(num, false);
 }
 
 template<typename T>
