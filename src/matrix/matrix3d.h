@@ -13,6 +13,7 @@ class Matrix3d : public IMatrix<T>
 {
 private:
     vector<Matrix2d<T>> _data;
+    T (*_operationPtr)(T, T) = &Operations<T>::sum; // указатель на операцию
 
 private:
     // IMatrix interface
