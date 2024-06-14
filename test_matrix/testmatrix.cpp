@@ -71,11 +71,14 @@ private slots:
     /// \brief testMatrix2dSimplDivMatrix2d
     /// тест упрощенного поэлементного деления двумерных матриц
     void testMatrix2dSimplDivMatrix2d();
-
     ///
     /// \brief testMatrix2dMultNumber
     /// умножение матрицы на число
     void testMatrix2dMultNumber();
+    ///
+    /// \brief testMatrix2dDivNumberDirectAndReverseOrder
+    /// тест деления матрицы и числа в прямом и обратном порядках
+    void testMatrix2dDivNumberDirectAndReverseOrder();
     ///
     /// \brief testMatrix3dMultNumber
     /// тест умножения трехмерной матрицы на число
@@ -442,6 +445,28 @@ void TestMatrix::testMatrix2dMultNumber()
                                   {22.5,7.5,2.5}};
 
     QCOMPARE(resultMatrix->data(), properMatrix.data());
+}
+
+void TestMatrix::testMatrix2dDivNumberDirectAndReverseOrder()
+{
+    // инициализация
+    Matrix2d<double> matrix {{1,2,3},
+                            {7,3,5},
+                            {9,3,1}};
+    // результаты
+    Matrix2d<double> resultMatrixDirectOrder(matrix.dividing(3.3, false)->data());
+    Matrix2d<double> resultMatrixReverseOrder(matrix.dividing(2.22, true)->data());
+    resultMatrixDirectOrder.floorM(2);
+    resultMatrixReverseOrder.floorM(2);
+    Matrix2d<double> properMatrixDirectOrder {{0.3,0.6,0.9},
+                                             {2.12,0.9,1.51},
+                                             {2.72,0.9,0.3}};
+    Matrix2d<double> properMatrixReverseOrder {{2.22,1.11,0.74},
+                                              {0.31,0.74,0.44},
+                                              {0.24,0.74,2.22}};
+
+    QCOMPARE(resultMatrixDirectOrder.data(), properMatrixDirectOrder.data());
+    QCOMPARE(resultMatrixReverseOrder.data(), properMatrixReverseOrder.data());
 }
 
 void TestMatrix::testMatrix3dMultNumber()
