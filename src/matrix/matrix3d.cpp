@@ -163,118 +163,45 @@ bool Matrix3d<T>::sameShape(const IMatrix<T> *matrix)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::addition(const IMatrix<T> *matrix)
 {
-    // проверки
-    try {
-        if (!this->sameShape(matrix)) {
-            throw MatrixException(
-                QString("\nMatrix exception \n[%1]\n")
-                    .arg("Impossible to find matrix addition, the sizes do not match.")
-            );
-        }
-        // если поймали исключение при выполнении 'this->sameShape(matrix)'
-    } catch (const MatrixException &e) {
-        throw e;
-    }
-    // подготовка
-    vector<Matrix2d<T>> otherMatrixData = dataToVector(matrix);
-    vector<Matrix2d<T>> resultData;
-    // создание и заполнение результирующей матрицы
-    for (int i = 0; i < _data.size(); ++i) {
-        Matrix2d<T> stepMatrix(_data[i].addition(&otherMatrixData[i])->data());
-        resultData.push_back(stepMatrix);
-    }
-    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+    _opType = OperationType::SUM;
+    return doOperation(matrix);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::addition(T num)
 {
-    // подготовка
-    vector<Matrix2d<T>> resultData;
-    // создание и заполнение результирующей матрицы
-    for (int i = 0; i < _data.size(); ++i) {
-        Matrix2d<T> stepMatrix(_data[i].addition(num)->data());
-        resultData.push_back(stepMatrix);
-    }
-    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+    _opType = OperationType::SUM;
+    return doOperation(num, false);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::subtraction(const IMatrix<T> *matrix)
 {
-    // проверки
-    try {
-        if (!this->sameShape(matrix)) {
-            throw MatrixException(
-                QString("\nMatrix exception \n[%1]\n")
-                    .arg("Impossible to find matrix subtraction, the sizes do not match.")
-            );
-        }
-        // если поймали исключение при выполнении 'this->sameShape(matrix)'
-    } catch (const MatrixException &e) {
-        throw e;
-    }
-    // подготовка
-    vector<Matrix2d<T>> otherMatrixData = dataToVector(matrix);
-    vector<Matrix2d<T>> resultData;
-    // создание и заполнение результирующей матрицы
-    for (int i = 0; i < _data.size(); ++i) {
-        Matrix2d<T> stepMatrix(_data[i].subtraction(&otherMatrixData[i])->data());
-        resultData.push_back(stepMatrix);
-    }
-    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+    _opType = OperationType::SUB;
+    return doOperation(matrix);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::subtraction(T num, bool reverseOrder)
 {
-    // подготовка
-    vector<Matrix2d<T>> resultData;
-    // создание и заполнение результирующей матрицы
-    for (int i = 0; i < _data.size(); ++i) {
-        Matrix2d<T> stepMatrix(_data[i].subtraction(num, reverseOrder)->data());
-        resultData.push_back(stepMatrix);
-    }
-    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+    _opType = OperationType::SUB;
+    return doOperation(num, reverseOrder);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::simplifiedMult(const IMatrix<T> *matrix)
 {
-    // проверки
-    try {
-        if (!this->sameShape(matrix)) {
-            throw MatrixException(
-                QString("\nMatrix exception \n[%1]\n")
-                    .arg("Impossible to find matrix simplified multiplication, the sizes do not match.")
-            );
-        }
-        // если поймали исключение при выполнении 'this->sameShape(matrix)'
-    } catch (const MatrixException &e) {
-        throw e;
-    }
-    // подготовка
-    vector<Matrix2d<T>> otherMatrixData = dataToVector(matrix);
-    vector<Matrix2d<T>> resultData;
-    // создание и заполнение результирующей матрицы
-    for (int i = 0; i < _data.size(); ++i) {
-        Matrix2d<T> stepMatrix(_data[i].simplifiedMult(&otherMatrixData[i])->data());
-        resultData.push_back(stepMatrix);
-    }
-    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+    _opType = OperationType::MUL;
+    return doOperation(matrix);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T> > Matrix3d<T>::multiplication(T num)
 {
-    // подготовка
-    vector<Matrix2d<T>> resultData;
-    // создание и заполнение результирующей матрицы
-    for (int i = 0; i < _data.size(); ++i) {
-        Matrix2d<T> stepMatrix(_data[i].multiplication(num)->data());
-        resultData.push_back(stepMatrix);
-    }
-    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+    _opType = OperationType::MUL;
+    return doOperation(num, false);
+}
+
 }
 
 template<typename T>
