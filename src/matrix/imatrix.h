@@ -26,6 +26,20 @@ enum class Dimensions {
 template<typename T>
 class IMatrix
 {
+private:
+    ///
+    /// \brief doOperation проведение заранее указанной операции с матрицей
+    /// \param matrix входная матрица для операции
+    /// \return результирующая матрица
+    virtual unique_ptr<IMatrix<T>> doOperation(const IMatrix<T> *matrix) = 0;
+    ///
+    /// \brief doOperation проведение заранее указаной операции с числом
+    /// \param num входное число для проведения операции
+    /// \param reverseOrder порядок операндов
+    /// \return результирующая матрица
+    virtual unique_ptr<IMatrix<T>> doOperation(const T num,
+                                               bool reverseOrder = false) = 0;
+
 public:
     ///
     /// \brief type вывод количества измерений матрицы
