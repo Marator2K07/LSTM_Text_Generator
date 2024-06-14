@@ -92,11 +92,6 @@ public:
     /// \return матрица с найденными алгоритмами
     virtual unique_ptr<IMatrix<T>> lognM() = 0;
     ///
-    /// \brief softmaxM обработка значений матрицы с помощью
-    /// многопеременной логистической функции softmax
-    /// \return обработанная матрица
-    // virtual unique_ptr<IMatrix<double>> softmaxM() = 0;
-    ///
     /// \brief totalSum нахождение суммы всех элементов матрицы
     /// \return сумма всех элементов входной матрицы
     virtual T totalSum() = 0;

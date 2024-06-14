@@ -260,18 +260,6 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::lognM()
     return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
 }
 
-//template<typename T>
-//unique_ptr<IMatrix<double>> Matrix3d<T>::softmaxM()
-//{
-    // подготовка и заполнение результирующей матрицы
-//    vector<Matrix2d<double>> resultData;
-//    for (Matrix2d<T> matrix : _data) {
-//        Matrix2d<double> stepMatrix(matrix.softmaxM()->data());
-//        resultData.push_back(stepMatrix);
-//    }
-//    return unique_ptr<Matrix3d<double>>(new Matrix3d<double>(resultData));
-//}
-
 template<typename T>
 T Matrix3d<T>::totalSum()
 {
