@@ -92,6 +92,13 @@ public:
     /// \return увеличенная в num раз матрица
     virtual unique_ptr<IMatrix<T>> multiplication(T num) = 0;
     ///
+    /// \brief dividing поэлементное деление матрицы и числа(или числа
+    /// и матрицы), где порядок порядок операндов зависит от reverseOrder
+    /// \param num число для деления
+    /// \param reverseOrder порядок операндов
+    /// \return результирующая матрица
+    virtual unique_ptr<IMatrix<T>> dividing(T num, bool reverseOrder = false) = 0;
+    ///
     /// \brief floorM округление текущей матрицы до num цифр после запятой
     /// \param num количество цифр после запятой
     virtual void floorM(T num) = 0;
