@@ -12,16 +12,9 @@ class Matrix2d : public IMatrix<T>
 
 private:
     vector<vector<T>> _data;
-    T (Matrix2d<T>::*_operationPtr)(T, T) = &sum; // указатель на операцию
+    T (*_operationPtr)(T, T) = &Operations<T>::sum; // указатель на операцию
 
 private:
-    // for _operationPtr function pointer
-    T sum(T a, T b);
-    T sub(T a, T b);
-    T mul(T a, T b);
-    T div(T a, T b);
-    //
-
     // IMatrix interface
     unique_ptr<IMatrix<T>> doOperation(const IMatrix<T> *matrix) override;
     unique_ptr<IMatrix<T>> doOperation(const T num, bool reverseOrder) override;

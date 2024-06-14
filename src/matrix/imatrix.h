@@ -9,6 +9,7 @@
 #include <QVariant>
 
 #include "matrixexception.h"
+#include "operations.h"
 
 using namespace std;
 

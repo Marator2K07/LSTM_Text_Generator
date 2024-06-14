@@ -1,30 +1,6 @@
 #include "matrix2d.h"
 
 template<typename T>
-T Matrix2d<T>::sum(T a, T b)
-{
-    return a + b;
-}
-
-template<typename T>
-T Matrix2d<T>::sub(T a, T b)
-{
-    return a - b;
-}
-
-template<typename T>
-T Matrix2d<T>::mul(T a, T b)
-{
-    return a * b;
-}
-
-template<typename T>
-T Matrix2d<T>::div(T a, T b)
-{
-    return a / b;
-}
-
-template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const IMatrix<T> *matrix)
 {
     // проверки
@@ -48,8 +24,8 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const IMatrix<T> *matrix)
             resultData.push_back(vector<T>());
             for (int colI = 0; colI < _data[0].size(); ++colI) {
                 resultData[rowI].push_back(
-                    (this->*_operationPtr)(_data[rowI][colI],
-                                           otherMatrixData[rowI][colI])
+                    (*_operationPtr)(_data[rowI][colI],
+                                     otherMatrixData[rowI][colI])
                     );
             }
         }
@@ -68,8 +44,8 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const T num, bool reverseOrder)
     for (int rowI = 0; rowI < _data.size(); ++rowI) {
         resultData.push_back(vector<T>());
         for (int colI = 0; colI < _data[0].size(); ++colI) {
-            T stepRes = reverseOrder ? (this->*_operationPtr)(num, _data[rowI][colI])
-                                     : (this->*_operationPtr)(_data[rowI][colI], num);
+            T stepRes = reverseOrder ? (*_operationPtr)(num, _data[rowI][colI])
+                                     : (*_operationPtr)(_data[rowI][colI], num);
             resultData[rowI].push_back(stepRes);
         }
     }
@@ -204,56 +180,56 @@ bool Matrix2d<T>::sameShape(const IMatrix<T> *matrix)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::addition(const IMatrix<T> *matrix)
 {
-    _operationPtr = &sum;
+    _operationPtr = &Operations<T>::sum;
     return doOperation(matrix);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::addition(T num)
 {
-    _operationPtr = &sum;
+    _operationPtr = &Operations<T>::sum;
     return doOperation(num, false);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::subtraction(const IMatrix<T> *matrix)
 {
-    _operationPtr = &sub;
+    _operationPtr = &Operations<T>::sub;
     return doOperation(matrix);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::subtraction(T num, bool reverseOrder)
 {    
-    _operationPtr = &sub;
+    _operationPtr = &Operations<T>::sub;
     return doOperation(num, reverseOrder);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::simplifiedMult(const IMatrix<T> *matrix)
 {
-    _operationPtr = &mul;
+    _operationPtr = &Operations<T>::mul;
     return doOperation(matrix);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::multiplication(T num)
 {
-    _operationPtr = &mul;
+    _operationPtr = &Operations<T>::mul;
     return doOperation(num, false);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::simplifiedDiv(const IMatrix<T> *matrix)
 {
-    _operationPtr = &div;
+    _operationPtr = &Operations<T>::div;
     return doOperation(matrix);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T> > Matrix2d<T>::dividing(T num, bool reverseOrder)
 {
-    _operationPtr = &div;
+    _operationPtr = &Operations<T>::div;
     return doOperation(num, reverseOrder);
 }
 
