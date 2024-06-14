@@ -9,16 +9,9 @@
 template<typename T>
 class Matrix2d : public IMatrix<T>
 {
-
 private:
     vector<vector<T>> _data;
     T (*_operationPtr)(T, T) = &Operations<T>::sum; // указатель на операцию
-
-private:
-    // IMatrix interface
-    unique_ptr<IMatrix<T>> doOperation(const IMatrix<T> *matrix) override;
-    unique_ptr<IMatrix<T>> doOperation(const T num, bool reverseOrder) override;
-    //
 
 public:
     Matrix2d();
@@ -54,6 +47,8 @@ public:
     QVariant data() const override;
     vector<unsigned long long> sizes() const override;
     bool sameShape(const IMatrix<T> *matrix) override;
+    unique_ptr<IMatrix<T>> doOperation(const IMatrix<T> *matrix) override;
+    unique_ptr<IMatrix<T>> doOperation(const T num, bool reverseOrder) override;
     unique_ptr<IMatrix<T>> addition(const IMatrix<T> *matrix) override;
     unique_ptr<IMatrix<T>> addition(T num) override;
     unique_ptr<IMatrix<T>> subtraction(const IMatrix<T> *matrix) override;
