@@ -1,8 +1,10 @@
 #include "matrix2d.h"
 
 template<typename T>
-unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const IMatrix<T> *matrix)
+T Matrix2d<T>::sum(T a, T b)
 {
+    return a + b;
+}
 
 }
 
