@@ -6,12 +6,56 @@ T Matrix2d<T>::sum(T a, T b)
     return a + b;
 }
 
+template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const IMatrix<T> *matrix)
+{
+    // проверки
+    try {
+        if (!this->sameShape(matrix)) {
+            throw MatrixException(
+                QString("\nMatrix exception \n[%1]\n")
+                    .arg("Impossible to find matrix addition, the sizes do not match.")
+                );
+        }
+        // если поймали исключение при выполнении 'this->sameShape(other)'
+    } catch (const MatrixException &e) {
+        throw e;
+    }
+    try {
+        // подготовка
+        vector<vector<T>> otherMatrixData = Matrix2d::dataToVector(matrix);
+        vector<vector<T>> resultData;
+        // создание и заполнение результирующей матрицы
+        for (int rowI = 0; rowI < _data.size(); ++rowI) {
+            resultData.push_back(vector<T>());
+            for (int colI = 0; colI < _data[0].size(); ++colI) {
+                resultData[rowI].push_back(
+                    (this->*_operationPtr)(_data[rowI][colI],
+                                           otherMatrixData[rowI][colI])
+                    );
+            }
+        }
+        return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+    } catch (const exception &e) {
+        throw e;
+    }
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const T num, bool reverseOrder)
 {
-
+    // подготовка
+    vector<vector<T>> resultData;
+    // создание и заполнение результирующей матрицы
+    for (int rowI = 0; rowI < _data.size(); ++rowI) {
+        resultData.push_back(vector<T>());
+        for (int colI = 0; colI < _data[0].size(); ++colI) {
+            T stepRes = reverseOrder ? (this->*_operationPtr)(num, _data[rowI][colI])
+                                     : (this->*_operationPtr)(_data[rowI][colI], num);
+            resultData[rowI].push_back(stepRes);
+        }
+    }
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
 template<typename T>
@@ -140,7 +184,7 @@ bool Matrix2d<T>::sameShape(const IMatrix<T> *other)
 }
 
 template<typename T>
-unique_ptr<IMatrix<T>> Matrix2d<T>::addition(const IMatrix<T> *other)
+unique_ptr<IMatrix<T>> Matrix2d<T>::addition(const IMatrix<T> *matrix)
 {
     // проверки
     try {
