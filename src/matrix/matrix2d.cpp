@@ -102,16 +102,16 @@ void Matrix2d<T>::setOperation(OperationType opType)
 {
     switch (opType) {
     case OperationType::SUM:
-        _operationPtr = &Operations::sum;
+        _operationPtr = &Operations<T>::sum;
         break;
     case OperationType::SUB:
-        _operationPtr = &Operations::sub;
+        _operationPtr = &Operations<T>::sub;
         break;
     case OperationType::MUL:
-        _operationPtr = &Operations::mul;
+        _operationPtr = &Operations<T>::mul;
         break;
     case OperationType::DIV:
-        _operationPtr = &Operations::div;
+        _operationPtr = &Operations<T>::div;
         break;
     }
 }
