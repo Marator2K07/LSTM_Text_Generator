@@ -13,6 +13,12 @@ T Matrix2d<T>::sub(T a, T b)
 }
 
 template<typename T>
+T Matrix2d<T>::mul(T a, T b)
+{
+    return a * b;
+}
+
+template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const IMatrix<T> *matrix)
 {
     // проверки
@@ -220,48 +226,15 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::subtraction(T num, bool reverseOrder)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::simplifiedMult(const IMatrix<T> *matrix)
 {
-    // проверки
-    try {
-        if (!this->sameShape(matrix)) {
-            throw MatrixException(
-                QString("\nMatrix exception \n[%1]\n")
-                    .arg("Impossible to find matrix simplified multiplication, the sizes do not match.")
-                );
-        }
-    // если поймали исключение при выполнении 'this->sameShape(other)'
-    } catch (const MatrixException &e) {
-        throw e;
-    }
-    // подготовка
-    vector<vector<T>> otherMatrixData = dataToVector(matrix);
-    vector<vector<T>> resultData;
-    // создание и заполнение результирующей матрицы
-    for (int rowI = 0; rowI < _data.size(); ++rowI) {
-        resultData.push_back(vector<T>());
-        for (int colI = 0; colI < _data[0].size(); ++colI) {
-            resultData[rowI].push_back(
-                _data[rowI][colI] * otherMatrixData[rowI][colI]
-            );
-        }
-    }
-    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+    _operationPtr = &mul;
+    return doOperation(matrix);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::multiplication(T num)
 {
-    // подготовка
-    vector<vector<T>> resultData;
-    // создание и заполнение результирующей матрицы
-    for (int rowI = 0; rowI < _data.size(); ++rowI) {
-        resultData.push_back(vector<T>());
-        for (int colI = 0; colI < _data[0].size(); ++colI) {
-            resultData[rowI].push_back(
-                _data[rowI][colI] * num
-            );
-        }
-    }
-    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+    _operationPtr = &mul;
+    return doOperation(num, false);
 }
 
 template<typename T>
