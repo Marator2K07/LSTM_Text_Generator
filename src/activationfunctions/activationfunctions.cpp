@@ -29,6 +29,16 @@ ActivationFunctions<T>::sigmoid(IMatrix<T> *matrix)
 
 template<typename T>
 unique_ptr<IMatrix<double>>
+ActivationFunctions<T>::dsigmoid(IMatrix<T> *matrix)
+{
+    IMatrix<double> *resMatrix
+        = sigmoid(matrix)->subtraction(1, true).release();
+    resMatrix = sigmoid(matrix)->simplifiedMult(resMatrix).release();
+    return unique_ptr<IMatrix<double>>(resMatrix);
+}
+
+template<typename T>
+unique_ptr<IMatrix<double>>
 ActivationFunctions<T>::softmax(const IMatrix<T> *matrix)
 {
     if (matrix->type() == Dimensions::THREE) {

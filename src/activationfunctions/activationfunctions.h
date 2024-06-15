@@ -31,6 +31,11 @@ public:
     /// \return результирующая матрица
     static unique_ptr<IMatrix<double>> sigmoid(IMatrix<T> *matrix);
     ///
+    /// \brief dsigmoid производная функция от sigmoid
+    /// \param matrix матрица входящих значений
+    /// \return результирующая матрица
+    static unique_ptr<IMatrix<double>> dsigmoid(IMatrix<T> *matrix);
+    ///
     /// \brief softmax многопеременная логистическая функция,
     /// для "сглаживания" значений в пределах (от 0, до 1),
     /// при этом увеличивая примерное соотношения чисел между собой
