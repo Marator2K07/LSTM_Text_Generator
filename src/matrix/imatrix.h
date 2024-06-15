@@ -117,6 +117,10 @@ public:
     /// \return матрица с найденными алгоритмами
     virtual unique_ptr<IMatrix<T>> lognM() = 0;
     ///
+    /// \brief expM нахождение экспоненты каждого элемента текущей матрицы
+    /// \return матрица найденных экспонент
+    virtual unique_ptr<IMatrix<T>> expM() = 0;
+    ///
     /// \brief totalSum нахождение суммы всех элементов матрицы
     /// \return сумма всех элементов входной матрицы
     virtual T totalSum() = 0;
