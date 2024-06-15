@@ -104,6 +104,10 @@ private slots:
     /// тестирование нахождение матриц с алгоритмами их элементов
     void testMatrix2dAndMatrix3dLogn();
     ///
+    /// \brief testMatrix2dAnd3dExpM
+    /// тестирование нахождения экспонент элементов матриц(2д и 3д)
+    void testMatrix2dAnd3dExpM();
+    ///
     /// \brief testMatrix2dAnd3dTotalSum
     /// тестовое нахождение всех элементов 2д и 3д матриц
     void testMatrix2dAnd3dTotalSum();
@@ -600,6 +604,30 @@ void TestMatrix::testMatrix2dAndMatrix3dLogn()
     properMatrix3dReal.print();
     Matrix3d<double> properMatrix3d {{{-0.047,-0.868,-1.515},{-0.444,-1.109,-2.199}},
                                     {{-1.071,-0.868,-1.515},{-0.444,-1.109,-2.199}}};
+
+    QCOMPARE(matrixResult2d->data(), properMatrix2d.data());
+    QCOMPARE(properMatrix3dReal == properMatrix3d, true);
+}
+
+void TestMatrix::testMatrix2dAnd3dExpM()
+{
+    // инициализация
+    Matrix2d<double> matrix {{1, 3, 2},
+                            {3, 2, 5}};
+    Matrix3d<double> matrix3d {{{5, 3, 2},{5, 6, 1}},
+                              {{2, 2, 8},{8, 2, 1}}};
+    // результаты
+    auto matrixResult2d = matrix.expM();
+    matrixResult2d->floorM(3); // округляем для сравнения
+    Matrix2d<double> properMatrix2d {{2.718,20.085,7.389},
+                                    {20.085,7.389,148.413}};
+
+    auto resultMatrix3d = matrix3d.expM();
+    resultMatrix3d->floorM(3); // округляем для сравнения
+    Matrix3d<double> properMatrix3dReal(resultMatrix3d->data());
+    properMatrix3dReal.print();
+    Matrix3d<double> properMatrix3d {{{148.413,20.085,7.389},{148.413,403.428,2.718}},
+                                    {{7.389,7.389,2980.957},{2980.957,7.389,2.718}}};
 
     QCOMPARE(matrixResult2d->data(), properMatrix2d.data());
     QCOMPARE(properMatrix3dReal == properMatrix3d, true);
