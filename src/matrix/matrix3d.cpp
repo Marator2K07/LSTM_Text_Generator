@@ -251,6 +251,19 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::lognM()
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix3d<T>::expM()
+{
+    // подготовка
+    vector<Matrix2d<T>> resultData;
+    // создание и заполнение результирующей матрицы
+    for (Matrix2d<T> matrix : _data) {
+        Matrix2d<T> stepMatrix((matrix.expM())->data());
+        resultData.push_back(stepMatrix);
+    }
+    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+}
+
+template<typename T>
 T Matrix3d<T>::totalSum()
 {
     T result;
