@@ -16,8 +16,20 @@ vector<double> ActivationFunctions<T>::softmaxRow(vector<T> row)
 
     return result;
 }
+
 template<typename T>
-unique_ptr<IMatrix<double>> ActivationFunctions<T>::softmax(const IMatrix<T> *matrix)
+unique_ptr<IMatrix<double>>
+ActivationFunctions<T>::sigmoid(IMatrix<T> *matrix)
+{
+    IMatrix<double> *resMatrix
+        = matrix->multiplication(-1)->expM().release();
+    resMatrix = resMatrix->addition(1)->dividing(1, true).release();
+    return unique_ptr<IMatrix<double>>(resMatrix);
+}
+
+template<typename T>
+unique_ptr<IMatrix<double>>
+ActivationFunctions<T>::softmax(const IMatrix<T> *matrix)
 {
     if (matrix->type() == Dimensions::THREE) {
         vector<Matrix2d<double>> resultData3d;

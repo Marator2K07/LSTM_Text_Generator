@@ -29,7 +29,7 @@ public:
     /// имеющая форму буквы «S» для «сглаживания» значений некоторой величины.
     /// \param matrix матрица входящих значений для сглаживания
     /// \return результирующая матрица
-    static unique_ptr<IMatrix<double>> sigmoid(const IMatrix<T> *matrix);
+    static unique_ptr<IMatrix<double>> sigmoid(IMatrix<T> *matrix);
     ///
     /// \brief softmax многопеременная логистическая функция,
     /// для "сглаживания" значений в пределах (от 0, до 1),
