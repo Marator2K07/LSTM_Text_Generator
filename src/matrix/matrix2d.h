@@ -60,6 +60,7 @@ public:
     void floorM(T num) override;
     unique_ptr<IMatrix<T>> clipM(T leftBorder, T rightBorder) override;
     unique_ptr<IMatrix<T>> lognM() override;
+    unique_ptr<IMatrix<T>> expM() override;
     T totalSum() override;
     //
 
