@@ -32,6 +32,10 @@ private slots:
     /// \brief testSigmoidMatrix2d
     /// тестирование сигмоидной функции в условиях двумерной матрицы
     void testSigmoidMatrix2d();
+    ///
+    /// \brief testSigmoidMatrix3d
+    /// тестирование сигмоидной функции в условиях трехмерной матрицы
+    void testSigmoidMatrix3d();
 };
 
 void TestActivationFunctions::testSoftmax()
@@ -101,6 +105,26 @@ void TestActivationFunctions::testSigmoidMatrix2d()
     currentResult.print();
 
     QCOMPARE(currentResult.data(), properResult.data());
+}
+
+void TestActivationFunctions::testSigmoidMatrix3d()
+{
+    // инициализация
+    Matrix3d<double> init {{{5,3,2}, {2,3,1}, {6,1,8}},
+                          {{8,2,1}, {5,6,1}, {2,2,8}}};
+    // результаты
+    Matrix3d<double> resultMatrix(
+        ActivationFunctions<double>::sigmoid(&init)->data()
+        );
+    resultMatrix.floorM(6);
+    Matrix3d<double> properMatrix{{{0.993307,0.952574,0.880797},
+                                   {0.880797,0.952574,0.731058},
+                                   {0.997527,0.731058,0.999664}},
+                                  {{0.999664,0.880797,0.731058},
+                                   {0.993307,0.997527,0.731058},
+                                   {0.880797,0.880797,0.999664}}};
+
+    QCOMPARE(resultMatrix == properMatrix, true);
 }
 
 QTEST_MAIN(TestActivationFunctions)
