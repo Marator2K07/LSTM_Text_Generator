@@ -121,6 +121,10 @@ public:
     /// \return матрица найденных экспонент
     virtual unique_ptr<IMatrix<T>> expM() = 0;
     ///
+    /// \brief tanhM нахождение гиперболических тангенсов чисел матрицы
+    /// \return результирующая матрица
+    virtual unique_ptr<IMatrix<T>> tanhM() = 0;
+    ///
     /// \brief totalSum нахождение суммы всех элементов матрицы
     /// \return сумма всех элементов входной матрицы
     virtual T totalSum() = 0;
