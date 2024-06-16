@@ -30,28 +30,28 @@ void TestLoss::testSoftmaxCrossEntropyLossFull()
 {
     // инициализация
     SoftmaxCrossEntropyLoss SCELoss;
-    Matrix2d<double> target{{0.55,0.33,0.22},
-                            {0.78,0.67,0.11},
-                            {0.77,0.11,0.33}};
-    Matrix2d<double> predictionBad{{5,3},
-                                   {7,6},
-                                   {7,1}};
-    Matrix2d<double> prediction{{5.55,3.33,2.12},
-                                {4.26,10.10,2.25},
-                                {3.33,1.19,7.12}};
+    Matrix3d<double> target {{{0.5,0.3,0.2},{0.2,0.3,0.1},{0.6,0.1,0.8}},
+                            {{0.8,0.2,0.1},{0.5,0.6,0.1}, {0.2,0.2,0.8}}};
+    Matrix3d<double> predictionBad{{{5,3},
+                                    {7,6},
+                                    {7,1}}};
+    Matrix3d<double> prediction {{{1.5,2.3,1.2},{3.2,1.33,2.1},{1.6,3.1,2.8}},
+                                 {{2.8,1.2,2.1},{1.5,2.6,1.1}, {2.2,1.22,1.8}}};
     // результаты (штраф или потеря)
     double resultPenalty = SCELoss.forward(&prediction, &target);
     resultPenalty = floor(resultPenalty * 1000) / 1000;
-    double properPenalty = 16.063;
+    double properPenalty = 12.745;
     // результаты (градиент)
-    auto resultGradient = SCELoss.backward();
-    resultGradient->floorM(3);
-    Matrix2d<double> properGradient{{0.326,-0.235,-0.192},
-                                    {-0.778,0.326,-0.11},
-                                    {-0.748,-0.108,0.645}};
+    Matrix3d<double> resultGradient(SCELoss.backward()->data());
+    Matrix3d<double> properGradient {{{-0.24787961,0.26110424,-0.01322462},
+                                     {0.47249733,-0.19635225,0.12385492},
+                                     {-0.48638695,0.40917835,-0.4227914}},
+                                    {{-0.21123892,-0.08113119,0.1923701},
+                                     {-0.28607274,0.04267301,0.04339973},
+                                     {0.28884668,-0.01653041,-0.47231627}}};
 
     QCOMPARE(resultPenalty, properPenalty);
-    QCOMPARE(resultGradient->data(), properGradient.data());
+    QCOMPARE(resultGradient.compareDoubles(&properGradient, 1e-7), true);
 
     // случай с исключением
     try {
