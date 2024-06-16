@@ -323,6 +323,23 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::expM()
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::tanhM()
+{
+    // подготовка
+    vector<vector<T>> resultData;
+    int index = 0;
+    // заполнение результирующей матрицы
+    for (const vector<T> row : _data) {
+        resultData.push_back(vector<T>());
+        for (const T value : row) {
+            resultData[index].push_back(tanh(value));
+        }
+        index++;
+    }
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+}
+
+template<typename T>
 T Matrix2d<T>::totalSum()
 {
     T result;
