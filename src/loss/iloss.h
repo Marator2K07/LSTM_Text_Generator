@@ -6,6 +6,8 @@
 
 #include "imatrix.h"
 #include "lossexception.h"
+#include "activationfunctions.h"
+#include "activationfunctions.cpp"
 
 using namespace std;
 

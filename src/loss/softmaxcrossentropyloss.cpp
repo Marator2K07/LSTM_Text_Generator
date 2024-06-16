@@ -11,6 +11,7 @@ double SoftmaxCrossEntropyLoss::forward(IMatrix<double> *prediction,
     // подготовительные операции
     _prediction = prediction;
     _target = target;
+    // ...
     // возвращаем расчитанную потерю
     return calcLoss();
 }
@@ -28,7 +29,8 @@ double SoftmaxCrossEntropyLoss::calcLoss()
 {
     try {
         // 1) приводим прогнозы к нужному формату ([0,1])
-        _softmaxPrediction = _prediction->softmaxM().release();
+        _softmaxPrediction
+            = ActivationFunctions<double>::softmax(_prediction).release();
         // 2) обрезаем обработанные предсказания
         // ([stabBorder, 1-stabBorder]),
         // дабы избежать числовой нестабильности

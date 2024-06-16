@@ -2,6 +2,7 @@
 #include <QtTest/QtTest>
 
 #include "softmaxcrossentropyloss.h"
+#include "softmaxcrossentropyloss.cpp"
 #include "matrix2d.h"
 #include "matrix2d.cpp"
 #include "matrix3d.h"
