@@ -39,6 +39,13 @@ ActivationFunctions<T>::dsigmoid(IMatrix<T> *matrix)
 
 template<typename T>
 unique_ptr<IMatrix<double>>
+ActivationFunctions<T>::tanh(IMatrix<T> *matrix)
+{
+    return matrix->tanhM();
+}
+
+template<typename T>
+unique_ptr<IMatrix<double>>
 ActivationFunctions<T>::softmax(const IMatrix<T> *matrix)
 {
     if (matrix->type() == Dimensions::THREE) {

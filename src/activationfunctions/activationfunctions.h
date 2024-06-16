@@ -36,6 +36,11 @@ public:
     /// \return результирующая матрица
     static unique_ptr<IMatrix<double>> dsigmoid(IMatrix<T> *matrix);
     ///
+    /// \brief tanh функция активации гиперболического тангенса
+    /// \param matrix матрица входящих значений
+    /// \return обработанная tanh функцией матрица чисел
+    static unique_ptr<IMatrix<double>> tanh(IMatrix<T> *matrix);
+    ///
     /// \brief softmax многопеременная логистическая функция,
     /// для "сглаживания" значений в пределах (от 0, до 1),
     /// при этом увеличивая примерное соотношения чисел между собой
