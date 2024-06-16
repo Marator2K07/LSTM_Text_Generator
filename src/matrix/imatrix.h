@@ -47,6 +47,12 @@ public:
     /// \return флаг соответствия всех размеров
     virtual bool sameShape(const IMatrix<T> *matrix) = 0;
     ///
+    /// \brief compareDoubles сравнение значений матриц с вещественными значениями
+    /// \param matrix матрица для сравнения
+    /// \param epsilon допустимая погрешность
+    /// \return флаг равенства значений матриц
+    virtual bool compareDoubles(const IMatrix<T> *matrix, double epsilon) = 0;
+    ///
     /// \brief doOperation проведение заранее указанной операции с матрицей
     /// \param matrix входная матрица для операции
     /// \return результирующая матрица
