@@ -197,6 +197,30 @@ bool Matrix2d<T>::sameShape(const IMatrix<T> *matrix)
 }
 
 template<typename T>
+bool Matrix2d<T>::compareDoubles(const IMatrix<T> *matrix, double epsilon)
+{
+    // подготовка
+    Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(matrix);
+    // пытаемся сравнить числа матриц, учитывая погрешность epsilon
+    try {
+        for (int rowI = 0; rowI < _data.size(); ++rowI) {
+            for (int i = 0; i < _data[0].size(); ++i) {
+                if (abs(_data[rowI][i]
+                        - otherMatrix->dataToVector()[rowI][i]) > epsilon) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    } catch (...) {
+        throw MatrixException(
+            QString("\nMatrix compare exception \n[%1]\n")
+                .arg("Impossible to compare the values ​​of matrices with different sizes")
+            );
+    }
+}
+
+template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::addition(const IMatrix<T> *matrix)
 {
     _operationPtr = &Operations<T>::sum;
