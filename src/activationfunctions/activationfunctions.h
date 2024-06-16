@@ -41,6 +41,11 @@ public:
     /// \return обработанная tanh функцией матрица чисел
     static unique_ptr<IMatrix<double>> tanh(IMatrix<T> *matrix);
     ///
+    /// \brief dtanh производная функция от tanh
+    /// \param matrix матрица входящих значений
+    /// \return результирующая матрица
+    static unique_ptr<IMatrix<double>> dtanh(IMatrix<T> *matrix);
+    ///
     /// \brief softmax многопеременная логистическая функция,
     /// для "сглаживания" значений в пределах (от 0, до 1),
     /// при этом увеличивая примерное соотношения чисел между собой

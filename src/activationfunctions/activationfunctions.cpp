@@ -46,6 +46,18 @@ ActivationFunctions<T>::tanh(IMatrix<T> *matrix)
 
 template<typename T>
 unique_ptr<IMatrix<double>>
+ActivationFunctions<T>::dtanh(IMatrix<T> *matrix)
+{
+    IMatrix<double> *resMatrix
+        = ActivationFunctions<double>::tanh(matrix)->simplifiedMult(
+            ActivationFunctions<double>::tanh(matrix).release()
+            ).release();
+    resMatrix = resMatrix->subtraction(1, true).release();
+    return unique_ptr<IMatrix<double>>(resMatrix);
+}
+
+template<typename T>
+unique_ptr<IMatrix<double>>
 ActivationFunctions<T>::softmax(const IMatrix<T> *matrix)
 {
     if (matrix->type() == Dimensions::THREE) {
