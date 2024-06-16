@@ -37,6 +37,7 @@ public:
     QVariant data() const override;
     vector<unsigned long long> sizes() const override;
     bool sameShape(const IMatrix<T> *matrix) override;
+    bool compareDoubles(const IMatrix<T> *matrix, double epsilon) override;
     unique_ptr<IMatrix<T>> doOperation(const IMatrix<T> *matrix) override;
     unique_ptr<IMatrix<T>> doOperation(const T num, bool reverseOrder) override;
     unique_ptr<IMatrix<T>> addition(const IMatrix<T> *matrix) override;

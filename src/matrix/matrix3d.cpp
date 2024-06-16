@@ -161,6 +161,28 @@ bool Matrix3d<T>::sameShape(const IMatrix<T> *matrix)
 }
 
 template<typename T>
+bool Matrix3d<T>::compareDoubles(const IMatrix<T> *matrix, double epsilon)
+{
+    // подготовка
+    Matrix3d<T> *otherMatrix = (Matrix3d<T>*)(matrix);
+    // пытаемся сравнить числа матриц, учитывая погрешность epsilon
+    try {
+        for (int matrixI = 0; matrixI < _data.size(); ++matrixI) {
+            if (!_data[matrixI].compareDoubles(&otherMatrix->dataToVector()[matrixI],
+                                                epsilon)) {
+                return false;
+            }
+        }
+        return true;
+    } catch (...) {
+        throw MatrixException(
+            QString("\nMatrix compare exception \n[%1]\n")
+                .arg("Impossible to compare the values ​​of matrices with different sizes")
+            );
+    }
+}
+
+template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::addition(const IMatrix<T> *matrix)
 {
     _opType = OperationType::SUM;
