@@ -44,6 +44,10 @@ private slots:
     /// \brief testDSigmoidMatrix3d
     /// тестирование производной от сигмоидной функции на 3д матрице
     void testDSigmoidMatrix3d();
+    ///
+    /// \brief testTanhMatrix2d
+    /// тестирование гиперболической тангенсовой функции на 2д матрице
+    void testTanhMatrix2d();
 };
 
 void TestActivationFunctions::testSoftmax()
@@ -168,6 +172,23 @@ void TestActivationFunctions::testDSigmoidMatrix3d()
                                    {0.006648,0.002466,0.196611}}};
 
     QCOMPARE(resultMatrix == properMatrix, true);
+}
+
+void TestActivationFunctions::testTanhMatrix2d()
+{
+    Matrix2d<double> init{{7, 9, 2},
+                          {6, 4, 5},
+                          {7, 5, 3}};
+    // итоговый и ожидаемый результаты
+    Matrix2d<double> currentResult(
+        ActivationFunctions<double>::tanh(&init)->data()
+        );
+    currentResult.floorM(6);
+    Matrix2d<double> properResult{{0.999998,0.999999,0.964027},
+                                  {0.999987,0.999329,0.999909},
+                                  {0.999998,0.999909,0.995054}};
+
+    QCOMPARE(currentResult.data(), properResult.data());
 }
 
 QTEST_MAIN(TestActivationFunctions)
