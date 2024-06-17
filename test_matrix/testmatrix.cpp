@@ -440,8 +440,8 @@ void TestMatrix::testMatrix2dSimplDivMatrix2d()
     Matrix2d<double> matrixB {{7,4},
                              {2,6}};
     // результаты
-    Matrix2d<double> resultMatrix(matrixA.simplifiedDiv(&matrixB)->data());
-    resultMatrix.floorM(2);
+    Matrix2d<double> resultMatrix(matrixA.simplifiedDiv(&matrixB)
+                                      ->floorM(2)->data());
     Matrix2d<double> properMatrixAB {{0.14,0.5},
                                     {1.5,1.5}};
 
@@ -458,8 +458,8 @@ void TestMatrix::testMatrix3dSimplDivMatrix3d()
                              {{1,8,6}, {1,3,1}},
                              {{3,2,3}, {2,2,8}}};
     // результаты
-    Matrix3d<double> resultMatrix(matrixA.simplifiedDiv(&matrixB)->data());
-    resultMatrix.floorM(2);
+    Matrix3d<double> resultMatrix(matrixA.simplifiedDiv(&matrixB)
+                                      ->floorM(2)->data());
     Matrix3d<double> properMatrixAB {{{0.33,0.4,1}, {1,0.66,1.14}},
                                     {{8,0.62,0.83}, {3,0.33,4}},
                                     {{2.33,3.5,2}, {0.5,0.5,0.12}}};
@@ -489,10 +489,10 @@ void TestMatrix::testMatrix2dDivNumberDirectAndReverseOrder()
                             {7,3,5},
                             {9,3,1}};
     // результаты
-    Matrix2d<double> resultMatrixDirectOrder(matrix.dividing(3.3, false)->data());
-    Matrix2d<double> resultMatrixReverseOrder(matrix.dividing(2.22, true)->data());
-    resultMatrixDirectOrder.floorM(2);
-    resultMatrixReverseOrder.floorM(2);
+    Matrix2d<double> resultMatrixDirectOrder(matrix.dividing(3.3, false)
+                                                 ->floorM(2)->data());
+    Matrix2d<double> resultMatrixReverseOrder(matrix.dividing(2.22, true)
+                                                  ->floorM(2)->data());
     Matrix2d<double> properMatrixDirectOrder {{0.3,0.6,0.9},
                                              {2.12,0.9,1.51},
                                              {2.72,0.9,0.3}};
@@ -511,10 +511,10 @@ void TestMatrix::testMatrix3dDivNumberDirectAndReverseOrder()
                             {{8,5,5}, {3,1,4}},
                             {{7,7,6}, {1,1,1}}};
     // результаты
-    Matrix3d<double> resultMatrixDirectOrder(matrix.dividing(3.3, false)->data());
-    Matrix3d<double> resultMatrixReverseOrder(matrix.dividing(2.22, true)->data());
-    resultMatrixDirectOrder.floorM(3);
-    resultMatrixReverseOrder.floorM(3);
+    Matrix3d<double> resultMatrixDirectOrder(matrix.dividing(3.3, false)
+                                                 ->floorM(3)->data());
+    Matrix3d<double> resultMatrixReverseOrder(matrix.dividing(2.22, true)
+                                                  ->floorM(3)->data());
     Matrix3d<double> properMatrixDirectOrder {{{0.303,0.606,0.909},{0.303,0.606,2.424}},
                                              {{2.424,1.515,1.515},{0.909,0.303,1.212}},
                                              {{2.121,2.121,1.818},{0.303,0.303,0.303}}};
@@ -574,8 +574,8 @@ void TestMatrix::testFloorMatrix2dAndMatrix3d()
                               {7.7777,3.3333,5.5555},
                               {9.8888,3.3676,1.1111}};
     // результаты
-    matrix3d.floorM(3);
-    matrix2d.floorM(3);
+    Matrix3d<double> resultMatrix3d(matrix3d.floorM(3)->data());
+    Matrix2d<double> resultMatrix2d(matrix2d.floorM(3)->data());
     Matrix3d<double> properMatrix3d {{{1.534,2.765,3.893},{1.111,2.695,8.589}},
                                     {{8.988,5.555,5.555},{3.589,1.235,4.456}},
                                     {{7.777,7.777,6.535},{1.123,1.565,1.565}}};
@@ -583,8 +583,8 @@ void TestMatrix::testFloorMatrix2dAndMatrix3d()
                                     {7.777,3.333,5.555},
                                     {9.888,3.367,1.111}};
 
-    QCOMPARE(matrix3d == properMatrix3d, true);
-    QCOMPARE(matrix2d == properMatrix2d, true);
+    QCOMPARE(resultMatrix3d == properMatrix3d, true);
+    QCOMPARE(resultMatrix2d == properMatrix2d, true);
 }
 
 void TestMatrix::testMatrix2dAndMatrix3dClip()
@@ -621,12 +621,12 @@ void TestMatrix::testMatrix2dAndMatrix3dLogn()
                               {{0.343,0.42,0.22},{0.642,0.33,0.111}}};
     // результаты
     auto matrixResult2d = matrix.lognM();
-    matrixResult2d->floorM(3); // округляем для сравнения
+    matrixResult2d = matrixResult2d->floorM(3); // округляем для сравнения
     Matrix2d<double> properMatrix2d {{-1.109,-2.121,-0.253},
                                     {-0.444,-1.109,-2.096}};
 
     auto resultMatrix3d = matrix3d.lognM();
-    resultMatrix3d->floorM(3); // округляем для сравнения
+    resultMatrix3d = resultMatrix3d->floorM(3); // округляем для сравнения
     Matrix3d<double> properMatrix3dReal(resultMatrix3d->data());
     properMatrix3dReal.print();
     Matrix3d<double> properMatrix3d {{{-0.047,-0.868,-1.515},{-0.444,-1.109,-2.199}},
@@ -645,12 +645,12 @@ void TestMatrix::testMatrix2dAnd3dExpM()
                               {{2, 2, 8},{8, 2, 1}}};
     // результаты
     auto matrixResult2d = matrix.expM();
-    matrixResult2d->floorM(3); // округляем для сравнения
+    matrixResult2d = matrixResult2d->floorM(3); // округляем для сравнения
     Matrix2d<double> properMatrix2d {{2.718,20.085,7.389},
                                     {20.085,7.389,148.413}};
 
     auto resultMatrix3d = matrix3d.expM();
-    resultMatrix3d->floorM(3); // округляем для сравнения
+    resultMatrix3d = resultMatrix3d->floorM(3); // округляем для сравнения
     Matrix3d<double> properMatrix3dReal(resultMatrix3d->data());
     properMatrix3dReal.print();
     Matrix3d<double> properMatrix3d {{{148.413,20.085,7.389},{148.413,403.428,2.718}},
