@@ -67,8 +67,8 @@ void TestActivationFunctions::testSoftmax()
     // инициализация
     Matrix2d<double> init{{5, 3, 2}};
     // итоговый и ожидаемый результаты
-    Matrix2d<double> currentResult(ActivationFunctions<double>::softmax(&init)->data());
-    currentResult.floorM(3);
+    Matrix2d<double> currentResult(ActivationFunctions<double>::softmax(&init)
+                                       ->floorM(3)->data());
     Matrix2d<double> properResult{{0.843, 0.114, 0.042}};
 
     QCOMPARE(currentResult.data(), properResult.data());
@@ -81,9 +81,9 @@ void TestActivationFunctions::testSoftmax2d()
                           {6, 1, 8}};
     // итоговый и ожидаемый результаты
     Matrix2d<double> currentResult(
-        ActivationFunctions<double>::softmax(&init)->data()
+        ActivationFunctions<double>::softmax(&init)
+            ->floorM(5)->data()
     );
-    currentResult.floorM(5);
     Matrix2d<double> properResult{{0.84379, 0.11419, 0.04201},
                                   {0.24472, 0.66524, 0.09003},
                                   {0.1191, 0.0008, 0.88009}};
@@ -98,9 +98,9 @@ void TestActivationFunctions::testSoftmax3d()
                           {{8,2,1}, {5,6,1}, {2,2,8}}};
     // результаты
     Matrix3d<double> resultMatrix(
-        ActivationFunctions<double>::softmax(&init)->data()
+        ActivationFunctions<double>::softmax(&init)
+            ->floorM(5)->data()
     );
-    resultMatrix.floorM(5);
     Matrix3d<double> properMatrix{{{0.84379,0.11419,0.04201},
                                    {0.24472,0.66524,0.09003},
                                    {0.1191,0.0008,0.88009}},
@@ -118,9 +118,9 @@ void TestActivationFunctions::testSigmoidMatrix2d()
                           {2, 2, 8}};
     // итоговый и ожидаемый результаты
     Matrix2d<double> currentResult(
-        ActivationFunctions<double>::sigmoid(&init)->data()
+        ActivationFunctions<double>::sigmoid(&init)
+            ->floorM(5)->data()
         );
-    currentResult.floorM(5);
     Matrix2d<double> properResult{{0.73105,0.95257,0.88079},
                                   {0.95257,0.88079,0.88079},
                                   {0.88079,0.88079,0.99966}};
@@ -138,9 +138,9 @@ void TestActivationFunctions::testSigmoidMatrix3d()
                           {{8,2,1}, {5,6,1}, {2,2,8}}};
     // результаты
     Matrix3d<double> resultMatrix(
-        ActivationFunctions<double>::sigmoid(&init)->data()
+        ActivationFunctions<double>::sigmoid(&init)
+            ->floorM(6)->data()
         );
-    resultMatrix.floorM(6);
     Matrix3d<double> properMatrix{{{0.993307,0.952574,0.880797},
                                    {0.880797,0.952574,0.731058},
                                    {0.997527,0.731058,0.999664}},
@@ -158,9 +158,9 @@ void TestActivationFunctions::testDSigmoidMatrix2d()
                           {7.7, 5.5, 3.3}};
     // итоговый и ожидаемый результаты
     Matrix2d<double> currentResult(
-        ActivationFunctions<double>::dsigmoid(&init)->data()
+        ActivationFunctions<double>::dsigmoid(&init)
+            ->floorM(5)->data()
         );
-    currentResult.floorM(5);
     Matrix2d<double> properResult{{0.00045,0.00005,0.08980},
                                   {0.00135,0.01198,0.00405},
                                   {0.00045,0.00405,0.03430}};
@@ -175,9 +175,9 @@ void TestActivationFunctions::testDSigmoidMatrix3d()
                           {{8,2,1}, {5,6,1}}};
     // результаты
     Matrix3d<double> resultMatrix(
-        ActivationFunctions<double>::dsigmoid(&init)->data()
+        ActivationFunctions<double>::dsigmoid(&init)
+            ->floorM(6)->data()
         );
-    resultMatrix.floorM(6);
     Matrix3d<double> properMatrix{{{0.006648,0.045176,0.104993},
                                    {0.104993,0.045176,0.196611}},
                                   {{0.000335,0.104993,0.196611},
@@ -193,9 +193,9 @@ void TestActivationFunctions::testTanhMatrix2d()
                           {7, 5, 3}};
     // итоговый и ожидаемый результаты
     Matrix2d<double> currentResult(
-        ActivationFunctions<double>::tanh(&init)->data()
+        ActivationFunctions<double>::tanh(&init)
+            ->floorM(6)->data()
         );
-    currentResult.floorM(6);
     Matrix2d<double> properResult{{0.999998,0.999999,0.964027},
                                   {0.999987,0.999329,0.999909},
                                   {0.999998,0.999909,0.995054}};
@@ -210,9 +210,9 @@ void TestActivationFunctions::testTanhMatrix3d()
                           {{8,2,1}, {5,6,1}}};
     // результаты
     Matrix3d<double> resultMatrix(
-        ActivationFunctions<double>::tanh(&init)->data()
+        ActivationFunctions<double>::tanh(&init)
+            ->floorM(6)->data()
         );
-    resultMatrix.floorM(6);
     Matrix3d<double> properMatrix{{{0.999909,0.995054,0.964027},
                                    {0.964027,0.995054,0.761594}},
                                   {{0.999999,0.964027,0.761594},
