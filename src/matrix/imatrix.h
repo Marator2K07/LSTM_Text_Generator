@@ -126,7 +126,7 @@ public:
     ///
     /// \brief floorM округление текущей матрицы до num цифр после запятой
     /// \param num количество цифр после запятой
-    virtual void floorM(T num) = 0;
+    virtual unique_ptr<IMatrix<T>> floorM(T num) = 0;
     ///
     /// \brief clipM обрезка значений текущей матрицы
     /// \param leftBorder левая граница обрезки
