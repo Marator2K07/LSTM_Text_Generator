@@ -287,7 +287,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::columnStack(const IMatrix<T> *matrix)
             );
     }
     // подготовка
-    Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(matrix);;
+    vector<vector<T>> otherMatrixData = dataToVector(matrix);
     vector<vector<T>> resultData;
     // заполнение результирующей матрицы
     for (int rowI = 0; rowI < _data.size(); ++rowI) {
@@ -296,7 +296,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::columnStack(const IMatrix<T> *matrix)
             resultData[rowI].push_back(_data[rowI][i]);            
         }
         for (int i = 0; i < _data[0].size(); ++i) {
-            resultData[rowI].push_back(otherMatrix->dataToVector()[rowI][i]);
+            resultData[rowI].push_back(otherMatrixData[rowI][i]);
         }
     }
 
