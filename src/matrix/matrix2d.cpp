@@ -277,6 +277,12 @@ unique_ptr<IMatrix<T> > Matrix2d<T>::dividing(T num, bool reverseOrder)
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::columnStack(const IMatrix<T> *matrix)
+{
+
+}
+
+template<typename T>
 void Matrix2d<T>::floorM(T num)
 {
     int multiplier = pow(10, num);

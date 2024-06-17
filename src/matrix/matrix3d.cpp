@@ -239,6 +239,12 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::dividing(T num, bool reverseOrder)
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix3d<T>::columnStack(const IMatrix<T> *matrix)
+{
+
+}
+
+template<typename T>
 void Matrix3d<T>::floorM(T num)
 {
     for (Matrix2d<T> &matrix : _data) {
