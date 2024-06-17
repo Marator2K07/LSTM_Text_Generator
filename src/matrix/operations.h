@@ -9,7 +9,7 @@ using namespace std;
 /// \brief The OperationType enum
 /// определение вида операции для ее изменения
 enum class OperationType {
-    SUM, SUB, MUL, DIV
+    SUM, SUB, MUL, DIV, LOGM, EXPM, TANHM, CLIPM, FLOORM
 };
 
 ///

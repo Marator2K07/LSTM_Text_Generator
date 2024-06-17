@@ -130,7 +130,22 @@ void Matrix2d<T>::setOperation(OperationType opType)
     case OperationType::DIV:
         _operationPtr = &Operations<T>::div;
         break;
-    }
+    case OperationType::LOGM:
+        _operationPtr = &Operations<T>::logM;
+        break;
+    case OperationType::EXPM:
+        _operationPtr = &Operations<T>::expM;
+        break;
+    case OperationType::TANHM:
+        _operationPtr = &Operations<T>::tanhM;
+        break;
+    case OperationType::CLIPM:
+        _operationPtr = &Operations<T>::clipM;
+        break;
+    case OperationType::FLOORM:
+        _operationPtr = &Operations<T>::floorM;
+        break;
+    }    
 }
 
 template<typename T>
