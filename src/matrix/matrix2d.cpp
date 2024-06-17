@@ -323,97 +323,36 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::columnStack(const IMatrix<T> *matrix)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::floorM(T num)
 {
-    // подготовка
-    vector<vector<T>> resultData;
-    int multiplier = pow(10, num);
-    int index = 0;
-    // заполнение результирующей матрицы
-    for (const vector<T> row : _data) {
-        resultData.push_back(vector<T>());
-        for (const T value : row) {
-            resultData[index].push_back(
-                floor(value * multiplier) / multiplier
-                );
-        }
-        index++;
-    }
-    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+    _operationPtr = &Operations<T>::floorM;
+    return doOperation(num);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::clipM(T leftBorder, T rightBorder)
 {
-    // подготовка
-    vector<vector<T>> resultData;
-    int index = 0;
-    // заполнение результирующей матрицы
-    for (const vector<T> row : _data) {
-        resultData.push_back(vector<T>());
-        for (const T value : row) {
-            T newValue;
-            if (value <= leftBorder) {
-                newValue = leftBorder;
-            } else if (value >= rightBorder) {
-                newValue = rightBorder;
-            } else {
-                newValue = value;
-            }
-            resultData[index].push_back(newValue);
-        }
-        index++;
-    }
-    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+    _operationPtr = &Operations<T>::clipM;
+    return doOperation(leftBorder);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::lognM()
 {
-    // подготовка
-    vector<vector<T>> resultData;
-    int index = 0;
-    // заполнение результирующей матрицы
-    for (const vector<T> row : _data) {
-        resultData.push_back(vector<T>());
-        for (const T value : row) {
-            resultData[index].push_back(log(value));
-        }
-        index++;
-    }
-    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+    _operationPtr = &Operations<T>::logM;
+    return doOperation();
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::expM()
 {
-    // подготовка
-    vector<vector<T>> resultData;
-    int index = 0;
-    // заполнение результирующей матрицы
-    for (const vector<T> row : _data) {
-        resultData.push_back(vector<T>());
-        for (const T value : row) {
-            resultData[index].push_back(exp(value));
-        }
-        index++;
-    }
-    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+    _operationPtr = &Operations<T>::expM;
+    return doOperation();
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::tanhM()
 {
-    // подготовка
-    vector<vector<T>> resultData;
-    int index = 0;
-    // заполнение результирующей матрицы
-    for (const vector<T> row : _data) {
-        resultData.push_back(vector<T>());
-        for (const T value : row) {
-            resultData[index].push_back(tanh(value));
-        }
-        index++;
-    }
-    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+    _operationPtr = &Operations<T>::tanhM;
+    return doOperation();
 }
 
 template<typename T>
