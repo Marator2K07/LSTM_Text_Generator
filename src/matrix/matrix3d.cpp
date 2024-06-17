@@ -248,11 +248,16 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::columnStack(const IMatrix<T> *matrix)
 }
 
 template<typename T>
-void Matrix3d<T>::floorM(T num)
+unique_ptr<IMatrix<T>> Matrix3d<T>::floorM(T num)
 {
-    for (Matrix2d<T> &matrix : _data) {
-        matrix.floorM(num);
+    // подготовка
+    vector<Matrix2d<T>> resultData;
+    // создание и заполнение результирующей матрицы
+    for (Matrix2d<T> matrix : _data) {
+        Matrix2d<T> stepMatrix(matrix.floorM(num)->data());
+        resultData.push_back(stepMatrix);
     }
+    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
 }
 
 template<typename T>

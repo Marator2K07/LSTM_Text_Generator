@@ -304,14 +304,23 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::columnStack(const IMatrix<T> *matrix)
 }
 
 template<typename T>
-void Matrix2d<T>::floorM(T num)
+unique_ptr<IMatrix<T>> Matrix2d<T>::floorM(T num)
 {
+    // подготовка
+    vector<vector<T>> resultData;
     int multiplier = pow(10, num);
-    for (vector<T> &row : _data) {
-        for (T &value : row) {
-            value = floor(value * multiplier) / multiplier;
+    int index = 0;
+    // заполнение результирующей матрицы
+    for (const vector<T> row : _data) {
+        resultData.push_back(vector<T>());
+        for (const T value : row) {
+            resultData[index].push_back(
+                floor(value * multiplier) / multiplier
+                );
         }
+        index++;
     }
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
 template<typename T>
