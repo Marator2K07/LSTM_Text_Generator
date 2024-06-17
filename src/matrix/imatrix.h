@@ -65,6 +65,11 @@ public:
     virtual unique_ptr<IMatrix<T>> doOperation(const T num,
                                                bool reverseOrder = false) = 0;
     ///
+    /// \brief doOperation проведение операции над собственными значениями
+    /// \param extraParam возможный дополнительный параметр
+    /// \return результирующая матрица
+    virtual unique_ptr<IMatrix<T>> doOperation(T extraParam = 0) = 0;
+    ///
     /// \brief addition сложение элементов текущей и другой матрицы
     /// \param other другая матрицы для сложения
     /// \return результирующая матрица
