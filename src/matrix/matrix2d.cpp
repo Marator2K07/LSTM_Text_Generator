@@ -53,6 +53,23 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const T num, bool reverseOrder)
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(T extraParam)
+{
+    // подготовка
+    vector<vector<T>> resultData;
+    // создание и заполнение результирующей матрицы
+    for (int rowI = 0; rowI < _data.size(); ++rowI) {
+        resultData.push_back(vector<T>());
+        for (int i = 0; i < _data[0].size(); ++i) {
+            resultData[rowI].push_back(
+                (*_operationPtr)(_data[rowI][i], extraParam)
+                );
+        }
+    }
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+}
+
+template<typename T>
 Matrix2d<T>::Matrix2d()
 {
 }

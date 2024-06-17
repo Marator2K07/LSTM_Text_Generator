@@ -50,6 +50,7 @@ public:
     bool compareDoubles(const IMatrix<T> *matrix, double epsilon) override;
     unique_ptr<IMatrix<T>> doOperation(const IMatrix<T> *matrix) override;
     unique_ptr<IMatrix<T>> doOperation(const T num, bool reverseOrder) override;
+    unique_ptr<IMatrix<T>> doOperation(T extraParam = 0) override;
     unique_ptr<IMatrix<T>> addition(const IMatrix<T> *matrix) override;
     unique_ptr<IMatrix<T>> addition(T num) override;
     unique_ptr<IMatrix<T>> subtraction(const IMatrix<T> *matrix) override;
