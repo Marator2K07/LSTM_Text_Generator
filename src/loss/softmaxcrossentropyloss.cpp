@@ -48,7 +48,7 @@ double SoftmaxCrossEntropyLoss::calcLoss()
             = _target->subtraction(1.0, true)
                   ->simplifiedMult(
                       _softmaxPrediction->subtraction(1.0, true)
-                          ->lognM().release()
+                          ->lognM().get()
                       ).release();
 
         IMatrix<double> *softmaxCrossEntropyLoss
