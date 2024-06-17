@@ -88,7 +88,7 @@ public:
     virtual unique_ptr<IMatrix<T>> subtraction(T num, bool reverseOrder = false) = 0;
     ///
     /// \brief simplifiedMult упрощенное поэлементное умножение элементов матриц
-    /// \param other другая матрицы для операции
+    /// \param other другая матрица для операции
     /// \return результирующая матрица
     virtual unique_ptr<IMatrix<T>> simplifiedMult(const IMatrix<T> *matrix) = 0;
     ///
@@ -96,6 +96,11 @@ public:
     /// \param num мультипликатор умножения
     /// \return увеличенная в num раз матрица
     virtual unique_ptr<IMatrix<T>> multiplication(T num) = 0;
+    ///
+    /// \brief multiplication классическое матричное умножение
+    /// \param matrix другая матрица для операции
+    /// \return произведение матриц
+    virtual unique_ptr<IMatrix<T>> multiplication(const IMatrix<T> *matrix) = 0;
     ///
     /// \brief simplifiedDiv упрощенное поэлементное деление элементов матриц
     /// \param other другая матрицы для операции
