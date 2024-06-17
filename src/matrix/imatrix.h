@@ -109,6 +109,11 @@ public:
     /// \return результирующая матрица
     virtual unique_ptr<IMatrix<T>> dividing(T num, bool reverseOrder = false) = 0;
     ///
+    /// \brief columnStack объединение значений матриц по столбцам
+    /// \param matrix матрица для обьединения значений
+    /// \return результирующая матрица
+    virtual unique_ptr<IMatrix<T>> columnStack(const IMatrix<T> *matrix) = 0;
+    ///
     /// \brief floorM округление текущей матрицы до num цифр после запятой
     /// \param num количество цифр после запятой
     virtual void floorM(T num) = 0;
