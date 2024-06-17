@@ -241,7 +241,25 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::dividing(T num, bool reverseOrder)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::columnStack(const IMatrix<T> *matrix)
 {
+    // проверка
+    if (!sameShape(matrix)) {
+        throw MatrixException(
+            QString("\nMatrix column stack exception \n[%1]\n")
+                .arg("Matrices not have same sizes to do operation")
+            );
+    }
+    // подготовка
+    vector<Matrix2d<T>> otherMatrixData = dataToVector(matrix);
+    vector<Matrix2d<T>> resultData;
+    // заполнение результирующей матрицы
+    for (int matrixI = 0; matrixI < _data.size(); ++matrixI) {
+        Matrix2d<T> stepMatrix(
+            _data[matrixI].columnStack(&otherMatrixData[matrixI])->data()
+            );
+        resultData.push_back(stepMatrix);
+    }
 
+    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
 }
 
 template<typename T>
