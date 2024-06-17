@@ -264,66 +264,36 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::columnStack(const IMatrix<T> *matrix)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::floorM(T num)
 {
-    // подготовка
-    vector<Matrix2d<T>> resultData;
-    // создание и заполнение результирующей матрицы
-    for (Matrix2d<T> matrix : _data) {
-        Matrix2d<T> stepMatrix(matrix.floorM(num)->data());
-        resultData.push_back(stepMatrix);
-    }
-    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+    _opType = OperationType::FLOORM;
+    return doOperation(num);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::clipM(T leftBorder, T rightBorder)
 {
-    // подготовка
-    vector<Matrix2d<T>> resultData;
-    // создание и заполнение результирующей матрицы
-    for (Matrix2d<T> matrix : _data) {
-        Matrix2d<T> stepMatrix(matrix.clipM(leftBorder, rightBorder)->data());
-        resultData.push_back(stepMatrix);
-    }
-    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+    _opType = OperationType::CLIPM;
+    return doOperation(leftBorder);
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::lognM()
 {
-    // подготовка
-    vector<Matrix2d<T>> resultData;
-    // создание и заполнение результирующей матрицы
-    for (Matrix2d<T> matrix : _data) {
-        Matrix2d<T> stepMatrix((matrix.lognM())->data());
-        resultData.push_back(stepMatrix);
-    }
-    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+    _opType = OperationType::LOGM;
+    return doOperation();
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::expM()
 {
-    // подготовка
-    vector<Matrix2d<T>> resultData;
-    // создание и заполнение результирующей матрицы
-    for (Matrix2d<T> matrix : _data) {
-        Matrix2d<T> stepMatrix((matrix.expM())->data());
-        resultData.push_back(stepMatrix);
-    }
-    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+    _opType = OperationType::EXPM;
+    return doOperation();
 }
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::tanhM()
 {
-    // подготовка
-    vector<Matrix2d<T>> resultData;
-    // создание и заполнение результирующей матрицы
-    for (Matrix2d<T> matrix : _data) {
-        Matrix2d<T> stepMatrix((matrix.tanhM())->data());
-        resultData.push_back(stepMatrix);
-    }
-    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+    _opType = OperationType::TANHM;
+    return doOperation();
 }
 
 template<typename T>
