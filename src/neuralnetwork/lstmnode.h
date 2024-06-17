@@ -5,8 +5,14 @@
 
 class LSTMNode : public INeuralNetworkNode
 {
+private:
+    int _hiddenSize; // количество "скрытых нейронов"
+    int _vocabSize; // размер словаря, полученный от эмбеддинга
+    // сохраненные значения после прямого прохода
+    QMap<QString, Matrix2d<double>> _forwardPassValues;
+
 public:
-    LSTMNode();
+    LSTMNode(int hiddenSize, int vocabSize);
 
 public:
     // INeuralNetworkNode interface

@@ -1,8 +1,9 @@
 #include "lstmnode.h"
 
-LSTMNode::LSTMNode()
+LSTMNode::LSTMNode(int hiddenSize, int vocabSize)
+    : _hiddenSize{hiddenSize}
+    , _vocabSize{vocabSize}
 {
-
 }
 
 QMap<QString, Matrix2d<double>>
