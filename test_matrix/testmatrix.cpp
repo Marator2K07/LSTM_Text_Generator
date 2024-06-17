@@ -92,6 +92,10 @@ private slots:
     /// тест умножения трехмерной матрицы на число
     void testMatrix3dMultNumber();
     ///
+    /// \brief testColumnStack2dAnd3d
+    /// тестирование обьединений значений матриц по столбцам для 2д и 3д случаев
+    void testColumnStack2dAnd3d();
+    ///
     /// \brief testFloorMatrix2dAndMatrix3d
     /// тест округления 2д и 3д матриц
     void testFloorMatrix2dAndMatrix3d();
@@ -535,6 +539,29 @@ void TestMatrix::testMatrix3dMultNumber()
                                   {{23.38,23.38,20.04},{3.34,3.34,3.34}}};
 
     QCOMPARE(resultMatrix == properMatrix, true);
+}
+
+void TestMatrix::testColumnStack2dAnd3d()
+{
+    // инициализация
+    Matrix2d<double> matrix2dOne{{1,2},
+                                {3,4}};
+    Matrix2d<double> matrix2dTwo{{5,6},
+                                 {7,8}};
+    Matrix3d<double> matrix3dOne{{{1,1},{2,2}},{{3,3},{4,4}}};
+    Matrix3d<double> matrix3dTwo{{{5,5},{6,6}},{{7,7},{8,8}}};
+    // результаты
+    Matrix2d<double> result2dMatrix(matrix2dOne.columnStack(&matrix2dTwo)->data());
+    Matrix2d<double> proper2dMatrix{{1,2,5,6},
+                                    {3,4,7,8}};
+    // плохой случай
+    try {
+        Matrix3d<double> result3dMatrix(matrix3dOne.columnStack(&matrix3dTwo)->data());
+    } catch (const MatrixException& e) {
+        cout << e.what() << endl;
+    }
+
+    QCOMPARE(result2dMatrix == proper2dMatrix, true);
 }
 
 void TestMatrix::testFloorMatrix2dAndMatrix3d()
