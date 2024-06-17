@@ -27,6 +27,7 @@ public:
     static T logM(T mainParam, T extraParam);
     static T expM(T mainParam, T extraParam);
     static T tanhM(T mainParam, T extraParam);
+    static T clipM(T mainParam, T leftBorder);
 };
 
 template<typename T>
@@ -69,6 +70,21 @@ template<typename T>
 T Operations<T>::tanhM(T mainParam, T extraParam)
 {
     return tanh(mainParam);
+}
+
+template<typename T>
+T Operations<T>::clipM(T mainParam, T leftBorder)
+{
+    T rightBorder = 1 - leftBorder;
+    T newValue;
+    if (mainParam <= leftBorder) {
+        newValue = leftBorder;
+    } else if (mainParam >= rightBorder) {
+        newValue = rightBorder;
+    } else {
+        newValue = mainParam;
+    }
+    return newValue;
 }
 
 #endif // OPERATIONS_H
