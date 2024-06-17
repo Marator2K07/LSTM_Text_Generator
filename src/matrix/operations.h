@@ -28,6 +28,7 @@ public:
     static T expM(T mainParam, T extraParam);
     static T tanhM(T mainParam, T extraParam);
     static T clipM(T mainParam, T leftBorder);
+    static T floorM(T mainParam, T numOfDecimal);
 };
 
 template<typename T>
@@ -85,6 +86,13 @@ T Operations<T>::clipM(T mainParam, T leftBorder)
         newValue = mainParam;
     }
     return newValue;
+}
+
+template<typename T>
+T Operations<T>::floorM(T mainParam, T numOfDecimal)
+{
+    int multiplier = pow(10, numOfDecimal);
+    return floor(mainParam * multiplier) / multiplier;
 }
 
 #endif // OPERATIONS_H
