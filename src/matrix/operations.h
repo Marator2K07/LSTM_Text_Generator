@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <cmath>
+#include <random>
 using namespace std;
 
 ///
@@ -15,7 +16,7 @@ enum class OperationType {
 ///
 /// \brief The Operations class
 /// класс с вынесенными основными
-/// статическими простейшими операциями
+/// статическими простыми и не очень операциями
 template<typename T>
 class Operations
 {
@@ -29,6 +30,13 @@ public:
     static T tanhM(T mainParam, T extraParam);
     static T clipM(T mainParam, T leftBorder);
     static T floorM(T mainParam, T numOfDecimal);
+    ///
+    /// \brief gaussianDistribution нормальное(гауссово)
+    /// распределение для получения случайного числа
+    /// \param mean - центр распределения
+    /// \param width - разброс(ширина) распределения
+    /// \return случайное число
+    static T gaussianDistribution(T mean, T width);
 };
 
 template<typename T>
@@ -93,6 +101,15 @@ T Operations<T>::floorM(T mainParam, T numOfDecimal)
 {
     int multiplier = pow(10, numOfDecimal);
     return floor(mainParam * multiplier) / multiplier;
+}
+
+template<typename T>
+T Operations<T>::gaussianDistribution(T mean, T width)
+{
+    random_device rd;
+    mt19937 gen(rd());
+    normal_distribution<double> distribution(mean, width);
+    return distribution(gen);
 }
 
 #endif // OPERATIONS_H
