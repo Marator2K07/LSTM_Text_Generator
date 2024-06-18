@@ -28,8 +28,20 @@ public:
     static T logM(T mainParam, T extraParam);
     static T expM(T mainParam, T extraParam);
     static T tanhM(T mainParam, T extraParam);
-    static T clipM(T mainParam, T leftBorder);
-    static T floorM(T mainParam, T numOfDecimal);
+    ///
+    /// \brief clipM обрезка числа по границам
+    /// [leftBorder, 1-leftBorder]
+    /// \param mainNum число для обрезки
+    /// \param leftBorder левая граница обрезки
+    /// \return возможно обрезанное число
+    static T clipM(T mainNum, T leftBorder);
+    ///
+    /// \brief floorM округление с точностью до
+    /// numOfDecimal цифр после запятой
+    /// \param mainParam число для округления
+    /// \param numOfDecimal количество цифр после запятой
+    /// \return округленное число
+    static T floorM(T mainNum, T numOfDecimal);
     ///
     /// \brief gaussianDistribution нормальное(гауссово)
     /// распределение для получения случайного числа
@@ -82,25 +94,25 @@ T Operations<T>::tanhM(T mainParam, T extraParam)
 }
 
 template<typename T>
-T Operations<T>::clipM(T mainParam, T leftBorder)
+T Operations<T>::clipM(T mainNum, T leftBorder)
 {
     T rightBorder = 1 - leftBorder;
     T newValue;
-    if (mainParam <= leftBorder) {
+    if (mainNum <= leftBorder) {
         newValue = leftBorder;
-    } else if (mainParam >= rightBorder) {
+    } else if (mainNum >= rightBorder) {
         newValue = rightBorder;
     } else {
-        newValue = mainParam;
+        newValue = mainNum;
     }
     return newValue;
 }
 
 template<typename T>
-T Operations<T>::floorM(T mainParam, T numOfDecimal)
+T Operations<T>::floorM(T mainNum, T numOfDecimal)
 {
     int multiplier = pow(10, numOfDecimal);
-    return floor(mainParam * multiplier) / multiplier;
+    return floor(mainNum * multiplier) / multiplier;
 }
 
 template<typename T>
