@@ -270,7 +270,32 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::columnStack(const IMatrix<T> *matrix)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::transposition()
 {
+    // подготовка
+    vector<Matrix2d<T>> resultData;
+    int step = 0;
+    int rowI = 0;
+    int index = 0;
+    // заполнение промежуточных данных для итоговой матрицы
+    for (int i = 0; i < sizes()[2]; ++i) {
+        Matrix2d<T> stepMatrix = Matrix2d<T>::zeroM(sizes()[0],
+                                                    sizes()[1]);
+        for (const Matrix2d<T> matrix : _data) {
+            for (const vector<T> row : matrix.dataToVector()) {
+                stepMatrix.setValue(rowI++, index, row[step]);
+            }
+            index++;
+            rowI = 0;
+        }
+        step++;
+        index = 0;
+        resultData.push_back(stepMatrix);
+    }
+    // транспонируем матрицы по отдельности
+    for (Matrix2d<T> matrix : resultData) {
+        matrix = Matrix2d<T>(matrix.transposition()->data());
+    }
 
+    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
 }
 
 template<typename T>
