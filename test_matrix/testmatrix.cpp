@@ -100,6 +100,10 @@ private slots:
     /// тест метода транспонирования двумерных матриц
     void testTransposition2d();
     ///
+    /// \brief testTransposition3d
+    /// тест метода транспонирования трехмерных матриц
+    void testTransposition3d();
+    ///
     /// \brief testFloorMatrix2dAndMatrix3d
     /// тест округления 2д и 3д матриц
     void testFloorMatrix2dAndMatrix3d();
@@ -590,6 +594,21 @@ void TestMatrix::testTransposition2d()
 
     QCOMPARE(resultMatrix == properMatrix, true);
     QCOMPARE(resultMatrixTwo == properMatrixTwo, true);
+}
+
+void TestMatrix::testTransposition3d()
+{
+    // инициализация
+    Matrix3d<double> matrix{{{1, 2, 3},{4, 5, 6}},
+                            {{7, 8, 9},{0,10,11}}};
+    // результаты
+    Matrix3d<double> resultMatrix(matrix.transposition()->data());
+    resultMatrix.print();
+    Matrix3d<double> properMatrix{{{1, 7},{4, 0}},
+                                  {{2, 8},{5, 10}},
+                                  {{3, 9},{6, 11}}};
+
+    QCOMPARE(resultMatrix == properMatrix, true);
 }
 
 void TestMatrix::testFloorMatrix2dAndMatrix3d()
