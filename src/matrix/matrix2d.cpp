@@ -295,6 +295,12 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::multiplication(T num)
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::multiplication(const IMatrix<T> *matrix)
+{
+
+}
+
+template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::simplifiedDiv(const IMatrix<T> *matrix)
 {
     _operationPtr = &Operations<T>::div;
@@ -333,6 +339,12 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::columnStack(const IMatrix<T> *matrix)
     }
 
     return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+}
+
+template<typename T>
+unique_ptr<IMatrix<T> > Matrix2d<T>::transposition()
+{
+
 }
 
 template<typename T>

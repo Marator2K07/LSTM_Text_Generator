@@ -239,6 +239,12 @@ unique_ptr<IMatrix<T> > Matrix3d<T>::multiplication(T num)
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix3d<T>::multiplication(const IMatrix<T> *matrix)
+{
+
+}
+
+template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::simplifiedDiv(const IMatrix<T> *matrix)
 {
     _opType = OperationType::DIV;
@@ -259,6 +265,12 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::columnStack(const IMatrix<T> *matrix)
         QString("\nMatrix column stack exception \n[%1]\n")
             .arg("For 3d Matrices this type of operation is not allowed")
         );
+}
+
+template<typename T>
+unique_ptr<IMatrix<T>> Matrix3d<T>::transposition()
+{
+
 }
 
 template<typename T>
