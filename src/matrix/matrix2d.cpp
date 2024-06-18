@@ -342,9 +342,23 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::columnStack(const IMatrix<T> *matrix)
 }
 
 template<typename T>
-unique_ptr<IMatrix<T> > Matrix2d<T>::transposition()
+unique_ptr<IMatrix<T>> Matrix2d<T>::transposition()
 {
+    // подготовка
+    vector<vector<T>> resultData;
+    int index = 0;
+    // заполнение данных для матрицы
+    for (int i = 0; i < _data[0].size(); ++i) {
+        resultData.push_back(vector<T>());
+    }
+    for (const vector<T> row : _data) {
+        for (const T value : row) {
+            resultData[index++].push_back(value);
+        }
+        index = 0;
+    }
 
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
 template<typename T>
