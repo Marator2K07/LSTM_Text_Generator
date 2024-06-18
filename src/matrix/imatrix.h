@@ -124,6 +124,10 @@ public:
     /// \return результирующая матрица
     virtual unique_ptr<IMatrix<T>> columnStack(const IMatrix<T> *matrix) = 0;
     ///
+    /// \brief transposition транспонирование текущей матрицы
+    /// \return транспонированная матрица
+    virtual unique_ptr<IMatrix<T>> transposition() = 0;
+    ///
     /// \brief floorM округление текущей матрицы до num цифр после запятой
     /// \param num количество цифр после запятой
     virtual unique_ptr<IMatrix<T>> floorM(T num) = 0;
