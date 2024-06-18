@@ -96,6 +96,10 @@ private slots:
     /// тестирование обьединений значений матриц по столбцам для 2д и 3д случаев
     void testColumnStack2dAnd3d();
     ///
+    /// \brief testTransposition2dAnd3d
+    /// тест метода транспонирования двумерных матриц
+    void testTransposition2d();
+    ///
     /// \brief testFloorMatrix2dAndMatrix3d
     /// тест округления 2д и 3д матриц
     void testFloorMatrix2dAndMatrix3d();
@@ -562,6 +566,30 @@ void TestMatrix::testColumnStack2dAnd3d()
     }
 
     QCOMPARE(result2dMatrix == proper2dMatrix, true);
+}
+
+void TestMatrix::testTransposition2d()
+{
+    // инициализация
+    Matrix2d<double> matrix{{1, 2, 3},
+                            {4, 5, 6},
+                            {7, 8, 9}};
+    Matrix2d<double> matrixTwo{{1, 2, 3, 4},
+                               {5, 6, 7, 8}};
+    // результаты
+    Matrix2d<double> resultMatrix(matrix.transposition()->data());
+    Matrix2d<double> properMatrix{{1, 4, 7},
+                                  {2, 5, 8},
+                                  {3, 6, 9}};
+    Matrix2d<double> resultMatrixTwo(matrixTwo.transposition()->data());
+    resultMatrixTwo.print();
+    Matrix2d<double> properMatrixTwo{{1, 5},
+                                     {2, 6},
+                                     {3, 7},
+                                     {4, 8}};
+
+    QCOMPARE(resultMatrix == properMatrix, true);
+    QCOMPARE(resultMatrixTwo == properMatrixTwo, true);
 }
 
 void TestMatrix::testFloorMatrix2dAndMatrix3d()
