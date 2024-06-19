@@ -89,6 +89,10 @@ private slots:
     /// тестирование классического матричного умножения
     void testMatrix2dMult();
     ///
+    /// \brief testComplicatedMatrix2dMult
+    /// усложненный тест матричного умножения
+    void testComplicatedMatrix2dMult();
+    ///
     /// \brief testMatrix2dDivNumberDirectAndReverseOrder
     /// тест деления матрицы и числа в прямом и обратном порядках
     void testMatrix2dDivNumberDirectAndReverseOrder();
@@ -533,6 +537,34 @@ void TestMatrix::testMatrix2dMult()
     Matrix2d<double> properMatrix {{13,16,30},
                                   {25,36,54},
                                   {34,56,44}};
+
+    QCOMPARE(resultMatrix.data(), properMatrix.data());
+}
+
+void TestMatrix::testComplicatedMatrix2dMult()
+{
+    // инициализация
+    Matrix2d<double> matrixA {{1,2},
+                             {3,4},
+                             {7,7},
+                             {9,3}};
+    Matrix2d<double> matrixB {{1,6,2},
+                             {3,2,2}};
+    Matrix2d<double> matrixС {{1,6,2},
+                             {3,2,2},
+                             {2,2,8}};
+    // результаты
+    Matrix2d<double> resultMatrix(matrixA.multiplication(&matrixB)->data());
+    Matrix2d<double> properMatrix {{7,10,6},
+                                  {15,26,14},
+                                  {28,56,28},
+                                  {18,60,24}};
+    // плохой случай
+    try {
+        auto matrixResBad = matrixA.multiplication(&matrixС);
+    } catch (const MatrixException& e) {
+        cout << e.what() << endl;
+    }
 
     QCOMPARE(resultMatrix.data(), properMatrix.data());
 }
