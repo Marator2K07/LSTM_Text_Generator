@@ -19,7 +19,7 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::doOperation(const IMatrix<T> *matrix)
         // подготовка
         vector<Matrix2d<T>> otherMatrixData = dataToVector(matrix);
         vector<Matrix2d<T>> resultData;
-        // создание и заполнение результирующей матрицы
+        // заполнение данных для результирующей матрицы
         for (int i = 0; i < _data.size(); ++i) {
             _data[i].setOperation(_opType); // перед выполнением нужно указать операцию!
             Matrix2d<T> stepMatrix(_data[i].doOperation(&otherMatrixData[i])->data());
@@ -36,7 +36,7 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::doOperation(const T num, bool reverseOrder)
 {
     // подготовка
     vector<Matrix2d<T>> resultData;
-    // создание и заполнение результирующей матрицы
+    // заполнение данных для результирующей матрицы
     for (int i = 0; i < _data.size(); ++i) {
         _data[i].setOperation(_opType); // перед выполнением нужно указать операцию!
         Matrix2d<T> stepMatrix(_data[i].doOperation(num, reverseOrder)->data());
@@ -50,7 +50,7 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::doOperation(T extraParam)
 {
     // подготовка
     vector<Matrix2d<T>> resultData;
-    // создание и заполнение результирующей матрицы
+    // заполнение данных для результирующей матрицы
     for (int i = 0; i < _data.size(); ++i) {
         _data[i].setOperation(_opType); // перед выполнением нужно указать операцию!
         Matrix2d<T> stepMatrix(_data[i].doOperation(extraParam)->data());
@@ -111,7 +111,7 @@ Matrix3d<T> Matrix3d<T>::zeroM(int depth, int height, int width)
 {
     // подготовка
     vector<Matrix2d<T>> resultData;
-    // создание и заполнение результирующей матрицы
+    // заполнение данных для результирующей матрицы
     for (int d = 0; d < depth; ++d) {
         resultData.push_back(Matrix2d<T>::zeroM(height, width));
     }
@@ -124,7 +124,7 @@ Matrix3d<T> Matrix3d<T>::randomNormal(T mean, T dispersion,
 {
     // подготовка
     vector<Matrix2d<T>> resultData;
-    // создание и заполнение результирующей матрицы
+    // заполнение данных для результирующей матрицы
     for (int d = 0; d < depth; ++d) {
         resultData.push_back(
             Matrix2d<T>::randomNormal(mean, dispersion, height, width)

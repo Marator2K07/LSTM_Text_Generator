@@ -19,7 +19,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const IMatrix<T> *matrix)
         // подготовка
         vector<vector<T>> otherMatrixData = Matrix2d::dataToVector(matrix);
         vector<vector<T>> resultData;
-        // создание и заполнение результирующей матрицы
+        // заполнение данных для результирующей матрицы
         for (int rowI = 0; rowI < _data.size(); ++rowI) {
             resultData.push_back(vector<T>());
             for (int colI = 0; colI < _data[0].size(); ++colI) {
@@ -40,7 +40,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const T num, bool reverseOrder)
 {
     // подготовка
     vector<vector<T>> resultData;
-    // создание и заполнение результирующей матрицы
+    // заполнение данных для результирующей матрицы
     for (int rowI = 0; rowI < _data.size(); ++rowI) {
         resultData.push_back(vector<T>());
         for (int colI = 0; colI < _data[0].size(); ++colI) {
@@ -57,7 +57,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(T extraParam)
 {
     // подготовка
     vector<vector<T>> resultData;
-    // создание и заполнение результирующей матрицы
+    // заполнение данных для результирующей матрицы
     for (int rowI = 0; rowI < _data.size(); ++rowI) {
         resultData.push_back(vector<T>());
         for (int i = 0; i < _data[0].size(); ++i) {
@@ -167,7 +167,7 @@ Matrix2d<T> Matrix2d<T>::zeroM(int height, int width)
 {
     // подготовка
     vector<vector<T>> resultData;
-    // создание и заполнение результирующей матрицы
+    // заполнение данных для результирующей матрицы
     for (int h = 0; h < height; ++h) {
         resultData.push_back(vector<T>());
         for (int w = 0; w < width; ++w) {
@@ -183,7 +183,7 @@ Matrix2d<T> Matrix2d<T>::randomNormal(T mean, T dispersion,
 {
     // подготовка
     vector<vector<T>> resultData;
-    // создание и заполнение результирующей матрицы
+    // заполнение данных для результирующей матрицы
     for (int h = 0; h < height; ++h) {
         resultData.push_back(vector<T>());
         for (int w = 0; w < width; ++w) {
@@ -318,14 +318,14 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::multiplication(const IMatrix<T> *matrix)
     // подготовка
     vector<vector<T>> resultData;
     vector<vector<T>> otherMatrixData = dataToVector(matrix);
+    int index = 0;
     // проверяем возможность перемножения матриц
-    if (sizes()[0] != matrix->sizes()[1]) {
+    if (sizes()[1] != matrix->sizes()[0]) {
         throw MatrixException(
             QString("\nMatrix multiplication exception \n[%1]\n")
                 .arg("Attempt multiply matrices with inappropriate sizes")
             );
     }
-    int index = 0;
     // заполнение данных для результирующей матрицы
     for (const vector<T> rowA : _data) {
         resultData.push_back(vector<T>());
@@ -373,7 +373,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::columnStack(const IMatrix<T> *matrix)
     // подготовка
     vector<vector<T>> otherMatrixData = dataToVector(matrix);
     vector<vector<T>> resultData;
-    // заполнение результирующей матрицы
+    // заполнение данных для результирующей матрицы
     for (int rowI = 0; rowI < _data.size(); ++rowI) {
         resultData.push_back(vector<T>());
         for (int i = 0; i < _data[0].size(); ++i) {
@@ -393,7 +393,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::transposition()
     // подготовка
     vector<vector<T>> resultData;
     int index = 0;
-    // заполнение данных для матрицы
+    // заполнение данных для результирующей матрицы
     for (int i = 0; i < _data[0].size(); ++i) {
         resultData.push_back(vector<T>());
     }
@@ -446,7 +446,6 @@ template<typename T>
 T Matrix2d<T>::totalSum()
 {
     T result;
-    // заполнение результирующей матрицы
     for (const vector<T> row : _data) {
         for (const T value : row) {
             result += value;
