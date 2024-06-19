@@ -113,6 +113,10 @@ private slots:
     /// тестирование нахождения двумерных матриц из их же суммированных элементов
     void testAxisSumMatrix2d();
     ///
+    /// \brief testAxisSumMatrix3d
+    /// тестирование нахождения трехмерных матриц из их же суммированных элементов
+    void testAxisSumMatrix3d();
+    ///
     /// \brief testTransposition2dAnd3d
     /// тест метода транспонирования двумерных матриц
     void testTransposition2d();
@@ -668,6 +672,27 @@ void TestMatrix::testAxisSumMatrix2d()
 
     QCOMPARE(resultMatrix0 == properMatrix0, true);
     QCOMPARE(resultMatrix1 == properMatrix1, true);
+}
+
+void TestMatrix::testAxisSumMatrix3d()
+{
+    // инициализация
+    Matrix3d<double> matrix{{{5, 3, 2},{2, 3, 1}},
+                            {{8, 2, 1},{5, 6, 1}}};
+    // результаты
+    Matrix3d<double> resultMatrix0(matrix.axisSumMatrix(0)->data());
+    Matrix3d<double> properMatrix0{{{13, 5, 3},
+                                    {7, 9, 2}}};
+    Matrix3d<double> resultMatrix1(matrix.axisSumMatrix(1)->data());
+    Matrix3d<double> properMatrix1{{{7, 6, 3},
+                                   {13, 8, 2}}};
+    Matrix3d<double> resultMatrix2(matrix.axisSumMatrix(2)->data());
+    Matrix3d<double> properMatrix2{{{10, 6},
+                                    {11,12}}};
+
+    QCOMPARE(resultMatrix0 == properMatrix0, true);
+    QCOMPARE(resultMatrix1 == properMatrix1, true);
+    QCOMPARE(resultMatrix2 == properMatrix2, true);
 }
 
 void TestMatrix::testTransposition2d()
