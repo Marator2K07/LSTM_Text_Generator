@@ -21,6 +21,8 @@ public:
 
 public:
     void print();
+    vector<vector<T>> dataToVector() const;
+    static vector<vector<T>> dataToVector(const IMatrix<T> *matrix);
     ///
     /// \brief setValue задание значения для ячейки
     /// \param hIndex индекс строки
@@ -31,9 +33,7 @@ public:
     /// \brief setOperation обновление типа операции извне,
     /// например, при использовании трехмерной матрицей
     /// \param opType передаваемый тип операции
-    void setOperation(OperationType opType);
-    vector<vector<T>> dataToVector() const;
-    static vector<vector<T>> dataToVector(const IMatrix<T> *matrix);
+    void setOperation(OperationType opType);    
     ///
     /// \brief zeroM создание новой матрицы, состоящей из нулей
     /// \param width,height размеры новой матрицы
@@ -44,7 +44,7 @@ public:
     /// width заполненную случайными числами(по распределению гаусса)
     /// \param mean центральное значение - центр распределения
     /// \param dispersion разброс распределения
-    /// \param height высота будущем матрицы
+    /// \param height высота будущей матрицы
     /// \param width ширина будущей матрицы
     /// \return матрица со случайными значениями
     static Matrix2d<T> randomNormal(T mean, T dispersion,
