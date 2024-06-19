@@ -39,6 +39,17 @@ public:
     /// \param width,height размеры новой матрицы
     /// \return нулевая матрица
     static Matrix2d<T> zeroM(int height, int width);
+    ///
+    /// \brief randomNormal создание матрицы с размерами height и
+    /// width заполненную случайными числами(по распределению гаусса)
+    /// \param mean центральное значение - центр распределения
+    /// \param dispersion разброс распределения
+    /// \param height высота будущем матрицы
+    /// \param width ширина будущей матрицы
+    /// \return матрица со случайными значениями
+    static Matrix2d<T> randomNormal(T mean, T dispersion,
+                                    int height, int width);
+
     bool operator==(Matrix2d<T> &matrix);
     bool operator!=(Matrix2d<T> &matrix);
 

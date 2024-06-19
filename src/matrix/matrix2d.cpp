@@ -178,6 +178,24 @@ Matrix2d<T> Matrix2d<T>::zeroM(int height, int width)
 }
 
 template<typename T>
+Matrix2d<T> Matrix2d<T>::randomNormal(T mean, T dispersion,
+                                      int height, int width)
+{
+    // подготовка
+    vector<vector<T>> resultData;
+    // создание и заполнение результирующей матрицы
+    for (int h = 0; h < height; ++h) {
+        resultData.push_back(vector<T>());
+        for (int w = 0; w < width; ++w) {
+            resultData[h].push_back(
+                Operations<T>::gaussianDistribution(mean, dispersion)
+                );
+        }
+    }
+    return Matrix2d(resultData);
+}
+
+template<typename T>
 bool Matrix2d<T>::operator==(Matrix2d<T> &matrix)
 {
     return this->data() == matrix.data();
