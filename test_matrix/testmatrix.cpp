@@ -28,6 +28,11 @@ private slots:
     /// тест на полное соотвествие 3d матриц по размерам
     void testMatrix3dSameShapeMatrix3d();
     ///
+    /// \brief testRandomNormal2dAnd3d
+    /// тестирование заполнения случайными числами по нормальному
+    /// распределению для трехмерных и двумерных матриц
+    void testRandomNormal2dAnd3d();
+    ///
     /// \brief testMatrix2dAddMatrix2d
     /// тест на сложение двумерных матриц
     void testMatrix2dAddMatrix2d();
@@ -208,6 +213,24 @@ void TestMatrix::testMatrix3dSameShapeMatrix3d()
     QCOMPARE(resultFlag2, false);
     QCOMPARE(resultFlag3, false);
     QCOMPARE(resultFlag4, false);
+}
+
+void TestMatrix::testRandomNormal2dAnd3d()
+{
+    // инициализация
+    Matrix2d<double> matrix2d
+        = Matrix2d<double>::randomNormal(0, 0.01, 4, 3);
+    Matrix3d<double> matrix3d
+        = Matrix3d<double>::randomNormal(0, 0.01, 2, 3, 2);
+    // результаты
+    vector<unsigned long long> sizesProper2d{4,3};
+    vector<unsigned long long> sizesProper3d{2,3,2};
+    // правильность рандомизации можно оценить только визуально...
+    matrix2d.print();
+    matrix3d.print();
+
+    QCOMPARE(sizesProper2d == matrix2d.sizes(), true);
+    QCOMPARE(sizesProper3d == matrix3d.sizes(), true);
 }
 
 void TestMatrix::testMatrix2dAddMatrix2d()
