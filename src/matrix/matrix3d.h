@@ -30,6 +30,18 @@ public:
     /// \param depth,width,height размеры новой матрицы
     /// \return нулевая матрица
     static Matrix3d<T> zeroM(int depth, int height, int width);
+    ///
+    /// \brief randomNormal создание 3д матрицы с размерами height и
+    /// width заполненную случайными числами(по распределению гаусса)
+    /// \param mean центральное значение - центр распределения
+    /// \param dispersion разброс распределения
+    /// \param depth глубина будущей матрицы
+    /// \param height высота будущей матрицы
+    /// \param width ширина будущей матрицы
+    /// \return матрица со случайными значениями
+    static Matrix3d<T> randomNormal(T mean, T dispersion,
+                                    int depth, int height, int width);
+
     bool operator==(Matrix3d<T> &matrix);
 
     // IMatrix interface

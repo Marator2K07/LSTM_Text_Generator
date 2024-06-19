@@ -119,6 +119,21 @@ Matrix3d<T> Matrix3d<T>::zeroM(int depth, int height, int width)
 }
 
 template<typename T>
+Matrix3d<T> Matrix3d<T>::randomNormal(T mean, T dispersion,
+                                      int depth, int height, int width)
+{
+    // подготовка
+    vector<Matrix2d<T>> resultData;
+    // создание и заполнение результирующей матрицы
+    for (int d = 0; d < depth; ++d) {
+        resultData.push_back(
+            Matrix2d<T>::randomNormal(mean, dispersion, height, width)
+            );
+    }
+    return Matrix3d(resultData);
+}
+
+template<typename T>
 bool Matrix3d<T>::operator==(Matrix3d<T> &matrix)
 {
     QVariant autoData = matrix.data();
