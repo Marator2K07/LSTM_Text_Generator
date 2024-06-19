@@ -308,6 +308,42 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::axisSumMatrix(const int axis)
                 }
             }
         }
+    }// заполнение данных матрицы по столбцам(высоте)
+    else if (axis == 1) {
+        resultData.push_back(
+            Matrix2d<T>::zeroM(sizes()[0], sizes()[2])
+            );
+        for (const Matrix2d<T> matrix : _data) {
+            auto stepMatrixData = matrix.dataToVector();
+            for (int rowI = 0; rowI < sizes()[1]; ++rowI) {
+                for (int i = 0; i < sizes()[2]; ++i) {
+                    resultData[0].setValue(
+                        rowIndex, i, resultData[0].dataToVector()[rowIndex][i]
+                                     + stepMatrixData[rowI][i]
+                        );
+                }
+            }
+            rowIndex++;
+        }
+    }// заполнение данных матрицы по строкам(ширине)
+    else if (axis == 2) {
+        resultData.push_back(
+            Matrix2d<T>::zeroM(sizes()[0], sizes()[1])
+            );
+        for (const Matrix2d<T> matrix : _data) {
+            auto stepMatrixData = matrix.dataToVector();
+            for (int rowI = 0; rowI < sizes()[1]; ++rowI) {
+                for (int i = 0; i < sizes()[2]; ++i) {
+                    resultData[0].setValue(
+                        rowIndex, index, resultData[0].dataToVector()[rowIndex][index]
+                                         + stepMatrixData[rowI][i]
+                        );
+                }
+                index++;
+            }
+            index = 0;
+            rowIndex++;
+        }
     }
 
     return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
