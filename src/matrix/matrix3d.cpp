@@ -256,7 +256,10 @@ unique_ptr<IMatrix<T> > Matrix3d<T>::multiplication(T num)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::multiplication(const IMatrix<T> *matrix)
 {
-
+    throw MatrixException(
+        QString("\nMatrix multiplication exception \n[%1]\n")
+            .arg("For 3d Matrices this type of operation is not allowed")
+        );
 }
 
 template<typename T>
