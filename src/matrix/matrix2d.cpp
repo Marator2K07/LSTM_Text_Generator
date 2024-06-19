@@ -388,6 +388,39 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::columnStack(const IMatrix<T> *matrix)
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::axisSumMatrix(const int axis)
+{
+    // подготовка
+    vector<vector<T>> resultData;
+    resultData.push_back(vector<T>());
+    int index = 0;
+    // заполнение данных для результирующей матрицы по столбцам
+    if (axis == 0) {
+        for (int i = 0; i < sizes()[1]; ++i) {
+            resultData[0].push_back(0);
+        }
+        for (const vector<T> row : _data) {
+            for (int i = 0; i < row.size(); ++i) {
+                resultData[0][i] += row[i];
+            }
+        }
+    }// заполнение данных для результирующей матрицы по строкам
+    else if (axis == 1) {
+        for (int i = 0; i < sizes()[0]; ++i) {
+            resultData[0].push_back(0);
+        }
+        for (const vector<T> row : _data) {
+            for (int i = 0; i < row.size(); ++i) {
+                resultData[0][index] += row[i];
+            }
+            index++;
+        }
+    }
+
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+}
+
+template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::transposition()
 {
     // подготовка
