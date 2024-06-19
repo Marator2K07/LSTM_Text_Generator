@@ -124,6 +124,11 @@ public:
     /// \return результирующая матрица
     virtual unique_ptr<IMatrix<T>> columnStack(const IMatrix<T> *matrix) = 0;
     ///
+    /// \brief axisSumMatrix нахождение матрицы из суммы элементов по заданной оси
+    /// \param axis заданная ось для нахождения суммы элементов
+    /// \return результирующая матрица
+    virtual unique_ptr<IMatrix<T>> axisSumMatrix(const int axis) = 0;
+    ///
     /// \brief transposition транспонирование текущей матрицы
     /// \return транспонированная матрица
     virtual unique_ptr<IMatrix<T>> transposition() = 0;
