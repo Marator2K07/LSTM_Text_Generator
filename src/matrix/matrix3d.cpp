@@ -286,6 +286,20 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::columnStack(const IMatrix<T> *matrix)
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix3d<T>::axisSumMatrix(const int axis)
+{
+    // подготовка
+    // vector<Matrix2d<T>> resultData;
+    // resultData.push_back(
+    //    Matrix2d<double>::zeroM(sizes()[1], sizes()[2])
+    //    );
+    throw MatrixException(
+        QString("\nMatrix axis sum matrix exception \n[%1]\n")
+            .arg("This method for 3d matrix not implemented")
+        );
+}
+
+template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::transposition()
 {
     // подготовка
