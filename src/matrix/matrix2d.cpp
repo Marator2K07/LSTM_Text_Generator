@@ -315,7 +315,35 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::multiplication(T num)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::multiplication(const IMatrix<T> *matrix)
 {
+    // подготовка
+    vector<vector<T>> resultData;
+    vector<vector<T>> otherMatrixData = dataToVector(matrix);
+    // проверяем возможность перемножения матриц
+    if (sizes()[0] != matrix->sizes()[1]) {
+        throw MatrixException(
+            QString("\nMatrix multiplication exception \n[%1]\n")
+                .arg("Attempt multiply matrices with inappropriate sizes")
+            );
+    }
+    int index = 0;
+    // заполнение данных для результирующей матрицы
+    for (const vector<T> rowA : _data) {
+        resultData.push_back(vector<T>());
+        int innerIndex = 0;
+        // вычисление значений строки результирующей матрицы
+        for (int indexB = 0; indexB < otherMatrixData[0].size(); ++indexB) {
+            // вычисление значения ячейки
+            T stepRes = 0;
+            for (int indexA = 0; indexA < rowA.size(); ++indexA) {
+                stepRes += otherMatrixData[indexA][innerIndex] * rowA[indexA];
+            }
+            resultData[index].push_back(stepRes);
+            innerIndex++;
+        }
+        index++;
+    }
 
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
 template<typename T>
