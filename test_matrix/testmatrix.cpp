@@ -85,6 +85,10 @@ private slots:
     /// умножение матрицы на число
     void testMatrix2dMultNumber();
     ///
+    /// \brief testMatrix2dMult
+    /// тестирование классического матричного умножения
+    void testMatrix2dMult();
+    ///
     /// \brief testMatrix2dDivNumberDirectAndReverseOrder
     /// тест деления матрицы и числа в прямом и обратном порядках
     void testMatrix2dDivNumberDirectAndReverseOrder();
@@ -511,6 +515,26 @@ void TestMatrix::testMatrix2dMultNumber()
                                   {22.5,7.5,2.5}};
 
     QCOMPARE(resultMatrix->data(), properMatrix.data());
+}
+
+void TestMatrix::testMatrix2dMult()
+{
+    // инициализация
+    Matrix2d<double> matrixA {{1,2,3},
+                             {3,4,5},
+                             {6,8,2}};
+    Matrix2d<double> matrixB {{1,6,2},
+                             {3,2,2},
+                             {2,2,8}};
+    // результаты
+    Matrix2d<double> resultMatrix(
+        matrixA.multiplication(&matrixB)->data()
+        );
+    Matrix2d<double> properMatrix {{13,16,30},
+                                  {25,36,54},
+                                  {34,56,44}};
+
+    QCOMPARE(resultMatrix.data(), properMatrix.data());
 }
 
 void TestMatrix::testMatrix2dDivNumberDirectAndReverseOrder()
