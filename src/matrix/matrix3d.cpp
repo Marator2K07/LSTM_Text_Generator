@@ -289,14 +289,28 @@ template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::axisSumMatrix(const int axis)
 {
     // подготовка
-    // vector<Matrix2d<T>> resultData;
-    // resultData.push_back(
-    //    Matrix2d<double>::zeroM(sizes()[1], sizes()[2])
-    //    );
-    throw MatrixException(
-        QString("\nMatrix axis sum matrix exception \n[%1]\n")
-            .arg("This method for 3d matrix not implemented")
-        );
+    vector<Matrix2d<T>> resultData;
+    int rowIndex = 0;
+    int index = 0;
+    // заполнение данных матрицы по глубине
+    if (axis == 0) {
+        resultData.push_back(
+            Matrix2d<T>::zeroM(sizes()[1], sizes()[2])
+            );
+        for (const Matrix2d<T> matrix : _data) {
+            auto stepMatrixData = matrix.dataToVector();
+            for (int rowI = 0; rowI < sizes()[1]; ++rowI) {
+                for (int i = 0; i < sizes()[2]; ++i) {
+                    resultData[0].setValue(
+                        rowI, i, resultData[0].dataToVector()[rowI][i]
+                                     + stepMatrixData[rowI][i]
+                        );
+                }
+            }
+        }
+    }
+
+    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
 }
 
 template<typename T>
