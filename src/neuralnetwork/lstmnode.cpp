@@ -168,4 +168,20 @@ LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
               ActivationFunctions<double>
               ::dsigmoid(&_forwardPassValues["o_inter"]).get())->data()
         );
+    // обновление производных слоя для выходного затвора
+    layerParams["W_o"]["deriv"] = Matrix2d<double>(
+        layerParams["W_o"]["deriv"]
+            .addition(
+                _forwardPassValues["Z"]
+                    .transposition()
+                    ->multiplication(&dOInter)
+                    .get()
+                )->data()
+        );
+    layerParams["B_o"]["deriv"] = Matrix2d<double>(
+        layerParams["B_o"]["deriv"]
+            .addition(
+                dOInter.axisSumMatrix(0).get()
+                )->data()
+        );
 }
