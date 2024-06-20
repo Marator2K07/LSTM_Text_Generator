@@ -350,6 +350,12 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::axisSumMatrix(const int axis)
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix3d<T>::slice(const vector<int> sliceIndices)
+{
+
+}
+
+template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::transposition()
 {
     // подготовка

@@ -421,6 +421,12 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::axisSumMatrix(const int axis)
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::slice(const vector<int> sliceIndices)
+{
+
+}
+
+template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::transposition()
 {
     // подготовка
