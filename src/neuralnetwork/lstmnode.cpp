@@ -297,4 +297,23 @@ LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
             ->addition(&dZOperandO)
             ->data()
         );
+    // получение производных исходного входа, скрытого состояния
+    // и внутреннего состояния ячейки для передачи их на предыдущий уровень
+    Matrix2d<double> dXPrev(
+        dZ.slice(vector<int>{-1,-1,-1,_forwardPassValues["X_in"].sizes()[1]})
+            ->data()
+        );
+    Matrix2d<double> dHPrev(
+        dZ.slice(vector<int>{-1,-1,_forwardPassValues["X_in"].sizes()[1],-1})
+            ->data()
+        );
+    Matrix2d<double> dCPrev(
+        _forwardPassValues["f"].simplifiedMult(&dCOut)->data()
+        );
+    // формируем и возвращаем ответ
+    QMap<QString, Matrix2d<double>> result;
+    result.insert("dX_prev", dXPrev);
+    result.insert("dH_prev", dHPrev);
+    result.insert("dC_prev", dCPrev);
+    return result;
 }
