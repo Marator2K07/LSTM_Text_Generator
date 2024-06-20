@@ -423,7 +423,34 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::axisSumMatrix(const int axis)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::slice(const vector<int> sliceIndices)
 {
+    // подготовка
+    vector<vector<T>> resultData;
+    int startH = sliceIndices[0] == -1 ? startH = 0
+                                       : startH = sliceIndices[0];
+    int endH = sliceIndices[1] == -1 ? endH = _data.size()
+                                     : endH = sliceIndices[1];
+    int startW = sliceIndices[2] == -1 ? startW = 0
+                                       : startW = sliceIndices[2];
+    int endW = sliceIndices[3] == -1 ? endW = _data[0].size()
+                                     : endW = sliceIndices[3];
+    int index = 0;
+    // попытка заполнения данных для результирующей части матрицы
+    try {
+        for (int rowI = startH; rowI < endH; ++rowI) {
+            resultData.push_back(vector<T>());
+            for (int i = startW; i < endW; ++i) {
+                resultData[index].push_back(_data[rowI][i]);
+            }
+            index++;
+        }
+    } catch (...) {
+        throw MatrixException(
+            QString("\nMatrix slice exception \n[%1]\n")
+                .arg("Slice indices extend beyond the matrix")
+            );
+    }
 
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
 template<typename T>
