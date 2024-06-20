@@ -129,6 +129,12 @@ public:
     /// \return результирующая матрица
     virtual unique_ptr<IMatrix<T>> axisSumMatrix(const int axis) = 0;
     ///
+    /// \brief slice 'вырезка' из текущей матрицы нужной доли
+    /// \param slizeIndices индексы 'дольки' в формате (необязательно D-глубина):
+    /// 0)startD->1)endD->2)startH->3)endH->4)startW->5)endW
+    /// \return результирующая 'долька' матрицы
+    virtual unique_ptr<IMatrix<T>> slice(const vector<int> sliceIndices) = 0;
+    ///
     /// \brief transposition транспонирование текущей матрицы
     /// \return транспонированная матрица
     virtual unique_ptr<IMatrix<T>> transposition() = 0;
