@@ -17,6 +17,7 @@ add_executable(LSTM_Text_Generator
 )
 target_link_libraries(LSTM_Text_Generator PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
+    matrix
 )
 
 find_package(Qt6 6.3 REQUIRED COMPONENTS
@@ -31,6 +32,7 @@ add_subdirectory(test_matrix)
 add_subdirectory(test_autodifferentiation)
 add_subdirectory(test_activationfunctions)
 add_subdirectory(test_textembedding)
+add_subdirectory(test_neuralnetwork)
 
 include(GNUInstallDirs)
 install(TARGETS LSTM_Text_Generator
