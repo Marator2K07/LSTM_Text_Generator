@@ -5,6 +5,7 @@
 #include <QString>
 
 #include "matrix2d.h"
+#include "activationfunctions.h"
 
 ///
 /// \brief The INeuralNetworkNode interface

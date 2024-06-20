@@ -2,6 +2,8 @@
 #define LSTMNODE_H
 
 #include "ineuralnetworknode.h"
+#include "matrix2d.cpp"
+#include "activationfunctions.cpp"
 
 class LSTMNode : public INeuralNetworkNode
 {
