@@ -205,4 +205,22 @@ LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
             ActivationFunctions<double>
             ::dtanh(&_forwardPassValues["C_bar_inter"]).get())->data()
         );
+    // обновление производных слоя для состояния ячейки
+    layerParams["W_c"]["deriv"] = Matrix2d<double>(
+        layerParams["W_c"]["deriv"]
+            .addition(
+                _forwardPassValues["Z"]
+                    .transposition()
+                    ->multiplication(&dCBarInter)
+                    .get()
+                )->data()
+        );
+    layerParams["B_c"]["deriv"] = Matrix2d<double>(
+        layerParams["B_c"]["deriv"]
+            .addition(
+                dCBarInter.axisSumMatrix(0).get()
+                )->data()
+        );
+    // вычисление производной по входному затвору 'output gate'
+    // и производной его промежуточного значения
 }
