@@ -273,4 +273,28 @@ LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
                 dFInter.axisSumMatrix(0).get()
                 )->data()
         );
+    // вычисление заключительной производной по содержанию
+    Matrix2d<double> dZOperandF(
+        dFInter.multiplication(layerParams["W_f"]["value"]
+                                   .transposition().get())->data()
+        );
+    Matrix2d<double> dZOperandI(
+        dIInter.multiplication(layerParams["W_i"]["value"]
+                                   .transposition().get())->data()
+        );
+    Matrix2d<double> dZOperandCBar(
+        dCBarInter.multiplication(layerParams["W_c"]["value"]
+                                      .transposition().get())->data()
+        );
+    Matrix2d<double> dZOperandO(
+        dOInter.multiplication(layerParams["W_o"]["value"]
+                                   .transposition().get())->data()
+        );
+    Matrix2d<double> dZ(
+        dZOperandF
+            .addition(&dZOperandI)
+            ->addition(&dZOperandCBar)
+            ->addition(&dZOperandO)
+            ->data()
+        );
 }
