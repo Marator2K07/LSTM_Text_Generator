@@ -20,7 +20,7 @@ LSTMNode::forward(QMap<QString, Matrix2d<double>> input,
         "Z",
         Matrix2d<double>(input["X_in"].columnStack(&input["H_in"])->data())
         );
-    // промежуточное и окончательное значения 'забывания' f
+    // промежуточное и окончательное значения затвора забывания 'forget gate'
     _forwardPassValues.insert(
         "f_inter",
         Matrix2d<double>(
@@ -50,6 +50,36 @@ LSTMNode::forward(QMap<QString, Matrix2d<double>> input,
             ActivationFunctions<double>::sigmoid(&_forwardPassValues["i_inter"])
                 ->data())
         );
+    // промежуточное и икончательное кандидатные значения состояния памяти
+    _forwardPassValues.insert(
+        "С_bar_inter",
+        Matrix2d<double>(
+            _forwardPassValues["Z"]
+                .multiplication(&layerParams["W_c"]["value"])
+                ->addition(&layerParams["B_c"]["value"])
+                ->data())
+        );
+    _forwardPassValues.insert(
+        "C_bar",
+        Matrix2d<double>(
+            ActivationFunctions<double>::tanh(&_forwardPassValues["С_bar_inter"])
+                ->data())
+        );
+    // промежуточное и икончательное значения для выходного затвора 'output gate'
+    _forwardPassValues.insert(
+        "o_inter",
+        Matrix2d<double>(
+            _forwardPassValues["Z"]
+                .multiplication(&layerParams["W_o"]["value"])
+                ->addition(&layerParams["B_o"]["value"])
+                ->data())
+        );
+    _forwardPassValues.insert(
+        "o",
+        Matrix2d<double>(
+            ActivationFunctions<double>::sigmoid(&_forwardPassValues["o_inter"])
+                ->data())
+            );
 }
 
 QMap<QString, Matrix2d<double>>
