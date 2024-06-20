@@ -117,6 +117,10 @@ private slots:
     /// тестирование нахождения трехмерных матриц из их же суммированных элементов
     void testAxisSumMatrix3d();
     ///
+    /// \brief testSlice2dMatrix
+    /// тестирование создания дольки/выборки из двумерной матрицы
+    void testSlice2dMatrix();
+    ///
     /// \brief testTransposition2dAnd3d
     /// тест метода транспонирования двумерных матриц
     void testTransposition2d();
@@ -693,6 +697,30 @@ void TestMatrix::testAxisSumMatrix3d()
     QCOMPARE(resultMatrix0 == properMatrix0, true);
     QCOMPARE(resultMatrix1 == properMatrix1, true);
     QCOMPARE(resultMatrix2 == properMatrix2, true);
+}
+
+void TestMatrix::testSlice2dMatrix()
+{
+    // инициализация
+    Matrix2d<double> matrix{{5, 3, 2},
+                            {2, 3, 1},
+                            {6, 1, 8}};
+    // результаты
+    Matrix2d<double> resultMatrix1(matrix.slice(vector<int>{0,-1,1,3})->data());
+    Matrix2d<double> properMatrix1{{3, 2},
+                                   {3, 1},
+                                   {1, 8}};
+    Matrix2d<double> resultMatrix2(matrix.slice(vector<int>{0,2,-1,-1})->data());
+    Matrix2d<double> properMatrix2{{5, 3, 2},
+                                   {2, 3, 1}};
+    Matrix2d<double> resultMatrix3(matrix.slice(vector<int>{-1,-1,-1,1})->data());
+    Matrix2d<double> properMatrix3{{5},
+                                   {2},
+                                   {6}};
+
+    QCOMPARE(resultMatrix1 == properMatrix1, true);
+    QCOMPARE(resultMatrix2 == properMatrix2, true);
+    QCOMPARE(resultMatrix3 == properMatrix3, true);
 }
 
 void TestMatrix::testTransposition2d()
