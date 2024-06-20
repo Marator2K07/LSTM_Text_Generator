@@ -14,7 +14,7 @@ LSTMNode::forward(QMap<QString, Matrix2d<double>> input,
     _forwardPassValues.insert("X_in", input["X_in"]);
     // запоминаем скрытое состояние ячейки
     _forwardPassValues.insert("C_in", input["C_in"]);
-    // создаем комбинированный вход Z - обьединенные
+    // создаем комбинированный вход Z - обьединение
     // входных данных и скрытого состояния
     _forwardPassValues.insert(
         "Z",
@@ -93,9 +93,9 @@ LSTMNode::forward(QMap<QString, Matrix2d<double>> input,
         "C_out",
         Matrix2d<double>(
             _forwardPassValues["f"]
-                .multiplication(&input["C_in"])
+                .simplifiedMult(&input["C_in"])
                 ->addition(_forwardPassValues["i"]
-                               .multiplication(&_forwardPassValues["C_bar"])
+                               .simplifiedMult(&_forwardPassValues["C_bar"])
                                .get())
                 ->data()
             )
