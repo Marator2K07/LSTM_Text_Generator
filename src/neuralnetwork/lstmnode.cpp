@@ -1,8 +1,6 @@
 #include "lstmnode.h"
 
-LSTMNode::LSTMNode(int hiddenSize, int vocabSize)
-    : _hiddenSize{hiddenSize}
-    , _vocabSize{vocabSize}
+LSTMNode::LSTMNode()
 {
 }
 
