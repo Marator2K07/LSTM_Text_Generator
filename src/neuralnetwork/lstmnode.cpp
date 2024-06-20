@@ -131,5 +131,23 @@ QMap<QString, Matrix2d<double>>
 LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
                    QMap<QString, QMap<QString, Matrix2d<double>>> &layerParams)
 {
+    // обновление производных слоя данных
+    layerParams["W_v"]["deriv"] = Matrix2d<double>(
+        layerParams["W_v"]["deriv"]
+            .addition(
+                _forwardPassValues["H_out"]
+                    .transposition()
+                    ->multiplication(&outputGrad["X_out_grad"])
+                    .get()
+                )->data()
+        );
+    layerParams["B_v"]["deriv"] = Matrix2d<double>(
+        layerParams["B_v"]["deriv"]
+            .addition(
+                outputGrad["X_out_grad"]
+                    .axisSumMatrix(0).get()
+                )->data()
+        );
+    // вычисление производной по состоянию слоя
 
 }
