@@ -643,16 +643,17 @@ void TestMatrix::testMatrix3dMultNumber()
 void TestMatrix::testColumnStack2dAnd3d()
 {
     // инициализация
-    Matrix2d<double> matrix2dOne{{1,2},
-                                {3,4}};
-    Matrix2d<double> matrix2dTwo{{5,6},
-                                 {7,8}};
+    Matrix2d<double> matrix2dOne{{1,2,3},
+                                {4,5,6}};
+    Matrix2d<double> matrix2dTwo{{9},
+                                 {9}};
     Matrix3d<double> matrix3dOne{{{1,1},{2,2}},{{3,3},{4,4}}};
     Matrix3d<double> matrix3dTwo{{{5,5},{6,6}},{{7,7},{8,8}}};
     // результаты
     Matrix2d<double> result2dMatrix(matrix2dOne.columnStack(&matrix2dTwo)->data());
-    Matrix2d<double> proper2dMatrix{{1,2,5,6},
-                                    {3,4,7,8}};
+    result2dMatrix.print();
+    Matrix2d<double> proper2dMatrix{{1,2,3,9},
+                                    {4,5,6,9}};
     // плохой случай
     try {
         Matrix3d<double> result3dMatrix(matrix3dOne.columnStack(&matrix3dTwo)->data());
