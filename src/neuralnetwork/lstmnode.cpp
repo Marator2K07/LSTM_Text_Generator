@@ -148,7 +148,8 @@ LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
                     .axisSumMatrix(0).get()
                 )->data()
         );
-    // вычисление производной по состоянию слоя и добавление градиента
+    // вычисление производной по состоянию слоя
+    // и добавление к ней градиента предыдущего шага
     Matrix2d<double> dHOut(
         outputGrad["X_out_grad"]
             .multiplication(
@@ -183,5 +184,25 @@ LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
             .addition(
                 dOInter.axisSumMatrix(0).get()
                 )->data()
+        );
+    // производная по выходному состоянию ячейки
+    // и добавление к ней градиента предыдущего шага
+    Matrix2d<double> dCOut(
+        dHOut.simplifiedMult(&_forwardPassValues["o"])
+            ->simplifiedMult(
+                ActivationFunctions<double>
+                ::dtanh(&_forwardPassValues["C_out"]).get()
+                )
+            ->addition(&outputGrad["C_out_grad"])->data()
+        );
+    // вычисление производной по входному состоянию ячейки
+    // и производной ее промежуточного значения
+    Matrix2d<double> dCBar(
+        dCOut.simplifiedMult(&_forwardPassValues["i"])->data()
+        );
+    Matrix2d<double> dCBarInter(
+        dCBar.simplifiedMult(
+            ActivationFunctions<double>
+            ::dtanh(&_forwardPassValues["C_bar_inter"]).get())->data()
         );
 }
