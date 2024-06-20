@@ -169,7 +169,7 @@ LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
               ActivationFunctions<double>
               ::dsigmoid(&_forwardPassValues["o_inter"]).get())->data()
         );
-    // обновление производных слоя для выходного затвора
+    // обновление производных слоя для выходного затвора(шлюза)
     layerParams["W_o"]["deriv"] = Matrix2d<double>(
         layerParams["W_o"]["deriv"]
             .addition(
@@ -223,4 +223,54 @@ LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
         );
     // вычисление производной по входному затвору 'output gate'
     // и производной его промежуточного значения
+    Matrix2d<double> dI(
+        dCOut.simplifiedMult(&_forwardPassValues["C_bar"])->data()
+        );
+    Matrix2d<double> dIInter(
+        dI.simplifiedMult(
+              ActivationFunctions<double>
+              ::dsigmoid(&_forwardPassValues["i_inter"]).get())->data()
+        );
+    // обновление производных слоя для входного затвора(шлюза)
+    layerParams["W_i"]["deriv"] = Matrix2d<double>(
+        layerParams["W_i"]["deriv"]
+            .addition(
+                _forwardPassValues["Z"]
+                    .transposition()
+                    ->multiplication(&dIInter)
+                    .get()
+                )->data()
+        );
+    layerParams["B_i"]["deriv"] = Matrix2d<double>(
+        layerParams["B_i"]["deriv"]
+            .addition(
+                dIInter.axisSumMatrix(0).get()
+                )->data()
+        );
+    // вычисление производной по затвору забывания 'forget gate'
+    // и производной его промежуточного значения
+    Matrix2d<double> dF(
+        dCOut.simplifiedMult(&_forwardPassValues["C_in"])->data()
+        );
+    Matrix2d<double> dFInter(
+        dF.simplifiedMult(
+              ActivationFunctions<double>
+              ::dsigmoid(&_forwardPassValues["f_inter"]).get())->data()
+        );
+    // обновление производных слоя для затвора(шлюза) забывания
+    layerParams["W_f"]["deriv"] = Matrix2d<double>(
+        layerParams["W_f"]["deriv"]
+            .addition(
+                _forwardPassValues["Z"]
+                    .transposition()
+                    ->multiplication(&dFInter)
+                    .get()
+                )->data()
+        );
+    layerParams["B_f"]["deriv"] = Matrix2d<double>(
+        layerParams["B_f"]["deriv"]
+            .addition(
+                dFInter.axisSumMatrix(0).get()
+                )->data()
+        );
 }
