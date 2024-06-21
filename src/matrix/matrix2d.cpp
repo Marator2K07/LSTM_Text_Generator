@@ -5,27 +5,27 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const IMatrix<T> *matrix)
 {
     // проверки
     try {
+        bool oneRow = false;
         if (!this->sameShape(matrix)) {
-            throw MatrixException(
-                QString("\nMatrix exception \n[%1]\n")
-                    .arg("Impossible to find matrix addition, the sizes do not match.")
-                );
-        }
-        // если поймали исключение при выполнении 'this->sameShape(other)'
-    } catch (const MatrixException &e) {
-        throw e;
-    }
-    try {
+            if (matrix->sizes()[0] == 1) {
+                oneRow = true;
+            } else{
+                throw MatrixException(
+                    QString("\nMatrix exception \n[%1]\n")
+                        .arg("Impossible to find matrix addition, the sizes do not match.")
+                    );
+            }
+        }    
         // подготовка
         vector<vector<T>> otherMatrixData = Matrix2d::dataToVector(matrix);
         vector<vector<T>> resultData;
         // заполнение данных для результирующей матрицы
         for (int rowI = 0; rowI < _data.size(); ++rowI) {
             resultData.push_back(vector<T>());
-            for (int colI = 0; colI < _data[0].size(); ++colI) {
+            for (int i = 0; i < _data[0].size(); ++i) {
                 resultData[rowI].push_back(
-                    (*_operationPtr)(_data[rowI][colI],
-                                     otherMatrixData[rowI][colI])
+                    (*_operationPtr)(_data[rowI][i],
+                                     otherMatrixData[oneRow ? 0 : rowI][i])
                     );
             }
         }
