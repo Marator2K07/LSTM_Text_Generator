@@ -745,11 +745,11 @@ void TestMatrix::testAxisSumMatrix3d()
     Matrix3d<double> properMatrix0{{{13, 5, 3},
                                     {7, 9, 2}}};
     Matrix3d<double> resultMatrix1(matrix.axisSum(1)->data());
-    Matrix3d<double> properMatrix1{{{7, 6, 3},
-                                   {13, 8, 2}}};
+    Matrix3d<double> properMatrix1{{{7, 6, 3}},
+                                   {{13, 8, 2}}};
     Matrix3d<double> resultMatrix2(matrix.axisSum(2)->data());
-    Matrix3d<double> properMatrix2{{{10, 6},
-                                    {11,12}}};
+    Matrix3d<double> properMatrix2{{{10},{6}},
+                                   {{11},{12}}};
 
     QCOMPARE(resultMatrix0 == properMatrix0, true);
     QCOMPARE(resultMatrix1 == properMatrix1, true);
