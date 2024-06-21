@@ -124,6 +124,12 @@ public:
     /// \return результирующая матрица
     virtual unique_ptr<IMatrix<T>> columnStack(const IMatrix<T> *matrix) = 0;
     ///
+    /// \brief rowsRepeat повторение значений матрицы построчно
+    /// с сохранением всех старых и новых повторенных элементов
+    /// \param count количество повторений
+    /// \return результирующая матрица
+    virtual unique_ptr<IMatrix<T>> rowsRepeat(const int count) = 0;
+    ///
     /// \brief axisSumMatrix нахождение матрицы из суммы элементов по заданной оси
     /// \param axis заданная ось для нахождения суммы элементов
     /// \return результирующая матрица
