@@ -109,6 +109,10 @@ private slots:
     /// тестирование обьединений значений матриц по столбцам для 2д и 3д случаев
     void testColumnStack2dAnd3d();
     ///
+    /// \brief testRowsRepeat2d
+    /// тестирование повторений строк для двумерных матриц
+    void testRowsRepeat2d();
+    ///
     /// \brief testAxisSumMatrix2d
     /// тестирование нахождения двумерных матриц из их же суммированных элементов
     void testAxisSumMatrix2d();
@@ -670,6 +674,27 @@ void TestMatrix::testColumnStack2dAnd3d()
     }
 
     QCOMPARE(result2dMatrix == proper2dMatrix, true);
+}
+
+void TestMatrix::testRowsRepeat2d()
+{
+    // инициализация
+    Matrix2d<double> matrix2d1{{1,2,3}};
+    Matrix2d<double> matrix2d2{{1,2,3},
+                               {4,5,6}};
+    // результаты
+    Matrix2d<double> result2d1(matrix2d1.rowsRepeat(3)->data());
+    Matrix2d<double> proper2d1{{1,2,3},
+                               {1,2,3},
+                               {1,2,3}};
+    Matrix2d<double> result2d2(matrix2d2.rowsRepeat(2)->data());
+    Matrix2d<double> proper2d2{{1,2,3},
+                               {1,2,3},
+                               {4,5,6},
+                               {4,5,6}};
+
+    QCOMPARE(result2d1 == proper2d1, true);
+    QCOMPARE(result2d2 == proper2d2, true);
 }
 
 void TestMatrix::testAxisSumMatrix2d()

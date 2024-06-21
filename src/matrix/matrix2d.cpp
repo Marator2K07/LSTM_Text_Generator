@@ -381,6 +381,20 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::columnStack(const IMatrix<T> *matrix)
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::rowsRepeat(const int count)
+{
+    // подготовка и заполнение данных для результирующей матрицы
+    vector<vector<T>> resultData;
+    for (int rowI = 0; rowI < _data.size(); ++rowI) {
+        for (int repeatCount = 0; repeatCount < count; ++repeatCount) {
+            resultData.push_back(_data[rowI]);
+        }
+    }
+
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+}
+
+template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::axisSumMatrix(const int axis)
 {
     // подготовка
