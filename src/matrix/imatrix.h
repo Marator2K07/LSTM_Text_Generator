@@ -135,6 +135,12 @@ public:
     /// \return результирующая матрица
     virtual unique_ptr<IMatrix<T>> axisSumMatrix(const int axis) = 0;
     ///
+    /// \brief axisMean нахождение матрицы из среднего
+    /// арифметического элементов по заданной оси
+    /// \param axis заданная ось для нахождения среднего арифметического
+    /// \return результирующая матрица
+    virtual unique_ptr<IMatrix<T>> axisMean(const int axis) = 0;
+    ///
     /// \brief slice 'вырезка' из текущей матрицы нужной доли
     /// \param slizeIndices индексы 'дольки' в формате (необязательно D-глубина):
     /// 0)startD->1)endD->2)startH->3)endH->4)startW->5)endW
