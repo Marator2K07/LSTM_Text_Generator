@@ -134,6 +134,20 @@ Matrix3d<T> Matrix3d<T>::randomNormal(T mean, T dispersion,
 }
 
 template<typename T>
+Matrix2d<T> Matrix3d<T>::rowsWithIndex(unsigned long long index)
+{
+    // подготавливаем с заполняем данные результирующей матрицы
+    vector<vector<T>> resultData;
+    for (unsigned long long matrixI = 0; matrixI < sizes()[0]; ++matrixI) {
+        for (unsigned long long rowI = 0; rowI < sizes()[1]; ++rowI) {
+            resultData.push_back(_data[matrixI][index]);
+        }
+    }
+
+    return Matrix2d(resultData);
+}
+
+template<typename T>
 bool Matrix3d<T>::operator==(Matrix3d<T> &matrix)
 {
     QVariant autoData = matrix.data();

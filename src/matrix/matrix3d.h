@@ -41,6 +41,11 @@ public:
     /// \return матрица со случайными значениями
     static Matrix3d<T> randomNormal(T mean, T dispersion,
                                     int depth, int height, int width);
+    ///
+    /// \brief rowsWithIndex все строки по индексу в виде 2д матрицы
+    /// \param index индекс выбора строк
+    /// \return результирующая матрица из собранных строк
+    Matrix2d<T> rowsWithIndex(unsigned long long index);
 
     bool operator==(Matrix3d<T> &matrix);
 
