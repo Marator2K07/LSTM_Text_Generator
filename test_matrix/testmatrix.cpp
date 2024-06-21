@@ -267,6 +267,7 @@ void TestMatrix::testMatrix2dAddMatrix2d()
                              {9,3,0}};
     Matrix2d<double> matrixC {{6,2,3},
                              {2,2,0}};
+    Matrix2d<double> matrixF {{5,3,2}}; // особый случай
 
     QCOMPARE(matrixA == matrixD, true);
     QCOMPARE(matrixA == matrixB, false);
@@ -282,8 +283,15 @@ void TestMatrix::testMatrix2dAddMatrix2d()
     Matrix2d<double> properMatrix {{7,4,6},
                                   {6,9,7},
                                   {15,4,7}};
+    // особый случай
+    Matrix2d<double> resultMatrix2(matrixA.addition(&matrixF)->data());
+    resultMatrix2.print();
+    Matrix2d<double> properMatrix2 {{6,5,5},
+                                   {9,10,9},
+                                   {14,6,2}};
 
     QCOMPARE(resultMatrix->data(), properMatrix.data());
+    QCOMPARE(resultMatrix2.data(), properMatrix2.data());
 }
 
 void TestMatrix::testMatrix3dAddMatrix3d()
