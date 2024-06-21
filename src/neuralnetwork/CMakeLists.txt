@@ -3,6 +3,7 @@ qt_add_library(neuralnetwork STATIC
     ineuralnetworklayer.h
     ineuralnetworknode.h
     lstmnode.h lstmnode.cpp
+    lstmlayer.h lstmlayer.cpp
 )
 target_link_libraries(neuralnetwork PRIVATE
     Qt6::Core
