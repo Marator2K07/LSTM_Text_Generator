@@ -125,6 +125,10 @@ private slots:
     /// тестирование нахождения трехмерных матриц из их же суммированных элементов
     void testAxisSumMatrix3d();
     ///
+    /// \brief testAxisMeanMatrix2d
+    /// нахождение 2д матрицы из среднего арифметического элементов по заданной оси
+    void testAxisMeanMatrix2d();
+    ///
     /// \brief testSlice2dMatrix
     /// тестирование создания дольки/выборки из двумерной матрицы
     void testSlice2dMatrix();
@@ -750,6 +754,22 @@ void TestMatrix::testAxisSumMatrix3d()
     QCOMPARE(resultMatrix0 == properMatrix0, true);
     QCOMPARE(resultMatrix1 == properMatrix1, true);
     QCOMPARE(resultMatrix2 == properMatrix2, true);
+}
+
+void TestMatrix::testAxisMeanMatrix2d()
+{
+    // инициализация
+    Matrix2d<double> matrix{{1, 2, 3},
+                            {4, 7, 7},
+                            {9, 3, 0}};
+    // результаты
+    Matrix2d<double> resultMatrix0(matrix.axisMean(0)->data());
+    Matrix2d<double> properMatrix0{{4.667, 4.0, 3.333}};
+    Matrix2d<double> resultMatrix1(matrix.axisMean(1)->data());
+    Matrix2d<double> properMatrix1{{2.0},{6.0},{4.0}};
+
+    QCOMPARE(resultMatrix0.compareDoubles(&properMatrix0, 0.001), true);
+    QCOMPARE(resultMatrix1.compareDoubles(&properMatrix1, 0.001), true);
 }
 
 void TestMatrix::testSlice2dMatrix()

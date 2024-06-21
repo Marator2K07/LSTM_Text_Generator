@@ -422,6 +422,17 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::axisSumMatrix(const int axis)
     return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
+template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::axisMean(const int axis)
+{
+    // подготовка
+    vector<vector<T>> resultData
+        = Matrix2d<T>::dataToVector(axisSumMatrix(axis).get());
+    unsigned long long divider = sizes()[axis];
+    // заполнение данных для результирующей матрицы
+    for (vector<T> &row : resultData) {
+        for (int i = 0; i < row.size(); ++i) {
+            row[i] /= divider;
         }
     }
 
