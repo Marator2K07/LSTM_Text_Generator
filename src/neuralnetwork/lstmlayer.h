@@ -8,6 +8,7 @@ class LSTMLayer : public INeuralNetworkLayer
 private:
     int _hiddenSize;
     int _outputSize;
+    int _vocabSize;
     double _weightScale; // точность весов
     Matrix2d<double> _startH; // стартовое состояние слоя
     Matrix2d<double> _startC; // стартовое состояние ячейки/узла
