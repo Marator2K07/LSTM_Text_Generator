@@ -1,5 +1,6 @@
 qt_add_library(neuralnetwork STATIC
     ineuralnetworkmodel.h
+    ineuralnetworklayer.h
     ineuralnetworknode.h
     lstmnode.h lstmnode.cpp
 )
