@@ -90,7 +90,13 @@ void LSTMLayer::initParams(const Matrix3d<double> initMatrix)
 
 void LSTMLayer::clearGradients()
 {
-
+    // инициализация производных параметров слоя
+    const QList<QString> keys = _params.keys();
+    for (const QString &key : keys) {
+        _params[key]["deriv"]
+            = Matrix2d<double>::zeroM(_params[key]["deriv"].sizes()[0],
+                                      _params[key]["deriv"].sizes()[1]);
+    }
 }
 
 Matrix3d<double> LSTMLayer::forward(Matrix3d<double> xSequenceIn)
