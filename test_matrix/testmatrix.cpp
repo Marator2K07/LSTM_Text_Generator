@@ -33,6 +33,11 @@ private slots:
     /// распределению для трехмерных и двумерных матриц
     void testRandomNormal2dAnd3d();
     ///
+    /// \brief testRowsWithIndex3d
+    /// тест эксклюзивного для 3д матриц метода сбора строк
+    /// в виде двумерной матрицы на выходе
+    void testRowsWithIndex3d();
+    ///
     /// \brief testMatrix2dAddMatrix2d
     /// тест на сложение двумерных матриц
     void testMatrix2dAddMatrix2d();
@@ -267,6 +272,32 @@ void TestMatrix::testRandomNormal2dAnd3d()
 
     QCOMPARE(sizesProper2d == matrix2d.sizes(), true);
     QCOMPARE(sizesProper3d == matrix3d.sizes(), true);
+}
+
+void TestMatrix::testRowsWithIndex3d()
+{
+    // инициализация
+    Matrix3d<double> matrix {{{5,3,2}, {2,3,1}, {9,7,3}},
+                             {{8,2,1}, {5,6,4}, {2,2,8}},
+                             {{5,1,2}, {15,7,3},{3,4,7}}};
+    // результаты
+    Matrix2d<double> resultMatrix0 = matrix.rowsWithIndex(0);
+    resultMatrix0.print();
+    Matrix2d<double> properMatrix0 {{5,3,2},
+                                   {8,2,1},
+                                   {5,1,2}};
+    Matrix2d<double> resultMatrix1 = matrix.rowsWithIndex(1);
+    Matrix2d<double> properMatrix1 {{2,3,1},
+                                   {5,6,4},
+                                   {15,7,3}};
+    Matrix2d<double> resultMatrix2 = matrix.rowsWithIndex(2);
+    Matrix2d<double> properMatrix2 {{9,7,3},
+                                   {2,2,8},
+                                   {3,4,7}};
+
+    QCOMPARE(resultMatrix0 == properMatrix0, true);
+    QCOMPARE(resultMatrix1 == properMatrix1, true);
+    QCOMPARE(resultMatrix2 == properMatrix2, true);
 }
 
 void TestMatrix::testMatrix2dAddMatrix2d()
