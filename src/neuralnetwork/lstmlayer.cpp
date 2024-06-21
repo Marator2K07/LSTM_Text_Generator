@@ -1,6 +1,6 @@
 #include "lstmlayer.h"
 
-LSTMLayer::LSTMLayer()
+LSTMLayer::LSTMLayer(int hiddenSize, int outputSize, double weightScale)
 {
 
 }

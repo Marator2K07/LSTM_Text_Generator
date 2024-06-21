@@ -2,12 +2,21 @@
 #define LSTMLAYER_H
 
 #include "ineuralnetworklayer.h"
-#include "matrix2d.cpp"
 
 class LSTMLayer : public INeuralNetworkLayer
 {
+private:
+    int _hiddenSize;
+    int _outputSize;
+    double _weightScale; // точность весов
+    Matrix2d<double> _startH; // стартовое состояние слоя
+    Matrix2d<double> _startC; // стартовое состояние ячейки/узла
+    bool _firstStep; // флаг начальной реализации
+    QList<LSTMNode> _cells; // ячейки с нейронными узлами
+    QMap<QString, QMap<QString, Matrix2d<double>>> _params;
+
 public:
-    LSTMLayer();
+    LSTMLayer(int hiddenSize, int outputSize, double weightScale = 0.01);
 
 public:
     // INeuralNetworkLayer interface

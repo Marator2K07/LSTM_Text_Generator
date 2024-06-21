@@ -1,10 +1,10 @@
 #ifndef INEURALNETWORKLAYER_H
 #define INEURALNETWORKLAYER_H
 
-#include <QMap>
-#include <QString>
+#include <QList>
 
 #include "matrix3d.h"
+#include "lstmnode.h"
 #include "activationfunctions.h"
 
 ///
