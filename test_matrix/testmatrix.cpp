@@ -113,6 +113,10 @@ private slots:
     /// тестирование повторений строк для двумерных матриц
     void testRowsRepeat2d();
     ///
+    /// \brief testRowsRepeat2d
+    /// тестирование повторений строк для трехмерных матриц
+    void testRowsRepeat3d();
+    ///
     /// \brief testAxisSumMatrix2d
     /// тестирование нахождения двумерных матриц из их же суммированных элементов
     void testAxisSumMatrix2d();
@@ -695,6 +699,19 @@ void TestMatrix::testRowsRepeat2d()
 
     QCOMPARE(result2d1 == proper2d1, true);
     QCOMPARE(result2d2 == proper2d2, true);
+}
+
+void TestMatrix::testRowsRepeat3d()
+{
+    // инициализация
+    Matrix3d<double> matrix{{{5, 3, 2}},
+                            {{2, 2, 8}}};
+    // результаты
+    Matrix3d<double> resultMatrix0(matrix.rowsRepeat(2)->data());
+    Matrix3d<double> properMatrix0{{{5, 3, 2}},{{5, 3, 2}},
+                                   {{2, 2, 8}},{{2, 2, 8}}};
+
+    QCOMPARE(resultMatrix0 == properMatrix0, true);
 }
 
 void TestMatrix::testAxisSumMatrix2d()

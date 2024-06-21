@@ -63,6 +63,7 @@ public:
     unique_ptr<IMatrix<T>> simplifiedDiv(const IMatrix<T> *matrix) override;
     unique_ptr<IMatrix<T>> dividing(T num, bool reverseOrder) override;
     unique_ptr<IMatrix<T>> columnStack(const IMatrix<T> *matrix) override;
+    unique_ptr<IMatrix<T>> rowsRepeat(const int count) override;
     unique_ptr<IMatrix<T>> axisSumMatrix(const int axis) override;
     unique_ptr<IMatrix<T>> slice(const vector<int> sliceIndices) override;
     unique_ptr<IMatrix<T>> transposition() override;

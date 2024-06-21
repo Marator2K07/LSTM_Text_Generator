@@ -286,6 +286,22 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::columnStack(const IMatrix<T> *matrix)
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix3d<T>::rowsRepeat(const int count)
+{
+    // подготовка и заполнение данных для результирующей матрицы
+    vector<Matrix2d<T>> resultData;
+    for (int matrixI = 0; matrixI < _data.size(); ++matrixI) {
+        for (int repeatCount = 0; repeatCount < count; ++repeatCount) {
+            resultData.push_back(
+                Matrix2d<T>(_data[matrixI].rowsRepeat(1)->data())
+                );
+        }
+    }
+
+    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+}
+
+template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::axisSumMatrix(const int axis)
 {
     // подготовка
