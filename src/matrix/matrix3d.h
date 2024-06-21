@@ -65,6 +65,7 @@ public:
     unique_ptr<IMatrix<T>> columnStack(const IMatrix<T> *matrix) override;
     unique_ptr<IMatrix<T>> rowsRepeat(const int count) override;
     unique_ptr<IMatrix<T>> axisSum(const int axis) override;
+    unique_ptr<IMatrix<T>> axisMean(const int axis) override;
     unique_ptr<IMatrix<T>> slice(const vector<int> sliceIndices) override;
     unique_ptr<IMatrix<T>> transposition() override;
     unique_ptr<IMatrix<T>> floorM(T num) override;

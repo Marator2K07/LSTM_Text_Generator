@@ -129,6 +129,10 @@ private slots:
     /// нахождение 2д матрицы из среднего арифметического элементов по заданной оси
     void testAxisMeanMatrix2d();
     ///
+    /// \brief testAxisMeanMatrix3d
+    /// нахождение 3д матрицы из среднего арифметического элементов по заданной оси
+    void testAxisMeanMatrix3d();
+    ///
     /// \brief testSlice2dMatrix
     /// тестирование создания дольки/выборки из двумерной матрицы
     void testSlice2dMatrix();
@@ -770,6 +774,28 @@ void TestMatrix::testAxisMeanMatrix2d()
 
     QCOMPARE(resultMatrix0.compareDoubles(&properMatrix0, 0.001), true);
     QCOMPARE(resultMatrix1.compareDoubles(&properMatrix1, 0.001), true);
+}
+
+void TestMatrix::testAxisMeanMatrix3d()
+{
+    // инициализация
+    Matrix3d<double> matrix{{{5, 3, 2},{2, 3, 1}},
+                            {{8, 2, 1},{5, 6, 1}}};
+    // результаты
+    Matrix3d<double> resultMatrix0(matrix.axisMean(0)->data());
+    Matrix3d<double> properMatrix0{{{6.5,2.5,1.5},
+                                    {3.5,4.5,1.0}}};
+    Matrix3d<double> resultMatrix1(matrix.axisMean(1)->data());
+    resultMatrix1.print();
+    Matrix3d<double> properMatrix1{{{3.5,3.0,1.5}},
+                                   {{6.5,4.0,1.0}}};
+    Matrix3d<double> resultMatrix2(matrix.axisMean(2)->data());
+    Matrix3d<double> properMatrix2{{{3.333},{2.0}},
+                                   {{3.667},{4.0}}};
+
+    QCOMPARE(resultMatrix0.compareDoubles(&properMatrix0, 0.001), true);
+    QCOMPARE(resultMatrix1.compareDoubles(&properMatrix1, 0.001), true);
+    QCOMPARE(resultMatrix2.compareDoubles(&properMatrix2, 0.001), true);
 }
 
 void TestMatrix::testSlice2dMatrix()

@@ -335,6 +335,18 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::axisSum(const int axis)
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix3d<T>::axisMean(const int axis)
+{
+    // подготовка и заполнение данных для результирующей матрицы
+    unsigned long long divider = sizes()[axis];
+    vector<Matrix2d<T>> resultData = Matrix3d<T>::dataToVector(
+            axisSum(axis)->dividing(divider).get()
+        );
+
+    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
+}
+
+template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::slice(const vector<int> sliceIndices)
 {
     throw MatrixException(
