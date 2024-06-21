@@ -303,6 +303,7 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::rowsRepeat(const int count)
 
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::axisSumMatrix(const int axis)
+unique_ptr<IMatrix<T>> Matrix3d<T>::axisSum(const int axis)
 {
     // подготовка
     vector<Matrix2d<T>> resultData;

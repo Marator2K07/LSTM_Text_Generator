@@ -395,7 +395,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::rowsRepeat(const int count)
 }
 
 template<typename T>
-unique_ptr<IMatrix<T>> Matrix2d<T>::axisSumMatrix(const int axis)
+unique_ptr<IMatrix<T>> Matrix2d<T>::axisSum(const int axis)
 {
     // подготовка
     vector<vector<T>> resultData;
@@ -427,7 +427,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::axisMean(const int axis)
 {
     // подготовка
     vector<vector<T>> resultData
-        = Matrix2d<T>::dataToVector(axisSumMatrix(axis).get());
+        = Matrix2d<T>::dataToVector(axisSum(axis).get());
     unsigned long long divider = sizes()[axis];
     // заполнение данных для результирующей матрицы
     for (vector<T> &row : resultData) {

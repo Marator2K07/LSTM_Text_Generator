@@ -143,7 +143,7 @@ LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
         layerParams["B_v"]["deriv"]
             .addition(
                 outputGrad["X_out_grad"]
-                    .axisSumMatrix(0).get()
+                    .axisSum(0).get()
                 )->data()
         );
     // вычисление производной по состоянию слоя
@@ -180,7 +180,7 @@ LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
     layerParams["B_o"]["deriv"] = Matrix2d<double>(
         layerParams["B_o"]["deriv"]
             .addition(
-                dOInter.axisSumMatrix(0).get()
+                dOInter.axisSum(0).get()
                 )->data()
         );
     // производная по выходному состоянию ячейки
@@ -216,7 +216,7 @@ LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
     layerParams["B_c"]["deriv"] = Matrix2d<double>(
         layerParams["B_c"]["deriv"]
             .addition(
-                dCBarInter.axisSumMatrix(0).get()
+                dCBarInter.axisSum(0).get()
                 )->data()
         );
     // вычисление производной по входному затвору 'output gate'
@@ -242,7 +242,7 @@ LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
     layerParams["B_i"]["deriv"] = Matrix2d<double>(
         layerParams["B_i"]["deriv"]
             .addition(
-                dIInter.axisSumMatrix(0).get()
+                dIInter.axisSum(0).get()
                 )->data()
         );
     // вычисление производной по затвору забывания 'forget gate'
@@ -268,7 +268,7 @@ LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
     layerParams["B_f"]["deriv"] = Matrix2d<double>(
         layerParams["B_f"]["deriv"]
             .addition(
-                dFInter.axisSumMatrix(0).get()
+                dFInter.axisSum(0).get()
                 )->data()
         );
     // вычисление заключительной производной по содержанию

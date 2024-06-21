@@ -724,10 +724,10 @@ void TestMatrix::testAxisSumMatrix2d()
     Matrix2d<double> matrix{{1, 6, 2},
                             {3, 2, 3}};
     // результаты
-    Matrix2d<double> resultMatrix0(matrix.axisSumMatrix(0)->data());
+    Matrix2d<double> resultMatrix0(matrix.axisSum(0)->data());
     resultMatrix0.print();
     Matrix2d<double> properMatrix0{{4, 8, 5}};
-    Matrix2d<double> resultMatrix1(matrix.axisSumMatrix(1)->data());
+    Matrix2d<double> resultMatrix1(matrix.axisSum(1)->data());
     resultMatrix1.print();
     Matrix2d<double> properMatrix1{{9},{8}};
 
@@ -741,13 +741,13 @@ void TestMatrix::testAxisSumMatrix3d()
     Matrix3d<double> matrix{{{5, 3, 2},{2, 3, 1}},
                             {{8, 2, 1},{5, 6, 1}}};
     // результаты
-    Matrix3d<double> resultMatrix0(matrix.axisSumMatrix(0)->data());
+    Matrix3d<double> resultMatrix0(matrix.axisSum(0)->data());
     Matrix3d<double> properMatrix0{{{13, 5, 3},
                                     {7, 9, 2}}};
-    Matrix3d<double> resultMatrix1(matrix.axisSumMatrix(1)->data());
+    Matrix3d<double> resultMatrix1(matrix.axisSum(1)->data());
     Matrix3d<double> properMatrix1{{{7, 6, 3},
                                    {13, 8, 2}}};
-    Matrix3d<double> resultMatrix2(matrix.axisSumMatrix(2)->data());
+    Matrix3d<double> resultMatrix2(matrix.axisSum(2)->data());
     Matrix3d<double> properMatrix2{{{10, 6},
                                     {11,12}}};
 

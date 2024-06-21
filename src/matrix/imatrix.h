@@ -130,10 +130,10 @@ public:
     /// \return результирующая матрица
     virtual unique_ptr<IMatrix<T>> rowsRepeat(const int count) = 0;
     ///
-    /// \brief axisSumMatrix нахождение матрицы из суммы элементов по заданной оси
+    /// \brief axisSum нахождение матрицы из суммы элементов по заданной оси
     /// \param axis заданная ось для нахождения суммы элементов
     /// \return результирующая матрица
-    virtual unique_ptr<IMatrix<T>> axisSumMatrix(const int axis) = 0;
+    virtual unique_ptr<IMatrix<T>> axisSum(const int axis) = 0;
     ///
     /// \brief axisMean нахождение матрицы из среднего
     /// арифметического элементов по заданной оси
