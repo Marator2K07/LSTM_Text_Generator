@@ -90,7 +90,7 @@ void LSTMLayer::initParams(const Matrix3d<double> initMatrix)
 
 void LSTMLayer::clearGradients()
 {
-    // инициализация производных параметров слоя
+    // обнуление производных параметров слоя
     const QList<QString> keys = _params.keys();
     for (const QString &key : keys) {
         _params[key]["deriv"]

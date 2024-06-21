@@ -27,7 +27,7 @@ public:
     static vector<Matrix2d<T>> dataToVector(const IMatrix<T> *matrix);
     ///
     /// \brief zeroM создание новой матрицы, состоящей из нулей
-    /// \param depth,width,height размеры новой матрицы
+    /// \param depth, width, height размеры новой матрицы
     /// \return нулевая матрица
     static Matrix3d<T> zeroM(int depth, int height, int width);
     ///

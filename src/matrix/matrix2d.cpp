@@ -408,7 +408,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::axisSum(const int axis)
                 resultData[0][i] += row[i];
             }
         }
-    }// заполнение данных для результирующей матрицы по строкам
+    }// заполнение данных для результирующей матрицы по колонкам
     else if (axis == 1) {
         for (const vector<T> row : _data) {
             resultData.push_back(vector<T>(1));
