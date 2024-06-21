@@ -75,5 +75,10 @@ ActivationFunctions<T>::softmax(const IMatrix<T> *matrix)
             resultData2d.push_back(softmaxRow(row));
         }
         return unique_ptr<Matrix2d<double>>(new Matrix2d(resultData2d));
+    } else {
+        throw ActivationFunctionsException(
+            QString("\nSoftmax exception \n[%1]\n")
+                .arg("There is no implementation for the current matrix yet")
+            );
     }
 }

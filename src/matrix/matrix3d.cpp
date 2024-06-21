@@ -352,7 +352,10 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::axisSumMatrix(const int axis)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::slice(const vector<int> sliceIndices)
 {
-
+    throw MatrixException(
+        QString("\nMatrix slice exception \n[%1]\n")
+            .arg("For 3d Matrices this type of operation not implemented yet")
+        );
 }
 
 template<typename T>
