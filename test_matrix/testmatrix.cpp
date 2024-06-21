@@ -718,12 +718,14 @@ void TestMatrix::testAxisSumMatrix2d()
 {
     // инициализация
     Matrix2d<double> matrix{{1, 6, 2},
-                            {3, 2, 2}};
+                            {3, 2, 3}};
     // результаты
     Matrix2d<double> resultMatrix0(matrix.axisSumMatrix(0)->data());
-    Matrix2d<double> properMatrix0{{4, 8, 4}};
+    resultMatrix0.print();
+    Matrix2d<double> properMatrix0{{4, 8, 5}};
     Matrix2d<double> resultMatrix1(matrix.axisSumMatrix(1)->data());
-    Matrix2d<double> properMatrix1{{9, 7}};
+    resultMatrix1.print();
+    Matrix2d<double> properMatrix1{{9},{8}};
 
     QCOMPARE(resultMatrix0 == properMatrix0, true);
     QCOMPARE(resultMatrix1 == properMatrix1, true);

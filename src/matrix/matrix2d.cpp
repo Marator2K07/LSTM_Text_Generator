@@ -399,13 +399,10 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::axisSumMatrix(const int axis)
 {
     // подготовка
     vector<vector<T>> resultData;
-    resultData.push_back(vector<T>());
-    int index = 0;
-    // заполнение данных для результирующей матрицы по столбцам
+    int rowIndex = 0;
+    // заполняем данных для результирующей матрицы складывая строки
     if (axis == 0) {
-        for (int i = 0; i < sizes()[1]; ++i) {
-            resultData[0].push_back(0);
-        }
+        resultData.push_back(vector<T>(sizes()[axis]+1));
         for (const vector<T> row : _data) {
             for (int i = 0; i < row.size(); ++i) {
                 resultData[0][i] += row[i];
@@ -413,14 +410,18 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::axisSumMatrix(const int axis)
         }
     }// заполнение данных для результирующей матрицы по строкам
     else if (axis == 1) {
-        for (int i = 0; i < sizes()[0]; ++i) {
-            resultData[0].push_back(0);
-        }
         for (const vector<T> row : _data) {
+            resultData.push_back(vector<T>(1));
             for (int i = 0; i < row.size(); ++i) {
-                resultData[0][index] += row[i];
+                resultData[rowIndex][0] += row[i];
             }
-            index++;
+            rowIndex++;
+        }
+    }
+
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
+}
+
         }
     }
 
