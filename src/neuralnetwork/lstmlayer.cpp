@@ -101,7 +101,26 @@ void LSTMLayer::clearGradients()
 
 Matrix3d<double> LSTMLayer::forward(Matrix3d<double> xSequenceIn)
 {
+    // если проходим впервые
+    if (_firstStep) {
+        initParams(xSequenceIn);
+    }
+    // устанавливаем размер пакет/партии
+    unsigned long long batchSize = xSequenceIn.sizes()[0];
+    // копии начального скрытого состояния и ячейки памяти
+    Matrix2d<double> hIn(_startH.data());
+    Matrix2d<double> cIn(_startC.data());
+    // повторяем копии batchSize раз ради соотвествия по размеру/ам
+    hIn = Matrix2d<double>(hIn.rowsRepeat(batchSize)->data());
+    cIn = Matrix2d<double>(cIn.rowsRepeat(batchSize)->data());
+    // находим длину последовательности и подготавливаем основу выхода слоя
+    unsigned long long sequenceLength = xSequenceIn.sizes()[1];
+    Matrix3d<double> xSequenceOut
+        = Matrix3d<double>::zeroM(batchSize, sequenceLength, _outputSize);
+    // для каждого временного шага:
+    for (int t = 0; t < sequenceLength; ++t) {
 
+    }
 }
 
 Matrix3d<double> LSTMLayer::backward(Matrix3d<double> xSequenceOutGrad)
