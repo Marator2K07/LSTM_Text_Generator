@@ -46,6 +46,12 @@ public:
     /// \param index индекс выбора строк
     /// \return результирующая матрица из собранных строк
     Matrix2d<T> rowsWithIndex(unsigned long long index);
+    ///
+    /// \brief setRowsWithIndex задание всем строкам с индексом из
+    /// текущей матрицы значений строк из переданной матрицы
+    /// \param rows переданная матрица
+    /// \param index индекс для задания строк
+    void setRowsWithIndex(const Matrix2d<T> rows, unsigned long long index);
 
     bool operator==(Matrix3d<T> &matrix);
 

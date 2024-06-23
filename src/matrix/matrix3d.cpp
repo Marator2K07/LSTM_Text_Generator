@@ -146,6 +146,24 @@ Matrix2d<T> Matrix3d<T>::rowsWithIndex(unsigned long long index)
 }
 
 template<typename T>
+void Matrix3d<T>::setRowsWithIndex(const Matrix2d<T> rows, unsigned long long index)
+{
+    // смотрим совпадение размеров для замены строк
+    if (sizes()[0] != rows.sizes()[0]) {
+        throw MatrixException(
+            QString("\nMatrix set rows exception \n[%1]\n")
+                .arg("Number of rows does not match")
+            );
+    }
+    // обновляем данные
+    int i = 0;
+    auto rowsMatrixData = rows.dataToVector();
+    for (unsigned long long matrixI = 0; matrixI < sizes()[0]; ++matrixI) {
+        _data[matrixI].dataToVector()[index] = rowsMatrixData[i++];
+    }
+}
+
+template<typename T>
 bool Matrix3d<T>::operator==(Matrix3d<T> &matrix)
 {
     QVariant autoData = matrix.data();
