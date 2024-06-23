@@ -30,6 +30,11 @@ public:
     /// \param value новое значение ячейки
     void setValue(int hIndex, int wIndex, T value);
     ///
+    /// \brief setRow сеттер для выбранной по индексу строки
+    /// \param row новое значение строки
+    /// \param index индекс для смены
+    void setRow(const vector<T> row, int index);
+    ///
     /// \brief setOperation обновление типа операции извне,
     /// например, при использовании трехмерной матрицей
     /// \param opType передаваемый тип операции

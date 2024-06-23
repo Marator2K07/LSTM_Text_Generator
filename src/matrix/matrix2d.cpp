@@ -115,6 +115,26 @@ void Matrix2d<T>::setValue(int hIndex, int wIndex, T value)
 }
 
 template<typename T>
+void Matrix2d<T>::setRow(const vector<T> row, int index)
+{
+    // проверки
+    if (row.size() != _data.size()) {
+        throw MatrixException(
+            QString("\nMatrix set row exception \n[%1]\n")
+                .arg("Trying to overwrite row with a new size")
+            );
+    }
+    if (index >= _data.size() || index < 0) {
+        throw MatrixException(
+            QString("\nMatrix set row exception \n[%1]\n")
+                .arg("Incorrect row index")
+            );
+    }
+
+    _data[index] = row;
+}
+
+template<typename T>
 void Matrix2d<T>::setOperation(OperationType opType)
 {
     switch (opType) {
