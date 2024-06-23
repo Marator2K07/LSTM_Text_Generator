@@ -138,5 +138,29 @@ Matrix3d<double> LSTMLayer::forward(Matrix3d<double> xSequenceIn)
 
 Matrix3d<double> LSTMLayer::backward(Matrix3d<double> xSequenceOutGrad)
 {
+    // устанавливаем размер пакет/партии
+    unsigned long long batchSize = xSequenceOutGrad.sizes()[0];
+    // подготавливаем матрицы входа градиента для
+    // скрытого состояния и состояния ячейки
+    Matrix2d<double> hInGrad = Matrix2d<double>::zeroM(batchSize, _hiddenSize);
+    Matrix2d<double> cInGrad = Matrix2d<double>::zeroM(batchSize, _hiddenSize);
+    // задаем количество символов для обработки
+    unsigned long long numChars = xSequenceOutGrad.sizes()[1];
+    // подготавливаем основу для хранения входных градиентов данных
+    Matrix3d<double> xSequenceInGrad
+        = Matrix3d<double>::zeroM(batchSize, numChars, _vocabSize);
+    // во время обратного прохода для каждого символа(временной шаг t):
+    // 1) извлекается градиент для текущего символа
+    // 2) обратный проход через узел/ячейку сети
+    // 3) обновление градиентов данных и состояний сети, ячеек
+    for (int t = numChars-1; t >= 0; --t) {
+        Matrix2d<double> xInGrad = xSequenceOutGrad.rowsWithIndex(t);
+        QMap<QString, Matrix2d<double>> inGrad
+            = _cells[t].backward(xInGrad, hInGrad, cInGrad, _params);
+        hInGrad = inGrad["dH_prev"];
+        cInGrad = inGrad["dC_prev"];
+        xSequenceInGrad.setRowsWithIndex(inGrad["dX_prev"], t);
+    }
 
+    return xSequenceInGrad;
 }
