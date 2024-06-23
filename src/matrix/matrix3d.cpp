@@ -148,18 +148,24 @@ Matrix2d<T> Matrix3d<T>::rowsWithIndex(unsigned long long index)
 template<typename T>
 void Matrix3d<T>::setRowsWithIndex(const Matrix2d<T> rows, unsigned long long index)
 {
-    // смотрим совпадение размеров для замены строк
+    // проверки
     if (sizes()[0] != rows.sizes()[0]) {
         throw MatrixException(
             QString("\nMatrix set rows exception \n[%1]\n")
                 .arg("Number of rows does not match")
             );
     }
+    if (index >= sizes()[1] || index < 0) {
+        throw MatrixException(
+            QString("\nMatrix set rows exception \n[%1]\n")
+                .arg("Incorrect set rows index")
+            );
+    }
     // обновляем данные
     int i = 0;
     auto rowsMatrixData = rows.dataToVector();
     for (unsigned long long matrixI = 0; matrixI < sizes()[0]; ++matrixI) {
-        _data[matrixI].dataToVector()[index] = rowsMatrixData[i++];
+        _data[matrixI].setRow(rowsMatrixData[matrixI], index);
     }
 }
 
@@ -334,6 +340,13 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::rowsRepeat(const int count)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::axisSum(const int axis)
 {
+    // проверки
+    if (axis < 0 || axis >= 3) {
+        throw MatrixException(
+            QString("\nMatrix axis operation exception \n[%1]\n")
+                .arg("Inaccessible axis selected")
+            );
+    }
     // подготовка
     vector<Matrix2d<T>> resultData;
     int rowIndex = 0;
