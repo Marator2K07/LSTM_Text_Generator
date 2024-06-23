@@ -33,6 +33,11 @@ private slots:
     /// распределению для трехмерных и двумерных матриц
     void testRandomNormal2dAnd3d();
     ///
+    /// \brief testSetRowMatrix2d
+    /// проверка корректности установки значений через
+    /// специальный сеттер для установки значений для строк
+    void testSetRowMatrix2d();
+    ///
     /// \brief testRowsWithIndex3d
     /// тест эксклюзивного для 3д матриц метода сбора строк
     /// в виде двумерной матрицы на выходе
@@ -176,7 +181,7 @@ void TestMatrix::testMatrix2dMatrix3dZeroM()
     // инциализация
     Matrix2d<int> matrix2d = Matrix2d<int>::zeroM(3, 4);
     Matrix3d<int> matrix3d = Matrix3d<int>::zeroM(2, 3, 4);
-    // результаты
+    // расчеты
     Matrix2d<int> properMatrix2d {{0,0,0,0},
                                  {0,0,0,0},
                                  {0,0,0,0}};
@@ -202,7 +207,7 @@ void TestMatrix::testMatrix2dSameShapeMatrix3d()
                               {{2,7,7},
                                {4,1,1},
                                {2,3,5}}};
-    // результаты
+    // расчеты
     try {
         // matrix3d.sameShape(&matrix2d);
         // matrix2d.sameShape(&matrix3d);
@@ -222,7 +227,7 @@ void TestMatrix::testMatrix2dSameShapeMatrix2d()
                              {6,1,7}};
     Matrix2d<double> matrixC {{1,1,1},
                              {2,2,2}};
-    // результаты
+    // расчеты
     bool resultFlag1 = matrixA.sameShape(&matrixB);
     bool resultFlag2 = matrixB.sameShape(&matrixC);
 
@@ -244,7 +249,7 @@ void TestMatrix::testMatrix3dSameShapeMatrix3d()
     Matrix3d<double> matrixD {{{1,2,3}, {4,7,7}},
                               {{1,2,3}, {4,7,7}},
                               {{1,2,3}, {4,7,7}}};
-    // результаты
+    // расчеты
     bool resultFlag1 = matrixA.sameShape(&matrixB);
     bool resultFlag2 = matrixB.sameShape(&matrixC);
     bool resultFlag3 = matrixB.sameShape(&matrixC);
@@ -263,7 +268,7 @@ void TestMatrix::testRandomNormal2dAnd3d()
         = Matrix2d<double>::randomNormal(0, 0.01, 4, 3);
     Matrix3d<double> matrix3d
         = Matrix3d<double>::randomNormal(0, 0.01, 2, 3, 2);
-    // результаты
+    // расчеты
     vector<unsigned long long> sizesProper2d{4,3};
     vector<unsigned long long> sizesProper3d{2,3,2};
     // правильность рандомизации можно оценить только визуально...
@@ -274,13 +279,36 @@ void TestMatrix::testRandomNormal2dAnd3d()
     QCOMPARE(sizesProper3d == matrix3d.sizes(), true);
 }
 
+void TestMatrix::testSetRowMatrix2d()
+{
+    // инициализация
+    Matrix2d<double> init{{5,3,2},
+                          {8,2,1},
+                          {5,1,2}};
+    // расчеты
+    try {
+        init.setRow(vector<double>{1,1,1},0);
+        init.setRow(vector<double>{2,2,2},1);
+        init.setRow(vector<double>{3,3,3},2);
+        // init.setRow(vector<double>{3,3,3,3},1);
+        init.setRow(vector<double>{4,4,4},3);
+    } catch (const MatrixException &e) {
+        cout << e.what() << endl;
+    }
+    Matrix2d<double> properMatrix {{1,1,1},
+                                   {2,2,2},
+                                   {3,3,3}};
+
+    QCOMPARE(init == properMatrix, true);
+}
+
 void TestMatrix::testRowsWithIndex3d()
 {
     // инициализация
     Matrix3d<double> matrix {{{5,3,2}, {2,3,1}, {9,7,3}},
                              {{8,2,1}, {5,6,4}, {2,2,8}},
                              {{5,1,2}, {15,7,3},{3,4,7}}};
-    // результаты
+    // расчеты
     Matrix2d<double> resultMatrix0 = matrix.rowsWithIndex(0);
     resultMatrix0.print();
     Matrix2d<double> properMatrix0 {{5,3,2},
@@ -380,7 +408,7 @@ void TestMatrix::testMatrix2dAddNum()
     double numA = 3.33;
     double numB = 4.44;
 
-    // результаты
+    // расчеты
     auto resultMatrix1 = matrixA.addition(numA);
     Matrix2d<double> properMatrix1 {{4.33,5.33,6.33},
                                    {7.33,10.33,10.33},
@@ -406,7 +434,7 @@ void TestMatrix::testMatrix3dAddNum()
     double numA = 3.33;
     double numB = 4.44;
 
-    // результаты
+    // расчеты
     Matrix3d<double> resultMatrix1(matrixA.addition(numA)->data());
     Matrix3d<double> properMatrix1 {{{4.33,5.33,6.33},{4.33,5.33,11.33},{4.33,8.33,4.33}},
                                    {{4.33,4.33,8.33},{6.33,4.33,7.33},{4.33,4.33,7.33}},
@@ -429,7 +457,7 @@ void TestMatrix::testMatrix2dSubtrMatrix2d()
     Matrix2d<double> matrixB {{6,2,3},
                              {2,2,0},
                              {6,1,7}};
-    // результаты
+    // расчеты
     auto resultMatrix = matrixA.subtraction(&matrixB);
     Matrix2d<double> properMatrix {{-5,0,0},
                                   {2,5,7},
@@ -448,7 +476,7 @@ void TestMatrix::testMatrix3dSubtrMatrix3d()
     Matrix3d<double> matrixB {{{1,1,1}, {1,3,0}, {1,1,3}},
                              {{1,8,6}, {1,1,1}, {11,1,1}},
                              {{1,1,1}, {1,1,1}, {1,7,2}}};
-    // результаты
+    // расчеты
     Matrix3d<double> resultMatrix(matrixA.subtraction(&matrixB)->data());
     Matrix3d<double> properMatrix {{{0,1,2}, {0,-1,8}, {0,4,-2}},
                                   {{0,-7,-1}, {2,0,3}, {-10,0,3}},
@@ -463,7 +491,7 @@ void TestMatrix::testMatrix2dSubtrNumDirectAndReverseOrder()
     Matrix2d<double> matrix {{1,2,3},
                             {7,3,5},
                             {9,3,1}};
-    // результаты
+    // расчеты
     auto resultMatrixDirect = matrix.subtraction(2);
     Matrix2d<double> properMatrixDirect {{-1,0,1},
                                         {5,1,3},
@@ -483,7 +511,7 @@ void TestMatrix::testMatrix3dSubtrNumDirectAndReverseOrder()
     Matrix3d<double> matrixA {{{1,2,3}, {1,2,8}, {1,5,1}},
                              {{1,1,5}, {3,1,4}, {1,1,4}},
                              {{7,7,6}, {1,1,1}, {1,1,1}}};
-    // результаты
+    // расчеты
     Matrix3d<double> resultMatrixDirect (matrixA.subtraction(5)->data());
     Matrix3d<double> properMatrixDirect {{{-4,-3,-2},{-4,-3,3},{-4,0,-4}},
                                         {{-4,-4,0},{-2,-4,-1},{-4,-4,-1}},
@@ -512,7 +540,7 @@ void TestMatrix::testMatrix2dSimplMultMatrix2d()
     } catch (const MatrixException& e) {
         cout << e.what() << endl;
     }
-    // результаты
+    // расчеты
     auto resultMatrixAB = matrixA.simplifiedMult(&matrixB);
     Matrix2d<double> properMatrixAB {{7,8},
                                     {6,54}};
@@ -529,7 +557,7 @@ void TestMatrix::testMatrix3dSimplMultMatrix3d()
     Matrix3d<double> matrixB {{{3,5,3}, {1,3,0}},
                              {{1,8,6}, {0,3,1}},
                              {{1,2,3}, {2,2,8}}};
-    // результаты
+    // расчеты
     Matrix3d<double> resultMatrix(matrixA.simplifiedMult(&matrixB)->data());
     Matrix3d<double> properMatrix {{{3,10,9},{1,6,0}},
                                   {{8,40,30},{0,3,4}},
@@ -545,7 +573,7 @@ void TestMatrix::testMatrix2dSimplDivMatrix2d()
                              {3,9}};
     Matrix2d<double> matrixB {{7,4},
                              {2,6}};
-    // результаты
+    // расчеты
     Matrix2d<double> resultMatrix(matrixA.simplifiedDiv(&matrixB)
                                       ->floorM(2)->data());
     Matrix2d<double> properMatrixAB {{0.14,0.5},
@@ -563,7 +591,7 @@ void TestMatrix::testMatrix3dSimplDivMatrix3d()
     Matrix3d<double> matrixB {{{3,5,3}, {1,3,7}},
                              {{1,8,6}, {1,3,1}},
                              {{3,2,3}, {2,2,8}}};
-    // результаты
+    // расчеты
     Matrix3d<double> resultMatrix(matrixA.simplifiedDiv(&matrixB)
                                       ->floorM(2)->data());
     Matrix3d<double> properMatrixAB {{{0.33,0.4,1}, {1,0.66,1.14}},
@@ -579,7 +607,7 @@ void TestMatrix::testMatrix2dMultNumber()
     Matrix2d<double> matrix {{1,2,3},
                             {7,3,5},
                             {9,3,1}};
-    // результаты
+    // расчеты
     auto resultMatrix = matrix.multiplication(2.5);
     Matrix2d<double> properMatrix {{2.5,5,7.5},
                                   {17.5,7.5,12.5},
@@ -597,7 +625,7 @@ void TestMatrix::testMatrix2dMult()
     Matrix2d<double> matrixB {{1,6,2},
                              {3,2,2},
                              {2,2,8}};
-    // результаты
+    // расчеты
     Matrix2d<double> resultMatrix(
         matrixA.multiplication(&matrixB)->data()
         );
@@ -620,7 +648,7 @@ void TestMatrix::testComplicatedMatrix2dMult()
     Matrix2d<double> matrixС {{1,6,2},
                              {3,2,2},
                              {2,2,8}};
-    // результаты
+    // расчеты
     Matrix2d<double> resultMatrix(matrixA.multiplication(&matrixB)->data());
     Matrix2d<double> properMatrix {{7,10,6},
                                   {15,26,14},
@@ -642,7 +670,7 @@ void TestMatrix::testMatrix2dDivNumberDirectAndReverseOrder()
     Matrix2d<double> matrix {{1,2,3},
                             {7,3,5},
                             {9,3,1}};
-    // результаты
+    // расчеты
     Matrix2d<double> resultMatrixDirectOrder(matrix.dividing(3.3, false)
                                                  ->floorM(2)->data());
     Matrix2d<double> resultMatrixReverseOrder(matrix.dividing(2.22, true)
@@ -664,7 +692,7 @@ void TestMatrix::testMatrix3dDivNumberDirectAndReverseOrder()
     Matrix3d<double> matrix {{{1,2,3}, {1,2,8}},
                             {{8,5,5}, {3,1,4}},
                             {{7,7,6}, {1,1,1}}};
-    // результаты
+    // расчеты
     Matrix3d<double> resultMatrixDirectOrder(matrix.dividing(3.3, false)
                                                  ->floorM(3)->data());
     Matrix3d<double> resultMatrixReverseOrder(matrix.dividing(2.22, true)
@@ -686,7 +714,7 @@ void TestMatrix::testMatrix3dMultNumber()
     Matrix3d<double> matrix {{{1,2,3}, {1,2,8}},
                             {{8,5,5}, {3,1,4}},
                             {{7,7,6}, {1,1,1}}};
-    // результаты
+    // расчеты
     Matrix3d<double> resultMatrix(matrix.multiplication(3.34)->data());
     Matrix3d<double> properMatrix {{{3.34,6.68,10.02},{3.34,6.68,26.72}},
                                   {{26.72,16.7,16.7},{10.02,3.34,13.36}},
@@ -704,7 +732,7 @@ void TestMatrix::testColumnStack2dAnd3d()
                                  {9}};
     Matrix3d<double> matrix3dOne{{{1,1},{2,2}},{{3,3},{4,4}}};
     Matrix3d<double> matrix3dTwo{{{5,5},{6,6}},{{7,7},{8,8}}};
-    // результаты
+    // расчеты
     Matrix2d<double> result2dMatrix(matrix2dOne.columnStack(&matrix2dTwo)->data());
     result2dMatrix.print();
     Matrix2d<double> proper2dMatrix{{1,2,3,9},
@@ -725,7 +753,7 @@ void TestMatrix::testRowsRepeat2d()
     Matrix2d<double> matrix2d1{{1,2,3}};
     Matrix2d<double> matrix2d2{{1,2,3},
                                {4,5,6}};
-    // результаты
+    // расчеты
     Matrix2d<double> result2d1(matrix2d1.rowsRepeat(3)->data());
     Matrix2d<double> proper2d1{{1,2,3},
                                {1,2,3},
@@ -745,7 +773,7 @@ void TestMatrix::testRowsRepeat3d()
     // инициализация
     Matrix3d<double> matrix{{{5, 3, 2}},
                             {{2, 2, 8}}};
-    // результаты
+    // расчеты
     Matrix3d<double> resultMatrix0(matrix.rowsRepeat(2)->data());
     Matrix3d<double> properMatrix0{{{5, 3, 2}},{{5, 3, 2}},
                                    {{2, 2, 8}},{{2, 2, 8}}};
@@ -758,7 +786,7 @@ void TestMatrix::testAxisSumMatrix2d()
     // инициализация
     Matrix2d<double> matrix{{1, 6, 2},
                             {3, 2, 3}};
-    // результаты
+    // расчеты
     Matrix2d<double> resultMatrix0(matrix.axisSum(0)->data());
     resultMatrix0.print();
     Matrix2d<double> properMatrix0{{4, 8, 5}};
@@ -775,7 +803,7 @@ void TestMatrix::testAxisSumMatrix3d()
     // инициализация
     Matrix3d<double> matrix{{{5, 3, 2},{2, 3, 1}},
                             {{8, 2, 1},{5, 6, 1}}};
-    // результаты
+    // расчеты
     Matrix3d<double> resultMatrix0(matrix.axisSum(0)->data());
     Matrix3d<double> properMatrix0{{{13, 5, 3},
                                     {7, 9, 2}}};
@@ -797,7 +825,7 @@ void TestMatrix::testAxisMeanMatrix2d()
     Matrix2d<double> matrix{{1, 2, 3},
                             {4, 7, 7},
                             {9, 3, 0}};
-    // результаты
+    // расчеты
     Matrix2d<double> resultMatrix0(matrix.axisMean(0)->data());
     Matrix2d<double> properMatrix0{{4.667, 4.0, 3.333}};
     Matrix2d<double> resultMatrix1(matrix.axisMean(1)->data());
@@ -812,7 +840,7 @@ void TestMatrix::testAxisMeanMatrix3d()
     // инициализация
     Matrix3d<double> matrix{{{5, 3, 2},{2, 3, 1}},
                             {{8, 2, 1},{5, 6, 1}}};
-    // результаты
+    // расчеты
     Matrix3d<double> resultMatrix0(matrix.axisMean(0)->data());
     Matrix3d<double> properMatrix0{{{6.5,2.5,1.5},
                                     {3.5,4.5,1.0}}};
@@ -835,7 +863,7 @@ void TestMatrix::testSlice2dMatrix()
     Matrix2d<double> matrix{{5, 3, 2},
                             {2, 3, 1},
                             {6, 1, 8}};
-    // результаты
+    // расчеты
     Matrix2d<double> resultMatrix1(matrix.slice(vector<int>{0,-1,1,3})->data());
     Matrix2d<double> properMatrix1{{3, 2},
                                    {3, 1},
@@ -861,7 +889,7 @@ void TestMatrix::testTransposition2d()
                             {7, 8, 9}};
     Matrix2d<double> matrixTwo{{1, 2, 3, 4},
                                {5, 6, 7, 8}};
-    // результаты
+    // расчеты
     Matrix2d<double> resultMatrix(matrix.transposition()->data());
     Matrix2d<double> properMatrix{{1, 4, 7},
                                   {2, 5, 8},
@@ -882,7 +910,7 @@ void TestMatrix::testTransposition3d()
     // инициализация
     Matrix3d<double> matrix{{{1, 2, 3},{4, 5, 6}},
                             {{7, 8, 9},{0,10,11}}};
-    // результаты
+    // расчеты
     Matrix3d<double> resultMatrix(matrix.transposition()->data());
     resultMatrix.print();
     Matrix3d<double> properMatrix{{{1, 7},{4, 0}},
@@ -901,7 +929,7 @@ void TestMatrix::testFloorMatrix2dAndMatrix3d()
     Matrix2d<double> matrix2d {{1.5365,2.2345,3.6767},
                               {7.7777,3.3333,5.5555},
                               {9.8888,3.3676,1.1111}};
-    // результаты
+    // расчеты
     Matrix3d<double> resultMatrix3d(matrix3d.floorM(3)->data());
     Matrix2d<double> resultMatrix2d(matrix2d.floorM(3)->data());
     Matrix3d<double> properMatrix3d {{{1.534,2.765,3.893},{1.111,2.695,8.589}},
@@ -924,7 +952,7 @@ void TestMatrix::testMatrix2dAndMatrix3dClip()
                               {{1,0.42,0.22},{0.642,0.33,0}}};
     double leftBorder = 1e-9;
     double rightBorder = 1-leftBorder;
-    // результаты
+    // расчеты
     auto resultMatrix2d = matrix2d.clipM(leftBorder,rightBorder);
     resultMatrix2d->floorM(9); // 'совпадает' с 1e-9
     Matrix2d<double> properMatrix2dReal(resultMatrix2d->data());
@@ -947,7 +975,7 @@ void TestMatrix::testMatrix2dAndMatrix3dLogn()
                             {0.642,0.33,0.123}};
     Matrix3d<double> matrix3d {{{0.955,0.42,0.22},{0.642,0.33,0.111}},
                               {{0.343,0.42,0.22},{0.642,0.33,0.111}}};
-    // результаты
+    // расчеты
     auto matrixResult2d = matrix.lognM();
     matrixResult2d = matrixResult2d->floorM(3); // округляем для сравнения
     Matrix2d<double> properMatrix2d {{-1.109,-2.121,-0.253},
@@ -971,7 +999,7 @@ void TestMatrix::testMatrix2dAnd3dExpM()
                             {3, 2, 5}};
     Matrix3d<double> matrix3d {{{5, 3, 2},{5, 6, 1}},
                               {{2, 2, 8},{8, 2, 1}}};
-    // результаты
+    // расчеты
     auto matrixResult2d = matrix.expM();
     matrixResult2d = matrixResult2d->floorM(3); // округляем для сравнения
     Matrix2d<double> properMatrix2d {{2.718,20.085,7.389},
@@ -995,7 +1023,7 @@ void TestMatrix::testMatrix2dAnd3dTotalSum()
                             {0.642,0.33,0.123}};
     Matrix3d<double> matrix3d {{{0.955,0.42,0.22},{0.642,0.33,0.111}},
                               {{0.343,0.42,0.22},{0.642,0.33,0.111}}};
-    // результаты
+    // расчеты
     double resultSum2d = matrix.totalSum();
     double properSum2d = 2.322;
     double resultSum3d = matrix3d.totalSum();
