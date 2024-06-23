@@ -28,7 +28,7 @@ public:
     /// \param hIndex индекс строки
     /// \param wIndex индекс значения в строке
     /// \param value новое значение ячейки
-    void setValue(int hIndex, int wIndex, T value);
+    void setValue(int hIndex, int wIndex, const T value);
     ///
     /// \brief setRow сеттер для выбранной по индексу строки
     /// \param row новое значение строки

@@ -11,8 +11,8 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const IMatrix<T> *matrix)
                 oneRow = true;
             } else{
                 throw MatrixException(
-                    QString("\nMatrix exception \n[%1]\n")
-                        .arg("Impossible to find matrix addition, the sizes do not match.")
+                    QString("\nMatrix operation exception \n[%1]\n")
+                        .arg("Impossible to find matrix operation, the sizes do not match.")
                     );
             }
         }    
@@ -109,9 +109,16 @@ void Matrix2d<T>::print()
 }
 
 template<typename T>
-void Matrix2d<T>::setValue(int hIndex, int wIndex, T value)
+void Matrix2d<T>::setValue(int hIndex, int wIndex, const T value)
 {
-    _data[hIndex][wIndex] = value;
+    try {
+        _data[hIndex][wIndex] = value;
+    } catch (...) {
+        throw MatrixException(
+            QString("\nMatrix set value exception \n[%1]\n")
+                .arg("Incorrect height or width index")
+            );
+    }
 }
 
 template<typename T>
@@ -189,10 +196,7 @@ Matrix2d<T> Matrix2d<T>::zeroM(int height, int width)
     vector<vector<T>> resultData;
     // заполнение данных для результирующей матрицы
     for (int h = 0; h < height; ++h) {
-        resultData.push_back(vector<T>());
-        for (int w = 0; w < width; ++w) {
-            resultData[h].push_back(0);
-        }
+        resultData.push_back(vector<T>(width));
     }
     return Matrix2d(resultData);
 }
@@ -417,6 +421,13 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::rowsRepeat(const int count)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::axisSum(const int axis)
 {
+    // проверки
+    if (axis < 0 || axis >= 2) {
+        throw MatrixException(
+            QString("\nMatrix axis oepration exception \n[%1]\n")
+                .arg("Inaccessible axis selected")
+            );
+    }
     // подготовка
     vector<vector<T>> resultData;
     int rowIndex = 0;
