@@ -118,9 +118,22 @@ Matrix3d<double> LSTMLayer::forward(Matrix3d<double> xSequenceIn)
     Matrix3d<double> xSequenceOut
         = Matrix3d<double>::zeroM(batchSize, sequenceLength, _outputSize);
     // для каждого временного шага:
+    // 1) извлекается входная матрица значений
+    // 2) прямой проход через узел/ячейку сети
+    // 3) обновление матрицы значений и состояний
     for (int t = 0; t < sequenceLength; ++t) {
-
+        Matrix2d<double> xIn = xSequenceIn.rowsWithIndex(t);
+        QMap<QString, Matrix2d<double>> out
+            = _cells[t].forward(xIn, hIn, cIn, _params);
+        hIn = out["H_out"];
+        cIn = out["C_out"];
+        xSequenceOut.setRowsWithIndex(out["X_out"], t);
     }
+    // в итоге обновляется и стартовое скрытое состояние сети и ячейки
+    _startH = Matrix2d<double>(hIn.axisMean(0)->data());
+    _startC = Matrix2d<double>(cIn.axisMean(0)->data());
+
+    return xSequenceOut;
 }
 
 Matrix3d<double> LSTMLayer::backward(Matrix3d<double> xSequenceOutGrad)
