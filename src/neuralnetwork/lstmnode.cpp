@@ -5,18 +5,21 @@ LSTMNode::LSTMNode()
 }
 
 QMap<QString, Matrix2d<double>>
-LSTMNode::forward(QMap<QString, Matrix2d<double>> input,
+LSTMNode::forward(Matrix2d<double> xIn,
+                  Matrix2d<double> hIn,
+                  Matrix2d<double> cIn,
                   QMap<QString, QMap<QString, Matrix2d<double>>> &layerParams)
 {
+    try {
     // запоминаем входные данные
-    _forwardPassValues.insert("X_in", input["X_in"]);
+    _forwardPassValues.insert("X_in", xIn);
     // запоминаем скрытое состояние ячейки
-    _forwardPassValues.insert("C_in", input["C_in"]);
+    _forwardPassValues.insert("C_in", cIn);
     // создаем комбинированный вход Z - обьединение
     // входных данных и скрытого состояния
     _forwardPassValues.insert(
         "Z",
-        Matrix2d<double>(input["X_in"].columnStack(&input["H_in"])->data())
+        Matrix2d<double>(xIn.columnStack(&hIn)->data())
         );
     // промежуточное и окончательное значения затвора забывания 'forget gate'
     _forwardPassValues.insert(
@@ -91,7 +94,7 @@ LSTMNode::forward(QMap<QString, Matrix2d<double>> input,
         "C_out",
         Matrix2d<double>(
             _forwardPassValues["f"]
-                .simplifiedMult(&input["C_in"])
+                .simplifiedMult(&cIn)
                 ->addition(_forwardPassValues["i"]
                                .simplifiedMult(&_forwardPassValues["C_bar"])
                                .get())
@@ -123,37 +126,42 @@ LSTMNode::forward(QMap<QString, Matrix2d<double>> input,
     result.insert("H_out", _forwardPassValues["H_out"]);
     result.insert("C_out", _forwardPassValues["C_out"]);
     return result;
+    } catch (const MatrixException &e) {
+    cout << e.what();
+    }
 }
 
 QMap<QString, Matrix2d<double>>
-LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
+LSTMNode::backward(Matrix2d<double> xOutGrad,
+                   Matrix2d<double> hOutGrad,
+                   Matrix2d<double> cOutGrad,
                    QMap<QString, QMap<QString, Matrix2d<double>>> &layerParams)
 {
+    try {
     // обновление производных слоя данных на основе выходных градиентов
     layerParams["W_v"]["deriv"] = Matrix2d<double>(
         layerParams["W_v"]["deriv"]
             .addition(
                 _forwardPassValues["H_out"]
                     .transposition()
-                    ->multiplication(&outputGrad["X_out_grad"])
+                    ->multiplication(&xOutGrad)
                     .get()
                 )->data()
         );
     layerParams["B_v"]["deriv"] = Matrix2d<double>(
         layerParams["B_v"]["deriv"]
             .addition(
-                outputGrad["X_out_grad"]
-                    .axisSum(0).get()
+                xOutGrad.axisSum(0).get()
                 )->data()
         );
     // вычисление производной по состоянию слоя
     // и добавление к ней градиента предыдущего шага
     Matrix2d<double> dHOut(
-        outputGrad["X_out_grad"]
+        xOutGrad
             .multiplication(
                 layerParams["W_v"]["value"].transposition().get()
                 )
-            ->addition(&outputGrad["H_out_grad"])->data()
+            ->addition(&hOutGrad)->data()
         );
     // вычисление производной по выходному затвору 'output gate'
     // и производной его промежуточного значения
@@ -191,7 +199,7 @@ LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
                 ActivationFunctions<double>
                 ::dtanh(&_forwardPassValues["C_out"]).get()
                 )
-            ->addition(&outputGrad["C_out_grad"])->data()
+            ->addition(&cOutGrad)->data()
         );
     // вычисление производной по входному состоянию ячейки
     // и производной ее промежуточного значения
@@ -314,4 +322,7 @@ LSTMNode::backward(QMap<QString, Matrix2d<double>> outputGrad,
     result.insert("dH_prev", dHPrev);
     result.insert("dC_prev", dCPrev);
     return result;
+    } catch (const MatrixException &e) {
+    cout << e.what();
+    }
 }

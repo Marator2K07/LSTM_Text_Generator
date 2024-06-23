@@ -17,10 +17,14 @@ public:
 public:
     // INeuralNetworkNode interface
     QMap<QString, Matrix2d<double>>
-    forward(QMap<QString, Matrix2d<double>> input,
+    forward(Matrix2d<double> xIn,
+            Matrix2d<double> hIn,
+            Matrix2d<double> cIn,
             QMap<QString, QMap<QString, Matrix2d<double>>> &layerParams) override;
     QMap<QString, Matrix2d<double>>
-    backward(QMap<QString, Matrix2d<double>> outputGrad,
+    backward(Matrix2d<double> xOutGrad,
+             Matrix2d<double> hOutGrad,
+             Matrix2d<double> cOutGrad,
              QMap<QString, QMap<QString, Matrix2d<double>>> &layerParams) override;
     //
 
