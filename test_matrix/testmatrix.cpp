@@ -43,6 +43,11 @@ private slots:
     /// в виде двумерной матрицы на выходе
     void testRowsWithIndex3d();
     ///
+    /// \brief testSetRowsWithIndex3d
+    /// проверка экслюзивного сеттера для 3д матриц -
+    /// применяет все строки из матрицы строк к текущим с опр. индексом
+    void testSetRowsWithIndex3d();
+    ///
     /// \brief testMatrix2dAddMatrix2d
     /// тест на сложение двумерных матриц
     void testMatrix2dAddMatrix2d();
@@ -326,6 +331,29 @@ void TestMatrix::testRowsWithIndex3d()
     QCOMPARE(resultMatrix0 == properMatrix0, true);
     QCOMPARE(resultMatrix1 == properMatrix1, true);
     QCOMPARE(resultMatrix2 == properMatrix2, true);
+}
+
+void TestMatrix::testSetRowsWithIndex3d()
+{
+    // инициализация
+    Matrix3d<double> matrix {{{5,3,2}, {2,3,1}, {9,7,3}},
+                            {{8,2,1}, {5,6,4}, {2,2,8}},
+                            {{5,1,2}, {15,7,3},{3,4,7}}};
+    // расчеты
+    Matrix2d<double> rows0 = matrix.rowsWithIndex(0);
+    rows0.print();
+    try {
+        matrix.setRowsWithIndex(rows0, 2);        
+        // matrix.setRowsWithIndex(rows0, 3);
+    } catch (const MatrixException &e) {
+        cout << e.what() << endl;
+    }
+    matrix.print();
+    Matrix3d<double> properMatrix {{{5,3,2}, {2,3,1}, {5,3,2}},
+                                   {{8,2,1}, {5,6,4}, {8,2,1}},
+                                   {{5,1,2}, {15,7,3},{5,1,2}}};
+
+    QCOMPARE(matrix == properMatrix, true);
 }
 
 void TestMatrix::testMatrix2dAddMatrix2d()
