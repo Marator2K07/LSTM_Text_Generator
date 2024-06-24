@@ -676,12 +676,20 @@ void TestMatrix::testComplicatedMatrix2dMult()
     Matrix2d<double> matrixС {{1,6,2},
                              {3,2,2},
                              {2,2,8}};
+    Matrix2d<double> matrixD {{1, 2 ,3}};
+    Matrix2d<double> matrixF {{1, 6, 2, 5},
+                             {3, 2, 2, 7},
+                             {2, 2, 8, 4}};
+
     // расчеты
     Matrix2d<double> resultMatrix(matrixA.multiplication(&matrixB)->data());
     Matrix2d<double> properMatrix {{7,10,6},
                                   {15,26,14},
                                   {28,56,28},
                                   {18,60,24}};
+    Matrix2d<double> resultMatrix2(matrixD.multiplication(&matrixF)->data());
+    Matrix2d<double> properMatrix2 {{13,16,30,31}};
+
     // плохой случай
     try {
         auto matrixResBad = matrixA.multiplication(&matrixС);
@@ -690,6 +698,7 @@ void TestMatrix::testComplicatedMatrix2dMult()
     }
 
     QCOMPARE(resultMatrix.data(), properMatrix.data());
+    QCOMPARE(resultMatrix2.data(), properMatrix2.data());
 }
 
 void TestMatrix::testMatrix2dDivNumberDirectAndReverseOrder()
