@@ -3,6 +3,7 @@ qt_add_library(exception STATIC
     lossexception.h lossexception.cpp
     textembeddingexception.h textembeddingexception.cpp
     activationfunctionsexception.h activationfunctionsexception.cpp
+    neuralnetworkexception.h neuralnetworkexception.cpp
 )
 target_link_libraries(exception PRIVATE
     Qt6::Core

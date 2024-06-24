@@ -138,7 +138,6 @@ Matrix3d<double> LSTMLayer::forward(Matrix3d<double> xSequenceIn)
     } catch (const MatrixException &e) {
         cout << e.what() << endl;
     }
-
 }
 
 Matrix3d<double> LSTMLayer::backward(Matrix3d<double> xSequenceOutGrad)
