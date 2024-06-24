@@ -6,6 +6,7 @@
 
 #include "matrix2d.h"
 #include "activationfunctions.h"
+#include "neuralnetworkexception.h"
 
 ///
 /// \brief The INeuralNetworkNode interface
