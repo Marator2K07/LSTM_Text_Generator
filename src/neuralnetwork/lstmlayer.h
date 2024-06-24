@@ -2,6 +2,7 @@
 #define LSTMLAYER_H
 
 #include "ineuralnetworklayer.h"
+#include "matrix3d.cpp"
 
 class LSTMLayer : public INeuralNetworkLayer
 {
