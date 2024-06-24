@@ -57,7 +57,7 @@ LSTMNode::forward(Matrix2d<double> xIn,
             );
         // промежуточное и икончательное кандидатные значения состояния памяти
         _forwardPassValues.insert(
-            "С_bar_inter",
+            "C_bar_inter",
             Matrix2d<double>(
                 _forwardPassValues["Z"]
                     .multiplication(&layerParams["W_c"]["value"])
@@ -68,7 +68,7 @@ LSTMNode::forward(Matrix2d<double> xIn,
         _forwardPassValues.insert(
             "C_bar",
             Matrix2d<double>(
-                ActivationFunctions<double>::tanh(&_forwardPassValues["С_bar_inter"])
+                ActivationFunctions<double>::tanh(&_forwardPassValues["C_bar_inter"])
                     ->data()
                 )
             );
