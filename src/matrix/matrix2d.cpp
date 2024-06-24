@@ -125,7 +125,7 @@ template<typename T>
 void Matrix2d<T>::setRow(const vector<T> row, int index)
 {
     // проверки
-    if (row.size() != _data.size()) {
+    if (row.size() != _data[index].size()) {
         throw MatrixException(
             QString("\nMatrix set row exception \n[%1]\n")
                 .arg("Trying to overwrite row with a new size")
@@ -424,7 +424,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::axisSum(const int axis)
     // проверки
     if (axis < 0 || axis >= 2) {
         throw MatrixException(
-            QString("\nMatrix axis oepration exception \n[%1]\n")
+            QString("\nMatrix axis operation exception \n[%1]\n")
                 .arg("Inaccessible axis selected")
             );
     }
