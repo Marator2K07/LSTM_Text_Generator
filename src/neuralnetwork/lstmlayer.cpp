@@ -101,11 +101,11 @@ void LSTMLayer::clearGradients()
 
 Matrix3d<double> LSTMLayer::forward(Matrix3d<double> xSequenceIn)
 {
-    // если проходим впервые
-    if (_firstStep) {
-        initParams(xSequenceIn);
-    }
     try {
+        // если проходим впервые
+        if (_firstStep) {
+            initParams(xSequenceIn);
+        }
         // устанавливаем размер пакет/партии
         unsigned long long batchSize = xSequenceIn.sizes()[0];
         // копии начального скрытого состояния и ячейки памяти
@@ -136,7 +136,10 @@ Matrix3d<double> LSTMLayer::forward(Matrix3d<double> xSequenceIn)
 
         return xSequenceOut;
     } catch (const MatrixException &e) {
-        cout << e.what() << endl;
+        throw NeuralNetworkException(
+            QString("\nNeural network exception \n[%1]<-[%2]\n")
+                .arg("Error in forward layer pass", e.what())
+            );
     }
 }
 
@@ -169,6 +172,9 @@ Matrix3d<double> LSTMLayer::backward(Matrix3d<double> xSequenceOutGrad)
 
         return xSequenceInGrad;
     } catch (const MatrixException &e) {
-        cout << e.what() << endl;
+        throw NeuralNetworkException(
+            QString("\nNeural network exception \n[%1]<-[%2]\n")
+                .arg("Error in backward layer pass", e.what())
+            );
     }
 }

@@ -6,6 +6,7 @@
 #include "matrix3d.h"
 #include "lstmnode.h"
 #include "activationfunctions.h"
+#include "neuralnetworkexception.h"
 
 ///
 /// \brief The INeuralNetworkLayer interface
