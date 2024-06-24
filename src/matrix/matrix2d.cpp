@@ -433,7 +433,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::axisSum(const int axis)
     int rowIndex = 0;
     // заполняем данных для результирующей матрицы складывая строки
     if (axis == 0) {
-        resultData.push_back(vector<T>(sizes()[axis]+1));
+        resultData.push_back(vector<T>(sizes()[1]));
         for (const vector<T> row : _data) {
             for (int i = 0; i < row.size(); ++i) {
                 resultData[0][i] += row[i];
