@@ -122,7 +122,7 @@ Matrix3d<double> LSTMLayer::forward(Matrix3d<double> xSequenceIn)
         // 1) извлекается входная матрица значений
         // 2) прямой проход через узел/ячейку сети
         // 3) обновление матрицы значений и состояний
-        for (int t = 0; t < sequenceLength; ++t) {
+        for (unsigned long long t = 0; t < sequenceLength; ++t) {
             Matrix2d<double> xIn = xSequenceIn.rowsWithIndex(t);
             QMap<QString, Matrix2d<double>> out
                 = _cells[t].forward(xIn, hIn, cIn, _params);
@@ -139,6 +139,11 @@ Matrix3d<double> LSTMLayer::forward(Matrix3d<double> xSequenceIn)
         throw NeuralNetworkException(
             QString("\nNeural network exception \n[%1]<-[%2]\n")
                 .arg("Error in forward layer pass", e.what())
+            );
+    } catch (const exception &e) {
+        throw NeuralNetworkException(
+            QString("\nNeural network exception \n[%1]<-[%2]\n")
+                .arg("Error in backward layer pass", e.what())
             );
     }
 }
@@ -161,7 +166,8 @@ Matrix3d<double> LSTMLayer::backward(Matrix3d<double> xSequenceOutGrad)
         // 1) извлекается градиент для текущего символа
         // 2) обратный проход через узел/ячейку сети
         // 3) обновление градиентов данных и состояний сети, ячеек
-        for (int t = numChars-1; t >= 0; --t) {
+        for (unsigned long long t = numChars-1; t >= 0; --t) {
+            cout << t << endl;
             Matrix2d<double> xInGrad = xSequenceOutGrad.rowsWithIndex(t);
             QMap<QString, Matrix2d<double>> inGrad
                 = _cells[t].backward(xInGrad, hInGrad, cInGrad, _params);
@@ -172,6 +178,11 @@ Matrix3d<double> LSTMLayer::backward(Matrix3d<double> xSequenceOutGrad)
 
         return xSequenceInGrad;
     } catch (const MatrixException &e) {
+        throw NeuralNetworkException(
+            QString("\nNeural network exception \n[%1]<-[%2]\n")
+                .arg("Error in backward layer pass", e.what())
+            );
+    } catch (const exception &e) {
         throw NeuralNetworkException(
             QString("\nNeural network exception \n[%1]<-[%2]\n")
                 .arg("Error in backward layer pass", e.what())
