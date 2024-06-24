@@ -105,62 +105,71 @@ Matrix3d<double> LSTMLayer::forward(Matrix3d<double> xSequenceIn)
     if (_firstStep) {
         initParams(xSequenceIn);
     }
-    // устанавливаем размер пакет/партии
-    unsigned long long batchSize = xSequenceIn.sizes()[0];
-    // копии начального скрытого состояния и ячейки памяти
-    Matrix2d<double> hIn(_startH.data());
-    Matrix2d<double> cIn(_startC.data());
-    // повторяем копии batchSize раз ради соотвествия по размеру/ам
-    hIn = Matrix2d<double>(hIn.rowsRepeat(batchSize)->data());
-    cIn = Matrix2d<double>(cIn.rowsRepeat(batchSize)->data());
-    // находим длину последовательности и подготавливаем основу выхода слоя
-    unsigned long long sequenceLength = xSequenceIn.sizes()[1];
-    Matrix3d<double> xSequenceOut
-        = Matrix3d<double>::zeroM(batchSize, sequenceLength, _outputSize);
-    // для каждого временного шага:
-    // 1) извлекается входная матрица значений
-    // 2) прямой проход через узел/ячейку сети
-    // 3) обновление матрицы значений и состояний
-    for (int t = 0; t < sequenceLength; ++t) {
-        Matrix2d<double> xIn = xSequenceIn.rowsWithIndex(t);
-        QMap<QString, Matrix2d<double>> out
-            = _cells[t].forward(xIn, hIn, cIn, _params);
-        hIn = out["H_out"];
-        cIn = out["C_out"];
-        xSequenceOut.setRowsWithIndex(out["X_out"], t);
-    }
-    // в итоге обновляется и стартовое скрытое состояние сети и ячейки
-    _startH = Matrix2d<double>(hIn.axisMean(0)->data());
-    _startC = Matrix2d<double>(cIn.axisMean(0)->data());
+    try {
+        // устанавливаем размер пакет/партии
+        unsigned long long batchSize = xSequenceIn.sizes()[0];
+        // копии начального скрытого состояния и ячейки памяти
+        Matrix2d<double> hIn(_startH.data());
+        Matrix2d<double> cIn(_startC.data());
+        // повторяем копии batchSize раз ради соотвествия по размеру/ам
+        hIn = Matrix2d<double>(hIn.rowsRepeat(batchSize)->data());
+        cIn = Matrix2d<double>(cIn.rowsRepeat(batchSize)->data());
+        // находим длину последовательности и подготавливаем основу выхода слоя
+        unsigned long long sequenceLength = xSequenceIn.sizes()[1];
+        Matrix3d<double> xSequenceOut
+            = Matrix3d<double>::zeroM(batchSize, sequenceLength, _outputSize);
+        // для каждого временного шага:
+        // 1) извлекается входная матрица значений
+        // 2) прямой проход через узел/ячейку сети
+        // 3) обновление матрицы значений и состояний
+        for (int t = 0; t < sequenceLength; ++t) {
+            Matrix2d<double> xIn = xSequenceIn.rowsWithIndex(t);
+            QMap<QString, Matrix2d<double>> out
+                = _cells[t].forward(xIn, hIn, cIn, _params);
+            hIn = out["H_out"];
+            cIn = out["C_out"];
+            xSequenceOut.setRowsWithIndex(out["X_out"], t);
+        }
+        // в итоге обновляется и стартовое скрытое состояние сети и ячейки
+        _startH = Matrix2d<double>(hIn.axisMean(0)->data());
+        _startC = Matrix2d<double>(cIn.axisMean(0)->data());
 
-    return xSequenceOut;
+        return xSequenceOut;
+    } catch (const MatrixException &e) {
+        cout << e.what() << endl;
+    }
+
 }
 
 Matrix3d<double> LSTMLayer::backward(Matrix3d<double> xSequenceOutGrad)
 {
-    // устанавливаем размер пакет/партии
-    unsigned long long batchSize = xSequenceOutGrad.sizes()[0];
-    // подготавливаем матрицы входа градиента для
-    // скрытого состояния и состояния ячейки
-    Matrix2d<double> hInGrad = Matrix2d<double>::zeroM(batchSize, _hiddenSize);
-    Matrix2d<double> cInGrad = Matrix2d<double>::zeroM(batchSize, _hiddenSize);
-    // задаем количество символов для обработки
-    unsigned long long numChars = xSequenceOutGrad.sizes()[1];
-    // подготавливаем основу для хранения входных градиентов данных
-    Matrix3d<double> xSequenceInGrad
-        = Matrix3d<double>::zeroM(batchSize, numChars, _vocabSize);
-    // во время обратного прохода для каждого символа(временной шаг t):
-    // 1) извлекается градиент для текущего символа
-    // 2) обратный проход через узел/ячейку сети
-    // 3) обновление градиентов данных и состояний сети, ячеек
-    for (int t = numChars-1; t >= 0; --t) {
-        Matrix2d<double> xInGrad = xSequenceOutGrad.rowsWithIndex(t);
-        QMap<QString, Matrix2d<double>> inGrad
-            = _cells[t].backward(xInGrad, hInGrad, cInGrad, _params);
-        hInGrad = inGrad["dH_prev"];
-        cInGrad = inGrad["dC_prev"];
-        xSequenceInGrad.setRowsWithIndex(inGrad["dX_prev"], t);
-    }
+    try {
+        // устанавливаем размер пакет/партии
+        unsigned long long batchSize = xSequenceOutGrad.sizes()[0];
+        // подготавливаем матрицы входа градиента для
+        // скрытого состояния и состояния ячейки
+        Matrix2d<double> hInGrad = Matrix2d<double>::zeroM(batchSize, _hiddenSize);
+        Matrix2d<double> cInGrad = Matrix2d<double>::zeroM(batchSize, _hiddenSize);
+        // задаем количество символов для обработки
+        unsigned long long numChars = xSequenceOutGrad.sizes()[1];
+        // подготавливаем основу для хранения входных градиентов данных
+        Matrix3d<double> xSequenceInGrad
+            = Matrix3d<double>::zeroM(batchSize, numChars, _vocabSize);
+        // во время обратного прохода для каждого символа(временной шаг t):
+        // 1) извлекается градиент для текущего символа
+        // 2) обратный проход через узел/ячейку сети
+        // 3) обновление градиентов данных и состояний сети, ячеек
+        for (int t = numChars-1; t >= 0; --t) {
+            Matrix2d<double> xInGrad = xSequenceOutGrad.rowsWithIndex(t);
+            QMap<QString, Matrix2d<double>> inGrad
+                = _cells[t].backward(xInGrad, hInGrad, cInGrad, _params);
+            hInGrad = inGrad["dH_prev"];
+            cInGrad = inGrad["dC_prev"];
+            xSequenceInGrad.setRowsWithIndex(inGrad["dX_prev"], t);
+        }
 
-    return xSequenceInGrad;
+        return xSequenceInGrad;
+    } catch (const MatrixException &e) {
+        cout << e.what() << endl;
+    }
 }
