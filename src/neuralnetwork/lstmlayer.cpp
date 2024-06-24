@@ -166,15 +166,16 @@ Matrix3d<double> LSTMLayer::backward(Matrix3d<double> xSequenceOutGrad)
         // 1) извлекается градиент для текущего символа
         // 2) обратный проход через узел/ячейку сети
         // 3) обновление градиентов данных и состояний сети, ячеек
-        for (unsigned long long t = numChars-1; t >= 0; --t) {
-            cout << t << endl;
+        long long t = numChars-1;
+        do {
             Matrix2d<double> xInGrad = xSequenceOutGrad.rowsWithIndex(t);
             QMap<QString, Matrix2d<double>> inGrad
                 = _cells[t].backward(xInGrad, hInGrad, cInGrad, _params);
             hInGrad = inGrad["dH_prev"];
             cInGrad = inGrad["dC_prev"];
             xSequenceInGrad.setRowsWithIndex(inGrad["dX_prev"], t);
-        }
+            t--;
+        } while (t >= 0);
 
         return xSequenceInGrad;
     } catch (const MatrixException &e) {
