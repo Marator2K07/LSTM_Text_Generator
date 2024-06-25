@@ -1,4 +1,5 @@
 #include "softmaxcrossentropyloss.h"
+#include "activationfunctions.cpp"
 
 SoftmaxCrossEntropyLoss::SoftmaxCrossEntropyLoss(double stabBorder)
     : _stabBorder{stabBorder}
