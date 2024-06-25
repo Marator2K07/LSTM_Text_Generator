@@ -6,7 +6,7 @@
 ///
 /// \brief The SoftmaxCrossEntropyLoss class
 /// перекрестно-энтропийная потеря
-class SoftmaxCrossEntropyLoss : ILoss
+class SoftmaxCrossEntropyLoss : public ILoss
 {
 private:
     double _stabBorder; // стабилизирующая граница для вывода softmax

@@ -1,4 +1,5 @@
 #include "lstmmodel.h"
+#include "matrix3d.cpp"
 
 LSTMModel::LSTMModel(ILoss *loss, QList<INeuralNetworkLayer *> layers)
     : _loss{loss}

@@ -5,6 +5,9 @@
 #include "matrix2d.cpp"
 #include "activationfunctions.cpp"
 
+///
+/// \brief The LSTMNode class
+/// узла нейронной сети типа LSTM
 class LSTMNode : public INeuralNetworkNode
 {
 private:

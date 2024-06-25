@@ -1,7 +1,10 @@
 #ifndef INEURALNETWORKMODEL_H
 #define INEURALNETWORKMODEL_H
 
-#include "lstmlayer.h"
+#include <QList>
+
+#include "iloss.h"
+#include "ineuralnetworklayer.h"
 
 ///
 /// \brief The INeuralNetworkModel interface

@@ -4,6 +4,9 @@
 #include "ineuralnetworklayer.h"
 #include "matrix3d.cpp"
 
+///
+/// \brief The LSTMLayer class
+/// слоя нейронной сети типа LSTM
 class LSTMLayer : public INeuralNetworkLayer
 {
 private:
