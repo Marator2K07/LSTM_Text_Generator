@@ -988,7 +988,9 @@ void TestMatrix::testMatrix2dAndMatrix3dClip()
     Matrix3d<double> matrix3d {{{1,0.42,0.22},{0.642,0.33,0}},
                               {{1,0.42,0.22},{0.642,0.33,0}}};
     double leftBorder = 1e-9;
+    double leftBorderTwo = 0.1;
     double rightBorder = 1-leftBorder;
+    double rightBorderTwo = 0.5;
     // расчеты
     auto resultMatrix2d = matrix2d.clipM(leftBorder,rightBorder);
     resultMatrix2d->floorM(9); // 'совпадает' с 1e-9
@@ -1000,8 +1002,13 @@ void TestMatrix::testMatrix2dAndMatrix3dClip()
     Matrix3d<double> properMatrix3dReal(resultMatrix3d->data());
     Matrix3d<double> properMatrix3d {{{1-(1e-9),0.42,0.22}, {0.642,0.33,1e-9}},
                                     {{1-(1e-9),0.42,0.22}, {0.642,0.33,1e-9}}};
+    auto resultMatrix2d2 = matrix2d.clipM(leftBorderTwo, rightBorderTwo);
+    Matrix2d<double> properMatrix2dReal2(resultMatrix2d2->data());
+    Matrix2d<double> properMatrix2d2 {{0.5,0.42,0.22},
+                                      {0.5,0.33,0.1}};
 
     QCOMPARE(properMatrix2dReal == properMatrix2d, true);
+    QCOMPARE(properMatrix2dReal2 == properMatrix2d2, true);
     QCOMPARE(properMatrix3dReal == properMatrix3d, true);
 }
 
