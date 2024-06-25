@@ -7,6 +7,11 @@ LSTMModel::LSTMModel(ILoss *loss, QList<INeuralNetworkLayer *> layers)
 {
 }
 
+QList<INeuralNetworkLayer *> LSTMModel::layers() const
+{
+    return _layers;
+}
+
 Matrix3d<double> LSTMModel::forward(Matrix3d<double> batch)
 {
     Matrix3d<double> predictionBatch;

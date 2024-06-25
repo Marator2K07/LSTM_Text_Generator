@@ -13,6 +13,10 @@ class INeuralNetworkModel
 {
 public:
     ///
+    /// \brief layers доступ к слоям нейронной сети
+    /// \return список слоев данной модели
+    virtual QList<INeuralNetworkLayer *> layers() const = 0;
+    ///
     /// \brief forward прямой проход по слоям модели
     /// \param batch трехмерное представление входящих символов
     /// \return трехмерное предсказание после обработки слоями
