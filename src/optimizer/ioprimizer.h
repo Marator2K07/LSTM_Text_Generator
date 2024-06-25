@@ -12,15 +12,12 @@
 /// нейронной сети(обновление параметров сети при обучении)
 class IOprimizer
 {
-public:
+public:   
     ///
-    /// \brief updateRule обновление модели на основе переданных параметров
-    /// \param stepParams переданные параметры
-    virtual void updateRule(QMap<QString, Matrix2d<double>> &stepParams) = 0;
-    ///
-    /// \brief step обновление параметров модели путем
-    /// применения правила обновления и дополнительных возможностей
-    virtual void step() = 0;
+    /// \brief update обновление параметров модели путем
+    /// применения обрезки градиентов и дополнительных
+    /// возможностей, зависящих от реализации наследника
+    virtual void update() = 0;
 };
 
 #endif // IOPRIMIZER_H
