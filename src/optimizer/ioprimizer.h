@@ -14,7 +14,7 @@ public:
     ///
     /// \brief updateRule обновление модели на основе переданных параметров
     /// \param stepParams переданные параметры
-    virtual void updateRule(QMap<QString, Matrix2d<double>&> stepParams) = 0;
+    virtual void updateRule(QMap<QString, Matrix2d<double>> &stepParams) = 0;
     ///
     /// \brief step обновление параметров модели путем
     /// применения правила обновления и дополнительных возможностей
