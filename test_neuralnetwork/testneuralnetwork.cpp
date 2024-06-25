@@ -2,8 +2,10 @@
 #include <QtTest/QtTest>
 #include <QMapIterator>
 
+#include "softmaxcrossentropyloss.h"
 #include "lstmnode.h"
 #include "lstmlayer.h"
+#include "lstmmodel.h"
 
 using namespace std;
 
@@ -24,6 +26,10 @@ private slots:
     /// \brief testLSTMLayerBackward
     /// поверхностная проверка работоспособности обратного прохода слоя LSTM
     void testLSTMLayerBackward();
+    ///
+    /// \brief testLSTMModelOne
+    /// первый тест модели нейронной сети типа LSTM
+    void testLSTMModelOne();
 };
 
 void TestNeuralNetwork::testLSTMnode()
@@ -162,12 +168,38 @@ void TestNeuralNetwork::testLSTMLayerBackward()
         // расчеты
         Matrix3d<double> sequenceOut = layer.forward(sequenceIn);
         Matrix3d<double> gradIn = layer.backward(gradOut);
-        gradIn.print();
+        //gradIn.print();
 
         QCOMPARE(gradOut == gradIn, false);
     } catch (const NeuralNetworkException &e) {
         cout << e.what() << endl;
     }
+}
+
+void TestNeuralNetwork::testLSTMModelOne()
+{
+    // инициализация
+    int hiddenSize = 128;
+    int batchSize = 64;
+    int sequenceLenght = 10;
+    int outputSize = 44;
+    int vocabSize = 44;
+    LSTMModel lstmModel(new SoftmaxCrossEntropyLoss(),
+                        QList<INeuralNetworkLayer *>{
+                            new LSTMLayer(hiddenSize, outputSize)
+                        });
+    // расчеты
+    double resLossAfter1Step
+        = lstmModel.singleStep(Matrix3d<double>::zeroM(batchSize, sequenceLenght, vocabSize),
+                               Matrix3d<double>::zeroM(batchSize, sequenceLenght, vocabSize));
+    double resLossAfter2Step
+        = lstmModel.singleStep(Matrix3d<double>::randomNormal(0.0, 0.01,
+                                                              batchSize, sequenceLenght, vocabSize),
+                               Matrix3d<double>::randomNormal(0.0, 0.01,
+                                                              batchSize, sequenceLenght, vocabSize));
+    cout << resLossAfter1Step << endl << resLossAfter2Step << endl;
+
+    QCOMPARE(resLossAfter1Step != resLossAfter2Step, true);
 }
 
 QTEST_MAIN(TestNeuralNetwork)
