@@ -10,11 +10,14 @@
 class SGD : public IOprimizer
 {
 private:
+    INeuralNetworkModel *_model; // модель нейронной сети
     double _learningRate; // коэффициент обучения
     bool _gradientClip; // флаг обрезки градиентов для возможной оптимизации
 
 public:
-    SGD(double learningRate, bool gradientClip);
+    SGD(INeuralNetworkModel *model,
+        double learningRate,
+        bool gradientClip);
 
 public:
     // IOprimizer interface

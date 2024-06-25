@@ -1,7 +1,10 @@
 #include "sgd.h"
 
-SGD::SGD(double learningRate, bool gradientClip)
-    : _learningRate{learningRate}
+SGD::SGD(INeuralNetworkModel *model,
+         double learningRate,
+         bool gradientClip)
+    : _model{model}
+    , _learningRate{learningRate}
     , _gradientClip{gradientClip}
 {
 }
