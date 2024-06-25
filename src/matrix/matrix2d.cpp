@@ -166,9 +166,6 @@ void Matrix2d<T>::setOperation(OperationType opType)
     case OperationType::TANHM:
         _operationPtr = &Operations<T>::tanhM;
         break;
-    case OperationType::CLIPM:
-        _operationPtr = &Operations<T>::clipM;
-        break;
     case OperationType::FLOORM:
         _operationPtr = &Operations<T>::floorM;
         break;
@@ -533,8 +530,26 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::floorM(T num)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::clipM(T leftBorder, T rightBorder)
 {
-    _operationPtr = &Operations<T>::clipM;
-    return doOperation(leftBorder);
+    // подготовка
+    vector<vector<T>> resultData;
+    // заполнение данных для результирующей матрицы
+    for (int rowI = 0; rowI < _data.size(); ++rowI) {
+        resultData.push_back(vector<T>());
+        for (int i = 0; i < _data[0].size(); ++i) {
+            T oldValue = _data[rowI][i];
+            T newValue;
+            if (oldValue <= leftBorder) {
+                newValue = leftBorder;
+            } else if (oldValue >= rightBorder) {
+                newValue = rightBorder;
+            } else {
+                newValue = oldValue;
+            }
+            resultData[rowI].push_back(newValue);
+        }
+    }
+
+    return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
 template<typename T>

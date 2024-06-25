@@ -29,13 +29,6 @@ public:
     static T expM(T mainParam, T extraParam);
     static T tanhM(T mainParam, T extraParam);
     ///
-    /// \brief clipM обрезка числа по границам
-    /// [leftBorder, 1-leftBorder]
-    /// \param mainNum число для обрезки
-    /// \param leftBorder левая граница обрезки
-    /// \return возможно обрезанное число
-    static T clipM(T mainNum, T leftBorder);
-    ///
     /// \brief floorM округление с точностью до
     /// numOfDecimal цифр после запятой
     /// \param mainParam число для округления
@@ -91,21 +84,6 @@ template<typename T>
 T Operations<T>::tanhM(T mainParam, T extraParam)
 {
     return tanh(mainParam);
-}
-
-template<typename T>
-T Operations<T>::clipM(T mainNum, T leftBorder)
-{
-    T rightBorder = 1 - leftBorder;
-    T newValue;
-    if (mainNum <= leftBorder) {
-        newValue = leftBorder;
-    } else if (mainNum >= rightBorder) {
-        newValue = rightBorder;
-    } else {
-        newValue = mainNum;
-    }
-    return newValue;
 }
 
 template<typename T>

@@ -439,8 +439,16 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::floorM(T num)
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::clipM(T leftBorder, T rightBorder)
 {
-    _opType = OperationType::CLIPM;
-    return doOperation(leftBorder);
+    // подготовка
+    vector<Matrix2d<T>> resultData;
+    // заполнение данных для результирующей матрицы
+    for (int i = 0; i < _data.size(); ++i) {
+        _data[i].setOperation(_opType); // перед выполнением нужно указать операцию!
+        Matrix2d<T> stepMatrix(_data[i].clipM(leftBorder, rightBorder)->data());
+        resultData.push_back(stepMatrix);
+    }
+
+    return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
 }
 
 template<typename T>
