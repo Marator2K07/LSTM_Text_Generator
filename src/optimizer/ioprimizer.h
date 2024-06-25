@@ -2,7 +2,9 @@
 #define IOPRIMIZER_H
 
 #include <QMap>
+
 #include "matrix2d.h"
+#include "ineuralnetworkmodel.h"
 
 ///
 /// \brief The IOprimizer interface
