@@ -9,7 +9,7 @@ SGD::SGD(INeuralNetworkModel *model,
 {
 }
 
-void SGD::updateRule(QMap<QString, Matrix2d<double>> &stepParams)
+void SGD::update()
 {
     // получаем обновленное значение градиента
     Matrix2d<double> updateGrad(
@@ -24,7 +24,6 @@ void SGD::updateRule(QMap<QString, Matrix2d<double>> &stepParams)
         );
 }
 
-void SGD::step()
 {
 
 }

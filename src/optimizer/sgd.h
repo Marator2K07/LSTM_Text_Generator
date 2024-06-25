@@ -21,8 +21,7 @@ public:
 
 public:
     // IOprimizer interface
-    void updateRule(QMap<QString, Matrix2d<double>> &stepParams) override;
-    void step() override;
+    void update() override;
     //
 
 };
