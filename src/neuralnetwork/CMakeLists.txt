@@ -4,11 +4,13 @@ qt_add_library(neuralnetwork STATIC
     ineuralnetworknode.h
     lstmnode.h lstmnode.cpp
     lstmlayer.h lstmlayer.cpp
+    lstmmodel.h lstmmodel.cpp
 )
 target_link_libraries(neuralnetwork PRIVATE
     Qt6::Core
 )
 target_link_libraries(neuralnetwork PRIVATE
+    loss
     matrix
     exception
     activationfunctions
