@@ -25,7 +25,11 @@ public:
 
 public:
     // INeuralNetworkLayer interface
+    void updateParam(const QString firstKey,
+                     const QString secondKey,
+                     const Matrix2d<double> value) override;
     void initParams(const Matrix3d<double> initMatrix) override;
+    QMap<QString, QMap<QString, Matrix2d<double>>> params() const override;
     void clearGradients() override;
     Matrix3d<double> forward(Matrix3d<double> xSequenceIn) override;
     Matrix3d<double> backward(Matrix3d<double> xSequenceOutGrad) override;

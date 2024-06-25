@@ -15,10 +15,23 @@ class INeuralNetworkLayer
 {
 public:
     ///
+    /// \brief updateParam обновление параметра
+    /// слоя сети в процессе оптимизации
+    /// \param firstKey - вторичный ключ параметров слоя
+    /// \param secondKey - вторичный ключ параметров слоя
+    /// \param value - новое значение
+    virtual void updateParam(const QString firstKey,
+                             const QString secondKey,
+                             const Matrix2d<double> value) = 0;
+    ///
     /// \brief initParams инициализация параметров слоя
     /// по размерам входящей трехмерной матрицы
     /// \param initMatrix матрица для инициализации
     virtual void initParams(const Matrix3d<double> initMatrix) = 0;
+    ///
+    /// \brief params доступ к параметрам текущего слоя
+    /// \return двойной словарь параметров данной сети
+    virtual QMap<QString, QMap<QString, Matrix2d<double>>> params() const = 0;
     ///
     /// \brief clearGraients чистка накопившихся градиентов слоя
     virtual void clearGradients() = 0;

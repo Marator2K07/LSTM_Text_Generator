@@ -10,6 +10,13 @@ LSTMLayer::LSTMLayer(int hiddenSize, int outputSize, double weightScale)
     _firstStep = true;
 }
 
+void LSTMLayer::updateParam(const QString firstKey,
+                            const QString secondKey,
+                            const Matrix2d<double> value)
+{
+    _params[firstKey].insert(secondKey, value);
+}
+
 void LSTMLayer::initParams(const Matrix3d<double> initMatrix)
 {
     _vocabSize = initMatrix.sizes()[2];
@@ -86,6 +93,11 @@ void LSTMLayer::initParams(const Matrix3d<double> initMatrix)
     }
     // сбрасываем флаг инициализации
     _firstStep = false;
+}
+
+QMap<QString, QMap<QString, Matrix2d<double>>> LSTMLayer::params() const
+{
+    return _params;
 }
 
 void LSTMLayer::clearGradients()
