@@ -562,6 +562,9 @@ void TestMatrix::testMatrix2dSimplMultMatrix2d()
                              {2,6}};
     Matrix2d<double> matrixC {{1,6,2},
                              {3,2,2}};
+    Matrix2d<double> matrixD {{1,2,3},
+                              {4,7,7},
+                              {9,3,0}};
     // плохой случай
     try {
         auto resultMatrix = matrixB.simplifiedMult(&matrixC);
@@ -572,8 +575,14 @@ void TestMatrix::testMatrix2dSimplMultMatrix2d()
     auto resultMatrixAB = matrixA.simplifiedMult(&matrixB);
     Matrix2d<double> properMatrixAB {{7,8},
                                     {6,54}};
+    // расчеты
+    auto resultMatrixDD = matrixD.simplifiedMult(&matrixD);
+    Matrix2d<double> properMatrixDD {{1,4,9},
+                                    {16,49,49},
+                                    {81,9,0}};
 
     QCOMPARE(resultMatrixAB->data(), properMatrixAB.data());
+    QCOMPARE(resultMatrixDD->data(), properMatrixDD.data());
 }
 
 void TestMatrix::testMatrix3dSimplMultMatrix3d()
