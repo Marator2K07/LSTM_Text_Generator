@@ -166,6 +166,9 @@ void Matrix2d<T>::setOperation(OperationType opType)
     case OperationType::TANHM:
         _operationPtr = &Operations<T>::tanhM;
         break;
+    case OperationType::SQRTM:
+        _operationPtr = &Operations<T>::sqrtM;
+        break;
     case OperationType::FLOORM:
         _operationPtr = &Operations<T>::floorM;
         break;
