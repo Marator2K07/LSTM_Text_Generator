@@ -11,7 +11,7 @@ using namespace std;
 /// \brief The OperationType enum
 /// определение вида операции для ее изменения
 enum class OperationType {
-    SUM, SUB, MUL, DIV, LOGM, EXPM, TANHM, CLIPM, FLOORM
+    SUM, SUB, MUL, DIV, LOGM, EXPM, TANHM, SQRTM, FLOORM
 };
 
 ///
@@ -29,6 +29,7 @@ public:
     static T logM(T mainParam, T extraParam);
     static T expM(T mainParam, T extraParam);
     static T tanhM(T mainParam, T extraParam);
+    static T sqrtM(T mainParam, T extraParam);
     ///
     /// \brief floorM округление с точностью до
     /// numOfDecimal цифр после запятой
@@ -85,6 +86,12 @@ template<typename T>
 T Operations<T>::tanhM(T mainParam, T extraParam)
 {
     return tanh(mainParam);
+}
+
+template<typename T>
+T Operations<T>::sqrtM(T mainParam, T extraParam)
+{
+    return sqrt(mainParam);
 }
 
 template<typename T>
