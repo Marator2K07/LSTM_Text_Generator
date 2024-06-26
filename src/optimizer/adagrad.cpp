@@ -2,9 +2,11 @@
 
 AdaGrad::AdaGrad(INeuralNetworkModel *model,
                  double learningRate,
+                 double epsilon,
                  bool gradientClip)
     : _model{model}
     , _learningRate{learningRate}
+    , _epsilon{epsilon}
     , _gradientClip{gradientClip}
 {
 }

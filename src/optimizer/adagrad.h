@@ -20,6 +20,7 @@ private:
 public:
     AdaGrad(INeuralNetworkModel *model,
             double learningRate = 0.01,
+            double epsilon = 1e-7,
             bool gradientClip = true);
 
 public:
