@@ -17,6 +17,12 @@ private:
     bool _first; // флаг первой инициализации параметров
     QList<QMap<QString, Matrix2d<double>>> _sumSquares; // суммы квадратов град.
 
+private:
+    ///
+    /// \brief initSumSquares инициализация списка словарей
+    /// квадратов градиентов при первой оптимизации
+    void initSumSquares();
+
 public:
     AdaGrad(INeuralNetworkModel *model,
             double learningRate = 0.01,
