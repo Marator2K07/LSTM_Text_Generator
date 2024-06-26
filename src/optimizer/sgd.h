@@ -16,8 +16,8 @@ private:
 
 public:
     SGD(INeuralNetworkModel *model,
-        double learningRate,
-        bool gradientClip);
+        double learningRate = 0.01,
+        bool gradientClip = true);
 
 public:
     // IOprimizer interface

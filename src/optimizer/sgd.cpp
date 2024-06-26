@@ -33,12 +33,11 @@ void SGD::update()
                 currentParam["deriv"].multiplication(_learningRate)->data()
                 );
             // обновляем параметр сети
+            Matrix2d<double> newValue(currentParam["value"].subtraction(&updateGrad)->data());
             layer->updateParam(
                 key,
                 "value",
-                Matrix2d<double>(
-                    currentParam["deriv"].subtraction(&updateGrad)->data()
-                    )
+                newValue
                 );
         }
     }
