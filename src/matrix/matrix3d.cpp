@@ -475,7 +475,8 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::tanhM()
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix3d<T>::sqrtM()
 {
-
+    _opType = OperationType::SQRTM;
+    return doOperation();
 }
 
 template<typename T>

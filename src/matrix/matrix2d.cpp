@@ -576,7 +576,8 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::tanhM()
 template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::sqrtM()
 {
-
+    _operationPtr = &Operations<T>::sqrtM;
+    return doOperation();
 }
 
 template<typename T>
