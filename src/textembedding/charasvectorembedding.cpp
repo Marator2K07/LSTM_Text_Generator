@@ -53,6 +53,12 @@ QString CharAsVectorEmbedding<T>::text() const
 }
 
 template<typename T>
+int CharAsVectorEmbedding<T>::vocabSize() const
+{
+    return _vocabSize;
+}
+
+template<typename T>
 QMap<int, char> CharAsVectorEmbedding<T>::idxToChar() const
 {
     return _idxToChar;

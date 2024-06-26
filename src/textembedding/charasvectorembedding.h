@@ -28,13 +28,14 @@ private:
     void processTheFile(QString fileName);
 
 public:
-    CharAsVectorEmbedding(int sequenceLength = 64, int batchSize = 32);
+    CharAsVectorEmbedding(int sequenceLength = 16, int batchSize = 32);
     CharAsVectorEmbedding(QString fileName,
-                          int sequenceLength = 64,
+                          int sequenceLength = 16,
                           int batchSize = 32);
 
 public:
     QString text() const;
+    int vocabSize() const;
     QMap<int, char> idxToChar() const;
     QMap<char, int> charToIdx() const;
 

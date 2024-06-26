@@ -55,7 +55,8 @@ void TestTextEmbedding::testGenTextEmbeddingIndices()
 {
     try {
         // инициализация
-        CharAsVectorEmbedding<double> txtEmbed("Plain_Kate.txt", 32, 16);
+        CharAsVectorEmbedding<double> txtEmbed("Plain_Kate.txt", 16, 32);
+        cout << txtEmbed.vocabSize() << endl;
         // результаты
         Matrix2d<double> resIndices = txtEmbed.genTextIndices(0);
         QString str = "Erin Bow";
@@ -68,7 +69,7 @@ void TestTextEmbedding::testGenTextEmbeddingIndices()
             it.next();
             cout << it.key() << ": " << it.value() << endl;
         }
-        resIndices.print();
+        resIndices.print();        
     } catch (const TextEmbeddingException &e) {
         cout << e.what() << endl;
     }
