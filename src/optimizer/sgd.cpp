@@ -12,6 +12,7 @@ SGD::SGD(INeuralNetworkModel *model,
 
 void SGD::update()
 {
+    // каждого параметра каждого слоя
     for (INeuralNetworkLayer *layer : _model->layers()) {
         const QList<QString> layerKeys = layer->params().keys();
         for (const QString &key : layerKeys) {
@@ -33,12 +34,10 @@ void SGD::update()
                 currentParam["deriv"].multiplication(_learningRate)->data()
                 );
             // обновляем параметр сети
-            Matrix2d<double> newValue(currentParam["value"].subtraction(&updateGrad)->data());
-            layer->updateParam(
-                key,
-                "value",
-                newValue
+            Matrix2d<double> newValue(
+                currentParam["value"].subtraction(&updateGrad)->data()
                 );
+            layer->updateParam(key, "value", newValue);
         }
     }
 }
