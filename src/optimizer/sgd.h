@@ -1,13 +1,13 @@
 #ifndef SGD_H
 #define SGD_H
 
-#include "ioprimizer.h"
+#include "ioptimizer.h"
 
 ///
 /// \brief The SGD class
 /// оптимизатор нейронной сети Stochastic Gradient Descent
 /// (стохастический градиентный спуск)
-class SGD : public IOprimizer
+class SGD : public IOptimizer
 {
 private:
     INeuralNetworkModel *_model; // модель нейронной сети

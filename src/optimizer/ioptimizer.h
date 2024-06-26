@@ -1,5 +1,5 @@
-#ifndef IOPRIMIZER_H
-#define IOPRIMIZER_H
+#ifndef IOPTIMIZER_H
+#define IOPTIMIZER_H
 
 #include <QMap>
 
@@ -7,10 +7,10 @@
 #include "ineuralnetworkmodel.h"
 
 ///
-/// \brief The IOprimizer interface
+/// \brief The IOptimizer interface
 /// определение функционала оптимизатора модели
 /// нейронной сети(обновление параметров сети при обучении)
-class IOprimizer
+class IOptimizer
 {
 public:   
     ///
@@ -20,4 +20,4 @@ public:
     virtual void update() = 0;
 };
 
-#endif // IOPRIMIZER_H
+#endif // IOPTIMIZER_H

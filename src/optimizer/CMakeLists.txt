@@ -1,5 +1,5 @@
 qt_add_library(optimizer STATIC
-    ioprimizer.h
+    ioptimizer.h
     sgd.h sgd.cpp
 )
 target_link_libraries(optimizer PRIVATE
