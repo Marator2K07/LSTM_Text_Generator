@@ -14,6 +14,8 @@ private:
     double _learningRate; // коэффициент обучения
     double _epsilon; // вспомогательная переменная для исключения / на ноль
     bool _gradientClip; // флаг обрезки градиентов для возможной оптимизации
+    bool _first; // флаг первой инициализации параметров
+    QList<QMap<QString, Matrix2d<double>>> _sumSquares; // суммы квадратов град.
 
 public:
     AdaGrad(INeuralNetworkModel *model,
