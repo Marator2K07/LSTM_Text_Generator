@@ -574,6 +574,12 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::tanhM()
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix2d<T>::sqrtM()
+{
+
+}
+
+template<typename T>
 T Matrix2d<T>::totalSum()
 {
     T result;

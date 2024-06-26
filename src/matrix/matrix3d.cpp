@@ -473,6 +473,12 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::tanhM()
 }
 
 template<typename T>
+unique_ptr<IMatrix<T>> Matrix3d<T>::sqrtM()
+{
+
+}
+
+template<typename T>
 T Matrix3d<T>::totalSum()
 {
     T result;

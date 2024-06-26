@@ -87,6 +87,7 @@ public:
     unique_ptr<IMatrix<T>> lognM() override;
     unique_ptr<IMatrix<T>> expM() override;
     unique_ptr<IMatrix<T>> tanhM() override;
+    unique_ptr<IMatrix<T>> sqrtM() override;
     T totalSum() override;
     //
 

@@ -171,6 +171,10 @@ public:
     /// \return результирующая матрица
     virtual unique_ptr<IMatrix<T>> tanhM() = 0;
     ///
+    /// \brief sqrtM нахождение квадратного корня всех значений матрицы
+    /// \return результирующая матрица
+    virtual unique_ptr<IMatrix<T>> sqrtM() = 0;
+    ///
     /// \brief totalSum нахождение суммы всех элементов матрицы
     /// \return сумма всех элементов входной матрицы
     virtual T totalSum() = 0;
