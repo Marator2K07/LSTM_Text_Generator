@@ -1,4 +1,6 @@
 #include "lstmlayer.h"
+#include "matrix2d.cpp"
+#include "matrix3d.cpp"
 
 LSTMLayer::LSTMLayer(int hiddenSize, int outputSize, double weightScale)
     : _hiddenSize{hiddenSize}

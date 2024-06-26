@@ -1,4 +1,6 @@
 #include "lstmnode.h"
+#include "matrix2d.cpp"
+#include "activationfunctions.cpp"
 
 LSTMNode::LSTMNode()
 {

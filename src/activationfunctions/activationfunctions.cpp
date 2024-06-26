@@ -1,4 +1,5 @@
 #include "activationfunctions.h"
+#include "matrix3d.h"
 
 template<typename T>
 vector<double> ActivationFunctions<T>::softmaxRow(vector<T> row)

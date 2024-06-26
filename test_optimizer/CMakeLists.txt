@@ -18,6 +18,7 @@ target_link_libraries(Test_Optimizer PRIVATE
     Qt6::Test	
     activationfunctions
     neuralnetwork
+    textembedding
     optimizer
     exception
     matrix

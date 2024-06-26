@@ -1,4 +1,6 @@
 #include "charasvectorembedding.h"
+#include "matrix2d.cpp"
+#include "matrix3d.cpp"
 
 template<typename T>
 void CharAsVectorEmbedding<T>::processTheFile(QString fileName)

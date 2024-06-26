@@ -6,6 +6,8 @@
 #include "lstmnode.h"
 #include "lstmlayer.h"
 #include "lstmmodel.h"
+#include "matrix2d.cpp"
+#include "matrix3d.cpp"
 
 using namespace std;
 

@@ -2,6 +2,11 @@
 #include <QtTest/QtTest>
 
 #include "sgd.h"
+#include "lstmmodel.h"
+#include "lstmlayer.h"
+#include "softmaxcrossentropyloss.h"
+#include "charasvectorembedding.h"
+#include "charasvectorembedding.cpp"
 
 using namespace std;
 

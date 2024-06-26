@@ -1,4 +1,5 @@
 #include "sgd.h"
+#include "matrix2d.cpp"
 
 SGD::SGD(INeuralNetworkModel *model,
          double learningRate,

@@ -5,7 +5,6 @@
 #include <cmath>
 
 #include "imatrix.h"
-#include "matrix3d.h"
 #include "activationfunctionsexception.h"
 
 using namespace std;

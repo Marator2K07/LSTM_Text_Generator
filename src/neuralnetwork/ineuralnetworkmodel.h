@@ -1,8 +1,6 @@
 #ifndef INEURALNETWORKMODEL_H
 #define INEURALNETWORKMODEL_H
 
-#include <QList>
-
 #include "iloss.h"
 #include "ineuralnetworklayer.h"
 
