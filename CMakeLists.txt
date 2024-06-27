@@ -34,6 +34,7 @@ add_subdirectory(test_activationfunctions)
 add_subdirectory(test_textembedding)
 add_subdirectory(test_neuralnetwork)
 add_subdirectory(test_optimizer)
+add_subdirectory(test_trainer)
 
 include(GNUInstallDirs)
 install(TARGETS LSTM_Text_Generator
