@@ -480,6 +480,23 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::sqrtM()
 }
 
 template<typename T>
+vector<T> Matrix3d<T>::toLine()
+{
+    // подготовка
+    vector<T> resultLine;
+    // заполнения вектора значений на основе
+    // векторой значений каждой матрицы
+    for (Matrix2d<T> matrix : _data) {
+        vector<T> stepLine = matrix.toLine();
+        resultLine.insert(resultLine.end(),
+                          stepLine.begin(),
+                          stepLine.end());
+    }
+
+    return resultLine;
+}
+
+template<typename T>
 T Matrix3d<T>::totalSum()
 {
     T result;
