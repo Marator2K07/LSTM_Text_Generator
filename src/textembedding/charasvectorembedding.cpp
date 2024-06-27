@@ -18,7 +18,10 @@ void CharAsVectorEmbedding<T>::processTheFile(QString fileName)
     filedata = file.readAll();
     unsigned long index = 0;
     for (unsigned long i = 0; i < filedata.length(); ++i) {
-        if (!_charToIdx.contains(filedata.at(i))) {
+        if (!_charToIdx.contains(filedata.at(i)) &&
+            _leftIdxBorder <= filedata.at(i) &&
+            filedata.at(i) <= _rightIdxBorder) {
+            cout << filedata.at(i) << endl;
             _charToIdx.insert(filedata.at(i), index);
             _idxToChar.insert(index, filedata.at(i));
             index++;
