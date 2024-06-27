@@ -584,6 +584,21 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::sqrtM()
 }
 
 template<typename T>
+vector<T> Matrix2d<T>::toLine()
+{
+    // подготовка
+    vector<T> resultLine;
+    // заполнение вектора значений матрицы
+    for (const vector<T> row : _data) {
+        for (const T value : row) {
+            resultLine.push_back(value);
+        }
+    }
+
+    return resultLine;
+}
+
+template<typename T>
 T Matrix2d<T>::totalSum()
 {
     T result;
