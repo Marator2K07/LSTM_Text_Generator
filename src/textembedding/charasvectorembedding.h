@@ -41,7 +41,7 @@ public:
 
     // ITextEmbedding interface
     Matrix2d<T> genTextIndices(int startPos) override;
-    Matrix3d<T> genTextBanch(Matrix2d<T> indices) override;
+    Matrix3d<T> genTextBatch(Matrix2d<T> indices) override;
     //
 
 };

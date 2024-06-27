@@ -37,9 +37,9 @@ void TestOptimizer::testSGDOptimizer()
     // расчеты
     try {
         Matrix2d<double> indicesPred = txtEmbed.genTextIndices(0);
-        Matrix3d<double> batchPred = txtEmbed.genTextBanch(indicesPred);
+        Matrix3d<double> batchPred = txtEmbed.genTextBatch(indicesPred);
         Matrix2d<double> indicesTarget = txtEmbed.genTextIndices(1);
-        Matrix3d<double> batchTarget = txtEmbed.genTextBanch(indicesTarget);
+        Matrix3d<double> batchTarget = txtEmbed.genTextBatch(indicesTarget);
 
         for (int i = 0; i < 3; ++i) {
             double resLossAfterFirstStep

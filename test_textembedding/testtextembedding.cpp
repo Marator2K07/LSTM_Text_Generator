@@ -82,7 +82,7 @@ void TestTextEmbedding::testGenTextBatchEmbedding()
         CharAsVectorEmbedding<double> txtEmbed("simple_text.txt", 4, 8);
         // результаты (str = "abcdabc dacd ab")
         Matrix2d<double> resIndices = txtEmbed.genTextIndices(0);
-        Matrix3d<double> resBatch = txtEmbed.genTextBanch(resIndices);
+        Matrix3d<double> resBatch = txtEmbed.genTextBatch(resIndices);
         Matrix3d<double> properBanch {{{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}},
                                      {{0,1,0,0},{0,0,1,0},{0,0,0,1},{1,0,0,0}},
                                      {{0,0,1,0},{0,0,0,1},{1,0,0,0},{0,1,0,0}},

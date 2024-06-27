@@ -98,7 +98,7 @@ Matrix2d<T> CharAsVectorEmbedding<T>::genTextIndices(int startPos)
 }
 
 template<typename T>
-Matrix3d<T> CharAsVectorEmbedding<T>::genTextBanch(Matrix2d<T> indices)
+Matrix3d<T> CharAsVectorEmbedding<T>::genTextBatch(Matrix2d<T> indices)
 {
     // готовим будущий результат
     vector<Matrix2d<T>> resBatchData;

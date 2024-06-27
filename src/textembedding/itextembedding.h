@@ -29,11 +29,11 @@ public:
     /// \return 2д матрица с индексами символов текста
     virtual Matrix2d<T> genTextIndices(int startPos) = 0;
     ///
-    /// \brief genTextBanch генерация партии (3д матрицы)
+    /// \brief genTextBatch генерация партии (3д матрицы)
     /// представлений символов для заданного текста
     /// \param indices 2д матрица индексов символов текста
     /// \return 3д матрица с матем. представлениями символов текста
-    virtual Matrix3d<T> genTextBanch(Matrix2d<T> indices) = 0;
+    virtual Matrix3d<T> genTextBatch(Matrix2d<T> indices) = 0;
 
 public:
     virtual ~ITextEmbedding() {}
