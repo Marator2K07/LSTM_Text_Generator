@@ -1,5 +1,6 @@
 qt_add_library(trainer STATIC
     itrainer.h
+    consistenttrainer.h consistenttrainer.cpp
 )
 target_link_libraries(trainer PRIVATE
     Qt6::Core
