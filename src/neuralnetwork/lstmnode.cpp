@@ -21,7 +21,7 @@ LSTMNode::forward(Matrix2d<double> xIn,
         // входных данных и скрытого состояния
         _forwardPassValues.insert(
             "Z",
-            Matrix2d<double>(xIn.columnStack(&hIn)->data())
+            Matrix2d<double>(xIn.columnStack(&hIn))
             );
         // промежуточное и окончательное значения затвора забывания 'forget gate'
         _forwardPassValues.insert(
@@ -30,14 +30,12 @@ LSTMNode::forward(Matrix2d<double> xIn,
                 _forwardPassValues["Z"]
                     .multiplication(&layerParams["W_f"]["value"])
                     ->addition(&layerParams["B_f"]["value"])
-                    ->data()
                 )
             );
         _forwardPassValues.insert(
             "f",
             Matrix2d<double>(
                 ActivationFunctions<double>::sigmoid(&_forwardPassValues["f_inter"])
-                    ->data()
                 )
             );
         // промежуточное и икончательное значения входного затвора 'input gate'
@@ -47,14 +45,12 @@ LSTMNode::forward(Matrix2d<double> xIn,
                 _forwardPassValues["Z"]
                     .multiplication(&layerParams["W_i"]["value"])
                     ->addition(&layerParams["B_i"]["value"])
-                    ->data()
                 )
             );
         _forwardPassValues.insert(
             "i",
             Matrix2d<double>(
                 ActivationFunctions<double>::sigmoid(&_forwardPassValues["i_inter"])
-                    ->data()
                 )
             );
         // промежуточное и икончательное кандидатные значения состояния памяти
@@ -64,14 +60,12 @@ LSTMNode::forward(Matrix2d<double> xIn,
                 _forwardPassValues["Z"]
                     .multiplication(&layerParams["W_c"]["value"])
                     ->addition(&layerParams["B_c"]["value"])
-                    ->data()
                 )
             );
         _forwardPassValues.insert(
             "C_bar",
             Matrix2d<double>(
                 ActivationFunctions<double>::tanh(&_forwardPassValues["C_bar_inter"])
-                    ->data()
                 )
             );
         // промежуточное и икончательное значения выходного затвора 'output gate'
@@ -81,14 +75,12 @@ LSTMNode::forward(Matrix2d<double> xIn,
                 _forwardPassValues["Z"]
                     .multiplication(&layerParams["W_o"]["value"])
                     ->addition(&layerParams["B_o"]["value"])
-                    ->data()
                 )
             );
         _forwardPassValues.insert(
             "o",
             Matrix2d<double>(
                 ActivationFunctions<double>::sigmoid(&_forwardPassValues["o_inter"])
-                    ->data()
                 )
             );
         // выходное значение состояния ячейки
@@ -100,7 +92,6 @@ LSTMNode::forward(Matrix2d<double> xIn,
                     ->addition(_forwardPassValues["i"]
                                    .simplifiedMult(&_forwardPassValues["C_bar"])
                                    .get())
-                    ->data()
                 )
             );
         // выходное значение скрытого состояния
@@ -109,7 +100,6 @@ LSTMNode::forward(Matrix2d<double> xIn,
             Matrix2d<double>(
                 _forwardPassValues["o"]
                     .simplifiedMult(&_forwardPassValues["C_out"])
-                    ->data()
                 )
             );
         // выходные данные
@@ -119,7 +109,6 @@ LSTMNode::forward(Matrix2d<double> xIn,
                 _forwardPassValues["H_out"]
                     .multiplication(&layerParams["W_v"]["value"])
                     ->addition(&layerParams["B_v"]["value"])
-                    ->data()
                 )
             );
         // формируем и возвращаем ответ
@@ -151,13 +140,13 @@ LSTMNode::backward(Matrix2d<double> xOutGrad,
                         .transposition()
                         ->multiplication(&xOutGrad)
                         .get()
-                    )->data()
+                    )
             );
         layerParams["B_v"]["deriv"] = Matrix2d<double>(
             layerParams["B_v"]["deriv"]
                 .addition(
                     xOutGrad.axisSum(0).get()
-                    )->data()
+                    )
             );
         // вычисление производной по состоянию слоя
         // и добавление к ней градиента предыдущего шага
@@ -166,19 +155,19 @@ LSTMNode::backward(Matrix2d<double> xOutGrad,
                 .multiplication(
                     layerParams["W_v"]["value"].transposition().get()
                     )
-                ->addition(&hOutGrad)->data()
+                ->addition(&hOutGrad)
             );
         // вычисление производной по выходному затвору 'output gate'
         // и производной его промежуточного значения
         Matrix2d<double> dO(
             dHOut.simplifiedMult(
                      ActivationFunctions<double>
-                     ::tanh(&_forwardPassValues["C_out"]).get())->data()
+                     ::tanh(&_forwardPassValues["C_out"]).get())
             );
         Matrix2d<double> dOInter(
             dO.simplifiedMult(
                   ActivationFunctions<double>
-                  ::dsigmoid(&_forwardPassValues["o_inter"]).get())->data()
+                  ::dsigmoid(&_forwardPassValues["o_inter"]).get())
             );
         // обновление производных слоя для выходного затвора(шлюза)
         layerParams["W_o"]["deriv"] = Matrix2d<double>(
@@ -188,13 +177,13 @@ LSTMNode::backward(Matrix2d<double> xOutGrad,
                         .transposition()
                         ->multiplication(&dOInter)
                         .get()
-                    )->data()
+                    )
             );
         layerParams["B_o"]["deriv"] = Matrix2d<double>(
             layerParams["B_o"]["deriv"]
                 .addition(
                     dOInter.axisSum(0).get()
-                    )->data()
+                    )
             );
         // производная по выходному состоянию ячейки
         // и добавление к ней градиента предыдущего шага
@@ -204,17 +193,17 @@ LSTMNode::backward(Matrix2d<double> xOutGrad,
                     ActivationFunctions<double>
                     ::dtanh(&_forwardPassValues["C_out"]).get()
                     )
-                ->addition(&cOutGrad)->data()
+                ->addition(&cOutGrad)
             );
         // вычисление производной по входному состоянию ячейки
         // и производной ее промежуточного значения
         Matrix2d<double> dCBar(
-            dCOut.simplifiedMult(&_forwardPassValues["i"])->data()
+            dCOut.simplifiedMult(&_forwardPassValues["i"])
             );
         Matrix2d<double> dCBarInter(
             dCBar.simplifiedMult(
                 ActivationFunctions<double>
-                ::dtanh(&_forwardPassValues["C_bar_inter"]).get())->data()
+                ::dtanh(&_forwardPassValues["C_bar_inter"]).get())
             );
         // обновление производных слоя для состояния ячейки
         layerParams["W_c"]["deriv"] = Matrix2d<double>(
@@ -224,23 +213,23 @@ LSTMNode::backward(Matrix2d<double> xOutGrad,
                         .transposition()
                         ->multiplication(&dCBarInter)
                         .get()
-                    )->data()
+                    )
             );
         layerParams["B_c"]["deriv"] = Matrix2d<double>(
             layerParams["B_c"]["deriv"]
                 .addition(
                     dCBarInter.axisSum(0).get()
-                    )->data()
+                    )
             );
         // вычисление производной по входному затвору 'output gate'
         // и производной его промежуточного значения
         Matrix2d<double> dI(
-            dCOut.simplifiedMult(&_forwardPassValues["C_bar"])->data()
+            dCOut.simplifiedMult(&_forwardPassValues["C_bar"])
             );
         Matrix2d<double> dIInter(
             dI.simplifiedMult(
                   ActivationFunctions<double>
-                  ::dsigmoid(&_forwardPassValues["i_inter"]).get())->data()
+                  ::dsigmoid(&_forwardPassValues["i_inter"]).get())
             );
         // обновление производных слоя для входного затвора(шлюза)
         layerParams["W_i"]["deriv"] = Matrix2d<double>(
@@ -250,23 +239,23 @@ LSTMNode::backward(Matrix2d<double> xOutGrad,
                         .transposition()
                         ->multiplication(&dIInter)
                         .get()
-                    )->data()
+                    )
             );
         layerParams["B_i"]["deriv"] = Matrix2d<double>(
             layerParams["B_i"]["deriv"]
                 .addition(
                     dIInter.axisSum(0).get()
-                    )->data()
+                    )
             );
         // вычисление производной по затвору забывания 'forget gate'
         // и производной его промежуточного значения
         Matrix2d<double> dF(
-            dCOut.simplifiedMult(&_forwardPassValues["C_in"])->data()
+            dCOut.simplifiedMult(&_forwardPassValues["C_in"])
             );
         Matrix2d<double> dFInter(
             dF.simplifiedMult(
                   ActivationFunctions<double>
-                  ::dsigmoid(&_forwardPassValues["f_inter"]).get())->data()
+                  ::dsigmoid(&_forwardPassValues["f_inter"]).get())
             );
         // обновление производных слоя для затвора(шлюза) забывания
         layerParams["W_f"]["deriv"] = Matrix2d<double>(
@@ -276,50 +265,47 @@ LSTMNode::backward(Matrix2d<double> xOutGrad,
                         .transposition()
                         ->multiplication(&dFInter)
                         .get()
-                    )->data()
+                    )
             );
         layerParams["B_f"]["deriv"] = Matrix2d<double>(
             layerParams["B_f"]["deriv"]
                 .addition(
                     dFInter.axisSum(0).get()
-                    )->data()
+                    )
             );
         // вычисление заключительной производной по содержанию
         Matrix2d<double> dZOperandF(
             dFInter.multiplication(layerParams["W_f"]["value"]
-                                       .transposition().get())->data()
+                                       .transposition().get())
             );
         Matrix2d<double> dZOperandI(
             dIInter.multiplication(layerParams["W_i"]["value"]
-                                       .transposition().get())->data()
+                                       .transposition().get())
             );
         Matrix2d<double> dZOperandCBar(
             dCBarInter.multiplication(layerParams["W_c"]["value"]
-                                          .transposition().get())->data()
+                                          .transposition().get())
             );
         Matrix2d<double> dZOperandO(
             dOInter.multiplication(layerParams["W_o"]["value"]
-                                       .transposition().get())->data()
+                                       .transposition().get())
             );
         Matrix2d<double> dZ(
             dZOperandF
                 .addition(&dZOperandI)
                 ->addition(&dZOperandCBar)
                 ->addition(&dZOperandO)
-                ->data()
             );
         // получение производных исходного входа, скрытого состояния
         // и внутреннего состояния ячейки для передачи их на предыдущий уровень
         Matrix2d<double> dXPrev(
             dZ.slice(vector<int>{-1,-1,-1,_forwardPassValues["X_in"].sizes()[1]})
-                ->data()
             );
         Matrix2d<double> dHPrev(
             dZ.slice(vector<int>{-1,-1,_forwardPassValues["X_in"].sizes()[1],-1})
-                ->data()
             );
         Matrix2d<double> dCPrev(
-            _forwardPassValues["f"].simplifiedMult(&dCOut)->data()
+            _forwardPassValues["f"].simplifiedMult(&dCOut)
             );
         // формируем и возвращаем ответ
         QMap<QString, Matrix2d<double>> result;

@@ -65,7 +65,7 @@ ActivationFunctions<T>::softmax(const IMatrix<T> *matrix)
         vector<Matrix2d<double>> resultData3d;
         // при проходе по 3д матрице, вызываем этот же метод но для 2д подматриц
         for (const Matrix2d<double> &rowM : ((Matrix3d<double>*)matrix)->dataToVector()) {
-            Matrix2d<double> stepMatrix(softmax(&rowM)->data());
+            Matrix2d<double> stepMatrix(softmax(&rowM));
             resultData3d.push_back(stepMatrix);
         }
         return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData3d));

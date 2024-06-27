@@ -41,7 +41,7 @@ double LSTMModel::singleStep(Matrix3d<double> xBatch,
     Matrix3d<double> xBatchPrediction = forward(xBatch);
     // 2) высчитываем среднюю квадратичную потерю и градиент потерь
     double meanLoss = _loss->forward(&xBatchPrediction, &yBatch);
-    Matrix3d<double> lossGradient(_loss->backward()->data());
+    Matrix3d<double> lossGradient(_loss->backward());
     // 3) чистка градиентов
     for (INeuralNetworkLayer *layer : _layers) {
         layer->clearGradients();

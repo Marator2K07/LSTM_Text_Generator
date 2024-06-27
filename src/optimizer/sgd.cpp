@@ -25,17 +25,17 @@ void SGD::update()
                     key,
                     "deriv",
                     Matrix2d<double>(
-                        currentParam["deriv"].clipM(-2, 2)->data()
+                        currentParam["deriv"].clipM(-2, 2)
                         )
                     );
             }
             // получаем обновленное значение градиента
             Matrix2d<double> updateGrad(
-                currentParam["deriv"].multiplication(_learningRate)->data()
+                currentParam["deriv"].multiplication(_learningRate)
                 );
             // обновляем параметр сети
             Matrix2d<double> newValue(
-                currentParam["value"].subtraction(&updateGrad)->data()
+                currentParam["value"].subtraction(&updateGrad)
                 );
             layer->updateParam(key, "value", newValue);
         }

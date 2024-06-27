@@ -126,8 +126,8 @@ Matrix3d<double> LSTMLayer::forward(Matrix3d<double> xSequenceIn)
         Matrix2d<double> hIn(_startH.data());
         Matrix2d<double> cIn(_startC.data());
         // повторяем копии batchSize раз ради соотвествия по размеру/ам
-        hIn = Matrix2d<double>(hIn.rowsRepeat(batchSize)->data());
-        cIn = Matrix2d<double>(cIn.rowsRepeat(batchSize)->data());
+        hIn = Matrix2d<double>(hIn.rowsRepeat(batchSize));
+        cIn = Matrix2d<double>(cIn.rowsRepeat(batchSize));
         // находим длину последовательности и подготавливаем основу выхода слоя
         unsigned long long sequenceLength = xSequenceIn.sizes()[1];
         Matrix3d<double> xSequenceOut
@@ -145,8 +145,8 @@ Matrix3d<double> LSTMLayer::forward(Matrix3d<double> xSequenceIn)
             xSequenceOut.setRowsWithIndex(out["X_out"], t);
         }
         // в итоге обновляется и стартовое скрытое состояние сети и ячейки
-        _startH = Matrix2d<double>(hIn.axisMean(0)->data());
-        _startC = Matrix2d<double>(cIn.axisMean(0)->data());
+        _startH = Matrix2d<double>(hIn.axisMean(0));
+        _startC = Matrix2d<double>(cIn.axisMean(0));
 
         return xSequenceOut;
     } catch (const MatrixException &e) {
