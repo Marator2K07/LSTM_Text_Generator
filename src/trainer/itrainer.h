@@ -13,10 +13,11 @@ class ITrainer
 public:
     ///
     /// \brief sampleOutput вывод текста на основе
-    /// текущей модели и ее степени обученности
+    /// текущей модели и ее степени обученности до
+    /// первого символа окончания, по умолчанию точки
     /// \param startCharIdx индекс символа для старта генерации
-    /// \param sampleLenght длина генерации
-    virtual void sampleOutput(int startCharIdx, int sampleLenght) = 0;
+    /// \param endingChar конечный символ
+    virtual void sampleOutput(int startCharIdx, char endingChar = '.') = 0;
     ///
     /// \brief train тренирует модель генерации текста
     /// \param iterCount количество шагов обучения
