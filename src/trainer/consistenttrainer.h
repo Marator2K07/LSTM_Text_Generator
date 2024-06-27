@@ -3,10 +3,24 @@
 
 #include "itrainer.h"
 
+///
+/// \brief The ConsistentTrainer class
+/// тренер последовательной тренировки на основе текста
 class ConsistentTrainer : public ITrainer
 {
+private:
+    INeuralNetworkModel *_model;
+    ITextEmbedding<double> *_embedding;
+    IOptimizer *_optimizer;
+    int _sequenceLenght;
+    int _batchSize;
+
 public:
-    ConsistentTrainer();
+    ConsistentTrainer(INeuralNetworkModel *model,
+                      ITextEmbedding<double> *embedding,
+                      IOptimizer *optimizer,
+                      int sequenceLenght = 16,
+                      int batchSize = 32);
 
 public:
     // ITrainer interface
