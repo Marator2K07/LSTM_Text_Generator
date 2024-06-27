@@ -180,6 +180,11 @@ private slots:
     /// тестирование нахождения квадратных корней элементов матриц(2д и 3д)
     void testMatrix2dAnd3dSqrtM();
     ///
+    /// \brief testMatrix2dAnd3dToLine
+    /// тестирование приведения матриц 2д и 3д размернойстей
+    /// к строке(вектору) значений
+    void testMatrix2dAnd3dToLine();
+    ///
     /// \brief testMatrix2dAnd3dTotalSum
     /// тестовое нахождение всех элементов 2д и 3д матриц
     void testMatrix2dAnd3dTotalSum();
@@ -1093,6 +1098,24 @@ void TestMatrix::testMatrix2dAnd3dSqrtM()
 
     QCOMPARE(matrixResult2d->data(), properMatrix2d.data());
     QCOMPARE(properMatrix3dReal == properMatrix3d, true);
+}
+
+void TestMatrix::testMatrix2dAnd3dToLine()
+{
+    // инициализация
+    Matrix2d<double> matrix2d{{1, 2, 3},
+                              {4, 7, 7},
+                              {9, 3, 0}};
+    Matrix3d<double> matrix3d {{{5, 3, 2},{2, 3, 1}},
+                              {{8, 2, 1},{5, 6, 4}}};
+    // расчеты
+    vector<double> resultMatrix2dLine = matrix2d.toLine();
+    vector<double> properMatrix2dLine{1,2,3,4,7,7,9,3,0};
+    vector<double> resultMatrix3dLine = matrix3d.toLine();
+    vector<double> properMatrix3dLine{5,3,2,2,3,1,8,2,1,5,6,4};
+
+    QCOMPARE(resultMatrix2dLine, properMatrix2dLine);
+    QCOMPARE(resultMatrix3dLine, properMatrix3dLine);
 }
 
 void TestMatrix::testMatrix2dAnd3dTotalSum()
