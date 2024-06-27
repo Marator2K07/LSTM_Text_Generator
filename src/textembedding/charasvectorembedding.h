@@ -34,12 +34,12 @@ public:
                           int batchSize = 32);
 
 public:
-    QString text() const;    
-    QMap<int, char> idxToChar() const;
-    QMap<char, int> charToIdx() const;
+    QString text() const;
 
-    // ITextEmbedding interface
+    // ITextEmbedding interface    
     int vocabSize() const override;
+    QMap<int, char> idxToChar() const override;
+    QMap<char, int> charToIdx() const override;
     Matrix2d<T> genTextIndices(int startPos) override;
     Matrix3d<T> genTextBatch(Matrix2d<T> indices) override;
     //

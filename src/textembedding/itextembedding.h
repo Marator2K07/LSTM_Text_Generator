@@ -27,6 +27,14 @@ public:
     /// \return текущий размер словаря
     virtual int vocabSize() const = 0;
     ///
+    /// \brief idxToChar геттер словаря индексов и букв для них
+    /// \return словарь индекс->буква
+    virtual QMap<int, char> idxToChar() const = 0;
+    ///
+    /// \brief charToIdx геттер словаря букв и индексов для них
+    /// \return словарь буква->индекс
+    virtual QMap<char, int> charToIdx() const = 0;
+    ///
     /// \brief genTextIndices генерация 2д матрицы
     /// индексов символов для заданного текста
     /// \param startPos точка старта генерации
