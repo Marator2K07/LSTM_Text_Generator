@@ -75,6 +75,16 @@ Matrix2d<T>::Matrix2d()
 }
 
 template<typename T>
+Matrix2d<T>::Matrix2d(unique_ptr<IMatrix<T>> other)
+{
+    //cout << "unique_ptr matrix2d constructor" << endl;
+    Matrix2d<T> *matrixOther = (Matrix2d<T>*)other.release();
+    _data = matrixOther->_data;
+    _operationPtr = matrixOther->_operationPtr;
+    delete matrixOther;
+}
+
+template<typename T>
 Matrix2d<T>::Matrix2d(QVariant data)
     : _data{data.value<vector<vector<T>>>()}
 {
@@ -92,6 +102,12 @@ Matrix2d<T>::Matrix2d(initializer_list<initializer_list<T>> list)
     for (initializer_list<T> row : list) {
         _data.push_back(row);
     }
+}
+
+template<typename T>
+Matrix2d<T>::~Matrix2d()
+{
+    // cout << "matrix 2d destroyed" << endl;
 }
 
 template<typename T>

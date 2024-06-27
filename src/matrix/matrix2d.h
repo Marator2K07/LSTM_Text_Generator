@@ -15,9 +15,12 @@ private:
 
 public:
     Matrix2d();
+    Matrix2d(unique_ptr<IMatrix<T>> other);
     Matrix2d(QVariant data);
     Matrix2d(vector<vector<T>> data);
     Matrix2d(initializer_list<initializer_list<T>> list);
+
+    ~Matrix2d();
 
 public:
     void print();

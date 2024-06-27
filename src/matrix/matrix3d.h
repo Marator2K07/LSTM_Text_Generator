@@ -17,9 +17,12 @@ private:
 
 public:
     Matrix3d();
+    Matrix3d(unique_ptr<IMatrix<T>> other);
     Matrix3d(QVariant data);
     Matrix3d(vector<Matrix2d<T>> data);
     Matrix3d(initializer_list<initializer_list<initializer_list<T>>> list);
+
+    ~Matrix3d();
 
 public:
     void print();

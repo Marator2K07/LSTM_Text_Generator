@@ -65,6 +65,16 @@ Matrix3d<T>::Matrix3d()
 }
 
 template<typename T>
+Matrix3d<T>::Matrix3d(unique_ptr<IMatrix<T> > other)
+{
+    //cout << "unique_ptr matrix3d constructor" << endl;
+    Matrix3d<T> *matrixOther = (Matrix3d<T>*)other.release();
+    _data = matrixOther->_data;
+    _opType = matrixOther->_opType;
+    delete matrixOther;
+}
+
+template<typename T>
 Matrix3d<T>::Matrix3d(QVariant data)
     : _data{data.value<vector<Matrix2d<T>>>()}
 {
@@ -82,6 +92,12 @@ Matrix3d<T>::Matrix3d(initializer_list<initializer_list<initializer_list<T>>> li
     for (initializer_list<initializer_list<T>> matrix : list) {
         _data.push_back(Matrix2d(matrix));
     }
+}
+
+template<typename T>
+Matrix3d<T>::~Matrix3d()
+{
+    // cout << "matrix 3d destroyed" << endl;
 }
 
 template<typename T>
