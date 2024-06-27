@@ -175,6 +175,10 @@ public:
     /// \return результирующая матрица
     virtual unique_ptr<IMatrix<T>> sqrtM() = 0;
     ///
+    /// \brief toLine приведение всех значений матрицы к строке(вектору) значений
+    /// \return строка(вектор) всех значений матрицы в прямом порядке
+    virtual vector<T> toLine() = 0;
+    ///
     /// \brief totalSum нахождение суммы всех элементов матрицы
     /// \return сумма всех элементов входной матрицы
     virtual T totalSum() = 0;
