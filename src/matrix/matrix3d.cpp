@@ -107,6 +107,19 @@ vector<Matrix2d<T>> Matrix3d<T>::dataToVector(const IMatrix<T> *matrix)
 }
 
 template<typename T>
+void Matrix3d<T>::setValue(int dIndex, int hIndex, int wIndex, const T value)
+{
+    try {
+        _data[dIndex].setValue(hIndex, wIndex, value);
+    } catch (...) {
+        throw MatrixException(
+            QString("\nMatrix set value exception \n[%1]\n")
+                .arg("Incorrect value indices")
+            );
+    }
+}
+
+template<typename T>
 Matrix3d<T> Matrix3d<T>::zeroM(int depth, int height, int width)
 {
     // подготовка

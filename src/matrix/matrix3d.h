@@ -26,6 +26,13 @@ public:
     vector<Matrix2d<T>> dataToVector() const;
     static vector<Matrix2d<T>> dataToVector(const IMatrix<T> *matrix);
     ///
+    /// \brief setValue установка нового значения для ячейки матрицы
+    /// \param dIndex индекс матрицы
+    /// \param hIndex индекс строки
+    /// \param wIndex индекс значения в строке
+    /// \param value новое значение ячейки
+    void setValue(int dIndex, int hIndex, int wIndex, const T value);
+    ///
     /// \brief zeroM создание новой матрицы, состоящей из нулей
     /// \param depth, width, height размеры новой матрицы
     /// \return нулевая матрица
