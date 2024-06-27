@@ -23,6 +23,10 @@ class ITextEmbedding
 {
 public:
     ///
+    /// \brief vocabSize размер словаря после анализа текста
+    /// \return текущий размер словаря
+    virtual int vocabSize() const = 0;
+    ///
     /// \brief genTextIndices генерация 2д матрицы
     /// индексов символов для заданного текста
     /// \param startPos точка старта генерации
