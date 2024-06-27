@@ -6,6 +6,12 @@ target_link_libraries(trainer PRIVATE
     Qt6::Core
 )
 target_link_libraries(trainer PRIVATE
-
+    activationfunctions
+    neuralnetwork
+    textembedding
+    optimizer
+    exception
+    matrix
+    loss
 )
 target_include_directories(trainer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

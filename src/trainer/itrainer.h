@@ -1,6 +1,10 @@
 #ifndef ITRAINER_H
 #define ITRAINER_H
 
+#include "ineuralnetworkmodel.h"
+#include "itextembedding.h"
+#include "ioptimizer.h"
+
 ///
 /// \brief The ITrainer interface
 /// определение функционала тренера модели
