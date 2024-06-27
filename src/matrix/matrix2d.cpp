@@ -29,6 +29,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const IMatrix<T> *matrix)
                     );
             }
         }
+
         return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
     } catch (const exception &e) {
         throw e;
@@ -49,6 +50,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const T num, bool reverseOrder)
             resultData[rowI].push_back(stepRes);
         }
     }
+
     return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
@@ -66,6 +68,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(T extraParam)
                 );
         }
     }
+
     return unique_ptr<Matrix2d<T>>(new Matrix2d(resultData));
 }
 
@@ -202,6 +205,7 @@ vector<vector<T>> Matrix2d<T>::dataToVector(const IMatrix<T> *matrix)
 {
     Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(matrix);
     QVariant otherMatrixAutoData = otherMatrix->data();
+
     return otherMatrixAutoData.value<vector<vector<T>>>();
 }
 
@@ -214,6 +218,7 @@ Matrix2d<T> Matrix2d<T>::zeroM(int height, int width)
     for (int h = 0; h < height; ++h) {
         resultData.push_back(vector<T>(width));
     }
+
     return Matrix2d(resultData);
 }
 
@@ -232,6 +237,7 @@ Matrix2d<T> Matrix2d<T>::randomNormal(T mean, T dispersion,
                 );
         }
     }
+
     return Matrix2d(resultData);
 }
 
@@ -301,6 +307,7 @@ bool Matrix2d<T>::compareDoubles(const IMatrix<T> *matrix, double epsilon)
                 }
             }
         }
+
         return true;
     } catch (...) {
         throw MatrixException(

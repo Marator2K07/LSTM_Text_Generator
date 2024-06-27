@@ -22,9 +22,10 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::doOperation(const IMatrix<T> *matrix)
         // заполнение данных для результирующей матрицы
         for (int i = 0; i < _data.size(); ++i) {
             _data[i].setOperation(_opType); // перед выполнением нужно указать операцию!
-            Matrix2d<T> stepMatrix(_data[i].doOperation(&otherMatrixData[i])->data());
+            Matrix2d<T> stepMatrix(_data[i].doOperation(&otherMatrixData[i]));
             resultData.push_back(stepMatrix);
         }
+
         return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
     } catch (const exception &e) {
         throw e;
@@ -39,7 +40,7 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::doOperation(const T num, bool reverseOrder)
     // заполнение данных для результирующей матрицы
     for (int i = 0; i < _data.size(); ++i) {
         _data[i].setOperation(_opType); // перед выполнением нужно указать операцию!
-        Matrix2d<T> stepMatrix(_data[i].doOperation(num, reverseOrder)->data());
+        Matrix2d<T> stepMatrix(_data[i].doOperation(num, reverseOrder));
         resultData.push_back(stepMatrix);
     }
     return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
@@ -53,7 +54,7 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::doOperation(T extraParam)
     // заполнение данных для результирующей матрицы
     for (int i = 0; i < _data.size(); ++i) {
         _data[i].setOperation(_opType); // перед выполнением нужно указать операцию!
-        Matrix2d<T> stepMatrix(_data[i].doOperation(extraParam)->data());
+        Matrix2d<T> stepMatrix(_data[i].doOperation(extraParam));
         resultData.push_back(stepMatrix);
     }
     return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
@@ -119,6 +120,7 @@ vector<Matrix2d<T>> Matrix3d<T>::dataToVector(const IMatrix<T> *matrix)
 {
     Matrix3d<T> *otherMatrix = (Matrix3d<T>*)(matrix);
     QVariant otherMatrixAutoData = otherMatrix->data();
+
     return otherMatrixAutoData.value<vector<Matrix2d<T>>>();
 }
 
@@ -209,6 +211,7 @@ bool Matrix3d<T>::operator==(Matrix3d<T> &matrix)
             return false;
         }
     }
+
     return true;
 }
 
@@ -231,6 +234,7 @@ vector<unsigned long long> Matrix3d<T>::sizes() const
         vector<unsigned long long> sizes{_data.size()};
         vector<unsigned long long> sizesInner{_data[0].sizes()};
         sizes.insert(sizes.end(), sizesInner.begin(), sizesInner.end());
+
         return sizes;
     } catch (...) {
         throw MatrixException(
@@ -267,6 +271,7 @@ bool Matrix3d<T>::compareDoubles(const IMatrix<T> *matrix, double epsilon)
                 return false;
             }
         }
+
         return true;
     } catch (...) {
         throw MatrixException(
@@ -358,7 +363,7 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::rowsRepeat(const int count)
     for (int matrixI = 0; matrixI < _data.size(); ++matrixI) {
         for (int repeatCount = 0; repeatCount < count; ++repeatCount) {
             resultData.push_back(
-                Matrix2d<T>(_data[matrixI].rowsRepeat(1)->data())
+                Matrix2d<T>(_data[matrixI].rowsRepeat(1))
                 );
         }
     }
@@ -399,7 +404,7 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::axisSum(const int axis)
     }// заполнение данных матрицы по строкам или столбцам
     else if (axis == 1 || axis == 2) {
         for (Matrix2d<T> matrix : _data) {
-            resultData.push_back(Matrix2d<T>(matrix.axisSum(axis-1)->data()));
+            resultData.push_back(Matrix2d<T>(matrix.axisSum(axis-1)));
         }
     }
 
@@ -452,7 +457,7 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::transposition()
     }
     // транспонируем матрицы по отдельности
     for (Matrix2d<T> matrix : resultData) {
-        matrix = Matrix2d<T>(matrix.transposition()->data());
+        matrix = Matrix2d<T>(matrix.transposition());
     }
 
     return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData));
@@ -473,7 +478,7 @@ unique_ptr<IMatrix<T>> Matrix3d<T>::clipM(T leftBorder, T rightBorder)
     // заполнение данных для результирующей матрицы
     for (int i = 0; i < _data.size(); ++i) {
         _data[i].setOperation(_opType); // перед выполнением нужно указать операцию!
-        Matrix2d<T> stepMatrix(_data[i].clipM(leftBorder, rightBorder)->data());
+        Matrix2d<T> stepMatrix(_data[i].clipM(leftBorder, rightBorder));
         resultData.push_back(stepMatrix);
     }
 
