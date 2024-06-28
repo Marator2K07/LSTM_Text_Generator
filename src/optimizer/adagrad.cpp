@@ -32,6 +32,7 @@ AdaGrad::AdaGrad(INeuralNetworkModel *model,
     , _learningRate{learningRate}
     , _epsilon{epsilon}
     , _gradientClip{gradientClip}
+    , _first{true}
 {
 }
 
