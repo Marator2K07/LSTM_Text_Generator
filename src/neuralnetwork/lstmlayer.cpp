@@ -22,58 +22,91 @@ void LSTMLayer::updateParam(const QString firstKey,
 
 void LSTMLayer::saveParams(QString path)
 {
-    // собираем основной путь
-    QString fullPath = QString("%1/%2/").arg(path, _name);
-    // сохраняем все значения
-    _params["W_f"]["value"].saveToFile(fullPath + "W_f_value");
-    _params["W_i"]["value"].saveToFile(fullPath + "W_i_value");
-    _params["W_c"]["value"].saveToFile(fullPath + "W_c_value");
-    _params["W_o"]["value"].saveToFile(fullPath + "W_o_value");
-    _params["W_v"]["value"].saveToFile(fullPath + "W_v_value");
-    _params["B_f"]["value"].saveToFile(fullPath + "B_f_value");
-    _params["B_i"]["value"].saveToFile(fullPath + "B_i_value");
-    _params["B_c"]["value"].saveToFile(fullPath + "B_c_value");
-    _params["B_o"]["value"].saveToFile(fullPath + "B_o_value");
-    _params["B_v"]["value"].saveToFile(fullPath + "B_v_value");
-    //сохраняем все градиенты
-    _params["W_f"]["deriv"].saveToFile(fullPath + "W_f_deriv");
-    _params["W_i"]["deriv"].saveToFile(fullPath + "W_i_deriv");
-    _params["W_c"]["deriv"].saveToFile(fullPath + "W_c_deriv");
-    _params["W_o"]["deriv"].saveToFile(fullPath + "W_o_deriv");
-    _params["W_v"]["deriv"].saveToFile(fullPath + "W_v_deriv");
-    _params["B_f"]["deriv"].saveToFile(fullPath + "B_f_deriv");
-    _params["B_i"]["deriv"].saveToFile(fullPath + "B_i_deriv");
-    _params["B_c"]["deriv"].saveToFile(fullPath + "B_c_deriv");
-    _params["B_o"]["deriv"].saveToFile(fullPath + "B_o_deriv");
-    _params["B_v"]["deriv"].saveToFile(fullPath + "B_v_deriv");
+    try {
+        // собираем основной путь
+        QString fullPath = QString("%1_%2_").arg(path, _name);
+        // сохраняем все значения
+        _params["W_f"]["value"].saveToFile(fullPath + "W_f_value.txt");
+        _params["W_i"]["value"].saveToFile(fullPath + "W_i_value.txt");
+        _params["W_c"]["value"].saveToFile(fullPath + "W_c_value.txt");
+        _params["W_o"]["value"].saveToFile(fullPath + "W_o_value.txt");
+        _params["W_v"]["value"].saveToFile(fullPath + "W_v_value.txt");
+        _params["B_f"]["value"].saveToFile(fullPath + "B_f_value.txt");
+        _params["B_i"]["value"].saveToFile(fullPath + "B_i_value.txt");
+        _params["B_c"]["value"].saveToFile(fullPath + "B_c_value.txt");
+        _params["B_o"]["value"].saveToFile(fullPath + "B_o_value.txt");
+        _params["B_v"]["value"].saveToFile(fullPath + "B_v_value.txt");
+        // сохраняем все градиенты
+        _params["W_f"]["deriv"].saveToFile(fullPath + "W_f_deriv.txt");
+        _params["W_i"]["deriv"].saveToFile(fullPath + "W_i_deriv.txt");
+        _params["W_c"]["deriv"].saveToFile(fullPath + "W_c_deriv.txt");
+        _params["W_o"]["deriv"].saveToFile(fullPath + "W_o_deriv.txt");
+        _params["W_v"]["deriv"].saveToFile(fullPath + "W_v_deriv.txt");
+        _params["B_f"]["deriv"].saveToFile(fullPath + "B_f_deriv.txt");
+        _params["B_i"]["deriv"].saveToFile(fullPath + "B_i_deriv.txt");
+        _params["B_c"]["deriv"].saveToFile(fullPath + "B_c_deriv.txt");
+        _params["B_o"]["deriv"].saveToFile(fullPath + "B_o_deriv.txt");
+        _params["B_v"]["deriv"].saveToFile(fullPath + "B_v_deriv.txt");
+        // сохраняем начальные состояния
+        _startH.saveToFile(fullPath + "H_start.txt");
+        _startC.saveToFile(fullPath + "C_start.txt");
+    } catch (const MatrixException &e) {
+        throw NeuralNetworkException(
+            QString("Catch neural network params saving exception:\n[%1]\n")
+                .arg("Failed to save file")
+            );
+    }
 }
 
 void LSTMLayer::loadParams(QString path)
 {
-    // собираем основной путь
-    QString fullPath = QString("%1/%2/").arg(path, _name);
-    // загружаем все значения
-    _params["W_f"]["value"].loadFromFile(fullPath + "W_f_value");
-    _params["W_i"]["value"].loadFromFile(fullPath + "W_i_value");
-    _params["W_c"]["value"].loadFromFile(fullPath + "W_c_value");
-    _params["W_o"]["value"].loadFromFile(fullPath + "W_o_value");
-    _params["W_v"]["value"].loadFromFile(fullPath + "W_v_value");
-    _params["B_f"]["value"].loadFromFile(fullPath + "B_f_value");
-    _params["B_i"]["value"].loadFromFile(fullPath + "B_i_value");
-    _params["B_c"]["value"].loadFromFile(fullPath + "B_c_value");
-    _params["B_o"]["value"].loadFromFile(fullPath + "B_o_value");
-    _params["B_v"]["value"].loadFromFile(fullPath + "B_v_value");
-    // загружаем все градиенты
-    _params["W_f"]["deriv"].loadFromFile(fullPath + "W_f_deriv");
-    _params["W_i"]["deriv"].loadFromFile(fullPath + "W_i_deriv");
-    _params["W_c"]["deriv"].loadFromFile(fullPath + "W_c_deriv");
-    _params["W_o"]["deriv"].loadFromFile(fullPath + "W_o_deriv");
-    _params["W_v"]["deriv"].loadFromFile(fullPath + "W_v_deriv");
-    _params["B_f"]["deriv"].loadFromFile(fullPath + "B_f_deriv");
-    _params["B_i"]["deriv"].loadFromFile(fullPath + "B_i_deriv");
-    _params["B_c"]["deriv"].loadFromFile(fullPath + "B_c_deriv");
-    _params["B_o"]["deriv"].loadFromFile(fullPath + "B_o_deriv");
-    _params["B_v"]["deriv"].loadFromFile(fullPath + "B_v_deriv");
+    try {
+        // собираем основной путь
+        QString fullPath = QString("%1_%2_").arg(path, _name);
+        // преинициализация параметров слоя
+        _params.insert("W_f", QMap<QString, Matrix2d<double>>());
+        _params.insert("B_f", QMap<QString, Matrix2d<double>>());
+        _params.insert("W_i", QMap<QString, Matrix2d<double>>());
+        _params.insert("B_i", QMap<QString, Matrix2d<double>>());
+        _params.insert("W_c", QMap<QString, Matrix2d<double>>());
+        _params.insert("B_c", QMap<QString, Matrix2d<double>>());
+        _params.insert("W_o", QMap<QString, Matrix2d<double>>());
+        _params.insert("B_o", QMap<QString, Matrix2d<double>>());
+        _params.insert("W_v", QMap<QString, Matrix2d<double>>());
+        _params.insert("B_v", QMap<QString, Matrix2d<double>>());
+        // загружаем все значения
+        _params["W_f"]["value"].loadFromFile(fullPath + "W_f_value.txt");
+        _params["W_i"]["value"].loadFromFile(fullPath + "W_i_value.txt");
+        _params["W_c"]["value"].loadFromFile(fullPath + "W_c_value.txt");
+        _params["W_o"]["value"].loadFromFile(fullPath + "W_o_value.txt");
+        _params["W_v"]["value"].loadFromFile(fullPath + "W_v_value.txt");
+        _params["B_f"]["value"].loadFromFile(fullPath + "B_f_value.txt");
+        _params["B_i"]["value"].loadFromFile(fullPath + "B_i_value.txt");
+        _params["B_c"]["value"].loadFromFile(fullPath + "B_c_value.txt");
+        _params["B_o"]["value"].loadFromFile(fullPath + "B_o_value.txt");
+        _params["B_v"]["value"].loadFromFile(fullPath + "B_v_value.txt");
+        // загружаем все градиенты
+        _params["W_f"]["deriv"].loadFromFile(fullPath + "W_f_deriv.txt");
+        _params["W_i"]["deriv"].loadFromFile(fullPath + "W_i_deriv.txt");
+        _params["W_c"]["deriv"].loadFromFile(fullPath + "W_c_deriv.txt");
+        _params["W_o"]["deriv"].loadFromFile(fullPath + "W_o_deriv.txt");
+        _params["W_v"]["deriv"].loadFromFile(fullPath + "W_v_deriv.txt");
+        _params["B_f"]["deriv"].loadFromFile(fullPath + "B_f_deriv.txt");
+        _params["B_i"]["deriv"].loadFromFile(fullPath + "B_i_deriv.txt");
+        _params["B_c"]["deriv"].loadFromFile(fullPath + "B_c_deriv.txt");
+        _params["B_o"]["deriv"].loadFromFile(fullPath + "B_o_deriv.txt");
+        _params["B_v"]["deriv"].loadFromFile(fullPath + "B_v_deriv.txt");
+        // загружаем начальные состояния
+        _startH.loadFromFile(fullPath + "H_start.txt");
+        _startC.loadFromFile(fullPath + "C_start.txt");
+        // сбрасываем метку первой инициализации
+        _firstStep = false;
+    } catch (const MatrixException &e) {
+        throw NeuralNetworkException(
+            QString("Catch neural network params loading exception:\n[%1]\n")
+                .arg("Failed to open file")
+            );
+    }
 }
 
 void LSTMLayer::initParams(const Matrix3d<double> initMatrix)
