@@ -1,6 +1,7 @@
 #ifndef MATRIX2D_H
 #define MATRIX2D_H
 
+#include <QFile>
 #include "imatrix.h"
 
 ///
@@ -26,6 +27,14 @@ public:
     void print();
     vector<vector<T>> dataToVector() const;
     static vector<vector<T>> dataToVector(const IMatrix<T> *matrix);
+    ///
+    /// \brief saveToFile сохранение информации 2д матрицы в файл
+    /// \param fileName полное название файла
+    void saveToFile(QString fileName);
+    ///
+    /// \brief loadFromFile выгрузка информации для 2д матрицы из файла
+    /// \param fileName полное название файла
+    void loadFromFile(QString fileName);
     ///
     /// \brief setValue задание значения для ячейки
     /// \param hIndex индекс строки

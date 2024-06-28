@@ -210,6 +210,18 @@ vector<vector<T>> Matrix2d<T>::dataToVector(const IMatrix<T> *matrix)
 }
 
 template<typename T>
+void Matrix2d<T>::saveToFile(QString fileName)
+{
+    
+}
+
+template<typename T>
+void Matrix2d<T>::loadFromFile(QString fileName)
+{
+    
+}
+
+template<typename T>
 Matrix2d<T> Matrix2d<T>::zeroM(int height, int width)
 {
     // подготовка
