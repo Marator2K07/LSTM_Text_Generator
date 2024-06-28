@@ -26,6 +26,8 @@ public:
               int outputSize,
               double weightScale = 0.01);
 
+    bool operator==(LSTMLayer layer);
+
 public:
     // INeuralNetworkLayer interface
     void updateParam(const QString firstKey,
