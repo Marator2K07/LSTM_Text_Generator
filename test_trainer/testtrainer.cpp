@@ -27,21 +27,22 @@ private slots:
 void TestTrainer::testConsistentTrainerOne()
 {
     // инициализация
-    int hiddenSize = 128;
-    int batchSize = 16;
-    int sequenceLenght = 12;
-    CharAsVectorEmbedding<double> embedding("Plain_Kate.txt", sequenceLenght, batchSize);
-    LSTMModel model(new SoftmaxCrossEntropyLoss(),
-                        QList<INeuralNetworkLayer *>{
-                            new LSTMLayer("layer1", hiddenSize, embedding.vocabSize())
-                        });
-    AdaGrad optimizer(&model, 0.005, true);
-    //SGD optimizer(&model, 0.005, true);
+    int hiddenSize = 256;
+    int batchSize = 64;
+    int sequenceLenght = 32;
+    CharAsVectorEmbedding<double> embedding("The_Body_Snatcher.txt", sequenceLenght, batchSize);
+    LSTMLayer layer("layer1", hiddenSize, embedding.vocabSize());
+    layer.loadParams(QDir::currentPath());
+    QList<INeuralNetworkLayer *> layers;
+    layers.push_back(&layer);
+    LSTMModel model(new SoftmaxCrossEntropyLoss(), layers);
+    //AdaGrad optimizer(&model, 0.004);
+    SGD optimizer(&model, 0.003, true);
     ConsistentTrainer trainer(&model, &embedding, &optimizer,
                               sequenceLenght, batchSize);
     // расчеты
     try {
-        trainer.train(222, true, 25);
+        trainer.train(17, true, 5);
     } catch (const MatrixException &e) {
         cout << e.what();
     } catch (const NeuralNetworkException &e) {

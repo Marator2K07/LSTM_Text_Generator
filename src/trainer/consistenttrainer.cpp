@@ -53,7 +53,7 @@ void ConsistentTrainer::train(int iterCount,
                               int sampleEvery)
 {
     int numIter = 0;
-    int currentPos = 0;
+    int currentPos = 1088;
     // обучаем:
     while (numIter < iterCount) {
         // "конец эпохи"
@@ -65,6 +65,7 @@ void ConsistentTrainer::train(int iterCount,
                 layer->saveParams(QDir::currentPath());
             }
             cout << "end of an era" << endl;
+            break;
         }
         // генерируем входные и целевые индексы, соотвественно
         Matrix2d<double> inputIndices = _embedding->genTextIndices(currentPos);
@@ -74,15 +75,20 @@ void ConsistentTrainer::train(int iterCount,
         Matrix3d<double> targetBatch = _embedding->genTextBatch(targetIndices);
         // вычислеям потери сети
         double loss = _model->singleStep(inputBatch, targetBatch);
-        cout << numIter << ") " << loss << endl;
+        cout << numIter << ") " << loss << " pos - " << currentPos << endl;
         // оптимизируем нейронную сеть
         _optimizer->update();
         // сдвигаем позицию в тексте на размер партии
         currentPos += _batchSize;
         // возможная генерация вывода для анализа
         if (textSample && numIter % sampleEvery == 0) {
-            sampleOutput(0, '.');
+            sampleOutput(currentPos, '.');
         }
         numIter++;
     }
+
+    foreach (INeuralNetworkLayer *layer, _model->layers()) {
+        layer->saveParams(QDir::currentPath());
+    }
+    cout << "end of iter" << " currentPos - " << currentPos << endl;
 }
