@@ -2,8 +2,9 @@
 #include "matrix2d.cpp"
 #include "matrix3d.cpp"
 
-LSTMLayer::LSTMLayer(int hiddenSize, int outputSize, double weightScale)
-    : _hiddenSize{hiddenSize}
+LSTMLayer::LSTMLayer(QString name, int hiddenSize, int outputSize, double weightScale)
+    : _name{name}
+    , _hiddenSize{hiddenSize}
     , _outputSize{outputSize}
     , _weightScale{weightScale}
 {
@@ -19,6 +20,33 @@ void LSTMLayer::updateParam(const QString firstKey,
     _params[firstKey].insert(secondKey, value);
 }
 
+void LSTMLayer::saveParams(QString path)
+{
+    // собираем основной путь
+    QString fullPath = QString("%1/%2/").arg(path, _name);
+    // сохраняем все значения
+    _params["W_f"]["value"].saveToFile(fullPath + "W_f_value");
+    _params["W_i"]["value"].saveToFile(fullPath + "W_i_value");
+    _params["W_c"]["value"].saveToFile(fullPath + "W_c_value");
+    _params["W_o"]["value"].saveToFile(fullPath + "W_o_value");
+    _params["W_v"]["value"].saveToFile(fullPath + "W_v_value");
+    _params["B_f"]["value"].saveToFile(fullPath + "B_f_value");
+    _params["B_i"]["value"].saveToFile(fullPath + "B_i_value");
+    _params["B_c"]["value"].saveToFile(fullPath + "B_c_value");
+    _params["B_o"]["value"].saveToFile(fullPath + "B_o_value");
+    _params["B_v"]["value"].saveToFile(fullPath + "B_v_value");
+    //сохраняем все градиенты
+    _params["W_f"]["deriv"].saveToFile(fullPath + "W_f_deriv");
+    _params["W_i"]["deriv"].saveToFile(fullPath + "W_i_deriv");
+    _params["W_c"]["deriv"].saveToFile(fullPath + "W_c_deriv");
+    _params["W_o"]["deriv"].saveToFile(fullPath + "W_o_deriv");
+    _params["W_v"]["deriv"].saveToFile(fullPath + "W_v_deriv");
+    _params["B_f"]["deriv"].saveToFile(fullPath + "B_f_deriv");
+    _params["B_i"]["deriv"].saveToFile(fullPath + "B_i_deriv");
+    _params["B_c"]["deriv"].saveToFile(fullPath + "B_c_deriv");
+    _params["B_o"]["deriv"].saveToFile(fullPath + "B_o_deriv");
+    _params["B_v"]["deriv"].saveToFile(fullPath + "B_v_deriv");
+}
 void LSTMLayer::initParams(const Matrix3d<double> initMatrix)
 {
     _vocabSize = initMatrix.sizes()[2];
