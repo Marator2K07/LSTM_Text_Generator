@@ -56,10 +56,15 @@ void ConsistentTrainer::train(int iterCount,
     int currentPos = 0;
     // обучаем:
     while (numIter < iterCount) {
-        // чтобы не выйти за пределы файла
+        // "конец эпохи"
         if (currentPos + _sequenceLenght + _batchSize + 1 >
             _embedding->text().length()) {
-            currentPos = 1;
+            // после "конца эпохи" сохраняем обученные данные
+            // и завершаем текущий этап обучения
+            foreach (INeuralNetworkLayer *layer, _model->layers()) {
+                layer->saveParams(QDir::currentPath());
+            }
+            cout << "end of an era" << endl;
         }
         // генерируем входные и целевые индексы, соотвественно
         Matrix2d<double> inputIndices = _embedding->genTextIndices(currentPos);
