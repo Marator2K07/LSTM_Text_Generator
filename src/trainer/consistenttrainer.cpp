@@ -48,7 +48,31 @@ void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
     cout << endl;
 }
 
-void ConsistentTrainer::train(int iterCount, bool textSample, int sampleEvery)
+void ConsistentTrainer::train(int iterCount,
+                              bool textSample,
+                              int sampleEvery)
 {
-
+    int numIter = 0;
+    int currentPos = 0;
+    // обучаем:
+    while (numIter < iterCount) {
+        // генерируем входные и целевые индексы, соотвественно
+        Matrix2d<double> inputIndices = _embedding->genTextIndices(currentPos);
+        Matrix2d<double> targetIndices = _embedding->genTextIndices(currentPos+1);
+        // генерируем входные и целевые партии данных, соотвественно
+        Matrix3d<double> inputBatch = _embedding->genTextBatch(inputIndices);
+        Matrix3d<double> targetBatch = _embedding->genTextBatch(targetIndices);
+        // вычислеям потери сети
+        double loss = _model->singleStep(inputBatch, targetBatch);
+        cout << numIter << ") " << loss << endl;
+        // оптимизируем нейронную сеть
+        _optimizer->update();
+        // сдвигаем позицию в тексте на размер партии
+        currentPos += _batchSize;
+        // возможная генерация вывода для анализа
+        if (textSample && numIter % sampleEvery == 0) {
+            sampleOutput(0, '.');
+        }
+        numIter++;
+    }
 }
