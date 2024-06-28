@@ -24,7 +24,7 @@ public:
 
 public:
     // ITrainer interface
-    void sampleOutput(int startCharIdx, int sampleLenght) override;
+    void sampleOutput(int startCharIdx, char endingChar = '.') override;
     void train(int iterCount, bool textSample, int sampleEvery) override;
     //
 
