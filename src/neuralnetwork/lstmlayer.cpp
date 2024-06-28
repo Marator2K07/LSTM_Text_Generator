@@ -47,6 +47,35 @@ void LSTMLayer::saveParams(QString path)
     _params["B_o"]["deriv"].saveToFile(fullPath + "B_o_deriv");
     _params["B_v"]["deriv"].saveToFile(fullPath + "B_v_deriv");
 }
+
+void LSTMLayer::loadParams(QString path)
+{
+    // собираем основной путь
+    QString fullPath = QString("%1/%2/").arg(path, _name);
+    // загружаем все значения
+    _params["W_f"]["value"].loadFromFile(fullPath + "W_f_value");
+    _params["W_i"]["value"].loadFromFile(fullPath + "W_i_value");
+    _params["W_c"]["value"].loadFromFile(fullPath + "W_c_value");
+    _params["W_o"]["value"].loadFromFile(fullPath + "W_o_value");
+    _params["W_v"]["value"].loadFromFile(fullPath + "W_v_value");
+    _params["B_f"]["value"].loadFromFile(fullPath + "B_f_value");
+    _params["B_i"]["value"].loadFromFile(fullPath + "B_i_value");
+    _params["B_c"]["value"].loadFromFile(fullPath + "B_c_value");
+    _params["B_o"]["value"].loadFromFile(fullPath + "B_o_value");
+    _params["B_v"]["value"].loadFromFile(fullPath + "B_v_value");
+    // загружаем все градиенты
+    _params["W_f"]["deriv"].loadFromFile(fullPath + "W_f_deriv");
+    _params["W_i"]["deriv"].loadFromFile(fullPath + "W_i_deriv");
+    _params["W_c"]["deriv"].loadFromFile(fullPath + "W_c_deriv");
+    _params["W_o"]["deriv"].loadFromFile(fullPath + "W_o_deriv");
+    _params["W_v"]["deriv"].loadFromFile(fullPath + "W_v_deriv");
+    _params["B_f"]["deriv"].loadFromFile(fullPath + "B_f_deriv");
+    _params["B_i"]["deriv"].loadFromFile(fullPath + "B_i_deriv");
+    _params["B_c"]["deriv"].loadFromFile(fullPath + "B_c_deriv");
+    _params["B_o"]["deriv"].loadFromFile(fullPath + "B_o_deriv");
+    _params["B_v"]["deriv"].loadFromFile(fullPath + "B_v_deriv");
+}
+
 void LSTMLayer::initParams(const Matrix3d<double> initMatrix)
 {
     _vocabSize = initMatrix.sizes()[2];

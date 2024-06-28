@@ -32,6 +32,7 @@ public:
                      const QString secondKey,
                      const Matrix2d<double> value) override;
     void saveParams(QString path) override;
+    void loadParams(QString path) override;
     void initParams(const Matrix3d<double> initMatrix) override;
     QMap<QString, QMap<QString, Matrix2d<double>>> params() const override;
     void clearGradients() override;
