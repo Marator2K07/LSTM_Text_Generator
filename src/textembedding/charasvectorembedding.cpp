@@ -79,10 +79,6 @@ Matrix2d<T> CharAsVectorEmbedding<T>::genTextIndices(int startPos)
     // создаем матрицу нужных размеров
     Matrix2d<T> textIndices
         = Matrix2d<T>::zeroM(_batchSize, _sequenceLength);
-    // заранее смотрим, выходим ли за пределы текста перед алгоритмом
-    if (startPos + _sequenceLength + _batchSize + 1 > _text.length()) {
-        startPos = _text.length() - startPos;
-    }
     // ставим индексы символов из текста
     for (int i = 0; i < _batchSize; ++i) {
         int k = 0;

@@ -56,6 +56,11 @@ void ConsistentTrainer::train(int iterCount,
     int currentPos = 0;
     // обучаем:
     while (numIter < iterCount) {
+        // чтобы не выйти за пределы файла
+        if (currentPos + _sequenceLenght + _batchSize + 1 >
+            _embedding->text().length()) {
+            currentPos = 1;
+        }
         // генерируем входные и целевые индексы, соотвественно
         Matrix2d<double> inputIndices = _embedding->genTextIndices(currentPos);
         Matrix2d<double> targetIndices = _embedding->genTextIndices(currentPos+1);
