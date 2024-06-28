@@ -212,7 +212,26 @@ vector<vector<T>> Matrix2d<T>::dataToVector(const IMatrix<T> *matrix)
 template<typename T>
 void Matrix2d<T>::saveToFile(QString fileName)
 {
-    
+    ofstream file;
+    // пытаемся открыть файл
+    file.open(fileName.toStdString());
+    if (!file.is_open()) {
+        throw MatrixException(
+            QString("Catch matrix saving exception:\n[%1]\n")
+                .arg("Failed to open file")
+            );
+    }
+    // пишем информацию в файл
+    file << "{" << endl;
+    for (const vector<T> &row : _data) {
+        for (const T value : row) {
+            file << value << "|";
+        }
+        file << ">>" << endl;
+    }
+    file << "}" << endl;
+
+    file.close();
 }
 
 template<typename T>

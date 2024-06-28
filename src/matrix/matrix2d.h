@@ -2,6 +2,8 @@
 #define MATRIX2D_H
 
 #include <QFile>
+#include <iostream>
+#include <fstream>
 #include "imatrix.h"
 
 ///
