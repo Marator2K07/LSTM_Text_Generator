@@ -56,7 +56,7 @@ void AdaGrad::update()
                     key,
                     "deriv",
                     Matrix2d<double>(
-                        currentParam["deriv"].clipM(-2, 2)->data()
+                        currentParam["deriv"].clipM(-2, 2)
                         )
                     );
             }
@@ -65,13 +65,12 @@ void AdaGrad::update()
                 currentParam["deriv"]
                     .simplifiedMult(&currentParam["deriv"])
                     ->addition(_epsilon)
-                    ->data()
                 );
             _sumSquares[layerIndex].insert(
                 key,
                 Matrix2d<double>(
                     _sumSquares[layerIndex].value(key)
-                        .addition(&newSumSquare)->data()
+                        .addition(&newSumSquare)
                     )
                 );
             // масштабирование скорости обучения
@@ -79,7 +78,6 @@ void AdaGrad::update()
                 _sumSquares[layerIndex].value(key)
                     .sqrtM()
                     ->dividing(_learningRate, true)
-                    ->data()
                 );
             // обновление параметра сети
             Matrix2d<double> newValue(
@@ -87,7 +85,6 @@ void AdaGrad::update()
                     .subtraction(
                         learningRateMatrix.simplifiedMult(&currentParam["deriv"]).get()
                         )
-                    ->data()
                 );
             layer->updateParam(key, "value", newValue);
         }
