@@ -16,6 +16,10 @@ private slots:
     /// проверка создания нулевых 2д и 3д матриц
     void testMatrix2dMatrix3dZeroM();
     ///
+    /// \brief testSaveAndLoad2dMatrix
+    /// првоерка сохранения и загрузки матрицы из файла
+    void testSaveAndLoad2dMatrix();
+    ///
     /// \brief testMatrix2dSameShapeMatrix3d
     /// попытка сломать код, сравнивая матрицы с разными измерениями
     void testMatrix2dSameShapeMatrix3d();
@@ -207,6 +211,19 @@ void TestMatrix::testMatrix2dMatrix3dZeroM()
     QCOMPARE(matrix3d.sameShape(&properMatrix3d), true);
     QCOMPARE(matrix2d == properMatrix2d, true);
     QCOMPARE(matrix3d == properMatrix3d, true);
+}
+
+void TestMatrix::testSaveAndLoad2dMatrix()
+{
+    // инциализация
+    Matrix2d<double> matrix2d(Matrix2d<double>::zeroM(3, 4).addition(3.534));
+    // расчеты
+    matrix2d.saveToFile(QDir::currentPath() + "/testMatrix2d.txt");
+    Matrix2d<double> matrix2dProper;
+    matrix2dProper.loadFromFile(QDir::currentPath() + "/testMatrix2d.txt");
+    matrix2dProper.saveToFile(QDir::currentPath() + "/testProperMatrix2d.txt");
+
+    QCOMPARE(matrix2d.data(), matrix2dProper.data());
 }
 
 void TestMatrix::testMatrix2dSameShapeMatrix3d()
