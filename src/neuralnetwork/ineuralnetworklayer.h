@@ -2,6 +2,8 @@
 #define INEURALNETWORKLAYER_H
 
 #include <QList>
+#include <QFile>
+#include <QDir>
 
 #include "matrix3d.h"
 #include "lstmnode.h"
@@ -28,6 +30,14 @@ public:
     /// по размерам входящей трехмерной матрицы
     /// \param initMatrix матрица для инициализации
     virtual void initParams(const Matrix3d<double> initMatrix) = 0;
+    ///
+    /// \brief saveParams сохрание значений параметров слоя в файл
+    /// \param path уточнение пути для сохранения
+    virtual void saveParams(QString path) = 0;
+    ///
+    /// \brief loadParams загрузка значений параметров из файла
+    /// \param path уточнение пути для загрукзи
+    virtual void loadParams(QString path) = 0;
     ///
     /// \brief params доступ к параметрам текущего слоя
     /// \return двойной словарь параметров данной сети
