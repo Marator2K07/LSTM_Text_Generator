@@ -136,7 +136,7 @@ void TestNeuralNetwork::testLSTMLayerForward()
         // инициализация
         int hiddenSize = 128;
         int outputSize = 44;
-        LSTMLayer layer(hiddenSize, outputSize);
+        LSTMLayer layer("layer1", hiddenSize, outputSize);
         int batchSize = 64;
         int sequenceLenght = 10;
         int vocabSize = 44;
@@ -158,7 +158,7 @@ void TestNeuralNetwork::testLSTMLayerBackward()
     try {
         int hiddenSize = 128;
         int outputSize = 44;
-        LSTMLayer layer(hiddenSize, outputSize);
+        LSTMLayer layer("layer1", hiddenSize, outputSize);
         int batchSize = 64;
         int sequenceLenght = 10;
         int vocabSize = 44;
@@ -188,7 +188,7 @@ void TestNeuralNetwork::testLSTMModelOne()
     int vocabSize = 44;
     LSTMModel lstmModel(new SoftmaxCrossEntropyLoss(),
                         QList<INeuralNetworkLayer *>{
-                            new LSTMLayer(hiddenSize, outputSize)
+                            new LSTMLayer("layer1", hiddenSize, outputSize)
                         });
     // расчеты
     double resLossAfter1Step

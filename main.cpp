@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     CharAsVectorEmbedding<double> embedding("Plain_Kate.txt", sequenceLenght, batchSize);
     LSTMModel model(new SoftmaxCrossEntropyLoss(),
                     QList<INeuralNetworkLayer *>{
-                        new LSTMLayer(hiddenSize, embedding.vocabSize())
+                        new LSTMLayer("layer1", hiddenSize, embedding.vocabSize())
                     });
     SGD optimizer(&model, 0.007, true);
     ConsistentTrainer trainer(&model, &embedding, &optimizer,

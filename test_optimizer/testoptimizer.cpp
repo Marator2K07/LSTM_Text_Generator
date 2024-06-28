@@ -37,7 +37,7 @@ void TestOptimizer::testSGDOptimizer()
     CharAsVectorEmbedding<double> txtEmbed("Plain_Kate.txt", sequenceLenght, batchSize);
     LSTMModel lstmModel(new SoftmaxCrossEntropyLoss(),
                         QList<INeuralNetworkLayer *>{
-                            new LSTMLayer(hiddenSize, txtEmbed.vocabSize())
+                            new LSTMLayer("layer1", hiddenSize, txtEmbed.vocabSize())
                         });
     SGD SGDOptimizer(&lstmModel, 0.008, true);
     // расчеты
@@ -78,7 +78,7 @@ void TestOptimizer::testAdaGradOptimizer()
     CharAsVectorEmbedding<double> txtEmbed("Plain_Kate.txt", sequenceLenght, batchSize);
     LSTMModel lstmModel(new SoftmaxCrossEntropyLoss(),
                         QList<INeuralNetworkLayer *>{
-                            new LSTMLayer(hiddenSize, txtEmbed.vocabSize(), 0.01)
+                            new LSTMLayer("layer1", hiddenSize, txtEmbed.vocabSize(), 0.01)
                         });
     AdaGrad AdaGradOptimizer(&lstmModel, 0.005);
     // расчеты

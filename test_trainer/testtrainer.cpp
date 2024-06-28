@@ -33,7 +33,7 @@ void TestTrainer::testConsistentTrainerOne()
     CharAsVectorEmbedding<double> embedding("Plain_Kate.txt", sequenceLenght, batchSize);
     LSTMModel model(new SoftmaxCrossEntropyLoss(),
                         QList<INeuralNetworkLayer *>{
-                            new LSTMLayer(hiddenSize, embedding.vocabSize())
+                            new LSTMLayer("layer1", hiddenSize, embedding.vocabSize())
                         });
     AdaGrad optimizer(&model, 0.005, true);
     //SGD optimizer(&model, 0.005, true);
