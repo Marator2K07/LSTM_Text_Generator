@@ -23,6 +23,10 @@ class ITextEmbedding
 {
 public:
     ///
+    /// \brief text геттер текущего текста
+    /// \return текущий считанный текст
+    virtual QString text() const = 0;
+    ///
     /// \brief vocabSize размер словаря после анализа текста
     /// \return текущий размер словаря
     virtual int vocabSize() const = 0;

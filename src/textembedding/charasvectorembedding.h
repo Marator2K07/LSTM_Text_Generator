@@ -36,9 +36,8 @@ public:
                           int batchSize = 32);
 
 public:
-    QString text() const;
-
-    // ITextEmbedding interface    
+    // ITextEmbedding interface
+    QString text() const override;
     int vocabSize() const override;
     QMap<int, char> idxToChar() const override;
     QMap<char, int> charToIdx() const override;
