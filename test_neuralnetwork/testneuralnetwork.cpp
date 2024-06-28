@@ -29,6 +29,10 @@ private slots:
     /// поверхностная проверка работоспособности обратного прохода слоя LSTM
     void testLSTMLayerBackward();
     ///
+    /// \brief testSaveLoadLSTMLayer
+    /// проверка работоспособности сохранения и загрузки параметров слоя LSTM
+    void testSaveLoadLSTMLayer();
+    ///
     /// \brief testLSTMModelOne
     /// первый тест модели нейронной сети типа LSTM
     void testLSTMModelOne();
@@ -174,6 +178,37 @@ void TestNeuralNetwork::testLSTMLayerBackward()
 
         QCOMPARE(gradOut == gradIn, false);
     } catch (const NeuralNetworkException &e) {
+        cout << e.what() << endl;
+    }
+}
+
+void TestNeuralNetwork::testSaveLoadLSTMLayer()
+{
+    // инициализация
+    int hiddenSize = 128;
+    int batchSize = 32;
+    int sequenceLenght = 16;
+    int outputSize = 22;
+    int vocabSize = 22;
+    LSTMLayer layer("layer1", hiddenSize, outputSize);
+    Matrix3d<double> sequenceIn
+        = Matrix3d<double>::randomNormal(0.0, 0.01,
+                                         batchSize, sequenceLenght, vocabSize);
+    Matrix3d<double> gradOut
+        = Matrix3d<double>::randomNormal(0.0, 0.01,
+                                         batchSize, sequenceLenght, vocabSize);
+    // расчеты
+    try {
+        Matrix3d<double> sequenceOut = layer.forward(sequenceIn);
+        Matrix3d<double> gradIn = layer.backward(gradOut);
+        layer.saveParams(QDir::currentPath());
+        LSTMLayer properLayer("layer1", hiddenSize, outputSize);
+        properLayer.loadParams(QDir::currentPath());
+
+        QCOMPARE(layer == properLayer, true);
+    } catch (const NeuralNetworkException &e) {
+        cout << e.what() << endl;
+    } catch (const exception &e) {
         cout << e.what() << endl;
     }
 }
