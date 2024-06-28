@@ -222,14 +222,12 @@ void Matrix2d<T>::saveToFile(QString fileName)
             );
     }
     // пишем информацию в файл
-    file << "{" << endl;
     for (const vector<T> &row : _data) {
         for (const T value : row) {
-            file << value << "|";
+            file << value << " ";
         }
-        file << ">>" << endl;
+        file << endl;
     }
-    file << "}" << endl;
 
     file.close();
 }
@@ -237,7 +235,31 @@ void Matrix2d<T>::saveToFile(QString fileName)
 template<typename T>
 void Matrix2d<T>::loadFromFile(QString fileName)
 {
-    
+    // подготовка
+    vector<vector<T>> resultData;
+    ifstream file;
+    // пытаемся открыть файл
+    file.open(fileName.toStdString());
+    if (!file.is_open()) {
+        throw MatrixException(
+            QString("Catch matrix loading exception:\n[%1]\n")
+                .arg("Failed to open file")
+            );
+    }
+    // построчно считываем данные
+    string line;
+    while (getline(file, line)) {
+        vector<T> row;
+        istringstream rowStream(line);
+        T value;
+        while (rowStream >> value) {
+            row.push_back(value);
+        }
+        resultData.push_back(row);
+    }
+    // закрываем файл и обновляем данные
+    file.close();
+    _data = resultData;
 }
 
 template<typename T>
