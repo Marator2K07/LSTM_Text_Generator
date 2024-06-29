@@ -19,6 +19,9 @@ private:
     int _vocabSize; // найденный размер словаря
     int _leftIdxBorder = 32; // крайняя левая граница доступных индексов
     int _rightIdxBorder = 127; // крайняя прав. граница доступных индексов
+    int _letterAIdx = 65; // индекс заглавной буквы А
+    int _letterZIdx = 90; // индекс заглавной буквы Z
+    int _letterShift = 32; // сдвиг буквы от заглавной к прописной
 
 private:
     ///
