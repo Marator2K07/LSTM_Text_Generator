@@ -52,6 +52,12 @@ void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
         // находим предсказанный индекс и его символ, пишем его в последовательность
         int chosenIndex = dist(gen);
         char chosenSymbol = _embedding->idxToChar().value(chosenIndex);
+        lastCharsIdxs.push_back(chosenIndex);
+        // смотрим, превышен ли размер контекста
+        if (lastCharsIdxs.size() > _sequenceLenght) {
+            lastCharsIdxs.erase(lastCharsIdxs.begin());
+        }
+        // и наконец выводим найденный символ
         cout << chosenSymbol;
         // в случае если символ = символу окончания вывода
         if (chosenSymbol == endingChar) {
