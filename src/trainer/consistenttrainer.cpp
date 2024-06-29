@@ -82,7 +82,7 @@ void ConsistentTrainer::train(int iterCount,
         currentPos += _batchSize;
         // возможная генерация вывода для анализа
         if (textSample && numIter % sampleEvery == 0) {
-            sampleOutput(currentPos, '.');
+            sampleOutput(rand() % _embedding->vocabSize(), '.');
         }
         numIter++;
     }
