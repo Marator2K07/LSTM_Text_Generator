@@ -17,26 +17,39 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
 
 void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
 {
+    // формируем начальные условия для последовательности
+    vector<int> lastCharsIdxs;
+    lastCharsIdxs.push_back(startCharIdx);
     // подготовка для будущей рандомизации
     random_device rd;
     mt19937 gen(rd());
     // вывод:
     cout << _embedding->idxToChar().value(startCharIdx);
     while (true) {
-        // начальная входная партия состоящая из одного символа
+        // начальная входная партия состоящая
+        // из lastCharsIdxs.size() символов
         Matrix3d<double> inputCharBatch
-            = Matrix3d<double>::zeroM(1, 1 ,_embedding->vocabSize());
-        inputCharBatch.setValue(0, 0, startCharIdx, 1.0);
+            = Matrix3d<double>::zeroM(1, lastCharsIdxs.size(),
+                                      _embedding->vocabSize());
+        // заполняем начальную партию индексов
+        for (int seqI = 0; seqI < lastCharsIdxs.size(); ++seqI) {
+            inputCharBatch.setValue(0, seqI, lastCharsIdxs[seqI], 1.0);
+        }
         // партия предсказания после прохода по нейронной сети
         Matrix3d<double> predictionBatch = _model->forward(inputCharBatch);
         // приведение предсказания к корректному виду
         Matrix3d<double> softmaxPredBatch = Matrix3d<double>(
             ActivationFunctions<double>::softmax(&predictionBatch)
             );
-        // определяем возможный следующий символ и печатаем его
-        vector<double> predictLine = softmaxPredBatch.toLine();
-        discrete_distribution<> dist(predictLine.begin(),
-                                     predictLine.end());
+        vector<double> lastSoftSymbolPred(
+            softmaxPredBatch.dataToVector()
+                .at(0).dataToVector()
+                .at(lastCharsIdxs.size()-1)
+            );
+        // определяем возможный следующий символ
+        discrete_distribution<> dist(lastSoftSymbolPred.begin(),
+                                     lastSoftSymbolPred.end());
+        // находим предсказанный индекс и его символ, пишем его в последовательность
         int chosenIndex = dist(gen);
         char chosenSymbol = _embedding->idxToChar().value(chosenIndex);
         cout << chosenSymbol;
