@@ -59,7 +59,7 @@ void TestTextEmbedding::testGenTextEmbeddingIndices()
         cout << txtEmbed.vocabSize() << endl;
         // результаты
         Matrix2d<double> resIndices = txtEmbed.genTextIndices(0);
-        QString str = "Erin Bow";
+        QString str = "erin bow";
         for (int i= 0; i < str.size(); ++i) {
             QCOMPARE(txtEmbed.idxToChar()[i], str[i].toLatin1());
         }
