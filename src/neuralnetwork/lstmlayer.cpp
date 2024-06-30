@@ -91,6 +91,7 @@ void LSTMLayer::saveParams(QString path)
 void LSTMLayer::loadParams(QString path)
 {
     try {
+        _vocabSize = 35; /// ПОТОМ УБРАТЬ ХАРДКОД
         // собираем основной путь
         QString fullPath = QString("%1_%2_").arg(path, _name);
         // преинициализация параметров слоя
@@ -129,6 +130,10 @@ void LSTMLayer::loadParams(QString path)
         // загружаем начальные состояния
         _startH.loadFromFile(fullPath + "H_start.txt");
         _startC.loadFromFile(fullPath + "C_start.txt");
+        // инициализируем ячейки для нейронов/узлов
+        for (int i = 0; i < 55; ++i) { /// ПОТОМ УБРАТЬ ХАРДКОД
+            _cells.push_back(LSTMNode());
+        }
         // сбрасываем метку первой инициализации
         _firstStep = false;
     } catch (const MatrixException &e) {
