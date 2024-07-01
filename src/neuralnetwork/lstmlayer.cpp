@@ -143,12 +143,13 @@ void LSTMLayer::saveParams(const QString path)
     }
 }
 
-void LSTMLayer::loadParams(QString path)
+void LSTMLayer::loadParams(const QString path)
 {
     try {
-        _vocabSize = 29; /// ПОТОМ УБРАТЬ ХАРДКОД
+        // сначала загружаем гиперпараметры
+        loadHyperParams(path);
         // собираем основной путь
-        QString fullPath = QString("%1_%2_").arg(path, _name);
+        QString fullPath = QString("%1/%2_").arg(path, _name);
         // преинициализация параметров слоя
         _params.insert("W_f", QMap<QString, Matrix2d<double>>());
         _params.insert("B_f", QMap<QString, Matrix2d<double>>());
@@ -186,7 +187,7 @@ void LSTMLayer::loadParams(QString path)
         _startH.loadFromFile(fullPath + "H_start.txt");
         _startC.loadFromFile(fullPath + "C_start.txt");
         // инициализируем ячейки для нейронов/узлов
-        for (int i = 0; i < 33; ++i) { /// ПОТОМ УБРАТЬ ХАРДКОД
+        for (int i = 0; i < _sequenceSize; ++i) { /// ПОТОМ УБРАТЬ ХАРДКОД
             _cells.push_back(LSTMNode());
         }
         // сбрасываем метку первой инициализации
@@ -194,7 +195,12 @@ void LSTMLayer::loadParams(QString path)
     } catch (const MatrixException &e) {
         throw NeuralNetworkException(
             QString("Catch neural network params loading exception:\n[%1]\n")
-                .arg("Failed to open file")
+                .arg(e.what())
+            );
+    } catch (const NeuralNetworkException &e) {
+        throw NeuralNetworkException(
+            QString("Catch neural network params loading exception:\n[%1]\n")
+                .arg(e.what())
             );
     }
 }
