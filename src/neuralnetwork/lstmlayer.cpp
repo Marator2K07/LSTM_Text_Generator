@@ -5,7 +5,7 @@
 void LSTMLayer::saveHyperParams(const QString path)
 {
     // подготовка
-    QString fileName = QString("%1/%2_").arg(path, _name);
+    QString fileName = QString("%1/%2.txt").arg(path, _name);
     ofstream file;
     // пытаемся открыть файл
     file.open(fileName.toStdString());
@@ -25,7 +25,7 @@ void LSTMLayer::saveHyperParams(const QString path)
 void LSTMLayer::loadHyperParams(const QString path)
 {
     // подготовка
-    QString fileName = QString("%1/%2_").arg(path, _name);
+    QString fileName = QString("%1/%2.txt").arg(path, _name);
     ifstream file;
     // пытаемся открыть файл
     file.open(fileName.toStdString());
@@ -64,28 +64,28 @@ LSTMLayer::LSTMLayer(QString path, QString layerName)
 bool LSTMLayer::operator==(LSTMLayer layer)
 {
     // сравниваем все значения
-    bool values = _params["W_f"]["value"].compareDoubles(&layer.params()["W_f"]["value"], 1e-5) &&
-                  _params["W_i"]["value"].compareDoubles(&layer.params()["W_i"]["value"], 1e-5) &&
-                  _params["W_c"]["value"].compareDoubles(&layer.params()["W_c"]["value"], 1e-5) &&
-                  _params["W_o"]["value"].compareDoubles(&layer.params()["W_o"]["value"], 1e-5) &&
-                  _params["W_v"]["value"].compareDoubles(&layer.params()["W_v"]["value"], 1e-5) &&
-                  _params["B_f"]["value"].compareDoubles(&layer.params()["B_f"]["value"], 1e-5) &&
-                  _params["B_i"]["value"].compareDoubles(&layer.params()["B_i"]["value"], 1e-5) &&
-                  _params["B_c"]["value"].compareDoubles(&layer.params()["B_c"]["value"], 1e-5) &&
-                  _params["B_o"]["value"].compareDoubles(&layer.params()["B_o"]["value"], 1e-5) &&
-                  _params["B_v"]["value"].compareDoubles(&layer.params()["B_v"]["value"], 1e-5) &&
+    bool values = _params["W_f"]["value"].compareDoubles(&layer.params().value("W_f")["value"], 1e-5) &&
+                  _params["W_i"]["value"].compareDoubles(&layer.params().value("W_i")["value"], 1e-5) &&
+                  _params["W_c"]["value"].compareDoubles(&layer.params().value("W_c")["value"], 1e-5) &&
+                  _params["W_o"]["value"].compareDoubles(&layer.params().value("W_o")["value"], 1e-5) &&
+                  _params["W_v"]["value"].compareDoubles(&layer.params().value("W_v")["value"], 1e-5) &&
+                  _params["B_f"]["value"].compareDoubles(&layer.params().value("B_f")["value"], 1e-5) &&
+                  _params["B_i"]["value"].compareDoubles(&layer.params().value("B_i")["value"], 1e-5) &&
+                  _params["B_c"]["value"].compareDoubles(&layer.params().value("B_c")["value"], 1e-5) &&
+                  _params["B_o"]["value"].compareDoubles(&layer.params().value("B_o")["value"], 1e-5) &&
+                  _params["B_v"]["value"].compareDoubles(&layer.params().value("B_v")["value"], 1e-5) &&
                   true;
     // сравниваем все градиенты
-    bool derivs = _params["W_f"]["deriv"].compareDoubles(&layer.params()["W_f"]["deriv"], 1e-5) &&
-                  _params["W_i"]["deriv"].compareDoubles(&layer.params()["W_i"]["deriv"], 1e-5) &&
-                  _params["W_c"]["deriv"].compareDoubles(&layer.params()["W_c"]["deriv"], 1e-5) &&
-                  _params["W_o"]["deriv"].compareDoubles(&layer.params()["W_o"]["deriv"], 1e-5) &&
-                  _params["W_v"]["deriv"].compareDoubles(&layer.params()["W_v"]["deriv"], 1e-5) &&
-                  _params["B_f"]["deriv"].compareDoubles(&layer.params()["B_f"]["deriv"], 1e-5) &&
-                  _params["B_i"]["deriv"].compareDoubles(&layer.params()["B_i"]["deriv"], 1e-5) &&
-                  _params["B_c"]["deriv"].compareDoubles(&layer.params()["B_c"]["deriv"], 1e-5) &&
-                  _params["B_o"]["deriv"].compareDoubles(&layer.params()["B_o"]["deriv"], 1e-5) &&
-                  _params["B_v"]["deriv"].compareDoubles(&layer.params()["B_v"]["deriv"], 1e-5) &&
+    bool derivs = _params["W_f"]["deriv"].compareDoubles(&layer.params().value("W_f")["deriv"], 1e-5) &&
+                  _params["W_i"]["deriv"].compareDoubles(&layer.params().value("W_i")["deriv"], 1e-5) &&
+                  _params["W_c"]["deriv"].compareDoubles(&layer.params().value("W_c")["deriv"], 1e-5) &&
+                  _params["W_o"]["deriv"].compareDoubles(&layer.params().value("W_o")["deriv"], 1e-5) &&
+                  _params["W_v"]["deriv"].compareDoubles(&layer.params().value("W_v")["deriv"], 1e-5) &&
+                  _params["B_f"]["deriv"].compareDoubles(&layer.params().value("B_f")["deriv"], 1e-5) &&
+                  _params["B_i"]["deriv"].compareDoubles(&layer.params().value("B_i")["deriv"], 1e-5) &&
+                  _params["B_c"]["deriv"].compareDoubles(&layer.params().value("B_c")["deriv"], 1e-5) &&
+                  _params["B_o"]["deriv"].compareDoubles(&layer.params().value("B_o")["deriv"], 1e-5) &&
+                  _params["B_v"]["deriv"].compareDoubles(&layer.params().value("B_v")["deriv"], 1e-5) &&
                   true;
 
     return values && derivs;
