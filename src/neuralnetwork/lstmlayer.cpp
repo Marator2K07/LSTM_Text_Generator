@@ -2,6 +2,29 @@
 #include "matrix2d.cpp"
 #include "matrix3d.cpp"
 
+void LSTMLayer::saveHyperParams(const QString path)
+{
+    // подготовка
+    QString fileName = QString("%1/%2_").arg(path, _name);
+    ofstream file;
+    // пытаемся открыть файл
+    file.open(fileName.toStdString());
+    if (!file.is_open()) {
+        throw MatrixException(
+            QString("Catch neural network layer saving hyperparams exception:\n[%1]\n")
+                .arg("Failed to open file")
+            );
+    }
+    // пишем гиперпараметры в файл
+    file << _name << " ";
+    file << _hiddenSize << " ";
+    file << _outputSize << " ";
+    file << _vocabSize << " ";
+    file << _sequenceSize << " ";
+    file << _weightScale << " ";
+
+    file.close();
+}
 LSTMLayer::LSTMLayer(QString name, int hiddenSize, int outputSize, double weightScale)
     : _name{name}
     , _hiddenSize{hiddenSize}

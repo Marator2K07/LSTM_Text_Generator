@@ -13,6 +13,7 @@ private:
     int _hiddenSize;
     int _outputSize;
     int _vocabSize;
+    int _sequenceSize; // размер последовательности(количество узлов сети)
     double _weightScale; // точность весов
     Matrix2d<double> _startH; // стартовое состояние слоя
     Matrix2d<double> _startC; // стартовое состояние ячейки/узла
@@ -20,6 +21,9 @@ private:
     QList<LSTMNode> _cells; // ячейки с нейронными узлами
     QMap<QString, QMap<QString, Matrix2d<double>>> _params;
 
+private:
+    // INeuralNetworkLayer interface
+    void saveHyperParams(const QString path) override;
 public:
     LSTMLayer(QString name,
               int hiddenSize,
