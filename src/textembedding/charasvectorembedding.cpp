@@ -100,10 +100,16 @@ Matrix2d<T> CharAsVectorEmbedding<T>::genTextIndices(int startPos)
         for (int chIdx = startPos + i;
              chIdx < startPos + _sequenceLength + i;
              ++chIdx) {
+            // если заглавная буква
+            QChar currentSymbol = _text[chIdx];
+            if (currentSymbol.isUpper()) {
+                currentSymbol = currentSymbol.toLower();
+            }
+            // присваиваем значение
             textIndices.setValue(
                 i,
                 k++,
-                _charToIdx[_text[chIdx].toLatin1()]
+                _charToIdx[currentSymbol.toLatin1()]
             );
         }
     }
