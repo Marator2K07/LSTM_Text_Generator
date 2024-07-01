@@ -33,11 +33,19 @@ public:
     ///
     /// \brief saveParams сохрание значений параметров слоя в файл
     /// \param path уточнение пути для сохранения
-    virtual void saveParams(QString path) = 0;
+    virtual void saveParams(const QString path = QDir::currentPath()) = 0;
     ///
     /// \brief loadParams загрузка значений параметров из файла
-    /// \param path уточнение пути для загрукзи
-    virtual void loadParams(QString path) = 0;
+    /// \param path уточнение пути для загрузки
+    virtual void loadParams(const QString path = QDir::currentPath()) = 0;
+    ///
+    /// \brief saveHyperParams сохранение гиперпараметров слоя
+    /// \param path путь сохранения
+    virtual void saveHyperParams(const QString path = QDir::currentPath()) = 0;
+    ///
+    /// \brief loadHyperParams сохранение гиперпараметров слоя
+    /// \param path путь загрузки
+    virtual void loadHyperParams(const QString path = QDir::currentPath()) = 0;
     ///
     /// \brief params доступ к параметрам текущего слоя
     /// \return двойной словарь параметров данной сети
