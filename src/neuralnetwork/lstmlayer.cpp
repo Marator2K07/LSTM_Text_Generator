@@ -16,7 +16,6 @@ void LSTMLayer::saveHyperParams(const QString path)
             );
     }
     // пишем гиперпараметры в файл
-    file << _name << " ";
     file << _hiddenSize << " ";
     file << _outputSize << " ";
     file << _vocabSize << " ";
@@ -40,7 +39,6 @@ void LSTMLayer::loadHyperParams(const QString path)
             );
     }
     // считываем гиперпараметры
-    file >> _name >> " ";
     file >> _hiddenSize >> " ";
     file >> _outputSize >> " ";
     file >> _vocabSize >> " ";
@@ -59,6 +57,12 @@ LSTMLayer::LSTMLayer(QString name, int hiddenSize, int outputSize, double weight
     _startH = Matrix2d<double>::zeroM(1, hiddenSize);
     _startC = Matrix2d<double>::zeroM(1, hiddenSize);
     _firstStep = true;
+}
+
+LSTMLayer::LSTMLayer(QString path, QString layerName)
+    : _name{layerName}
+{
+    loadParams(path);
 }
 
 bool LSTMLayer::operator==(LSTMLayer layer)

@@ -32,6 +32,7 @@ public:
               int hiddenSize,
               int outputSize,
               double weightScale = 0.01);
+    LSTMLayer(QString path, QString layerName);
 
     bool operator==(LSTMLayer layer);
 
