@@ -63,6 +63,11 @@ void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
         if (chosenSymbol == endingChar) {
             break;
         }
+
+        // cout << endl << "[" ;        for (const int value : lastCharsIdxs) {
+        //     cout << value << "|";
+        // }
+        // cout << "]" << endl;
     }
     cout << endl;
 }
@@ -72,7 +77,11 @@ void ConsistentTrainer::train(int iterCount,
                               int sampleEvery)
 {
     int numIter = 0;
-    int currentPos = 1088;
+    double meanLoss = 0;
+    //int currentPos = 36127;
+    // последнее для 128_24_50_Layer1 10752
+    // последнее для 160_24_48(один слой)(TheRedRoom) 17112
+    int currentPos = 30558;
     // обучаем:
     while (numIter < iterCount) {
         // "конец эпохи"
@@ -84,7 +93,7 @@ void ConsistentTrainer::train(int iterCount,
                 layer->saveParams(QDir::currentPath());
             }
             cout << "end of an era" << endl;
-            break;
+            currentPos = numIter;
         }
         // генерируем входные и целевые индексы, соотвественно
         Matrix2d<double> inputIndices = _embedding->genTextIndices(currentPos);
@@ -95,6 +104,7 @@ void ConsistentTrainer::train(int iterCount,
         // вычислеям потери сети
         double loss = _model->singleStep(inputBatch, targetBatch);
         cout << numIter << ") " << loss << " pos - " << currentPos << endl;
+        meanLoss += loss;
         // оптимизируем нейронную сеть
         _optimizer->update();
         // сдвигаем позицию в тексте на размер партии
@@ -110,4 +120,5 @@ void ConsistentTrainer::train(int iterCount,
         layer->saveParams(QDir::currentPath());
     }
     cout << "end of iter" << " currentPos - " << currentPos << endl;
+    cout << "mean loss value - " << meanLoss / iterCount << endl;
 }

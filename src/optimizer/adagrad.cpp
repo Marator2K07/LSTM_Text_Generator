@@ -57,7 +57,7 @@ void AdaGrad::update()
                     key,
                     "deriv",
                     Matrix2d<double>(
-                        currentParam["deriv"].clipM(-2, 2)
+                        currentParam["deriv"].clipM(-1.45, 1.45)
                         )
                     );
             }

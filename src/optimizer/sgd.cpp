@@ -25,7 +25,7 @@ void SGD::update()
                     key,
                     "deriv",
                     Matrix2d<double>(
-                        currentParam["deriv"].clipM(-2, 2)
+                        currentParam["deriv"].clipM(-1.5, 1.5)
                         )
                     );
             }
