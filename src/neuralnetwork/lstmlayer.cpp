@@ -98,11 +98,13 @@ void LSTMLayer::updateParam(const QString firstKey,
     _params[firstKey].insert(secondKey, value);
 }
 
-void LSTMLayer::saveParams(QString path)
+void LSTMLayer::saveParams(const QString path)
 {
     try {
+        // сначала сохраняем гиперпараметры
+        saveHyperParams(path);
         // собираем основной путь
-        QString fullPath = QString("%1_%2_").arg(path, _name);
+        QString fullPath = QString("%1/%2_").arg(path, _name);
         // сохраняем все значения
         _params["W_f"]["value"].saveToFile(fullPath + "W_f_value.txt");
         _params["W_i"]["value"].saveToFile(fullPath + "W_i_value.txt");
@@ -131,7 +133,12 @@ void LSTMLayer::saveParams(QString path)
     } catch (const MatrixException &e) {
         throw NeuralNetworkException(
             QString("Catch neural network params saving exception:\n[%1]\n")
-                .arg("Failed to save file")
+                .arg(e.what())
+            );
+    } catch (const NeuralNetworkException &e) {
+        throw NeuralNetworkException(
+            QString("Catch neural network params saving exception:\n[%1]\n")
+                .arg(e.what())
             );
     }
 }
