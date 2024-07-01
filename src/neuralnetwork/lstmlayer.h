@@ -23,7 +23,10 @@ private:
 
 private:
     // INeuralNetworkLayer interface
-    void saveHyperParams(const QString path) override;
+    void saveHyperParams(const QString path = QDir::currentPath()) override;
+    void loadHyperParams(const QString path = QDir::currentPath()) override;
+    //
+
 public:
     LSTMLayer(QString name,
               int hiddenSize,

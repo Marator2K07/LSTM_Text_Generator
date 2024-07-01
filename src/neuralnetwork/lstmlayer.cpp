@@ -25,6 +25,31 @@ void LSTMLayer::saveHyperParams(const QString path)
 
     file.close();
 }
+
+void LSTMLayer::loadHyperParams(const QString path)
+{
+    // подготовка
+    QString fileName = QString("%1/%2_").arg(path, _name);
+    ifstream file;
+    // пытаемся открыть файл
+    file.open(fileName.toStdString());
+    if (!file.is_open()) {
+        throw MatrixException(
+            QString("Catch neural network layer loading hyperparams exception:\n[%1]\n")
+                .arg("Failed to open file")
+            );
+    }
+    // считываем гиперпараметры
+    file >> _name >> " ";
+    file >> _hiddenSize >> " ";
+    file >> _outputSize >> " ";
+    file >> _vocabSize >> " ";
+    file >> _sequenceSize >> " ";
+    file >> _weightScale >> " ";
+
+    file.close();
+}
+
 LSTMLayer::LSTMLayer(QString name, int hiddenSize, int outputSize, double weightScale)
     : _name{name}
     , _hiddenSize{hiddenSize}
