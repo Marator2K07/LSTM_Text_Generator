@@ -16,8 +16,8 @@ void LSTMLayer::saveHyperParams(const QString path)
             );
     }
     // пишем гиперпараметры в файл
-    file << _hiddenSize << _outputSize << _vocabSize
-         << _sequenceSize << _weightScale;
+    file << _hiddenSize << " " << _outputSize << " " << _vocabSize << " "
+         << _sequenceSize << " " << _weightScale << " ";
 
     file.close();
 }
@@ -37,9 +37,16 @@ void LSTMLayer::loadHyperParams(const QString path)
     }
     // считываем гиперпараметры
     string line;
+    getline(file, line);
     istringstream rowStream(line);
     rowStream >> _hiddenSize >> _outputSize >> _vocabSize
         >> _sequenceSize >> _weightScale;
+
+    cout << _hiddenSize << endl;
+    cout << _outputSize << endl;
+    cout << _vocabSize << endl;
+    cout << _sequenceSize << endl;
+    cout << _weightScale << endl;
 
     file.close();
 }
