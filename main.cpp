@@ -1,6 +1,6 @@
 #include <QApplication>
 
-#include "mainwindow.h"
+#include "pageModels/pagemodel.h"
 #include "adagrad.h"
 #include "sgd.h"
 #include "lstmlayer.h"
@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    MainWindow window;
+    PageModel window;
     window.show();
 
     return a.exec();
