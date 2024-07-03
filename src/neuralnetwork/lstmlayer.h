@@ -13,6 +13,7 @@ private:
     int _hiddenSize;
     int _outputSize;
     int _vocabSize;
+    int _sequenceSize; // размер последовательности(количество узлов сети)
     double _weightScale; // точность весов
     Matrix2d<double> _startH; // стартовое состояние слоя
     Matrix2d<double> _startC; // стартовое состояние ячейки/узла
@@ -20,11 +21,18 @@ private:
     QList<LSTMNode> _cells; // ячейки с нейронными узлами
     QMap<QString, QMap<QString, Matrix2d<double>>> _params;
 
+private:
+    // INeuralNetworkLayer interface
+    void saveHyperParams(const QString path = QDir::currentPath()) override;
+    void loadHyperParams(const QString path = QDir::currentPath()) override;
+    //
+
 public:
     LSTMLayer(QString name,
               int hiddenSize,
               int outputSize,
               double weightScale = 0.01);
+    LSTMLayer(QString path, QString layerName);
 
     bool operator==(LSTMLayer layer);
 
@@ -33,8 +41,8 @@ public:
     void updateParam(const QString firstKey,
                      const QString secondKey,
                      const Matrix2d<double> value) override;
-    void saveParams(QString path) override;
-    void loadParams(QString path) override;
+    void saveParams(const QString path = QDir::currentPath()) override;
+    void loadParams(const QString path = QDir::currentPath()) override;
     void initParams(const Matrix3d<double> initMatrix) override;
     QMap<QString, QMap<QString, Matrix2d<double>>> params() const override;
     void clearGradients() override;

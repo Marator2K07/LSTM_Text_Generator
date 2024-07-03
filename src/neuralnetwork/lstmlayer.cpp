@@ -2,6 +2,48 @@
 #include "matrix2d.cpp"
 #include "matrix3d.cpp"
 
+void LSTMLayer::saveHyperParams(const QString path)
+{
+    // подготовка
+    QString fileName = QString("%1/%2.txt").arg(path, _name);
+    ofstream file;
+    // пытаемся открыть файл
+    file.open(fileName.toStdString());
+    if (!file.is_open()) {
+        throw MatrixException(
+            QString("Catch neural network layer saving hyperparams exception:\n[%1]\n")
+                .arg("Failed to open file")
+            );
+    }
+    // пишем гиперпараметры в файл
+    file << _hiddenSize << _outputSize << _vocabSize
+         << _sequenceSize << _weightScale;
+
+    file.close();
+}
+
+void LSTMLayer::loadHyperParams(const QString path)
+{
+    // подготовка
+    QString fileName = QString("%1/%2.txt").arg(path, _name);
+    ifstream file;
+    // пытаемся открыть файл
+    file.open(fileName.toStdString());
+    if (!file.is_open()) {
+        throw MatrixException(
+            QString("Catch neural network layer loading hyperparams exception:\n[%1]\n")
+                .arg("Failed to open file")
+            );
+    }
+    // считываем гиперпараметры
+    string line;
+    istringstream rowStream(line);
+    rowStream >> _hiddenSize >> _outputSize >> _vocabSize
+        >> _sequenceSize >> _weightScale;
+
+    file.close();
+}
+
 LSTMLayer::LSTMLayer(QString name, int hiddenSize, int outputSize, double weightScale)
     : _name{name}
     , _hiddenSize{hiddenSize}
@@ -13,31 +55,37 @@ LSTMLayer::LSTMLayer(QString name, int hiddenSize, int outputSize, double weight
     _firstStep = true;
 }
 
+LSTMLayer::LSTMLayer(QString path, QString layerName)
+    : _name{layerName}
+{
+    loadParams(path);
+}
+
 bool LSTMLayer::operator==(LSTMLayer layer)
 {
     // сравниваем все значения
-    bool values = _params["W_f"]["value"].compareDoubles(&layer.params()["W_f"]["value"], 1e-5) &&
-                  _params["W_i"]["value"].compareDoubles(&layer.params()["W_i"]["value"], 1e-5) &&
-                  _params["W_c"]["value"].compareDoubles(&layer.params()["W_c"]["value"], 1e-5) &&
-                  _params["W_o"]["value"].compareDoubles(&layer.params()["W_o"]["value"], 1e-5) &&
-                  _params["W_v"]["value"].compareDoubles(&layer.params()["W_v"]["value"], 1e-5) &&
-                  _params["B_f"]["value"].compareDoubles(&layer.params()["B_f"]["value"], 1e-5) &&
-                  _params["B_i"]["value"].compareDoubles(&layer.params()["B_i"]["value"], 1e-5) &&
-                  _params["B_c"]["value"].compareDoubles(&layer.params()["B_c"]["value"], 1e-5) &&
-                  _params["B_o"]["value"].compareDoubles(&layer.params()["B_o"]["value"], 1e-5) &&
-                  _params["B_v"]["value"].compareDoubles(&layer.params()["B_v"]["value"], 1e-5) &&
+    bool values = _params["W_f"]["value"].compareDoubles(&layer.params().value("W_f")["value"], 1e-5) &&
+                  _params["W_i"]["value"].compareDoubles(&layer.params().value("W_i")["value"], 1e-5) &&
+                  _params["W_c"]["value"].compareDoubles(&layer.params().value("W_c")["value"], 1e-5) &&
+                  _params["W_o"]["value"].compareDoubles(&layer.params().value("W_o")["value"], 1e-5) &&
+                  _params["W_v"]["value"].compareDoubles(&layer.params().value("W_v")["value"], 1e-5) &&
+                  _params["B_f"]["value"].compareDoubles(&layer.params().value("B_f")["value"], 1e-5) &&
+                  _params["B_i"]["value"].compareDoubles(&layer.params().value("B_i")["value"], 1e-5) &&
+                  _params["B_c"]["value"].compareDoubles(&layer.params().value("B_c")["value"], 1e-5) &&
+                  _params["B_o"]["value"].compareDoubles(&layer.params().value("B_o")["value"], 1e-5) &&
+                  _params["B_v"]["value"].compareDoubles(&layer.params().value("B_v")["value"], 1e-5) &&
                   true;
     // сравниваем все градиенты
-    bool derivs = _params["W_f"]["deriv"].compareDoubles(&layer.params()["W_f"]["deriv"], 1e-5) &&
-                  _params["W_i"]["deriv"].compareDoubles(&layer.params()["W_i"]["deriv"], 1e-5) &&
-                  _params["W_c"]["deriv"].compareDoubles(&layer.params()["W_c"]["deriv"], 1e-5) &&
-                  _params["W_o"]["deriv"].compareDoubles(&layer.params()["W_o"]["deriv"], 1e-5) &&
-                  _params["W_v"]["deriv"].compareDoubles(&layer.params()["W_v"]["deriv"], 1e-5) &&
-                  _params["B_f"]["deriv"].compareDoubles(&layer.params()["B_f"]["deriv"], 1e-5) &&
-                  _params["B_i"]["deriv"].compareDoubles(&layer.params()["B_i"]["deriv"], 1e-5) &&
-                  _params["B_c"]["deriv"].compareDoubles(&layer.params()["B_c"]["deriv"], 1e-5) &&
-                  _params["B_o"]["deriv"].compareDoubles(&layer.params()["B_o"]["deriv"], 1e-5) &&
-                  _params["B_v"]["deriv"].compareDoubles(&layer.params()["B_v"]["deriv"], 1e-5) &&
+    bool derivs = _params["W_f"]["deriv"].compareDoubles(&layer.params().value("W_f")["deriv"], 1e-5) &&
+                  _params["W_i"]["deriv"].compareDoubles(&layer.params().value("W_i")["deriv"], 1e-5) &&
+                  _params["W_c"]["deriv"].compareDoubles(&layer.params().value("W_c")["deriv"], 1e-5) &&
+                  _params["W_o"]["deriv"].compareDoubles(&layer.params().value("W_o")["deriv"], 1e-5) &&
+                  _params["W_v"]["deriv"].compareDoubles(&layer.params().value("W_v")["deriv"], 1e-5) &&
+                  _params["B_f"]["deriv"].compareDoubles(&layer.params().value("B_f")["deriv"], 1e-5) &&
+                  _params["B_i"]["deriv"].compareDoubles(&layer.params().value("B_i")["deriv"], 1e-5) &&
+                  _params["B_c"]["deriv"].compareDoubles(&layer.params().value("B_c")["deriv"], 1e-5) &&
+                  _params["B_o"]["deriv"].compareDoubles(&layer.params().value("B_o")["deriv"], 1e-5) &&
+                  _params["B_v"]["deriv"].compareDoubles(&layer.params().value("B_v")["deriv"], 1e-5) &&
                   true;
 
     return values && derivs;
@@ -50,11 +98,13 @@ void LSTMLayer::updateParam(const QString firstKey,
     _params[firstKey].insert(secondKey, value);
 }
 
-void LSTMLayer::saveParams(QString path)
+void LSTMLayer::saveParams(const QString path)
 {
     try {
+        // сначала сохраняем гиперпараметры
+        saveHyperParams(path);
         // собираем основной путь
-        QString fullPath = QString("%1_%2_").arg(path, _name);
+        QString fullPath = QString("%1/%2_").arg(path, _name);
         // сохраняем все значения
         _params["W_f"]["value"].saveToFile(fullPath + "W_f_value.txt");
         _params["W_i"]["value"].saveToFile(fullPath + "W_i_value.txt");
@@ -83,17 +133,23 @@ void LSTMLayer::saveParams(QString path)
     } catch (const MatrixException &e) {
         throw NeuralNetworkException(
             QString("Catch neural network params saving exception:\n[%1]\n")
-                .arg("Failed to save file")
+                .arg(e.what())
+            );
+    } catch (const NeuralNetworkException &e) {
+        throw NeuralNetworkException(
+            QString("Catch neural network params saving exception:\n[%1]\n")
+                .arg(e.what())
             );
     }
 }
 
-void LSTMLayer::loadParams(QString path)
+void LSTMLayer::loadParams(const QString path)
 {
     try {
-        _vocabSize = 29; /// ПОТОМ УБРАТЬ ХАРДКОД
+        // сначала загружаем гиперпараметры
+        loadHyperParams(path);
         // собираем основной путь
-        QString fullPath = QString("%1_%2_").arg(path, _name);
+        QString fullPath = QString("%1/%2_").arg(path, _name);
         // преинициализация параметров слоя
         _params.insert("W_f", QMap<QString, Matrix2d<double>>());
         _params.insert("B_f", QMap<QString, Matrix2d<double>>());
@@ -131,7 +187,7 @@ void LSTMLayer::loadParams(QString path)
         _startH.loadFromFile(fullPath + "H_start.txt");
         _startC.loadFromFile(fullPath + "C_start.txt");
         // инициализируем ячейки для нейронов/узлов
-        for (int i = 0; i < 33; ++i) { /// ПОТОМ УБРАТЬ ХАРДКОД
+        for (int i = 0; i < _sequenceSize; ++i) { /// ПОТОМ УБРАТЬ ХАРДКОД
             _cells.push_back(LSTMNode());
         }
         // сбрасываем метку первой инициализации
@@ -139,7 +195,12 @@ void LSTMLayer::loadParams(QString path)
     } catch (const MatrixException &e) {
         throw NeuralNetworkException(
             QString("Catch neural network params loading exception:\n[%1]\n")
-                .arg("Failed to open file")
+                .arg(e.what())
+            );
+    } catch (const NeuralNetworkException &e) {
+        throw NeuralNetworkException(
+            QString("Catch neural network params loading exception:\n[%1]\n")
+                .arg(e.what())
             );
     }
 }

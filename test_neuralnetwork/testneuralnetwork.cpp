@@ -190,7 +190,7 @@ void TestNeuralNetwork::testSaveLoadLSTMLayer()
     int sequenceLenght = 16;
     int outputSize = 22;
     int vocabSize = 22;
-    LSTMLayer layer("layer1", hiddenSize, outputSize);
+    LSTMLayer layer("LayerTest", hiddenSize, outputSize);
     Matrix3d<double> sequenceIn
         = Matrix3d<double>::randomNormal(0.0, 0.01,
                                          batchSize, sequenceLenght, vocabSize);
@@ -201,9 +201,8 @@ void TestNeuralNetwork::testSaveLoadLSTMLayer()
     try {
         Matrix3d<double> sequenceOut = layer.forward(sequenceIn);
         Matrix3d<double> gradIn = layer.backward(gradOut);
-        layer.saveParams(QDir::currentPath());
-        LSTMLayer properLayer("layer1", hiddenSize, outputSize);
-        properLayer.loadParams(QDir::currentPath());
+        layer.saveParams();
+        LSTMLayer properLayer(QDir::currentPath(), "LayerTest");
 
         QCOMPARE(layer == properLayer, true);
     } catch (const NeuralNetworkException &e) {
