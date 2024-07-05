@@ -288,7 +288,8 @@ void LSTMLayer::initParams(const Matrix3d<double> initMatrix)
             );
     }
     // инициализируем ячейки для нейронов/узлов
-    for (int i = 0; i < initMatrix.sizes()[1]; ++i) {
+    _sequenceSize = initMatrix.sizes()[1];
+    for (int i = 0; i < _sequenceSize; ++i) {
         _cells.push_back(LSTMNode());
     }
     // сбрасываем флаг инициализации
