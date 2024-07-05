@@ -26,8 +26,9 @@ bool LSTMModel::operator==(const LSTMModel model)
     }
     // если все впорядке то сравниваем послойно
     for (int i = 0; i < _layers.size(); ++i) {
-        bool equalStepLayer = _layers.at(i) == model.layers().at(i);
-        if (!equalStepLayer) {
+        LSTMLayer *currentLayer = (LSTMLayer *)_layers.value(i);
+        INeuralNetworkLayer *otherLayer = (LSTMLayer *)_layers.value(i);
+        if (!currentLayer->compareLayer(otherLayer)) {
             return false;
         }
     }
