@@ -10,6 +10,40 @@ LSTMModel::LSTMModel(QString name,
 {
 }
 
+void LSTMModel::save(const QString path)
+{
+    // создаем новую папку в указанном месте
+    QString folderPath = QString("%1/%2").arg(path, _name);
+    QDir dir;
+    dir.mkdir(folderPath);
+    // пытаемся сохранить данные модели
+    try {
+        for (INeuralNetworkLayer *layer : _layers) {
+            layer->saveParams(folderPath);
+        }
+    } catch (const NeuralNetworkException &e) {
+        throw NeuralNetworkException(
+            QString("Catch neural network model saving exception:\n[%1]\n")
+                .arg(e.what())
+            );
+    }
+}
+
+void LSTMModel::load(const QString path)
+{
+    // пытаемся загрузить данные модели
+    try {
+        for (INeuralNetworkLayer *layer : _layers) {
+            layer->saveParams(path);
+        }
+    } catch (const NeuralNetworkException &e) {
+        throw NeuralNetworkException(
+            QString("Catch neural network model loading exception:\n[%1]\n")
+                .arg(e.what())
+            );
+    }
+}
+
 QList<INeuralNetworkLayer *> LSTMModel::layers() const
 {
     return _layers;
