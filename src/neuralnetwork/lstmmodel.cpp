@@ -10,6 +10,12 @@ LSTMModel::LSTMModel(QString name,
 {
 }
 
+LSTMModel::LSTMModel(const QString path, const QString modelName)
+    : _name{modelName}
+{
+    load(QString("%1/%2").arg(path, modelName));
+}
+
 void LSTMModel::save(const QString path)
 {
     // создаем новую папку в указанном месте

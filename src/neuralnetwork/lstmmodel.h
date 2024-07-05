@@ -17,6 +17,7 @@ public:
     LSTMModel(QString name,
               ILoss *loss,
               QList<INeuralNetworkLayer *> layers);
+    LSTMModel(const QString path, const QString modelName);
 
 public:
     // INeuralNetworkModel interface
