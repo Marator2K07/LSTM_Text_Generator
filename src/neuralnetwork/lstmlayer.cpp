@@ -62,7 +62,7 @@ LSTMLayer::LSTMLayer(QString name, int hiddenSize, int outputSize, double weight
     _firstStep = true;
 }
 
-LSTMLayer::LSTMLayer(QString path, QString layerName)
+LSTMLayer::LSTMLayer(const QString path, const QString layerName)
     : _name{layerName}
 {
     loadParams(path);
