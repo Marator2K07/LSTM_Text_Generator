@@ -35,7 +35,8 @@ void TestOptimizer::testSGDOptimizer()
     int batchSize = 12;
     int sequenceLenght = 22;
     CharAsVectorEmbedding<double> txtEmbed("Plain_Kate.txt", sequenceLenght, batchSize);
-    LSTMModel lstmModel(new SoftmaxCrossEntropyLoss(),
+    LSTMModel lstmModel("LSTMModelSGD",
+                        new SoftmaxCrossEntropyLoss(),
                         QList<INeuralNetworkLayer *>{
                             new LSTMLayer("layer1", hiddenSize, txtEmbed.vocabSize())
                         });
@@ -76,7 +77,8 @@ void TestOptimizer::testAdaGradOptimizer()
     int batchSize = 16;
     int sequenceLenght = 12;
     CharAsVectorEmbedding<double> txtEmbed("Plain_Kate.txt", sequenceLenght, batchSize);
-    LSTMModel lstmModel(new SoftmaxCrossEntropyLoss(),
+    LSTMModel lstmModel("LSTMModelAdaGrad",
+                        new SoftmaxCrossEntropyLoss(),
                         QList<INeuralNetworkLayer *>{
                             new LSTMLayer("layer1", hiddenSize, txtEmbed.vocabSize(), 0.01)
                         });

@@ -220,7 +220,8 @@ void TestNeuralNetwork::testLSTMModelOne()
     int sequenceLenght = 10;
     int outputSize = 44;
     int vocabSize = 44;
-    LSTMModel lstmModel(new SoftmaxCrossEntropyLoss(),
+    LSTMModel lstmModel("testLSTMModel",
+                        new SoftmaxCrossEntropyLoss(),
                         QList<INeuralNetworkLayer *>{
                             new LSTMLayer("layer1", hiddenSize, outputSize)
                         });
