@@ -38,32 +38,59 @@ void LSTMModel::save(const QString path)
     QString folderPath = QString("%1/%2").arg(path, _name);
     QDir dir;
     dir.mkdir(folderPath);
-    // пытаемся сохранить данные модели
+    // пытаемся открыть файл для сохранения в новой папке
+    QString fileName = QString("%1/%2.txt").arg(folderPath, _name);
+    ofstream file;
+    file.open(fileName.toStdString());
+    if (!file.is_open()) {
+        throw NeuralNetworkException(
+            QString("Catch neural network model saving exception:\n[%1]\n")
+                .arg("Failed to open file")
+            );
+    }
+    // пишем информацию о слоях и одновременно пишем имена слоев в файл
     try {
         for (INeuralNetworkLayer *layer : _layers) {
+            file << layer->name().toStdString() << endl;
             layer->saveParams(folderPath);
         }
     } catch (const NeuralNetworkException &e) {
         throw NeuralNetworkException(
-            QString("Catch neural network model saving exception:\n[%1]\n")
+            QString("Catch neural network model saving layers exception:\n[%1]\n")
                 .arg(e.what())
             );
     }
+
+    file.close();
 }
 
-void LSTMModel::load(const QString path)
+void LSTMModel::load(const QString path, const QString fileName)
 {
+    // пытаемся открыть файл
+    ifstream file;
+    file.open(fileName.toStdString());
+    if (!file.is_open()) {
+        throw NeuralNetworkException(
+            QString("Catch neural network model loading exception:\n[%1]\n")
+                .arg("Failed to open file")
+            );
+    }
     // пытаемся загрузить данные модели
     try {
-        for (INeuralNetworkLayer *layer : _layers) {
-            layer->saveParams(path);
+        string line;
+        // построчно создаем слои по данным из файла
+        while (getline(file, line)) {
+            QString layerName = QString::fromStdString(line);
+            _layers.push_back(new LSTMLayer(path, layerName));
         }
     } catch (const NeuralNetworkException &e) {
         throw NeuralNetworkException(
-            QString("Catch neural network model loading exception:\n[%1]\n")
+            QString("Catch neural network model loading layers exception:\n[%1]\n")
                 .arg(e.what())
             );
     }
+
+    file.close();
 }
 
 QList<INeuralNetworkLayer *> LSTMModel::layers() const
