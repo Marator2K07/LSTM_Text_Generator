@@ -16,6 +16,22 @@ LSTMModel::LSTMModel(const QString path, const QString modelName)
     load(QString("%1/%2").arg(path, modelName));
 }
 
+bool LSTMModel::operator==(const LSTMModel model)
+{
+    // смотрим совпадает ли количество слоев в моделях
+    if (_layers.size() != model.layers().size()) {
+        return false;
+    }
+    // если все впорядке то сравниваем послойно
+    for (int i = 0; i < _layers.size(); ++i) {
+        bool equalStepLayer = _layers.at(i) == model.layers().at(i);
+        if (!equalStepLayer) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void LSTMModel::save(const QString path)
 {
     // создаем новую папку в указанном месте

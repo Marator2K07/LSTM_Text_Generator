@@ -19,6 +19,8 @@ public:
               QList<INeuralNetworkLayer *> layers);
     LSTMModel(const QString path, const QString modelName);
 
+    bool operator==(const LSTMModel model);
+
 public:
     // INeuralNetworkModel interface
     void save(const QString path = QDir::currentPath()) override;
