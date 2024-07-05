@@ -9,11 +9,14 @@
 class LSTMModel : public INeuralNetworkModel
 {
 private:
+    QString _name; // для идентификации при сохранении/загрузке
     ILoss *_loss; // интерфейс вычисления потерь
     QList<INeuralNetworkLayer *> _layers; // список слоев модели
 
 public:
-    LSTMModel(ILoss *loss, QList<INeuralNetworkLayer *> layers);
+    LSTMModel(QString name,
+              ILoss *loss,
+              QList<INeuralNetworkLayer *> layers);
 
 public:
     // INeuralNetworkModel interface
