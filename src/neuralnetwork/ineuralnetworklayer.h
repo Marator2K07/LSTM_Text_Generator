@@ -17,6 +17,10 @@ class INeuralNetworkLayer
 {
 public:
     ///
+    /// \brief name геттер имени слоя
+    /// \return текущее имя слоя
+    virtual QString name() const = 0;
+    ///
     /// \brief updateParam обновление параметра
     /// слоя сети в процессе оптимизации
     /// \param firstKey - вторичный ключ параметров слоя

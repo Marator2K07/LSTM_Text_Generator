@@ -68,6 +68,11 @@ LSTMLayer::LSTMLayer(const QString path, const QString layerName)
     loadParams(path);
 }
 
+QString LSTMLayer::name() const
+{
+    return _name;
+}
+
 bool LSTMLayer::operator==(LSTMLayer layer)
 {
     // сравниваем все значения
