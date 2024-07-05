@@ -21,6 +21,10 @@ public:
     /// \return текущее имя слоя
     virtual QString name() const = 0;
     ///
+    /// \brief compare сравнение с другим слоем
+    /// \param layer другой слой для сравнения
+    virtual bool compareLayer(const INeuralNetworkLayer *layer) = 0;
+    ///
     /// \brief updateParam обновление параметра
     /// слоя сети в процессе оптимизации
     /// \param firstKey - вторичный ключ параметров слоя
@@ -43,6 +47,10 @@ public:
     /// \param path уточнение пути для загрузки
     virtual void loadParams(const QString path = QDir::currentPath()) = 0;
     ///
+    /// \brief params геттер параметров слоя в виде словаря
+    /// \return словарь параметров(не гипер) слоя
+    virtual QMap<QString, QMap<QString, Matrix2d<double>>> params() const = 0;
+    ///
     /// \brief saveHyperParams сохранение гиперпараметров слоя
     /// \param path путь сохранения
     virtual void saveHyperParams(const QString path = QDir::currentPath()) = 0;
@@ -50,10 +58,6 @@ public:
     /// \brief loadHyperParams сохранение гиперпараметров слоя
     /// \param path путь загрузки
     virtual void loadHyperParams(const QString path = QDir::currentPath()) = 0;
-    ///
-    /// \brief params доступ к параметрам текущего слоя
-    /// \return двойной словарь параметров данной сети
-    virtual QMap<QString, QMap<QString, Matrix2d<double>>> params() const = 0;
     ///
     /// \brief clearGraients чистка накопившихся градиентов слоя
     virtual void clearGradients() = 0;
