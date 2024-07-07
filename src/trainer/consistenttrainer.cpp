@@ -88,10 +88,7 @@ void ConsistentTrainer::train(int iterCount,
         if (currentPos + _sequenceLenght + _batchSize + 1 >
             _embedding->text().length()) {
             // после "конца эпохи" сохраняем обученные данные
-            // и завершаем текущий этап обучения
-            foreach (INeuralNetworkLayer *layer, _model->layers()) {
-                layer->saveParams(QDir::currentPath());
-            }
+            _model->save();
             cout << "end of an era" << endl;
             currentPos = numIter;
         }
@@ -115,10 +112,9 @@ void ConsistentTrainer::train(int iterCount,
         }
         numIter++;
     }
-
-    foreach (INeuralNetworkLayer *layer, _model->layers()) {
-        layer->saveParams(QDir::currentPath());
-    }
+    // в конце всегда сохраняем данные нейронной модели
+    // и выводим оценивающие данные
+    _model->save();
     cout << "end of iter" << " currentPos - " << currentPos << endl;
     cout << "mean loss value - " << meanLoss / iterCount << endl;
 }
