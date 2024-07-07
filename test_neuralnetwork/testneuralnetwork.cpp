@@ -263,7 +263,7 @@ void TestNeuralNetwork::testLSTMModelSaveLoad()
                              Matrix3d<double>::randomNormal(0.0, 0.01,
                                                             batchSize, sequenceLenght, vocabSize));
         lstmModel.save();
-        LSTMModel properLstmModel(QDir::currentPath(), "testLSTMModel");
+        LSTMModel properLstmModel(QDir::currentPath(), "testLSTMModel", new SoftmaxCrossEntropyLoss());
 
         QCOMPARE(lstmModel == properLstmModel, true);
     } catch (const NeuralNetworkException &e) {
