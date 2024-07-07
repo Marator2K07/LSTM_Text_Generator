@@ -18,7 +18,7 @@ public:
     LSTMModel(QString name,
               ILoss *loss,
               QList<INeuralNetworkLayer *> layers);
-    LSTMModel(const QString path, const QString modelName);
+    LSTMModel(const QString path, const QString modelName, ILoss *loss);
 
     bool operator==(const LSTMModel model);
 

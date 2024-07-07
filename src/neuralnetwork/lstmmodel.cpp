@@ -10,8 +10,9 @@ LSTMModel::LSTMModel(QString name,
 {
 }
 
-LSTMModel::LSTMModel(const QString path, const QString modelName)
+LSTMModel::LSTMModel(const QString path, const QString modelName, ILoss *loss)
     : _name{modelName}
+    , _loss{loss}
 {
     QString pathModel = QString("%1/%2").arg(path, modelName);
     QString fileNameModel = QString("%1/%2.txt").arg(pathModel, modelName);
