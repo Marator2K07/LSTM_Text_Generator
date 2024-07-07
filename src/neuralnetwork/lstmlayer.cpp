@@ -62,40 +62,83 @@ LSTMLayer::LSTMLayer(QString name, int hiddenSize, int outputSize, double weight
     _firstStep = true;
 }
 
-LSTMLayer::LSTMLayer(QString path, QString layerName)
+LSTMLayer::LSTMLayer(const QString path, const QString layerName)
     : _name{layerName}
 {
     loadParams(path);
 }
 
-bool LSTMLayer::operator==(LSTMLayer layer)
+QString LSTMLayer::name() const
+{
+    return _name;
+}
+
+bool LSTMLayer::compareLayer(const INeuralNetworkLayer *layer)
 {
     // сравниваем все значения
-    bool values = _params["W_f"]["value"].compareDoubles(&layer.params().value("W_f")["value"], 1e-5) &&
-                  _params["W_i"]["value"].compareDoubles(&layer.params().value("W_i")["value"], 1e-5) &&
-                  _params["W_c"]["value"].compareDoubles(&layer.params().value("W_c")["value"], 1e-5) &&
-                  _params["W_o"]["value"].compareDoubles(&layer.params().value("W_o")["value"], 1e-5) &&
-                  _params["W_v"]["value"].compareDoubles(&layer.params().value("W_v")["value"], 1e-5) &&
-                  _params["B_f"]["value"].compareDoubles(&layer.params().value("B_f")["value"], 1e-5) &&
-                  _params["B_i"]["value"].compareDoubles(&layer.params().value("B_i")["value"], 1e-5) &&
-                  _params["B_c"]["value"].compareDoubles(&layer.params().value("B_c")["value"], 1e-5) &&
-                  _params["B_o"]["value"].compareDoubles(&layer.params().value("B_o")["value"], 1e-5) &&
-                  _params["B_v"]["value"].compareDoubles(&layer.params().value("B_v")["value"], 1e-5) &&
-                  true;
+    if (!_params["W_f"]["value"].compareDoubles(&(layer->params().value("W_f")["value"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["W_i"]["value"].compareDoubles(&(layer->params().value("W_i")["value"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["W_c"]["value"].compareDoubles(&(layer->params().value("W_c")["value"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["W_o"]["value"].compareDoubles(&(layer->params().value("W_o")["value"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["W_v"]["value"].compareDoubles(&(layer->params().value("W_v")["value"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["B_f"]["value"].compareDoubles(&(layer->params().value("B_f")["value"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["B_i"]["value"].compareDoubles(&(layer->params().value("B_i")["value"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["B_c"]["value"].compareDoubles(&(layer->params().value("B_c")["value"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["B_o"]["value"].compareDoubles(&(layer->params().value("B_o")["value"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["B_v"]["value"].compareDoubles(&(layer->params().value("B_v")["value"]), 1e-5)) {
+        return false;
+    }
     // сравниваем все градиенты
-    bool derivs = _params["W_f"]["deriv"].compareDoubles(&layer.params().value("W_f")["deriv"], 1e-5) &&
-                  _params["W_i"]["deriv"].compareDoubles(&layer.params().value("W_i")["deriv"], 1e-5) &&
-                  _params["W_c"]["deriv"].compareDoubles(&layer.params().value("W_c")["deriv"], 1e-5) &&
-                  _params["W_o"]["deriv"].compareDoubles(&layer.params().value("W_o")["deriv"], 1e-5) &&
-                  _params["W_v"]["deriv"].compareDoubles(&layer.params().value("W_v")["deriv"], 1e-5) &&
-                  _params["B_f"]["deriv"].compareDoubles(&layer.params().value("B_f")["deriv"], 1e-5) &&
-                  _params["B_i"]["deriv"].compareDoubles(&layer.params().value("B_i")["deriv"], 1e-5) &&
-                  _params["B_c"]["deriv"].compareDoubles(&layer.params().value("B_c")["deriv"], 1e-5) &&
-                  _params["B_o"]["deriv"].compareDoubles(&layer.params().value("B_o")["deriv"], 1e-5) &&
-                  _params["B_v"]["deriv"].compareDoubles(&layer.params().value("B_v")["deriv"], 1e-5) &&
-                  true;
-
-    return values && derivs;
+    if (!_params["W_f"]["deriv"].compareDoubles(&(layer->params().value("W_f")["deriv"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["W_i"]["deriv"].compareDoubles(&(layer->params().value("W_i")["deriv"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["W_c"]["deriv"].compareDoubles(&(layer->params().value("W_c")["deriv"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["W_o"]["deriv"].compareDoubles(&(layer->params().value("W_o")["deriv"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["W_v"]["deriv"].compareDoubles(&(layer->params().value("W_v")["deriv"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["B_f"]["deriv"].compareDoubles(&(layer->params().value("B_f")["deriv"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["B_i"]["deriv"].compareDoubles(&(layer->params().value("B_i")["deriv"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["B_c"]["deriv"].compareDoubles(&(layer->params().value("B_c")["deriv"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["B_o"]["deriv"].compareDoubles(&(layer->params().value("B_o")["deriv"]), 1e-5)) {
+        return false;
+    }
+    if (!_params["B_v"]["deriv"].compareDoubles(&(layer->params().value("B_v")["deriv"]), 1e-5)) {
+        return false;
+    }
+    // если дошли до сюда, то все успешно
+    return true;
 }
 
 void LSTMLayer::updateParam(const QString firstKey,
@@ -283,7 +326,8 @@ void LSTMLayer::initParams(const Matrix3d<double> initMatrix)
             );
     }
     // инициализируем ячейки для нейронов/узлов
-    for (int i = 0; i < initMatrix.sizes()[1]; ++i) {
+    _sequenceSize = initMatrix.sizes()[1];
+    for (int i = 0; i < _sequenceSize; ++i) {
         _cells.push_back(LSTMNode());
     }
     // сбрасываем флаг инициализации

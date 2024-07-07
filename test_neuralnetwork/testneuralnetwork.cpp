@@ -36,6 +36,10 @@ private slots:
     /// \brief testLSTMModelOne
     /// первый тест модели нейронной сети типа LSTM
     void testLSTMModelOne();
+    ///
+    /// \brief testLSTMModelSaveLoad
+    /// проверка работоспособности сохранения и загрузки модели LSTM
+    void testLSTMModelSaveLoad();
 };
 
 void TestNeuralNetwork::testLSTMnode()
@@ -187,9 +191,9 @@ void TestNeuralNetwork::testSaveLoadLSTMLayer()
     // инициализация
     int hiddenSize = 128;
     int batchSize = 32;
-    int sequenceLenght = 16;
-    int outputSize = 22;
-    int vocabSize = 22;
+    int sequenceLenght = 22;
+    int outputSize = 11;
+    int vocabSize = 11;
     LSTMLayer layer("LayerTest", hiddenSize, outputSize);
     Matrix3d<double> sequenceIn
         = Matrix3d<double>::randomNormal(0.0, 0.01,
@@ -204,7 +208,7 @@ void TestNeuralNetwork::testSaveLoadLSTMLayer()
         layer.saveParams();
         LSTMLayer properLayer(QDir::currentPath(), "LayerTest");
 
-        QCOMPARE(layer == properLayer, true);
+        QCOMPARE(layer.compareLayer(&properLayer), true);
     } catch (const NeuralNetworkException &e) {
         cout << e.what() << endl;
     } catch (const exception &e) {
@@ -220,7 +224,8 @@ void TestNeuralNetwork::testLSTMModelOne()
     int sequenceLenght = 10;
     int outputSize = 44;
     int vocabSize = 44;
-    LSTMModel lstmModel(new SoftmaxCrossEntropyLoss(),
+    LSTMModel lstmModel("testLSTMModel",
+                        new SoftmaxCrossEntropyLoss(),
                         QList<INeuralNetworkLayer *>{
                             new LSTMLayer("layer1", hiddenSize, outputSize)
                         });
@@ -236,6 +241,39 @@ void TestNeuralNetwork::testLSTMModelOne()
     cout << resLossAfter1Step << endl << resLossAfter2Step << endl;
 
     QCOMPARE(resLossAfter1Step != resLossAfter2Step, true);
+}
+
+void TestNeuralNetwork::testLSTMModelSaveLoad()
+{
+    // инициализация
+    int hiddenSize = 77;
+    int batchSize = 44;
+    int sequenceLenght = 33;
+    int outputSize = 22;
+    int vocabSize = 22;
+    LSTMLayer layer1("layer1", hiddenSize*2, vocabSize);
+    LSTMLayer layer2("layer2", hiddenSize, vocabSize);
+    QList<INeuralNetworkLayer *> layers;
+    layers.push_back(&layer1);
+    layers.push_back(&layer2);
+    LSTMModel lstmModel("testLSTMModel", new SoftmaxCrossEntropyLoss(), layers);
+    // расчеты
+    try {
+        lstmModel.singleStep(Matrix3d<double>::zeroM(batchSize, sequenceLenght, vocabSize),
+                             Matrix3d<double>::randomNormal(0.0, 0.01,
+                                                            batchSize, sequenceLenght, vocabSize));
+        lstmModel.save();
+        LSTMModel properLstmModel(QDir::currentPath(), "testLSTMModel");
+
+        QCOMPARE(lstmModel == properLstmModel, true);
+    } catch (const NeuralNetworkException &e) {
+        cout << e.what() << endl;
+    } catch (const MatrixException &e) {
+        cout << e.what() << endl;
+    } catch (const exception &e) {
+        cout << e.what() << endl;
+    }
+
 }
 
 QTEST_MAIN(TestNeuralNetwork)

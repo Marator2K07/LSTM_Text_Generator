@@ -32,12 +32,12 @@ public:
               int hiddenSize,
               int outputSize,
               double weightScale = 0.01);
-    LSTMLayer(QString path, QString layerName);
-
-    bool operator==(LSTMLayer layer);
+    LSTMLayer(const QString path, const QString layerName);
 
 public:
     // INeuralNetworkLayer interface
+    QString name() const override;
+    bool compareLayer(const INeuralNetworkLayer *layer) override;
     void updateParam(const QString firstKey,
                      const QString secondKey,
                      const Matrix2d<double> value) override;

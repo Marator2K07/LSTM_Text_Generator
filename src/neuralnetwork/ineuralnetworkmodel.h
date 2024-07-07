@@ -11,6 +11,16 @@ class INeuralNetworkModel
 {
 public:
     ///
+    /// \brief save cохранение всех необходимых
+    /// параметров модели в отдельной папке
+    /// \param path путь сохранения
+    virtual void save(const QString path = QDir::currentPath()) = 0;
+    ///
+    /// \brief load загрузка всех необходимых параметров из папки с моделью
+    /// \param path путь к папке с моделью
+    /// \param fileName имя файла с названиями слоев
+    virtual void load(const QString path, const QString fileName) = 0;
+    ///
     /// \brief layers доступ к слоям нейронной сети
     /// \return список слоев данной модели
     virtual QList<INeuralNetworkLayer *> layers() const = 0;
