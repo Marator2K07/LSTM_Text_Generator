@@ -101,7 +101,7 @@ void LSTMModel::save(const QString path)
     // пишем словарную информацию
     fileEmbedding << _vocabSize << endl;
     QList<char> symbols = _charToIdx.keys();
-    QList<int> indeces = _idxToChar.keys();
+    QList<int> indeces = _charToIdx.values();
     for (int i = 0; i < _vocabSize; ++i) {
         fileEmbedding << symbols[i] << " " << indeces[i] << endl;
     }
