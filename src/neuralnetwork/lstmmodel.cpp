@@ -28,7 +28,7 @@ bool LSTMModel::operator==(const LSTMModel model)
     if (_layers.size() != model.layers().size()) {
         return false;
     }
-    // если все впорядке то сравниваем послойно
+    // если все впорядке, то сравниваем послойно
     for (int i = 0; i < _layers.size(); ++i) {
         LSTMLayer *currentLayer = (LSTMLayer *)_layers.value(i);
         INeuralNetworkLayer *otherLayer = (LSTMLayer *)_layers.value(i);
@@ -36,6 +36,23 @@ bool LSTMModel::operator==(const LSTMModel model)
             return false;
         }
     }
+    // если и тут все впорядке, то готовим данные для сравнения эмбеддинга
+    QList<int> thisIndeces = _idxToChar.keys();
+    QList<char> thisChars = _charToIdx.keys();
+    QList<int> otherIndeces = model._idxToChar.keys();
+    QList<char> otherChars = model._charToIdx.keys();
+    // пытаемся сравнить
+    try {
+        for (int i = 0; i < _vocabSize; ++i) {
+            if (thisIndeces[i] != otherIndeces[i] ||
+                thisChars[i] != otherChars[i]) {
+                return false;
+            }
+        }
+    } catch (...) {
+        return false;
+    }
+
     return true;
 }
 
