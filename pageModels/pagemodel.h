@@ -21,6 +21,11 @@ private:
     Ui::PageModel *ui;
     DirectoryModelView *_dirModelView; // текущая модель с папками моделей
 
+private slots:
+    ///
+    /// \brief openFolderWithModels
+    /// слот открытия папки с моделями нейронной сети для генерации
+    void openFolderWithModels();
 
 public:
     explicit PageModel(QWidget *parent = nullptr);
