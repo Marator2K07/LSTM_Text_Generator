@@ -3,9 +3,20 @@
 
 #include <QAbstractListModel>
 #include <QObject>
-#include <QMap>
 
 #include "ineuralnetworkmodel.h"
+
+///
+/// \brief The FolderData class
+/// свое представление данных о папке
+struct FolderData {
+    QString path;
+    QString name;
+    FolderData(QString pathD, QString nameD) {
+        path = pathD;
+        name = nameD;
+    }
+};
 
 ///
 /// \brief The DirectoryModelView class
@@ -16,8 +27,7 @@ class DirectoryModelView : public QAbstractListModel
     Q_OBJECT
 
 private:
-    // данные в виде словаря имени папки -> пути к ней
-    QMap<QString, QString> _data;
+    QList<FolderData> _data; // список данных для папок
 
 public:
     explicit DirectoryModelView(QObject *parent = nullptr);
