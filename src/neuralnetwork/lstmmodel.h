@@ -21,7 +21,7 @@ private:
 public:
     LSTMModel(QString name,
               ILoss *loss,
-              ITextEmbedding *embedding,
+              ITextEmbedding<double> *embedding,
               QList<INeuralNetworkLayer *> layers);
     LSTMModel(const QString path, const QString modelName, ILoss *loss);
 
@@ -30,7 +30,7 @@ public:
 public:
     // INeuralNetworkModel interface
     void save(const QString path = QDir::currentPath()) override;
-    void load(const QString path, const QString fileName) override;
+    void load(const QString path = QDir::currentPath()) override;
     QList<INeuralNetworkLayer *> layers() const override;
     Matrix3d<double> forward(Matrix3d<double> batch) override;
     Matrix3d<double> backward(Matrix3d<double> gradient) override;

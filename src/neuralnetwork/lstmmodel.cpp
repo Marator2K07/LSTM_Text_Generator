@@ -3,7 +3,7 @@
 
 LSTMModel::LSTMModel(QString name,
                      ILoss *loss,
-                     ITextEmbedding *embedding,
+                     ITextEmbedding<double> *embedding,
                      QList<INeuralNetworkLayer *> layers)
     : _name{name}
     , _loss{loss}
@@ -19,8 +19,7 @@ LSTMModel::LSTMModel(const QString path, const QString modelName, ILoss *loss)
     , _loss{loss}
 {
     QString pathModel = QString("%1/%2").arg(path, modelName);
-    QString fileNameModel = QString("%1/%2.txt").arg(pathModel, modelName);
-    load(pathModel, fileNameModel);
+    load(pathModel);
 }
 
 bool LSTMModel::operator==(const LSTMModel model)
