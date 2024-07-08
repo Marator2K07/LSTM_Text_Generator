@@ -17,6 +17,8 @@ private:
     QMap<int, char> _idxToChar; // словарь символов индексов
     QMap<char, int> _charToIdx; // словарь индексов символов
     int _vocabSize; // текущий размер словаря
+    const QString LAYERS_DATA_NAME = "layersData";
+    const QString VOCAB_DATA_NAME = "vocabData";
 
 public:
     LSTMModel(QString name,

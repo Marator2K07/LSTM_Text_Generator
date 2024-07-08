@@ -45,20 +45,21 @@ void LSTMModel::save(const QString path)
     QString folderPath = QString("%1/%2").arg(path, _name);
     QDir dir;
     dir.mkdir(folderPath);
-    // пытаемся открыть файл для сохранения в новой папке
-    QString fileName = QString("%1/%2.txt").arg(folderPath, _name);
-    ofstream file;
-    file.open(fileName.toStdString());
-    if (!file.is_open()) {
+    // пытаемся открыть файл для сохранения в новой папке данных о слоях
+    QString fileNameLayers = QString("%1/%2_%3.txt").
+                             arg(folderPath, _name, LAYERS_DATA_NAME);
+    ofstream fileLayers;
+    fileLayers.open(fileNameLayers.toStdString());
+    if (!fileLayers.is_open()) {
         throw NeuralNetworkException(
-            QString("Catch neural network model saving exception:\n[%1]\n")
+            QString("Catch neural network model saving layers data exception:\n[%1]\n")
                 .arg("Failed to open file")
             );
     }
     // пишем информацию о слоях и одновременно пишем имена слоев в файл
     try {
         for (INeuralNetworkLayer *layer : _layers) {
-            file << layer->name().toStdString() << endl;
+            fileLayers << layer->name().toStdString() << endl;
             layer->saveParams(folderPath);
         }
     } catch (const NeuralNetworkException &e) {
@@ -67,8 +68,28 @@ void LSTMModel::save(const QString path)
                 .arg(e.what())
             );
     }
-
-    file.close();
+    // закрываем файл
+    fileLayers.close();
+    // пытаемся открыть файл для сохранения в новой папке данных о текущем словаре
+    QString fileNameEmbedding = QString("%1/%2_%3.txt").
+                                arg(folderPath, _name, VOCAB_DATA_NAME);
+    ofstream fileEmbedding;
+    fileEmbedding.open(fileNameEmbedding.toStdString());
+    if (!fileEmbedding.is_open()) {
+        throw NeuralNetworkException(
+            QString("Catch neural network model saving vocab data exception:\n[%1]\n")
+                .arg("Failed to open file")
+            );
+    }
+    // пишем словарную информацию
+    fileEmbedding << _vocabSize << endl;
+    QList<char> symbols = _charToIdx.keys();
+    QList<int> indeces = _idxToChar.keys();
+    for (int i = 0; i < _vocabSize; ++i) {
+        fileEmbedding << symbols[i] << " " << indeces[i] << endl;
+    }
+    // закрываем файл
+    fileEmbedding.close();
 }
 
 void LSTMModel::load(const QString path, const QString fileName)
