@@ -12,10 +12,10 @@ class ITextGeneration
 {
 public:
     ///
-    /// \brief predictSymbol предсказание символа на основе контекста
+    /// \brief genSymbol предсказание символа на основе контекста
     /// \param context контекст текста (первые символы/слова в тексте)
     /// \return предсказанный символ
-    virtual QChar predictSymbol(const Matrix2d<double> context) = 0;
+    virtual QChar genSymbol(const Matrix2d<double> context) = 0;
 };
 
 #endif // ITEXTGENERATION_H
