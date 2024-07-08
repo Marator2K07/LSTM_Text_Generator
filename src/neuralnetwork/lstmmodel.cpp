@@ -92,22 +92,23 @@ void LSTMModel::save(const QString path)
     fileEmbedding.close();
 }
 
-void LSTMModel::load(const QString path, const QString fileName)
+void LSTMModel::load(const QString path)
 {
-    // пытаемся открыть файл
-    ifstream file;
-    file.open(fileName.toStdString());
-    if (!file.is_open()) {
+    // пытаемся открыть файл с данными о слоях
+    QString layersDataFile = QString("%1/%2.txt").arg(path, LAYERS_DATA_NAME);
+    ifstream fileLayersStream;
+    fileLayersStream.open(layersDataFile.toStdString());
+    if (!fileLayersStream.is_open()) {
         throw NeuralNetworkException(
-            QString("Catch neural network model loading exception:\n[%1]\n")
+            QString("Catch neural network model loading layers data exception:\n[%1]\n")
                 .arg("Failed to open file")
             );
     }
-    // пытаемся загрузить данные модели
+    // пытаемся загрузить данные модели для слоев
     try {
         string line;
         // построчно создаем слои по данным из файла
-        while (getline(file, line)) {
+        while (getline(fileLayersStream, line)) {
             QString layerName = QString::fromStdString(line);
             _layers.push_back(new LSTMLayer(path, layerName));
         }
@@ -117,8 +118,43 @@ void LSTMModel::load(const QString path, const QString fileName)
                 .arg(e.what())
             );
     }
-
-    file.close();
+    // закрываем файл
+    fileLayersStream.close();
+    // пытаемся открыть файл с данными о словаре
+    QString embeddingDataFile = QString("%1/%2.txt").arg(path, VOCAB_DATA_NAME);
+    ifstream fileEmbeddingStream;
+    fileEmbeddingStream.open(embeddingDataFile.toStdString());
+    if (!fileEmbeddingStream.is_open()) {
+        throw NeuralNetworkException(
+            QString("Catch neural network model loading vocab data exception:\n[%1]\n")
+                .arg("Failed to open file")
+            );
+    }
+    // пытаемся загрузить его данные
+    try {
+        string line;
+        // сначала считываем размер словаря
+        getline(fileLayersStream, line);
+        _vocabSize = stoi(line);
+        // заполняем словари
+        while (getline(fileLayersStream, line)) {
+            istringstream rowStream(line);
+            // считываем данные строки
+            char symbol;
+            int index;
+            rowStream >> symbol >> index;
+            // и пишем их в словари
+            _idxToChar.insert(index, symbol);
+            _charToIdx.insert(symbol, index);
+        }
+    } catch (const NeuralNetworkException &e) {
+        throw NeuralNetworkException(
+            QString("Catch neural network model loading vocab exception:\n[%1]\n")
+                .arg(e.what())
+            );
+    }
+    // закрываем файл
+    fileEmbeddingStream.close();
 }
 
 QList<INeuralNetworkLayer *> LSTMModel::layers() const
