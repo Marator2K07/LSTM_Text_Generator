@@ -1,14 +1,14 @@
-#ifndef ITEXTGENERATION_H
-#define ITEXTGENERATION_H
+#ifndef ITEXTGENERATOR_H
+#define ITEXTGENERATOR_H
 
 #include "matrix2d.h"
 
 using namespace std;
 
 ///
-/// \brief The ITextGeneration interface
+/// \brief The ITextGenerator interface
 /// определение функциональности генератора текста
-class ITextGeneration
+class ITextGenerator
 {
 public:
     ///
@@ -18,4 +18,4 @@ public:
     virtual QChar genSymbol(const Matrix2d<double> context) = 0;
 };
 
-#endif // ITEXTGENERATION_H
+#endif // ITEXTGENERATOR_H

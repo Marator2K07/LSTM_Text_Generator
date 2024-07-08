@@ -3,13 +3,13 @@
 
 #include <QObject>
 
-#include "itextgeneration.h"
+#include "itextgenerator.h"
 
 ///
 /// \brief The NeuralNetworkTextGenerator class
 /// генератор текста на основе модели нейронной сети
 class NeuralNetworkTextGenerator : public QObject,
-                                   public ITextGeneration
+                                   public ITextGenerator
 {
     Q_OBJECT
 
