@@ -32,6 +32,21 @@ private:
 public:
     explicit DirectoryModelView(QObject *parent = nullptr);
 
+public:
+    ///
+    /// \brief The Roles enum
+    /// роли для данного представления модели
+    enum Roles {
+        ValueRole = Qt::UserRole + 1,
+        InfoRole
+    };
+
+    ///
+    /// \brief addFolder добавление новой папки в модель
+    /// \param path путь до добавленной папки
+    /// \param name путь до добавленной папки
+    void addFolder(QString path, QString name);
+
     // QAbstractItemModel interface
     int rowCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;

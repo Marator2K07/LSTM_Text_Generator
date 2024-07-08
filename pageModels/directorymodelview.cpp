@@ -5,8 +5,14 @@ DirectoryModelView::DirectoryModelView(QObject *parent)
 {
 }
 
+void DirectoryModelView::addFolder(QString path, QString name)
+{
+    _data.push_back(FolderData(path, name));
+}
+
 int DirectoryModelView::rowCount(const QModelIndex &parent) const
 {
+    Q_UNUSED(parent);
     return _data.size();
 }
 
