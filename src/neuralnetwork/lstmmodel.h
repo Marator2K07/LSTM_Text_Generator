@@ -2,6 +2,7 @@
 #define LSTMMODEL_H
 
 #include "ineuralnetworkmodel.h"
+#include "itextembedding.h"
 #include "lstmlayer.h"
 
 ///
@@ -13,10 +14,14 @@ private:
     QString _name; // для идентификации при сохранении/загрузке
     ILoss *_loss; // интерфейс вычисления потерь
     QList<INeuralNetworkLayer *> _layers; // список слоев модели
+    QMap<int, char> _idxToChar; // словарь символов индексов
+    QMap<char, int> _charToIdx; // словарь индексов символов
+    int _vocabSize; // текущий размер словаря
 
 public:
     LSTMModel(QString name,
               ILoss *loss,
+              ITextEmbedding *embedding,
               QList<INeuralNetworkLayer *> layers);
     LSTMModel(const QString path, const QString modelName, ILoss *loss);
 
