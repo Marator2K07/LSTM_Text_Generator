@@ -35,7 +35,7 @@ void TestTrainer::testConsistentTrainerOne()
     layer.loadParams(QDir::currentPath());
     QList<INeuralNetworkLayer *> layers;
     layers.push_back(&layer);
-    LSTMModel model("LSTMModel", new SoftmaxCrossEntropyLoss(), layers);
+    LSTMModel model("LSTMModel", new SoftmaxCrossEntropyLoss(), &embedding, layers);
     //AdaGrad optimizer(&model, 0.004);
     SGD optimizer(&model, 0.003, true);
     ConsistentTrainer trainer(&model, &embedding, &optimizer,
