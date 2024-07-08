@@ -1,5 +1,6 @@
 qt_add_library(textgeneration STATIC
     itextgeneration.h
+    neuralnetworktextgenerator.h neuralnetworktextgenerator.cpp
 )
 target_link_libraries(textgeneration PRIVATE
     Qt6::Core
