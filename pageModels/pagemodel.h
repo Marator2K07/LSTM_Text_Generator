@@ -8,6 +8,7 @@
 #include <QDir>
 
 #include "directorymodelview.h"
+#include "ineuralnetworkmodel.h"
 
 namespace Ui {
 class PageModel;
@@ -20,6 +21,7 @@ class PageModel : public QWidget
 private:
     Ui::PageModel *ui;
     DirectoryModelView *_dirModelView; // текущая модель с папками моделей
+    INeuralNetworkModel *_neuralNetworkModel; // выбранная модель нейронной сети
 
 private slots:
     ///

@@ -26,7 +26,8 @@ void PageModel::openFolderWithModels()
 PageModel::PageModel(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::PageModel)
-    , _dirModelView(nullptr)
+    , _dirModelView{nullptr}
+    , _neuralNetworkModel{nullptr}
 {
     ui->setupUi(this);
 
