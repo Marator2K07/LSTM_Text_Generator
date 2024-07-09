@@ -31,7 +31,7 @@ void TestTextEmbedding::textFileProcessing()
 {
     try {
         // инициализация
-        CharAsVectorEmbedding<int> txtEmbed;
+        CharAsVectorEmbedding<int> txtEmbed(QDir::currentPath());
         // результаты
         for (int i = 0; i < txtEmbed.text().size(); ++i) {
             cout << txtEmbed.charToIdx().value(txtEmbed.text()[i].toLatin1()) << " ";
