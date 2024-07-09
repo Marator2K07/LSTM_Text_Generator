@@ -13,10 +13,8 @@ class LSTMModel : public INeuralNetworkModel
 private:
     QString _name; // для идентификации при сохранении/загрузке
     ILoss *_loss; // интерфейс вычисления потерь
+    ITextEmbedding *_embedding; // интерфейс эмбеддинга
     QList<INeuralNetworkLayer *> _layers; // список слоев модели
-    QMap<int, char> _idxToChar; // словарь символов индексов
-    QMap<char, int> _charToIdx; // словарь индексов символов
-    int _vocabSize; // текущий размер словаря
     const QString LAYERS_DATA_NAME = "layersData";
     const QString VOCAB_DATA_NAME = "vocabData";
 

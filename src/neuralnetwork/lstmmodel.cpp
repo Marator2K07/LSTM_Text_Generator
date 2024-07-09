@@ -7,11 +7,9 @@ LSTMModel::LSTMModel(QString name,
                      QList<INeuralNetworkLayer *> layers)
     : _name{name}
     , _loss{loss}
+    , _embedding{embedding}
     , _layers{layers}
 {
-    _charToIdx = embedding->charToIdx();
-    _idxToChar = embedding->idxToChar();
-    _vocabSize = embedding->vocabSize();
 }
 
 LSTMModel::LSTMModel(const QString path, const QString modelName, ILoss *loss)
