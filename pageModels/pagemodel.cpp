@@ -58,6 +58,8 @@ PageModel::PageModel(QWidget *parent)
 
     connect(ui->chooseFolderButton, SIGNAL(pressed()),
             this, SLOT(openFolderWithModels()));
+    connect(ui->modelsListView, SIGNAL(activated(QModelIndex)),
+            this, SLOT(selectNeuralNetworkModel(QModelIndex)));
 }
 
 PageModel::~PageModel()
