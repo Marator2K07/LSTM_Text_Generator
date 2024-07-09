@@ -55,6 +55,17 @@ void PageModel::selectNeuralNetworkModel(QModelIndex index)
             "Невозможно открыть модель по указанному пути:\n" + modelPath
             );
     }
+    emit neuralNetworkModelChanged();
+}
+
+void PageModel::adaptFormElements()
+{
+    // открываем/закрываем доступ к разделу генерации
+    if (_neuralNetworkModel == nullptr) {
+        ui->genSampleGroupBox->setEnabled(false);
+    } else {
+        ui->genSampleGroupBox->setEnabled(true);
+    }
 }
 
 PageModel::PageModel(QWidget *parent)
@@ -64,11 +75,14 @@ PageModel::PageModel(QWidget *parent)
     , _neuralNetworkModel{nullptr}
 {
     ui->setupUi(this);
+    adaptFormElements();
 
     connect(ui->chooseFolderButton, SIGNAL(pressed()),
             this, SLOT(openFolderWithModels()));
     connect(ui->modelsListView, SIGNAL(activated(QModelIndex)),
             this, SLOT(selectNeuralNetworkModel(QModelIndex)));
+    connect(this, SIGNAL(neuralNetworkModelChanged()),
+            this, SLOT(adaptFormElements()));
 }
 
 PageModel::~PageModel()

@@ -34,10 +34,21 @@ private slots:
     /// нейронной сети из списка представления типа list view
     /// \param index выбранный индекс модели в представлении
     void selectNeuralNetworkModel(QModelIndex index);
+    ///
+    /// \brief adaptFormElements анализ текущего
+    /// состояния экземпляра обьекта данной формы
+    /// и блокировка/разблокировка необходимых элементов
+    void adaptFormElements();
 
 public:
     explicit PageModel(QWidget *parent = nullptr);
     ~PageModel();
+
+signals:
+    ///
+    /// \brief modelChanged уведомление о смене
+    /// состояния модели нейронной сети
+    void neuralNetworkModelChanged();
 
 };
 
