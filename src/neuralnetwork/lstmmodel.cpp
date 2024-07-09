@@ -1,5 +1,5 @@
 #include "lstmmodel.h"
-#include "matrix3d.cpp"
+#include "charasvectorembedding.cpp"
 
 LSTMModel::LSTMModel(QString name,
                      ILoss *loss,
@@ -35,13 +35,13 @@ bool LSTMModel::operator==(const LSTMModel model)
         }
     }
     // если и тут все впорядке, то готовим данные для сравнения эмбеддинга
-    QList<int> thisIndeces = _idxToChar.keys();
-    QList<char> thisChars = _charToIdx.keys();
-    QList<int> otherIndeces = model._idxToChar.keys();
-    QList<char> otherChars = model._charToIdx.keys();
+    QList<int> thisIndeces = _embedding->idxToChar().keys();
+    QList<char> thisChars = _embedding->charToIdx().keys();
+    QList<int> otherIndeces = model._embedding->idxToChar().keys();
+    QList<char> otherChars = model._embedding->charToIdx().keys();
     // пытаемся сравнить
     try {
-        for (int i = 0; i < _vocabSize; ++i) {
+        for (int i = 0; i < _embedding->vocabSize(); ++i) {
             if (thisIndeces[i] != otherIndeces[i] ||
                 thisChars[i] != otherChars[i]) {
                 return false;
@@ -85,22 +85,24 @@ void LSTMModel::save(const QString path)
     }
     // закрываем файл
     fileLayers.close();
-    // пытаемся открыть файл для сохранения в новой папке данных о текущем словаре
+    // пытаемся открыть файл для сохранения в новой папке данных о текущем эмбеддинге
     QString fileNameEmbedding = QString("%1/%2_%3.txt").
-                                arg(folderPath, _name, VOCAB_DATA_NAME);
+                                arg(folderPath, _name, EMBEDDING_DATA_NAME);
     ofstream fileEmbedding;
     fileEmbedding.open(fileNameEmbedding.toStdString());
     if (!fileEmbedding.is_open()) {
         throw NeuralNetworkException(
-            QString("Catch neural network model saving vocab data exception:\n[%1]\n")
+            QString("Catch neural network model saving embedding data exception:\n[%1]\n")
                 .arg("Failed to open file")
             );
     }
-    // пишем словарную информацию
-    fileEmbedding << _vocabSize << endl;
-    QList<char> symbols = _charToIdx.keys();
-    QList<int> indeces = _charToIdx.values();
-    for (int i = 0; i < _vocabSize; ++i) {
+    // пишем главную эмбеддинговую информацию
+    fileEmbedding << _embedding->batchSize()
+                  << _embedding->sequenceLength()
+                  << _embedding->vocabSize() << endl;
+    QList<char> symbols = _embedding->charToIdx().keys();
+    QList<int> indeces = _embedding->charToIdx().values();
+    for (int i = 0; i < _embedding->vocabSize(); ++i) {
         fileEmbedding << symbols[i] << " " << indeces[i] << endl;
     }
     // закрываем файл
@@ -135,22 +137,28 @@ void LSTMModel::load(const QString path)
     }
     // закрываем файл
     fileLayersStream.close();
-    // пытаемся открыть файл с данными о словаре
-    QString embeddingDataFile = QString("%1/%2.txt").arg(path, VOCAB_DATA_NAME);
+    // пытаемся открыть файл с данными об эмбеддинге
+    QString embeddingDataFile = QString("%1/%2.txt").arg(path, EMBEDDING_DATA_NAME);
     ifstream fileEmbeddingStream;
     fileEmbeddingStream.open(embeddingDataFile.toStdString());
     if (!fileEmbeddingStream.is_open()) {
         throw NeuralNetworkException(
-            QString("Catch neural network model loading vocab data exception:\n[%1]\n")
+            QString("Catch neural network model loading embedding data exception:\n[%1]\n")
                 .arg("Failed to open file")
             );
     }
+    // готовим данные для конструктора эмбеддинга
+    QMap<int, char> idxToChar;
+    QMap<char, int> charToIdx;
+    int sequenceLength;
+    int batchSize;
     // пытаемся загрузить его данные
     try {
         string line;
-        // сначала считываем размер словаря
+        // сначала считываем размеры партии и последовательности
         getline(fileLayersStream, line);
-        _vocabSize = stoi(line);
+        istringstream rowStreamMain(line);
+        rowStreamMain >> batchSize >> sequenceLength;
         // заполняем словари
         while (getline(fileLayersStream, line)) {
             istringstream rowStream(line);
@@ -159,12 +167,15 @@ void LSTMModel::load(const QString path)
             int index;
             rowStream >> symbol >> index;
             // и пишем их в словари
-            _idxToChar.insert(index, symbol);
-            _charToIdx.insert(symbol, index);
+            idxToChar.insert(index, symbol);
+            charToIdx.insert(symbol, index);
         }
+        // создаем эмбеддинг на основе данных
+        _embedding = new CharAsVectorEmbedding<double>(idxToChar, charToIdx,
+                                                       sequenceLength, batchSize);
     } catch (const NeuralNetworkException &e) {
         throw NeuralNetworkException(
-            QString("Catch neural network model loading vocab exception:\n[%1]\n")
+            QString("Catch neural network model loading embedding exception:\n[%1]\n")
                 .arg(e.what())
             );
     }
