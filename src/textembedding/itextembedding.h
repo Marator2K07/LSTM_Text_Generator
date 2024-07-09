@@ -47,6 +47,11 @@ public:
     /// \return словарь буква->индекс
     virtual QMap<char, int> charToIdx() const = 0;
     ///
+    /// \brief textToIndeces замена текста вектором индексов словаря
+    /// \param text текст для анализа
+    /// \return вектор индексов(из словаря) букв текста
+    virtual vector<int> textToIndeces(const QString text) = 0;
+    ///
     /// \brief genTextIndices генерация 2д матрицы
     /// индексов символов для заданного текста
     /// \param startPos точка старта генерации
