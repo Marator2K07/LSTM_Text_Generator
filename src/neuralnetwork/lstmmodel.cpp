@@ -97,13 +97,13 @@ void LSTMModel::save(const QString path)
             );
     }
     // пишем главную эмбеддинговую информацию
-    fileEmbedding << _embedding->batchSize()
-                  << _embedding->sequenceLength()
+    fileEmbedding << _embedding->batchSize() << " "
+                  << _embedding->sequenceLength() << " "
                   << _embedding->vocabSize() << endl;
     QList<char> symbols = _embedding->charToIdx().keys();
     QList<int> indeces = _embedding->charToIdx().values();
     for (int i = 0; i < _embedding->vocabSize(); ++i) {
-        fileEmbedding << symbols[i] << " " << indeces[i] << endl;
+        fileEmbedding << symbols[i] << indeces[i] << endl;
     }
     // закрываем файл
     fileEmbedding.close();
@@ -112,7 +112,8 @@ void LSTMModel::save(const QString path)
 void LSTMModel::load(const QString path)
 {
     // пытаемся открыть файл с данными о слоях
-    QString layersDataFile = QString("%1/%2.txt").arg(path, LAYERS_DATA_NAME);
+    QString layersDataFile = QString("%1/%2_%3.txt").
+                             arg(path, _name, LAYERS_DATA_NAME);
     ifstream fileLayersStream;
     fileLayersStream.open(layersDataFile.toStdString());
     if (!fileLayersStream.is_open()) {
@@ -138,7 +139,8 @@ void LSTMModel::load(const QString path)
     // закрываем файл
     fileLayersStream.close();
     // пытаемся открыть файл с данными об эмбеддинге
-    QString embeddingDataFile = QString("%1/%2.txt").arg(path, EMBEDDING_DATA_NAME);
+    QString embeddingDataFile = QString("%1/%2_%3.txt").
+                                arg(path, _name, EMBEDDING_DATA_NAME);
     ifstream fileEmbeddingStream;
     fileEmbeddingStream.open(embeddingDataFile.toStdString());
     if (!fileEmbeddingStream.is_open()) {
@@ -156,16 +158,16 @@ void LSTMModel::load(const QString path)
     try {
         string line;
         // сначала считываем размеры партии и последовательности
-        getline(fileLayersStream, line);
+        getline(fileEmbeddingStream, line);
         istringstream rowStreamMain(line);
         rowStreamMain >> batchSize >> sequenceLength;
-        // заполняем словари
-        while (getline(fileLayersStream, line)) {
+        // заполняем словари        
+        while (getline(fileEmbeddingStream, line)) {
             istringstream rowStream(line);
             // считываем данные строки
             char symbol;
             int index;
-            rowStream >> symbol >> index;
+            rowStream >> noskipws >> symbol >> index;
             // и пишем их в словари
             idxToChar.insert(index, symbol);
             charToIdx.insert(symbol, index);
