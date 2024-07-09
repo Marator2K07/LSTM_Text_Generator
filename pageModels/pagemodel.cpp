@@ -13,12 +13,13 @@ void PageModel::openFolderWithModels()
     _dirModelView = new DirectoryModelView();
     QDir dir(directory);
     QDirIterator dirIt(dir.absolutePath(),
-                       QDir::Dirs | QDir::NoDotAndDotDot,
-                       QDirIterator::Subdirectories);
+                       QDir::Dirs | QDir::NoDotAndDotDot);
     // заполняем модель и присваиваем текущую
     while (dirIt.hasNext()) {
         dirIt.next();
-        _dirModelView->addFolder(dirIt.filePath(), dirIt.fileName());
+        int idx = dirIt.filePath().lastIndexOf('/');
+        QString correctPath = dirIt.filePath().left(idx);
+        _dirModelView->addFolder(correctPath, dirIt.fileName());
     }
     ui->modelsListView->setModel(_dirModelView);
 }
@@ -33,6 +34,7 @@ void PageModel::selectNeuralNetworkModel(QModelIndex index)
     // если модель уже была выбрана, то освобождаем память
     if (_neuralNetworkModel != nullptr) {
         delete _neuralNetworkModel;
+        _neuralNetworkModel = nullptr;
     }
     // пытаемся поставить новую модель
     try {
