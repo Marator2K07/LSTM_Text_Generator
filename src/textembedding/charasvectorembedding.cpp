@@ -47,11 +47,16 @@ void CharAsVectorEmbedding<T>::processTheFile(QString fileName)
 }
 
 template<typename T>
-CharAsVectorEmbedding<T>::CharAsVectorEmbedding(int sequenceLength, int batchSize)
-    : _sequenceLength{sequenceLength}
+CharAsVectorEmbedding<T>::CharAsVectorEmbedding(QMap<int, char> idxToChar,
+                                                QMap<char, int> charToIdx,
+                                                int sequenceLength,
+                                                int batchSize)
+    : _idxToChar{idxToChar}
+    , _charToIdx{charToIdx}
+    , _sequenceLength{sequenceLength}
     , _batchSize{batchSize}
 {
-    processTheFile(QDir::currentPath() + "/text.txt");
+    _vocabSize = idxToChar.size();
 }
 
 template<typename T>

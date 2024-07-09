@@ -33,7 +33,10 @@ private:
     void processTheFile(QString fileName);
 
 public:
-    CharAsVectorEmbedding(int sequenceLength = 16, int batchSize = 32);
+    CharAsVectorEmbedding(QMap<int, char> idxToChar,
+                          QMap<char, int> charToIdx,
+                          int sequenceLength,
+                          int batchSize);
     CharAsVectorEmbedding(QString fileName,
                           int sequenceLength = 16,
                           int batchSize = 32);
