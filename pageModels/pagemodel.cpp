@@ -23,6 +23,31 @@ void PageModel::openFolderWithModels()
     ui->modelsListView->setModel(_dirModelView);
 }
 
+void PageModel::selectNeuralNetworkModel(QModelIndex index)
+{
+    // подготовка
+    QString modelPath
+        = _dirModelView->data(index, DirectoryModelView::ValueRole).toString();
+    QString modelName
+        = _dirModelView->data(index, Qt::DisplayRole).toString();
+    // если модель уже была выбрана, то освобождаем память
+    if (_neuralNetworkModel != nullptr) {
+        delete _neuralNetworkModel;
+    }
+    // пытаемся поставить новую модель
+    try {
+        _neuralNetworkModel = new LSTMModel(modelPath,
+                                            modelName,
+                                            new SoftmaxCrossEntropyLoss());
+    } catch (...) {
+        QMessageBox::warning(
+            this,
+            "Ошибка",
+            "Невозможно открыть модель по указанному пути:\n" + modelPath
+            );
+    }
+}
+
 PageModel::PageModel(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::PageModel)
