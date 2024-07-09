@@ -2,7 +2,6 @@
 #define LSTMMODEL_H
 
 #include "ineuralnetworkmodel.h"
-#include "itextembedding.h"
 #include "lstmlayer.h"
 
 ///
@@ -31,6 +30,7 @@ public:
     // INeuralNetworkModel interface
     void save(const QString path = QDir::currentPath()) override;
     void load(const QString path = QDir::currentPath()) override;
+    ITextEmbedding<double> *embedding() const override;
     QList<INeuralNetworkLayer *> layers() const override;
     Matrix3d<double> forward(Matrix3d<double> batch) override;
     Matrix3d<double> backward(Matrix3d<double> gradient) override;

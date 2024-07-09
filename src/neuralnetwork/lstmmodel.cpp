@@ -183,6 +183,11 @@ void LSTMModel::load(const QString path)
     fileEmbeddingStream.close();
 }
 
+ITextEmbedding<double> *LSTMModel::embedding() const
+{
+    return _embedding;
+}
+
 QList<INeuralNetworkLayer *> LSTMModel::layers() const
 {
     return _layers;
