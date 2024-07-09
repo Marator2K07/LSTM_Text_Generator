@@ -41,7 +41,14 @@ void PageModel::selectNeuralNetworkModel(QModelIndex index)
         _neuralNetworkModel = new LSTMModel(modelPath,
                                             modelName,
                                             new SoftmaxCrossEntropyLoss());
+        // если все успешно, уведомляем пользователя
+        QMessageBox::information(
+            this,
+            "Уведомление",
+            "Модель успешно загружена!"
+            );
     } catch (...) {
+        // если не успешно, то тоже уведомляем пользователя
         QMessageBox::warning(
             this,
             "Ошибка",
