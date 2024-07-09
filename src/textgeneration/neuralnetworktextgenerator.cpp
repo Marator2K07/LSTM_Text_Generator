@@ -6,7 +6,7 @@ NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(QObject *parent)
 
 }
 
-QChar NeuralNetworkTextGenerator::genSymbol(const Matrix2d<double> context)
+QChar NeuralNetworkTextGenerator::genSymbol(const vector<int> context)
 {
 
 }

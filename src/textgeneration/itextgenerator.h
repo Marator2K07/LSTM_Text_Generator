@@ -13,9 +13,9 @@ class ITextGenerator
 public:
     ///
     /// \brief genSymbol предсказание символа на основе контекста
-    /// \param context контекст текста (первые символы/слова в тексте)
+    /// \param context контекст текста (индексы символов в строке)
     /// \return предсказанный символ
-    virtual QChar genSymbol(const Matrix2d<double> context) = 0;
+    virtual QChar genSymbol(const vector<int> context) = 0;
 };
 
 #endif // ITEXTGENERATOR_H

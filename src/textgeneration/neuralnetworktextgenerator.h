@@ -18,7 +18,7 @@ public:
 
 public:
     // ITextGeneration interface
-    QChar genSymbol(const Matrix2d<double> context) override;
+    QChar genSymbol(const vector<int> context) override;
 
 };
 
