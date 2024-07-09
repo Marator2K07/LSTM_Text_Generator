@@ -18,6 +18,11 @@ private slots:
     /// данных при создании эксземпляров обькта
     void textFileProcessing();
     ///
+    /// \brief testTextToIndeces
+    /// тестирование возможности преобразования
+    /// текста в индексы из словаря
+    void testTextToIndeces();
+    ///
     /// \brief testGenTextEmbeddingIndices
     /// тестирование генерации индексов символов в матрицу
     void testGenTextEmbeddingIndices();
@@ -46,6 +51,28 @@ void TestTextEmbedding::textFileProcessing()
         QCOMPARE(txtEmbed.charToIdx()['f']
                      == txtEmbed.charToIdx()[txtEmbed.idxToChar()[7]], false);
 
+    } catch (const TextEmbeddingException &e) {
+        cout << e.what() << endl;
+    }
+}
+
+void TestTextEmbedding::testTextToIndeces()
+{
+    try {
+        // инициализация
+        CharAsVectorEmbedding<double> txtEmbed("Plain_Kate.txt", 16, 32);
+        QString strOne = "erin bow";
+        QString strTwo = "some text";
+        QString strError = "3853*&54";
+        // результаты
+        vector<int> resIndicesOne = txtEmbed.textToIndeces(strOne);
+        vector<int> resIndicesTwo = txtEmbed.textToIndeces(strTwo);
+        vector<int> resIndicesError = txtEmbed.textToIndeces(strError);
+        vector<int> resProperIndicesOne{0,1,2,3,4,5,6,7};
+        vector<int> resProperIndicesTwo{22,6,13,0,4,12,0,33,12};
+
+        QCOMPARE(resIndicesOne, resProperIndicesOne);
+        QCOMPARE(resIndicesTwo, resProperIndicesTwo);
     } catch (const TextEmbeddingException &e) {
         cout << e.what() << endl;
     }
