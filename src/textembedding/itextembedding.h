@@ -27,6 +27,14 @@ public:
     /// \return текущий считанный текст
     virtual QString text() const = 0;
     ///
+    /// \brief batchSize геттер размера партии символов
+    /// \return текущий размер партии символов
+    virtual int batchSize() const = 0;
+    ///
+    /// \brief sequenceLength геттер длины последовательности
+    /// \return текущая длина последовательности
+    virtual int sequenceLength() const = 0;
+    ///
     /// \brief vocabSize размер словаря после анализа текста
     /// \return текущий размер словаря
     virtual int vocabSize() const = 0;

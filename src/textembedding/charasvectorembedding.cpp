@@ -71,6 +71,18 @@ QString CharAsVectorEmbedding<T>::text() const
 }
 
 template<typename T>
+int CharAsVectorEmbedding<T>::batchSize() const
+{
+    return _batchSize;
+}
+
+template<typename T>
+int CharAsVectorEmbedding<T>::sequenceLength() const
+{
+    return _sequenceLength;
+}
+
+template<typename T>
 int CharAsVectorEmbedding<T>::vocabSize() const
 {
     return _vocabSize;

@@ -41,6 +41,8 @@ public:
 public:
     // ITextEmbedding interface
     QString text() const override;
+    int batchSize() const override;
+    int sequenceLength() const override;
     int vocabSize() const override;
     QMap<int, char> idxToChar() const override;
     QMap<char, int> charToIdx() const override;
