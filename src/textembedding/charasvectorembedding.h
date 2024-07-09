@@ -49,6 +49,7 @@ public:
     int vocabSize() const override;
     QMap<int, char> idxToChar() const override;
     QMap<char, int> charToIdx() const override;
+    vector<int> textToIndeces(const QString text) override;
     Matrix2d<T> genTextIndices(int startPos) override;
     Matrix3d<T> genTextBatch(Matrix2d<T> indices) override;
     //

@@ -106,6 +106,28 @@ QMap<char, int> CharAsVectorEmbedding<T>::charToIdx() const
 }
 
 template<typename T>
+vector<int> CharAsVectorEmbedding<T>::textToIndeces(const QString text)
+{
+    // подготовка
+    vector<int> resultIndeces;
+    // проходимся по тексту:
+    for (int i = 0; i < text.size(); ++i) {
+        char currentSymbol = text[i].toLatin1();
+        // если эмбеддинг не содержит в словаре текущего символа
+        if (!_charToIdx.contains(currentSymbol)) {
+            throw TextEmbeddingException(
+                QString("Catch text embedding exception:\n[%1]\n")
+                    .arg("Unable to index symbol")
+                );
+        }
+        // а если все впорядке
+        resultIndeces.push_back(_charToIdx[currentSymbol]);
+    }
+
+    return resultIndeces;
+}
+
+template<typename T>
 Matrix2d<T> CharAsVectorEmbedding<T>::genTextIndices(int startPos)
 {
     // создаем матрицу нужных размеров
