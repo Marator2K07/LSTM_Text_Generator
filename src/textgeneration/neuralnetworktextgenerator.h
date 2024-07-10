@@ -18,7 +18,11 @@ public:
 
 public:
     // ITextGeneration interface
-    QChar genSymbol(const vector<int> context) override;
+    void genSymbols(const vector<int> context) override;
+
+signals:
+    // ITextGenerator interface
+    void symbolReady(QChar) override;
 
 };
 

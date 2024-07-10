@@ -1,6 +1,9 @@
 #ifndef ITEXTGENERATOR_H
 #define ITEXTGENERATOR_H
 
+#include <iostream>
+#include <random>
+
 #include "matrix2d.h"
 
 using namespace std;
@@ -12,10 +15,16 @@ class ITextGenerator
 {
 public:
     ///
-    /// \brief genSymbol предсказание символа на основе контекста
+    /// \brief genSymbols предсказание символов на основе контекста
     /// \param context контекст текста (индексы символов в строке)
-    /// \return предсказанный символ
-    virtual QChar genSymbol(const vector<int> context) = 0;
+    virtual void genSymbols(const vector<int> context) = 0;
+
+signals:
+    ///
+    /// \brief symbolReady сигнал о готовности сгенерированного символа
+    /// \param symbol новый сгенерированный символ
+    virtual void symbolReady(const QChar symbol) = 0;
+
 };
 
 #endif // ITEXTGENERATOR_H
