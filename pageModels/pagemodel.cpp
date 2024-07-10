@@ -58,6 +58,13 @@ void PageModel::selectNeuralNetworkModel(QModelIndex index)
     emit neuralNetworkModelChanged();
 }
 
+void PageModel::stringToVector(const QString str)
+{
+    vector<int> convertedStr
+        = _neuralNetworkModel->embedding()->textToIndeces(str);
+    emit strAsVectorReady(convertedStr);
+}
+
 void PageModel::adaptFormElements()
 {
     // открываем/закрываем доступ к разделу генерации
@@ -84,6 +91,8 @@ PageModel::PageModel(QWidget *parent)
             this, SLOT(selectNeuralNetworkModel(QModelIndex)));
     connect(this, SIGNAL(neuralNetworkModelChanged()),
             this, SLOT(adaptFormElements()));
+    connect(this, SIGNAL(stringСonverted(vector)),
+            &_textGenerator, SLOT(genSymbols(vector)));
 }
 
 PageModel::~PageModel()

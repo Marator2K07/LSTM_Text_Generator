@@ -12,6 +12,8 @@
 #include "directorymodelview.h"
 #include "lstmmodel.h"
 
+using namespace std;
+
 namespace Ui {
 class PageModel;
 }
@@ -37,6 +39,12 @@ private slots:
     /// \param index выбранный индекс модели в представлении
     void selectNeuralNetworkModel(QModelIndex index);
     ///
+    /// \brief strToVector преобразование строки в вектор
+    /// на основе индексов словаря эмбеддинга модели нейронной сети
+    /// \param str строка для преобразования
+    /// \return представление строки в виде вектора
+    void stringToVector(const QString str);
+    ///
     /// \brief adaptFormElements анализ текущего
     /// состояния экземпляра обьекта данной формы
     /// и блокировка/разблокировка необходимых элементов
@@ -51,6 +59,10 @@ signals:
     /// \brief modelChanged уведомление о смене
     /// состояния модели нейронной сети
     void neuralNetworkModelChanged();
+    ///
+    /// \brief strAsVectorReady сигнал о готовности строки
+    /// \param context преобразованная строка
+    void strAsVectorReady(const vector<int> context);
 
 };
 
