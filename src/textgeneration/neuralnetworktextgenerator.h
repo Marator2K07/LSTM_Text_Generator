@@ -17,8 +17,9 @@ private:
     INeuralNetworkModel *_neuralNetworkModel;
 
 public:
-    explicit NeuralNetworkTextGenerator(INeuralNetworkModel neuralNetworkModel,
+    explicit NeuralNetworkTextGenerator(INeuralNetworkModel *neuralNetworkModel,
                                         QObject *parent = nullptr);
+    explicit NeuralNetworkTextGenerator(QObject *parent = nullptr);
 
 public:
     // ITextGeneration interface

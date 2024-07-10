@@ -2,10 +2,15 @@
 #include "matrix2d.cpp"
 #include "matrix3d.cpp"
 
-NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(INeuralNetworkModel neuralNetworkModel,
+NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(INeuralNetworkModel *neuralNetworkModel,
                                                        QObject *parent)
     : _neuralNetworkModel{neuralNetworkModel}
     , QObject{parent}
+{
+}
+
+NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(QObject *parent)
+    : QObject{parent}
 {
 }
 
