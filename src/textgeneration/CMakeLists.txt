@@ -7,7 +7,10 @@ target_link_libraries(textgeneration PRIVATE
     Qt6::Widgets
 )
 target_link_libraries(textgeneration PRIVATE
+    activationfunctions
     neuralnetwork
+    textembedding
+    optimizer
     exception
     matrix
     loss
