@@ -4,6 +4,7 @@
 #include <iostream>
 #include <random>
 
+#include "ineuralnetworkmodel.h"
 #include "matrix2d.h"
 
 using namespace std;
@@ -14,6 +15,11 @@ using namespace std;
 class ITextGenerator
 {
 public:
+    ///
+    /// \brief neuralNetworkModel геттер для используемой
+    /// во время генерации модели нейронной сети
+    /// \return текущая модель нейронной сети
+    virtual INeuralNetworkModel *neuralNetworkModel() const = 0;
     ///
     /// \brief genSymbols предсказание символов на основе контекста
     /// \param context контекст текста (индексы символов в строке)

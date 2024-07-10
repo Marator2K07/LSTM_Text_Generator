@@ -13,12 +13,18 @@ class NeuralNetworkTextGenerator : public QObject,
 {
     Q_OBJECT
 
+private:
+    INeuralNetworkModel *_neuralNetworkModel;
+
 public:
-    explicit NeuralNetworkTextGenerator(QObject *parent = nullptr);
+    explicit NeuralNetworkTextGenerator(INeuralNetworkModel neuralNetworkModel,
+                                        QObject *parent = nullptr);
 
 public:
     // ITextGeneration interface
+    INeuralNetworkModel *neuralNetworkModel() const override;
     void genSymbols(const vector<int> context) override;
+    //
 
 signals:
     // ITextGenerator interface

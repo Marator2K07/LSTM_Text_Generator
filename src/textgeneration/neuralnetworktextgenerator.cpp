@@ -1,12 +1,16 @@
 #include "neuralnetworktextgenerator.h"
 
-NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(QObject *parent)
-    : QObject{parent}
+NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(INeuralNetworkModel neuralNetworkModel,
+                                                       QObject *parent)
+    : _neuralNetworkModel{neuralNetworkModel}
+    , QObject{parent}
 {
 
 }
 
-QChar NeuralNetworkTextGenerator::genSymbol(const vector<int> context)
+INeuralNetworkModel *NeuralNetworkTextGenerator::neuralNetworkModel() const
 {
+    return _neuralNetworkModel;
+}
 
 }
