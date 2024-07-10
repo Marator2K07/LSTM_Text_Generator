@@ -14,7 +14,12 @@ INeuralNetworkModel *NeuralNetworkTextGenerator::neuralNetworkModel() const
     return _neuralNetworkModel;
 }
 
-QChar NeuralNetworkTextGenerator::genSymbols(const vector<int> context)
+void NeuralNetworkTextGenerator::setNeuralNetworkModel(INeuralNetworkModel *model)
+{
+    _neuralNetworkModel = model;
+}
+
+void NeuralNetworkTextGenerator::genSymbols(const vector<int> context)
 {
     // формируем начальные условия на основе контекста
     vector<int> lastCharsIdxs{context};

@@ -21,6 +21,11 @@ public:
     /// \return текущая модель нейронной сети
     virtual INeuralNetworkModel *neuralNetworkModel() const = 0;
     ///
+    /// \brief setNeuralNetworkModel установка
+    /// новой модели используемой нейронной сети
+    /// \param model новая модель
+    virtual void setNeuralNetworkModel(INeuralNetworkModel *model) = 0;
+    ///
     /// \brief genSymbols предсказание символов на основе контекста
     /// \param context контекст текста (индексы символов в строке)
     virtual void genSymbols(const vector<int> context) = 0;

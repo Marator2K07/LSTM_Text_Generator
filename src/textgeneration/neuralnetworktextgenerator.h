@@ -23,6 +23,7 @@ public:
 public:
     // ITextGeneration interface
     INeuralNetworkModel *neuralNetworkModel() const override;
+    void setNeuralNetworkModel(INeuralNetworkModel *model) override;
 
 public slots:
     // ITextGeneration interface
