@@ -23,8 +23,10 @@ public:
 public:
     // ITextGeneration interface
     INeuralNetworkModel *neuralNetworkModel() const override;
+
+public slots:
+    // ITextGeneration interface
     void genSymbols(const vector<int> context) override;
-    //
 
 signals:
     // ITextGenerator interface
