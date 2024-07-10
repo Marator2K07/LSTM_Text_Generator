@@ -7,6 +7,7 @@
 #include <QDirIterator>
 #include <QDir>
 
+#include "neuralnetworktextgenerator.h"
 #include "softmaxcrossentropyloss.h"
 #include "directorymodelview.h"
 #include "lstmmodel.h"
@@ -23,6 +24,7 @@ private:
     Ui::PageModel *ui;
     DirectoryModelView *_dirModelView; // текущая модель с папками моделей
     INeuralNetworkModel *_neuralNetworkModel; // выбранная модель нейронной сети
+    NeuralNetworkTextGenerator _textGenerator;
 
 private slots:
     ///

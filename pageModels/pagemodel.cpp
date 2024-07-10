@@ -73,6 +73,7 @@ PageModel::PageModel(QWidget *parent)
     , ui(new Ui::PageModel)
     , _dirModelView{nullptr}
     , _neuralNetworkModel{nullptr}
+    , _textGenerator{NeuralNetworkTextGenerator(this)}
 {
     ui->setupUi(this);
     adaptFormElements();
