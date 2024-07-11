@@ -1,7 +1,9 @@
 #ifndef NEWMODELGROUPBOX_H
 #define NEWMODELGROUPBOX_H
 
+#include <QDoubleSpinBox>
 #include <QGroupBox>
+#include <QSpinBox>
 
 ///
 /// \brief The ColumnName enum
@@ -29,6 +31,11 @@ private:
     Ui::NewModelGroupBox *ui;
     static long LAYERS_CREATED;
 
+private slots:
+    ///
+    /// \brief addNewLayer слот создания
+    /// нового слоя нейронной сети
+    void addNewLayer();
 
 public:
     explicit NewModelGroupBox(QWidget *parent = nullptr);
