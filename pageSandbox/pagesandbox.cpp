@@ -3,6 +3,7 @@
 
 PageSandbox::PageSandbox(QWidget *parent)
     : QWidget(parent)
+    , _currenWorkMode{WorkMode::NONE}
     , ui(new Ui::PageSandbox)
 {
     ui->setupUi(this);

@@ -3,6 +3,15 @@
 
 #include <QWidget>
 
+///
+/// \brief The WorkMode enum
+/// определение режима работы виджета
+enum class WorkMode {
+    EXISTING_MODEL = 0,
+    NEW_MODEL,
+    NONE
+};
+
 namespace Ui {
 class PageSandbox;
 }
@@ -17,6 +26,8 @@ class PageSandbox : public QWidget
 
 private:
     Ui::PageSandbox *ui;
+    WorkMode _currenWorkMode; // текущим режим работы виджета
+
 
 public:
     explicit PageSandbox(QWidget *parent = nullptr);
