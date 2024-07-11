@@ -2,6 +2,7 @@
 #define PAGESANDBOX_H
 
 #include <QWidget>
+#include <QGroupBox>
 
 ///
 /// \brief The WorkMode enum
@@ -28,6 +29,11 @@ private:
     Ui::PageSandbox *ui;
     WorkMode _currenWorkMode; // текущим режим работы виджета
 
+    ///
+    /// \brief cleanGroupBox очистка виджетов-детей
+    /// в указанном виджете группировки
+    /// \param groupBox выбранный виджет группировки
+    void cleanGroupBox(QGroupBox *groupBox);
 
 public:
     explicit PageSandbox(QWidget *parent = nullptr);
