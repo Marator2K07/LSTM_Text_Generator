@@ -13,6 +13,7 @@ target_link_libraries(neuralnetwork PRIVATE
     loss
     matrix
     exception
+    textembedding
     activationfunctions
 )
 target_include_directories(neuralnetwork PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

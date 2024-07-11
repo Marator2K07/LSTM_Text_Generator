@@ -10,6 +10,7 @@ target_link_libraries(optimizer PRIVATE
     loss
     matrix
     exception
+    textembedding
     neuralnetwork
     activationfunctions
 )

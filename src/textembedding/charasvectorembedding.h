@@ -33,7 +33,10 @@ private:
     void processTheFile(QString fileName);
 
 public:
-    CharAsVectorEmbedding(int sequenceLength = 16, int batchSize = 32);
+    CharAsVectorEmbedding(QMap<int, char> idxToChar,
+                          QMap<char, int> charToIdx,
+                          int sequenceLength,
+                          int batchSize);
     CharAsVectorEmbedding(QString fileName,
                           int sequenceLength = 16,
                           int batchSize = 32);
@@ -41,9 +44,12 @@ public:
 public:
     // ITextEmbedding interface
     QString text() const override;
+    int batchSize() const override;
+    int sequenceLength() const override;
     int vocabSize() const override;
     QMap<int, char> idxToChar() const override;
     QMap<char, int> charToIdx() const override;
+    vector<int> textToIndeces(const QString text) override;
     Matrix2d<T> genTextIndices(int startPos) override;
     Matrix3d<T> genTextBatch(Matrix2d<T> indices) override;
     //

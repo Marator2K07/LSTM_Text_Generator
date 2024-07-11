@@ -25,11 +25,14 @@ add_executable(LSTM_Text_Generator
     pageSandbox/newmodelgroupbox.h
     pageSandbox/newmodelgroupbox.cpp
     pageSandbox/newmodelgroupbox.ui
+    pageModels/directorymodelview.h
+    pageModels/directorymodelview.cpp
 )
 target_link_libraries(LSTM_Text_Generator PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Widgets
     activationfunctions
+    textgeneration
     neuralnetwork
     textembedding
     optimizer

@@ -47,11 +47,16 @@ void CharAsVectorEmbedding<T>::processTheFile(QString fileName)
 }
 
 template<typename T>
-CharAsVectorEmbedding<T>::CharAsVectorEmbedding(int sequenceLength, int batchSize)
-    : _sequenceLength{sequenceLength}
+CharAsVectorEmbedding<T>::CharAsVectorEmbedding(QMap<int, char> idxToChar,
+                                                QMap<char, int> charToIdx,
+                                                int sequenceLength,
+                                                int batchSize)
+    : _idxToChar{idxToChar}
+    , _charToIdx{charToIdx}
+    , _sequenceLength{sequenceLength}
     , _batchSize{batchSize}
 {
-    processTheFile(QDir::currentPath() + "/text.txt");
+    _vocabSize = idxToChar.size();
 }
 
 template<typename T>
@@ -71,6 +76,18 @@ QString CharAsVectorEmbedding<T>::text() const
 }
 
 template<typename T>
+int CharAsVectorEmbedding<T>::batchSize() const
+{
+    return _batchSize;
+}
+
+template<typename T>
+int CharAsVectorEmbedding<T>::sequenceLength() const
+{
+    return _sequenceLength;
+}
+
+template<typename T>
 int CharAsVectorEmbedding<T>::vocabSize() const
 {
     return _vocabSize;
@@ -86,6 +103,28 @@ template<typename T>
 QMap<char, int> CharAsVectorEmbedding<T>::charToIdx() const
 {
     return _charToIdx;
+}
+
+template<typename T>
+vector<int> CharAsVectorEmbedding<T>::textToIndeces(const QString text)
+{
+    // подготовка
+    vector<int> resultIndeces;
+    // проходимся по тексту:
+    for (int i = 0; i < text.size(); ++i) {
+        char currentSymbol = text[i].toLatin1();
+        // если эмбеддинг не содержит в словаре текущего символа
+        if (!_charToIdx.contains(currentSymbol)) {
+            throw TextEmbeddingException(
+                QString("Catch text embedding exception:\n[%1]\n")
+                    .arg("Unable to index symbol")
+                );
+        }
+        // а если все впорядке
+        resultIndeces.push_back(_charToIdx[currentSymbol]);
+    }
+
+    return resultIndeces;
 }
 
 template<typename T>

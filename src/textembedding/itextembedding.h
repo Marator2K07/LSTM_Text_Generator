@@ -27,6 +27,14 @@ public:
     /// \return текущий считанный текст
     virtual QString text() const = 0;
     ///
+    /// \brief batchSize геттер размера партии символов
+    /// \return текущий размер партии символов
+    virtual int batchSize() const = 0;
+    ///
+    /// \brief sequenceLength геттер длины последовательности
+    /// \return текущая длина последовательности
+    virtual int sequenceLength() const = 0;
+    ///
     /// \brief vocabSize размер словаря после анализа текста
     /// \return текущий размер словаря
     virtual int vocabSize() const = 0;
@@ -38,6 +46,11 @@ public:
     /// \brief charToIdx геттер словаря букв и индексов для них
     /// \return словарь буква->индекс
     virtual QMap<char, int> charToIdx() const = 0;
+    ///
+    /// \brief textToIndeces замена текста вектором индексов словаря
+    /// \param text текст для анализа
+    /// \return вектор индексов(из словаря) букв текста
+    virtual vector<int> textToIndeces(const QString text) = 0;
     ///
     /// \brief genTextIndices генерация 2д матрицы
     /// индексов символов для заданного текста

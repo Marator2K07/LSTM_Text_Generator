@@ -2,6 +2,7 @@
 #define INEURALNETWORKMODEL_H
 
 #include "iloss.h"
+#include "itextembedding.h"
 #include "ineuralnetworklayer.h"
 
 ///
@@ -18,8 +19,11 @@ public:
     ///
     /// \brief load загрузка всех необходимых параметров из папки с моделью
     /// \param path путь к папке с моделью
-    /// \param fileName имя файла с названиями слоев
-    virtual void load(const QString path, const QString fileName) = 0;
+    virtual void load(const QString path = QDir::currentPath()) = 0;
+    ///
+    /// \brief embedding доступ к текстовому эмбеддингу для модели
+    /// \return текущий эмбеддинг
+    virtual ITextEmbedding<double> *embedding() const = 0;
     ///
     /// \brief layers доступ к слоям нейронной сети
     /// \return список слоев данной модели
