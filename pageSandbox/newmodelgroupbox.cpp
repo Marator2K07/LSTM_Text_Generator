@@ -22,6 +22,8 @@ void NewModelGroupBox::addNewLayer()
     deleteBtn->setFont(QFont("Bahnschrift SemiCondensed", 12));
     deleteBtn->setSizePolicy(QSizePolicy::Maximum,
                              QSizePolicy::Maximum);
+    connect(deleteBtn, SIGNAL(pressed()),
+            this, SLOT(deleteSelectedLayer())); // само удаление
     // ставим их в столбцы
     ui->layersTableWidget->setItem(
         row,
@@ -43,6 +45,28 @@ void NewModelGroupBox::addNewLayer()
         (int)ColumnName::DELETE_BUTTON,
         deleteBtn
         );
+}
+
+void NewModelGroupBox::deleteSelectedLayer()
+{
+    int row = ui->layersTableWidget->currentRow();
+    // получаем нажатую кнопку удаления и чистим ее
+    QPushButton *deleteBtn = (QPushButton*)QObject::sender();
+    deleteBtn->disconnect();
+    delete deleteBtn;
+    // находим остальные элементы строкиы
+    QWidget *nameCell = ui->layersTableWidget
+                            ->cellWidget(row, (int)ColumnName::NAME);
+    QWidget *scaleCell = ui->layersTableWidget
+                             ->cellWidget(row, (int)ColumnName::SCALE);
+    QWidget *hiddenSizeCell = ui->layersTableWidget
+                                  ->cellWidget(row, (int)ColumnName::HIDDEN_SIZE);
+    // чистим остальную выделенную на строку память
+    delete nameCell;
+    delete scaleCell;
+    delete hiddenSizeCell;
+    // и наконец удаляем саму строку
+    ui->layersTableWidget->removeRow(row);
 }
 
 NewModelGroupBox::NewModelGroupBox(QWidget *parent)

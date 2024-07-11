@@ -37,6 +37,11 @@ private slots:
     /// \brief addNewLayer слот создания
     /// нового слоя нейронной сети
     void addNewLayer();
+    ///
+    /// \brief deleteSelectedLayer слот удаления
+    /// созданного слоя по индексу строки в которой
+    /// находится непосредственно кнопка
+    void deleteSelectedLayer();
 
 public:
     explicit NewModelGroupBox(QWidget *parent = nullptr);
