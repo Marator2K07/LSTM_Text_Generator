@@ -3,6 +3,16 @@
 
 #include <QGroupBox>
 
+///
+/// \brief The ColumnName enum
+/// названия столбцов таблицы со слоями
+/// ради удобства вынесены в перечисление
+enum class ColumnName {
+    NAME = 0,
+    SCALE,
+    HIDDEN_SIZE
+};
+
 namespace Ui {
 class NewModelGroupBox;
 }
