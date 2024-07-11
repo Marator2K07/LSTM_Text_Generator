@@ -27,6 +27,8 @@ class NewModelGroupBox : public QGroupBox
 
 private:
     Ui::NewModelGroupBox *ui;
+    static long LAYERS_CREATED;
+
 
 public:
     explicit NewModelGroupBox(QWidget *parent = nullptr);
