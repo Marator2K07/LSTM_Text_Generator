@@ -17,8 +17,6 @@ add_executable(LSTM_Text_Generator
     pageModels/pagemodel.h
     pageModels/pagemodel.cpp
     pageModels/pagemodel.ui
-    pageModels/neuralnetworkmodelview.h
-    pageModels/neuralnetworkmodelview.cpp
     pageSandbox/pagesandbox.h
     pageSandbox/pagesandbox.cpp
     pageSandbox/pagesandbox.ui
