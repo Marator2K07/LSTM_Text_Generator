@@ -8,7 +8,7 @@ void NewModelGroupBox::addNewLayer()
     // добавляем новую строку
     int row = ui->layersTableWidget->rowCount();
     ui->layersTableWidget->insertRow(row);
-    // начальные виджеты для инициализации
+    // начальные виджеты для инициализации:
     QTableWidgetItem *initName
         = new QTableWidgetItem(QString("Layer%1").arg(LAYERS_CREATED++));
     QDoubleSpinBox *initScale = new QDoubleSpinBox();
@@ -17,6 +17,11 @@ void NewModelGroupBox::addNewLayer()
     initScale->setSingleStep(0.001);
     QSpinBox *initHiddenSize = new QSpinBox();
     initHiddenSize->setRange(16, 512);
+    // стоит также добавить кнопку для удаления данной строки
+    QPushButton *deleteBtn = new QPushButton("Убрать");
+    deleteBtn->setFont(QFont("Bahnschrift SemiCondensed", 12));
+    deleteBtn->setSizePolicy(QSizePolicy::Maximum,
+                             QSizePolicy::Maximum);
     // ставим их в столбцы
     ui->layersTableWidget->setItem(
         row,
@@ -32,6 +37,11 @@ void NewModelGroupBox::addNewLayer()
         row,
         (int)ColumnName::HIDDEN_SIZE,
         initHiddenSize
+        );
+    ui->layersTableWidget->setCellWidget(
+        row,
+        (int)ColumnName::DELETE_BUTTON,
+        deleteBtn
         );
 }
 

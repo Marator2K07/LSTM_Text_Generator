@@ -12,7 +12,8 @@
 enum class ColumnName {
     NAME = 0,
     SCALE,
-    HIDDEN_SIZE
+    HIDDEN_SIZE,
+    DELETE_BUTTON
 };
 
 namespace Ui {
