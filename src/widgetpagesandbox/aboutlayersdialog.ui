@@ -7,13 +7,230 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>500</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Segoe UI Light</family>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>О слоях нейронной сети</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="spacing">
+    <number>3</number>
+   </property>
+   <property name="topMargin">
+    <number>3</number>
+   </property>
+   <property name="bottomMargin">
+    <number>3</number>
+   </property>
+   <item>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>-370</y>
+        <width>363</width>
+        <height>835</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="scaleHeaderLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>12</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>Точность (весовая точность):</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="scaleInfoLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Параметр weightScale в слое нейронной сети типа LSTM отвечает за масштабирование начальных весовых коэффициентов. Установка правильного значения weightScale может помочь уменьшить возможные проблемы с затуханием или взрыванием градиентов во время обучения нейронной сети.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="hiddenSizeHeaderLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>12</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>Размер (скрытый размер):</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="hiddenSizeInfoLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Параметр hiddenSize указывает на количество скрытых состояний (нейронов) в слое LSTM. Он влияет на количество информации, которую слой LSTM может запомнить и обрабатывать. Большее значение hiddenSize может повысить способность сети к запоминанию долгосрочных зависимостей, но может также увеличить вычислительную сложность и расход памяти.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="layerCountHeaderLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>12</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>Количество слоев нейронной сети:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="layersCountInfoLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Выбор количества слоев LSTM в нейронной сети зависит от конкретной задачи, объема данных и вычислительных ресурсов. Оптимальное количество слоев может быть найдено опытным путем при проведении экспериментов на вашем наборе данных.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="recommendLayerCountHeaderLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>12</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>Рекомендации по выбору количества слоев:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="recommendLayersCountInfo1Label">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Один слой LSTM может быть достаточным для простых задач, но для более сложных задач, таких как обучение на больших объемах данных или работа с высокоуровневыми временными зависимостями, может потребоваться больше слоев LSTM.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="recommendLayersCountInfo2Label">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Добавление дополнительных слоев LSTM может помочь улучшить обобщающую способность модели, но при этом может привести к проблемам с переобучением. Поэтому рекомендуется начать с одного слоя и постепенно добавлять слои, проверяя их влияние на результаты обучения.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="recommendLayersCountInfo3Label">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Не стоит добавлять слишком много слоев LSTM, так как это может привести к увеличению времени обучения и сложности модели.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="conclusionHeaderLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>12</pointsize>
+           <italic>true</italic>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Заключение:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="conclusionInfoLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Правильный выбор параметров LSTM зависит от конкретной задачи, объема данных и вычислительных ресурсов. Необходимо провести эксперименты с различными значениями параметров, чтобы найти оптимальную конфигурацию модели для конкретной задачи.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="font">
