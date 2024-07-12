@@ -72,11 +72,14 @@ void NewModelGroupBox::deleteSelectedLayer()
 NewModelGroupBox::NewModelGroupBox(QWidget *parent)
     : QGroupBox(parent)
     , ui(new Ui::NewModelGroupBox)
+    , _layersHelpDialog{new AboutLayersDialog(this)}
 {
     ui->setupUi(this);
 
     connect(ui->newLayerButton, SIGNAL(pressed()),
             this, SLOT(addNewLayer()));
+    connect(ui->aboutLayersButton, SIGNAL(pressed()),
+            _layersHelpDialog, SLOT(show()));
 }
 
 NewModelGroupBox::~NewModelGroupBox()

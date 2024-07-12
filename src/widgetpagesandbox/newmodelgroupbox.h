@@ -5,6 +5,8 @@
 #include <QGroupBox>
 #include <QSpinBox>
 
+#include "aboutlayersdialog.h"
+
 ///
 /// \brief The ColumnName enum
 /// названия столбцов таблицы со слоями
@@ -30,6 +32,7 @@ class NewModelGroupBox : public QGroupBox
 
 private:
     Ui::NewModelGroupBox *ui;
+    AboutLayersDialog *_layersHelpDialog; // окно справка о слоях нейр. сети
     static long LAYERS_CREATED;
 
 private slots:
