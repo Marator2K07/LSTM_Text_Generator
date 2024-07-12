@@ -17,18 +17,13 @@ add_executable(LSTM_Text_Generator
     pageModels/pagemodel.h
     pageModels/pagemodel.cpp
     pageModels/pagemodel.ui
-    pageSandbox/pagesandbox.h
-    pageSandbox/pagesandbox.cpp
-    pageSandbox/pagesandbox.ui
-    pageSandbox/newmodelgroupbox.h
-    pageSandbox/newmodelgroupbox.cpp
-    pageSandbox/newmodelgroupbox.ui
     pageModels/directorymodelview.h
     pageModels/directorymodelview.cpp
 )
 target_link_libraries(LSTM_Text_Generator PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Widgets
+    pagesandbox
     activationfunctions
     textgeneration
     neuralnetwork
