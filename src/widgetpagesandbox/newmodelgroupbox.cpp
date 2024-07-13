@@ -83,7 +83,7 @@ NewModelGroupBox::NewModelGroupBox(QWidget *parent)
 
     connect(ui->newLayerButton, SIGNAL(pressed()),
             this, SLOT(addNewLayer()));
-    connect(ui->aboutLayersButton, SIGNAL(pressed()),
+    connect(ui->aboutLayersHelpButton, SIGNAL(pressed()),
             _layersHelpDialog, SLOT(show()));
 }
 

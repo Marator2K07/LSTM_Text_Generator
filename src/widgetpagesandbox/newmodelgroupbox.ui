@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>360</width>
-    <height>550</height>
+    <height>419</height>
    </rect>
   </property>
   <property name="font">
@@ -21,19 +21,19 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="leftMargin">
-    <number>3</number>
+    <number>5</number>
    </property>
    <property name="topMargin">
-    <number>3</number>
+    <number>5</number>
    </property>
    <property name="rightMargin">
-    <number>3</number>
+    <number>5</number>
    </property>
    <property name="bottomMargin">
     <number>3</number>
    </property>
    <item>
-    <widget class="QLabel" name="savePathLabel">
+    <widget class="QLabel" name="embeddingDataPathLabel">
      <property name="font">
       <font>
        <family>Segoe UI Light</family>
@@ -41,17 +41,24 @@
       </font>
      </property>
      <property name="text">
-      <string>Путь сохранения модели:</string>
+      <string>Путь к данным(тексту) для обучения:</string>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QLineEdit" name="savePathLineEdit"/>
+      <widget class="QLineEdit" name="embeddingDataPathLineEdit">
+       <property name="font">
+        <font>
+         <family>Segoe UI Light</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+      </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="chooseEmbeddingDataBtn">
        <property name="font">
         <font>
          <family>Bahnschrift SemiCondensed</family>
@@ -79,7 +86,14 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="lineEdit"/>
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="font">
+      <font>
+       <family>Segoe UI Light</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -95,7 +109,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Текущие слои нейронной сети:</string>
+        <string>Текущие слои:</string>
        </property>
       </widget>
      </item>
@@ -119,12 +133,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="aboutLayersButton">
+      <widget class="QPushButton" name="aboutLayersHelpButton">
        <property name="enabled">
         <bool>true</bool>
        </property>
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Ignored" vsizetype="Maximum">
+        <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -170,7 +184,7 @@
       <number>45</number>
      </attribute>
      <attribute name="horizontalHeaderDefaultSectionSize">
-      <number>105</number>
+      <number>78</number>
      </attribute>
      <attribute name="horizontalHeaderHighlightSections">
       <bool>true</bool>
@@ -233,6 +247,59 @@
        <set>AlignLeading|AlignVCenter</set>
       </property>
      </column>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="savePathLabel">
+     <property name="font">
+      <font>
+       <family>Segoe UI Light</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Путь сохранения:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLineEdit" name="saveModelPathLineEdit">
+       <property name="font">
+        <font>
+         <family>Segoe UI Light</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="chooseSaveModelPathBtn">
+       <property name="font">
+        <font>
+         <family>Bahnschrift SemiCondensed</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Выбрать</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="createAndSaveNewModelBtn">
+     <property name="font">
+      <font>
+       <family>Bahnschrift SemiCondensed</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Создать и сохранить новую модель</string>
+     </property>
     </widget>
    </item>
   </layout>
