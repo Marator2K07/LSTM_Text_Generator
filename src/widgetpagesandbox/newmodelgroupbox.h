@@ -2,6 +2,7 @@
 #define NEWMODELGROUPBOX_H
 
 #include <QDoubleSpinBox>
+#include <QFileDialog>
 #include <QGroupBox>
 #include <QSpinBox>
 
@@ -36,6 +37,10 @@ private:
     static long LAYERS_CREATED;
 
 private slots:
+    ///
+    /// \brief openLearningData слот выбора
+    /// текстовых обучающих данных для модели
+    void chooseLearningData();
     ///
     /// \brief addNewLayer слот создания
     /// нового слоя нейронной сети

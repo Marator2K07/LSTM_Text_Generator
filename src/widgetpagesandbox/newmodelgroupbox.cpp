@@ -3,6 +3,17 @@
 
 long NewModelGroupBox::LAYERS_CREATED = 0;
 
+void NewModelGroupBox::chooseLearningData()
+{
+    QString fileName = QFileDialog::getOpenFileName(
+        this,
+        "Выбор обучающих данных",
+        QString(),
+        "Text files (*.txt)"
+        );
+    ui->embeddingDataPathLineEdit->setText(fileName);
+}
+
 void NewModelGroupBox::addNewLayer()
 {
     // добавляем новую строку
@@ -85,6 +96,8 @@ NewModelGroupBox::NewModelGroupBox(QWidget *parent)
             this, SLOT(addNewLayer()));
     connect(ui->aboutLayersHelpButton, SIGNAL(pressed()),
             _layersHelpDialog, SLOT(show()));
+    connect(ui->chooseEmbeddingDataBtn, SIGNAL(pressed()),
+            this, SLOT(chooseLearningData()));
 }
 
 NewModelGroupBox::~NewModelGroupBox()
