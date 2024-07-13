@@ -23,7 +23,7 @@ void NewModelGroupBox::addNewLayer()
     deleteBtn->setSizePolicy(QSizePolicy::Maximum,
                              QSizePolicy::Maximum);
     connect(deleteBtn, SIGNAL(pressed()),
-            this, SLOT(deleteSelectedLayer())); // само удаление
+            this, SLOT(deleteSelectedLayer())); // само удаление    
     // ставим их в столбцы
     ui->layersTableWidget->setItem(
         row,
@@ -45,6 +45,11 @@ void NewModelGroupBox::addNewLayer()
         (int)ColumnName::DELETE_BUTTON,
         deleteBtn
         );
+    // вручную подвправляем размеры(ширину) колонок
+    ui->layersTableWidget->setColumnWidth((int)ColumnName::NAME, 65);
+    ui->layersTableWidget->setColumnWidth((int)ColumnName::SCALE, 105);
+    ui->layersTableWidget->setColumnWidth((int)ColumnName::HIDDEN_SIZE, 85);
+    ui->layersTableWidget->setColumnWidth((int)ColumnName::DELETE_BUTTON, 65);
 }
 
 void NewModelGroupBox::deleteSelectedLayer()

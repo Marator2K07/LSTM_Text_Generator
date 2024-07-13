@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>350</width>
+    <width>360</width>
     <height>550</height>
    </rect>
   </property>
@@ -20,6 +20,18 @@
    <string>GroupBox</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>3</number>
+   </property>
+   <property name="topMargin">
+    <number>3</number>
+   </property>
+   <property name="rightMargin">
+    <number>3</number>
+   </property>
+   <property name="bottomMargin">
+    <number>3</number>
+   </property>
    <item>
     <widget class="QLabel" name="savePathLabel">
      <property name="font">
@@ -139,6 +151,12 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI Light</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
      <property name="textElideMode">
       <enum>Qt::ElideMiddle</enum>
      </property>
@@ -149,10 +167,10 @@
       <bool>true</bool>
      </attribute>
      <attribute name="horizontalHeaderMinimumSectionSize">
-      <number>30</number>
+      <number>45</number>
      </attribute>
      <attribute name="horizontalHeaderDefaultSectionSize">
-      <number>75</number>
+      <number>105</number>
      </attribute>
      <attribute name="horizontalHeaderHighlightSections">
       <bool>true</bool>
