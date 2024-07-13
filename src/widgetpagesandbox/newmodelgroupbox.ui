@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>360</width>
-    <height>419</height>
+    <height>433</height>
    </rect>
   </property>
   <property name="font">
@@ -33,7 +33,7 @@
     <number>3</number>
    </property>
    <item>
-    <widget class="QLabel" name="embeddingDataPathLabel">
+    <widget class="QLabel" name="learningDataPathLabel">
      <property name="font">
       <font>
        <family>Segoe UI Light</family>
@@ -48,7 +48,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QLineEdit" name="embeddingDataPathLineEdit">
+      <widget class="QLineEdit" name="learningDataPathLineEdit">
        <property name="font">
         <font>
          <family>Segoe UI Light</family>
@@ -58,7 +58,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="chooseEmbeddingDataBtn">
+      <widget class="QPushButton" name="chooseLearningDataBtn">
        <property name="font">
         <font>
          <family>Bahnschrift SemiCondensed</family>
@@ -67,6 +67,37 @@
        </property>
        <property name="text">
         <string>Выбрать</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="aboutLearningDataHelpBtn">
+       <property name="minimumSize">
+        <size>
+         <width>25</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>25</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>25</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Bahnschrift SemiCondensed</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>?</string>
        </property>
       </widget>
      </item>
@@ -86,7 +117,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="modelNameLineEdit">
      <property name="font">
       <font>
        <family>Segoe UI Light</family>
@@ -138,10 +169,28 @@
         <bool>true</bool>
        </property>
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>25</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>25</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>25</width>
+         <height>0</height>
+        </size>
        </property>
        <property name="font">
         <font>
