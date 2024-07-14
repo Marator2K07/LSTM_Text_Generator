@@ -4,6 +4,10 @@
 long NewModelGroupBox::LAYERS_CREATED = 0;
 long NewModelGroupBox::MIN_NAME_MODEL_LENGTH = 5;
 long NewModelGroupBox::MIN_COUNT_MODEL_LAYERS = 1;
+int NewModelGroupBox::LAYERS_COLUMN_NAME_WIDTH = 65;
+int NewModelGroupBox::LAYERS_COLUMN_SCALE_WIDTH = 105;
+int NewModelGroupBox::LAYERS_COLUMN_HIDDEN_SIZE_WIDTH = 85;
+int NewModelGroupBox::LAYERS_COLUMN_DELETE_BUTTON_WIDTH = 65;
 
 void NewModelGroupBox::newModelDataCheck()
 {
@@ -114,10 +118,14 @@ void NewModelGroupBox::addNewLayer()
         deleteBtn
         );
     // вручную подвправляем размеры(ширину) колонок
-    ui->layersTableWidget->setColumnWidth((int)ColumnName::NAME, 65);
-    ui->layersTableWidget->setColumnWidth((int)ColumnName::SCALE, 105);
-    ui->layersTableWidget->setColumnWidth((int)ColumnName::HIDDEN_SIZE, 85);
-    ui->layersTableWidget->setColumnWidth((int)ColumnName::DELETE_BUTTON, 65);
+    ui->layersTableWidget->setColumnWidth((int)ColumnName::NAME,
+                                          LAYERS_COLUMN_NAME_WIDTH);
+    ui->layersTableWidget->setColumnWidth((int)ColumnName::SCALE,
+                                          LAYERS_COLUMN_SCALE_WIDTH);
+    ui->layersTableWidget->setColumnWidth((int)ColumnName::HIDDEN_SIZE,
+                                          LAYERS_COLUMN_HIDDEN_SIZE_WIDTH);
+    ui->layersTableWidget->setColumnWidth((int)ColumnName::DELETE_BUTTON,
+                                          LAYERS_COLUMN_DELETE_BUTTON_WIDTH);
 }
 
 void NewModelGroupBox::deleteSelectedLayer()

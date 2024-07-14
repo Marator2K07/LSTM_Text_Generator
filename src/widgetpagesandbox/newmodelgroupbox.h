@@ -39,6 +39,10 @@ private:
     static long LAYERS_CREATED;
     static long MIN_NAME_MODEL_LENGTH;
     static long MIN_COUNT_MODEL_LAYERS;
+    static int LAYERS_COLUMN_NAME_WIDTH;
+    static int LAYERS_COLUMN_SCALE_WIDTH;
+    static int LAYERS_COLUMN_HIDDEN_SIZE_WIDTH;
+    static int LAYERS_COLUMN_DELETE_BUTTON_WIDTH;
 
 private slots:
     ///
