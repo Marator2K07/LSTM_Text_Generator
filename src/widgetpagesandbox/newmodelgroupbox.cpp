@@ -46,6 +46,8 @@ void NewModelGroupBox::newModelDataCheck()
             );
         return;
     }
+    // если дошли до данной строчки, то можно создавать модель
+    emit modelReadyToBeCreated();
 }
 
 void NewModelGroupBox::chooseLearningData()

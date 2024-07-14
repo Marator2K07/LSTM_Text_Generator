@@ -67,6 +67,13 @@ public:
     explicit NewModelGroupBox(QWidget *parent = nullptr);
     ~NewModelGroupBox();
 
+signals:
+    ///
+    /// \brief modelReadyToBeCreated после проверки
+    /// корректности данных для создания при успешном
+    /// исходе посылается данный сигнал
+    void modelReadyToBeCreated();
+
 };
 
 #endif // NEWMODELGROUPBOX_H
