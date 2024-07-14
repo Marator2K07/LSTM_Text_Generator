@@ -44,6 +44,10 @@ private slots:
     /// текстовых обучающих данных для модели
     void chooseLearningData();
     ///
+    /// \brief chooseModelSavePath слот выбора
+    /// пути сохранения модели
+    void chooseModelSavePath();
+    ///
     /// \brief addNewLayer слот создания
     /// нового слоя нейронной сети
     void addNewLayer();

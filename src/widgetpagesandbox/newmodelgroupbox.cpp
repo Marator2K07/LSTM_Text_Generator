@@ -14,6 +14,16 @@ void NewModelGroupBox::chooseLearningData()
     ui->learningDataPathLineEdit->setText(fileName);
 }
 
+void NewModelGroupBox::chooseModelSavePath()
+{
+    QString savePath = QFileDialog::getExistingDirectory(
+        this,
+        "Выбор директории для сохранения модели",
+        QString()
+        );
+    ui->saveModelPathLineEdit->setText(savePath);
+}
+
 void NewModelGroupBox::addNewLayer()
 {
     // добавляем новую строку
@@ -105,6 +115,8 @@ NewModelGroupBox::NewModelGroupBox(QWidget *parent)
             _learningDataHelpDialog, SLOT(updateLearningDataPath(QString)));
     connect(ui->chooseLearningDataBtn, SIGNAL(pressed()),
             this, SLOT(chooseLearningData()));
+    connect(ui->chooseSaveModelPathBtn, SIGNAL(pressed()),
+            this, SLOT(chooseModelSavePath()));
 }
 
 NewModelGroupBox::~NewModelGroupBox()
