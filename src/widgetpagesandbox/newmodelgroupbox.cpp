@@ -11,7 +11,7 @@ void NewModelGroupBox::chooseLearningData()
         QString(),
         "Text files (*.txt)"
         );
-    ui->embeddingDataPathLineEdit->setText(fileName);
+    ui->learningDataPathLineEdit->setText(fileName);
 }
 
 void NewModelGroupBox::addNewLayer()
@@ -89,6 +89,7 @@ NewModelGroupBox::NewModelGroupBox(QWidget *parent)
     : QGroupBox(parent)
     , ui(new Ui::NewModelGroupBox)
     , _layersHelpDialog{new AboutLayersDialog(this)}
+    , _learningDataHelpDialog{new AboutLearningDataDialog(this)}
 {
     ui->setupUi(this);
 

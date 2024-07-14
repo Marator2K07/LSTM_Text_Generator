@@ -7,6 +7,7 @@
 #include <QSpinBox>
 
 #include "aboutlayersdialog.h"
+#include "aboutlearningdatadialog.h"
 
 ///
 /// \brief The ColumnName enum
@@ -34,6 +35,7 @@ class NewModelGroupBox : public QGroupBox
 private:
     Ui::NewModelGroupBox *ui;
     AboutLayersDialog *_layersHelpDialog; // окно справка о слоях нейр. сети
+    AboutLearningDataDialog *_learningDataHelpDialog; // справка об обуч. данных
     static long LAYERS_CREATED;
 
 private slots:
