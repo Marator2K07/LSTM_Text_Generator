@@ -2,6 +2,8 @@
 #include "ui_newmodelgroupbox.h"
 
 long NewModelGroupBox::LAYERS_CREATED = 0;
+long NewModelGroupBox::MIN_NAME_MODEL_LENGTH = 5;
+long NewModelGroupBox::MIN_COUNT_MODEL_LAYERS = 1;
 
 void NewModelGroupBox::chooseLearningData()
 {

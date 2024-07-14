@@ -37,6 +37,8 @@ private:
     AboutLayersDialog *_layersHelpDialog; // окно справка о слоях нейр. сети
     AboutLearningDataDialog *_learningDataHelpDialog; // справка об обуч. данных
     static long LAYERS_CREATED;
+    static long MIN_NAME_MODEL_LENGTH;
+    static long MIN_COUNT_MODEL_LAYERS;
 
 private slots:
     ///
