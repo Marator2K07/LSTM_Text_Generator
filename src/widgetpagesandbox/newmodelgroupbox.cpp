@@ -5,6 +5,49 @@ long NewModelGroupBox::LAYERS_CREATED = 0;
 long NewModelGroupBox::MIN_NAME_MODEL_LENGTH = 5;
 long NewModelGroupBox::MIN_COUNT_MODEL_LAYERS = 1;
 
+void NewModelGroupBox::newModelDataCheck()
+{
+    // проверка существования обучающих данных
+    QFile learningDataFile(ui->learningDataPathLineEdit->text());
+    if (!learningDataFile.exists()) {
+        QMessageBox::warning(
+            this,
+            "Предупреждение",
+            "Обучающие данные не выбраны/не существуют."
+            );
+        return;
+    }
+    // проверка(пока простая) корректности имени модели
+    if (ui->modelNameLineEdit->text().length() <= MIN_NAME_MODEL_LENGTH) {
+        QMessageBox::warning(
+            this,
+            "Предупреждение",
+            "Слишком простое/короткое имя модели.\n"
+            "Выбирайте содержательное и не короткое имя для модели."
+            );
+        return;
+    }
+    // проверка количества слоев будущей модели
+    if (ui->layersTableWidget->rowCount() < MIN_COUNT_MODEL_LAYERS) {
+        QMessageBox::warning(
+            this,
+            "Предупреждение",
+            "Любая модель должна содержать хотябы один слой."
+            );
+        return;
+    }
+    // проверка существования директории для сохранения
+    QDir modelSavePathDir(ui->saveModelPathLineEdit->text());
+    if (!modelSavePathDir.exists() || ui->saveModelPathLineEdit->text().length() == 0) {
+        QMessageBox::warning(
+            this,
+            "Предупреждение",
+            "Путь для сохранения модели не существует/ не задан."
+            );
+        return;
+    }
+}
+
 void NewModelGroupBox::chooseLearningData()
 {
     QString fileName = QFileDialog::getOpenFileName(
@@ -119,6 +162,8 @@ NewModelGroupBox::NewModelGroupBox(QWidget *parent)
             this, SLOT(chooseLearningData()));
     connect(ui->chooseSaveModelPathBtn, SIGNAL(pressed()),
             this, SLOT(chooseModelSavePath()));
+    connect(ui->createAndSaveNewModelBtn, SIGNAL(pressed()),
+            this, SLOT(newModelDataCheck()));
 }
 
 NewModelGroupBox::~NewModelGroupBox()

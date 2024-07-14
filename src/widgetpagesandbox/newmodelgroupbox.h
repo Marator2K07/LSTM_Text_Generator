@@ -42,6 +42,10 @@ private:
 
 private slots:
     ///
+    /// \brief newModelDataCheck слот проверки
+    /// всех полей ввода и выбора перед созданием новой модели
+    void newModelDataCheck();
+    ///
     /// \brief openLearningData слот выбора
     /// текстовых обучающих данных для модели
     void chooseLearningData();
