@@ -97,7 +97,13 @@ NewModelGroupBox::NewModelGroupBox(QWidget *parent)
             this, SLOT(addNewLayer()));
     connect(ui->aboutLayersHelpButton, SIGNAL(pressed()),
             _layersHelpDialog, SLOT(show()));
-    connect(ui->chooseEmbeddingDataBtn, SIGNAL(pressed()),
+    connect(ui->aboutLearningDataHelpBtn, SIGNAL(pressed()),
+            _learningDataHelpDialog, SLOT(preloadData()));
+    connect(ui->aboutLearningDataHelpBtn, SIGNAL(pressed()),
+            _learningDataHelpDialog, SLOT(show()));
+    connect(ui->learningDataPathLineEdit, SIGNAL(textChanged(QString)),
+            _learningDataHelpDialog, SLOT(updateLearningDataPath(QString)));
+    connect(ui->chooseLearningDataBtn, SIGNAL(pressed()),
             this, SLOT(chooseLearningData()));
 }
 
