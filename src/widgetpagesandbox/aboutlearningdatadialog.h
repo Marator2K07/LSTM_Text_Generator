@@ -1,7 +1,10 @@
 #ifndef ABOUTLEARNINGDATADIALOG_H
 #define ABOUTLEARNINGDATADIALOG_H
 
+#include <QMessageBox>
+#include <QTextStream>
 #include <QDialog>
+#include <QFile>
 
 namespace Ui {
 class AboutLearningDataDialog;
@@ -23,6 +26,16 @@ private:
 public:
     explicit AboutLearningDataDialog(QWidget *parent = nullptr);
     ~AboutLearningDataDialog();
+
+public slots:
+    ///
+    /// \brief preloadData предзагрузка
+    /// необходимых данных при возможности
+    void preloadData();
+    ///
+    /// \brief updateLearningDataPath обновление пути обучающих данных
+    /// \param path новый путь для обновления
+    void updateLearningDataPath(const QString &path);
 
 };
 
