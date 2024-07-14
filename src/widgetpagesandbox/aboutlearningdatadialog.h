@@ -17,6 +17,8 @@ class AboutLearningDataDialog : public QDialog
 
 private:
     Ui::AboutLearningDataDialog *ui;
+    QString _pathLearningData; // путь до подгружаемых данных
+    QString _learningData; // подгружаемые обучающие данные
 
 public:
     explicit AboutLearningDataDialog(QWidget *parent = nullptr);
