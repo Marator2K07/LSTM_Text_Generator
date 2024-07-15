@@ -155,6 +155,7 @@ NewModelGroupBox::NewModelGroupBox(QWidget *parent)
     , ui(new Ui::NewModelGroupBox)
     , _layersHelpDialog{new AboutLayersDialog(this)}
     , _learningDataHelpDialog{new AboutLearningDataDialog(this)}
+    , _modelDataHelpDialog{new AboutModelDataDialog(this)}
 {
     ui->setupUi(this);
 
@@ -166,6 +167,8 @@ NewModelGroupBox::NewModelGroupBox(QWidget *parent)
             _learningDataHelpDialog, SLOT(preloadData()));
     connect(ui->aboutLearningDataHelpBtn, SIGNAL(pressed()),
             _learningDataHelpDialog, SLOT(show()));
+    connect(ui->aboutModelDataHelpButton, SIGNAL(pressed()),
+            _modelDataHelpDialog, SLOT(show()));
     connect(ui->learningDataPathLineEdit, SIGNAL(textChanged(QString)),
             _learningDataHelpDialog, SLOT(updateLearningDataPath(QString)));
     connect(ui->chooseLearningDataBtn, SIGNAL(pressed()),

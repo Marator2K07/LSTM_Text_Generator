@@ -8,6 +8,7 @@
 
 #include "aboutlayersdialog.h"
 #include "aboutlearningdatadialog.h"
+#include "aboutmodeldatadialog.h"
 
 ///
 /// \brief The ColumnName enum
@@ -36,6 +37,7 @@ private:
     Ui::NewModelGroupBox *ui;
     AboutLayersDialog *_layersHelpDialog; // окно справка о слоях нейр. сети
     AboutLearningDataDialog *_learningDataHelpDialog; // справка об обуч. данных
+    AboutModelDataDialog *_modelDataHelpDialog; // справка об основн. параметрах сети
     static long LAYERS_CREATED;
     static long MIN_NAME_MODEL_LENGTH;
     static long MIN_COUNT_MODEL_LAYERS;
