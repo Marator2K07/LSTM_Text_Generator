@@ -12,6 +12,7 @@ class CharAsVectorEmbedding : public ITextEmbedding<T>
 {
 private:
     QString _text;
+    QString _filePath;
     QMap<int, char> _idxToChar;
     QMap<char, int> _charToIdx;
     int _batchSize; // размер партии символов текста
@@ -37,13 +38,14 @@ public:
                           QMap<char, int> charToIdx,
                           int sequenceLength,
                           int batchSize);
-    CharAsVectorEmbedding(QString fileName,
+    CharAsVectorEmbedding(QString fullFilePath,
                           int sequenceLength = 16,
                           int batchSize = 32);
 
 public:
     // ITextEmbedding interface
     QString text() const override;
+    QString filePath() const override;
     int batchSize() const override;
     int sequenceLength() const override;
     int vocabSize() const override;

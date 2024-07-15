@@ -60,19 +60,26 @@ CharAsVectorEmbedding<T>::CharAsVectorEmbedding(QMap<int, char> idxToChar,
 }
 
 template<typename T>
-CharAsVectorEmbedding<T>::CharAsVectorEmbedding(QString fileName,
+CharAsVectorEmbedding<T>::CharAsVectorEmbedding(QString fullFilePath,
                                                 int sequenceLength,
                                                 int batchSize)
-    : _sequenceLength{sequenceLength}
+    : _filePath{fullFilePath}
+    , _sequenceLength{sequenceLength}
     , _batchSize{batchSize}
 {
-    processTheFile(QDir::currentPath() + '/' + fileName);
+    processTheFile(fullFilePath);
 }
 
 template<typename T>
 QString CharAsVectorEmbedding<T>::text() const
 {
     return _text;
+}
+
+template<typename T>
+QString CharAsVectorEmbedding<T>::filePath() const
+{
+    return _filePath;
 }
 
 template<typename T>

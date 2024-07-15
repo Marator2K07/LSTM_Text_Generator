@@ -27,6 +27,10 @@ public:
     /// \return текущий считанный текст
     virtual QString text() const = 0;
     ///
+    /// \brief filePath геттер пути до файла с текстом
+    /// \return путь до файла с данными
+    virtual QString filePath() const = 0;
+    ///
     /// \brief batchSize геттер размера партии символов
     /// \return текущий размер партии символов
     virtual int batchSize() const = 0;
