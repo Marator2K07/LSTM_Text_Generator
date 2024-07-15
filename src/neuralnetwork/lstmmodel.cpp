@@ -97,7 +97,8 @@ void LSTMModel::save(const QString path)
             );
     }
     // пишем главную эмбеддинговую информацию
-    fileEmbedding << _embedding->batchSize() << " "
+    fileEmbedding << _embedding->filePath().toStdString() << " "
+                  << _embedding->batchSize() << " "
                   << _embedding->sequenceLength() << " "
                   << _embedding->vocabSize() << endl;
     QList<char> symbols = _embedding->charToIdx().keys();
@@ -152,15 +153,17 @@ void LSTMModel::load(const QString path)
     // готовим данные для конструктора эмбеддинга
     QMap<int, char> idxToChar;
     QMap<char, int> charToIdx;
+    string filePath;
     int sequenceLength;
     int batchSize;
     // пытаемся загрузить его данные
     try {
         string line;
-        // сначала считываем размеры партии и последовательности
+        // сначала считываем путь до файла,
+        // размеры партии и последовательности
         getline(fileEmbeddingStream, line);
         istringstream rowStreamMain(line);
-        rowStreamMain >> batchSize >> sequenceLength;
+        rowStreamMain >> filePath >> batchSize >> sequenceLength;
         // заполняем словари        
         while (getline(fileEmbeddingStream, line)) {
             istringstream rowStream(line);
@@ -173,8 +176,11 @@ void LSTMModel::load(const QString path)
             charToIdx.insert(symbol, index);
         }
         // создаем эмбеддинг на основе данных
-        _embedding = new CharAsVectorEmbedding<double>(idxToChar, charToIdx,
-                                                       sequenceLength, batchSize);
+        _embedding = new CharAsVectorEmbedding<double>(
+            QString::fromStdString(filePath),
+            idxToChar, charToIdx,
+            sequenceLength, batchSize
+            );
     } catch (const NeuralNetworkException &e) {
         throw NeuralNetworkException(
             QString("Catch neural network model loading embedding exception:\n[%1]\n")
