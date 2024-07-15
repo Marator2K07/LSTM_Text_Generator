@@ -1,38 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>AboutModelDataDialog</class>
- <widget name="AboutModelDataDialog" class="QDialog">
+ <widget class="QDialog" name="AboutModelDataDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>400</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Segoe UI Light</family>
+    <pointsize>12</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget name="buttonBox" class="QDialogButtonBox">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>240</y>
-     <width>341</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-   </property>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>-270</y>
+        <width>363</width>
+        <height>620</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="mainProvisionsHeaderLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>12</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>Основные положения:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="mainProvisionsInfoLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Длина контекста или последовательности(sequenceLength) и размера партии(batchSize) играют важную роль в обучении модели LSTM (Long Short-Term Memory), поскольку они определяют, как данные будут представлены и обрабатываться во время обучения.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="influenceOfSequenceLengthHeaderLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>12</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>Влияние размера контекста:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="influenceOfSequenceLengthInfoLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>SequenceLength определяет, сколько временных шагов (например, слов или символов) будет учитываться в каждой последовательности входных данных. Если слишком маленькое значение SequenceLength, то модель может не иметь достаточно информации, чтобы выучить сложные зависимости в данных. С другой стороны, слишком большое значение SequenceLength может привести к проблемам с памятью и увеличению времени обучения. Поэтому важно подобрать оптимальное значение SequenceLength для конкретной задачи.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="influenceOfBatchSizeHeaderLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>12</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>Влияние размера партии:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="influenceOfBatchSizeInfoLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>BatchSize определяет, сколько образцов данных будет рассматриваться одновременно при обучении модели. Маленький batchSize может ухудшить сходимость модели и увеличить время обучения, так как не все данные будут использоваться для обновления весов. С другой стороны, слишком большое значение batchSize может вызвать переполнение памяти и уменьшить эффективность обучения. Подбор оптимального batchSize также является важным шагом при обучении модели LSTM.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="conclusionHeaderLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>12</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>Заключение:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="conclusionInfoLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Правильный выбор sequenceLength и batchSize в нейронных сетях типа LSTM поможет улучшить скорость обучения, точность предсказаний и эффективность работы модели.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="font">
+      <font>
+       <family>Bahnschrift SemiBold</family>
+       <pointsize>12</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
- <pixmapfunction/>
  <resources/>
  <connections>
   <connection>
@@ -47,22 +192,6 @@
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>AboutModelDataDialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
      <y>274</y>
     </hint>
    </hints>
