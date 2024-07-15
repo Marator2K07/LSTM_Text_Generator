@@ -6,9 +6,11 @@
 #include <QGroupBox>
 #include <QSpinBox>
 
-#include "aboutlayersdialog.h"
 #include "aboutlearningdatadialog.h"
+#include "softmaxcrossentropyloss.h"
 #include "aboutmodeldatadialog.h"
+#include "aboutlayersdialog.h"
+#include "lstmmodel.h"
 
 ///
 /// \brief The ColumnName enum
@@ -45,6 +47,13 @@ private:
     static int LAYERS_COLUMN_SCALE_WIDTH;
     static int LAYERS_COLUMN_HIDDEN_SIZE_WIDTH;
     static int LAYERS_COLUMN_DELETE_BUTTON_WIDTH;
+
+private:
+    ///
+    /// \brief layersFromTable получение списка
+    /// слоев с формы заполнения в виде таблицы
+    /// \return текущий список с виджета таблицы
+    QList<INeuralNetworkLayer *> layersFromTable() const;
 
 private slots:
     ///

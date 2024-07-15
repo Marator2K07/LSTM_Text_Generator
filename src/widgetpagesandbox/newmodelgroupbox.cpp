@@ -1,5 +1,6 @@
 #include "newmodelgroupbox.h"
 #include "ui_newmodelgroupbox.h"
+#include "charasvectorembedding.cpp"
 
 long NewModelGroupBox::LAYERS_CREATED = 0;
 long NewModelGroupBox::MIN_NAME_MODEL_LENGTH = 5;
@@ -8,6 +9,32 @@ int NewModelGroupBox::LAYERS_COLUMN_NAME_WIDTH = 65;
 int NewModelGroupBox::LAYERS_COLUMN_SCALE_WIDTH = 105;
 int NewModelGroupBox::LAYERS_COLUMN_HIDDEN_SIZE_WIDTH = 85;
 int NewModelGroupBox::LAYERS_COLUMN_DELETE_BUTTON_WIDTH = 65;
+
+QList<INeuralNetworkLayer *> NewModelGroupBox::layersFromTable() const
+{
+    // подготовка
+    QList<INeuralNetworkLayer *> layers;
+    // проходимся по строкам виджета таблицы
+    for (int rowI = 0; rowI < ui->layersTableWidget->rowCount(); ++rowI) {
+        // считываем данные с ячеек
+        QString layerName = ui->layersTableWidget
+                                ->item(rowI, (int)ColumnName::NAME)->text();
+        QDoubleSpinBox *scaleSpinBox
+            = (QDoubleSpinBox*)ui->layersTableWidget
+                  ->cellWidget(rowI, (int)ColumnName::SCALE);
+        double layerScale = scaleSpinBox->value();
+        QSpinBox *hiddenSizeSpinBox
+            = (QSpinBox*)ui->layersTableWidget
+                  ->cellWidget(rowI, (int)ColumnName::HIDDEN_SIZE);
+        int layerHiddenSize = hiddenSizeSpinBox->value();
+        // наконец создаем свежий слой по данным выше
+        layers.push_back(
+            new LSTMLayer(layerName, layerScale, layerHiddenSize)
+            );
+    }
+
+    return layers;
+}
 
 void NewModelGroupBox::newModelDataCheck()
 {
