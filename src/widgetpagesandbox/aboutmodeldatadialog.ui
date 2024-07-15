@@ -17,7 +17,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>О основных характеристиках модели</string>
+   <string>Об основных характеристиках модели</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="topMargin">

@@ -69,7 +69,8 @@ void NewModelGroupBox::newModelDataCheck()
     }
     // проверка существования директории для сохранения
     QDir modelSavePathDir(ui->saveModelPathLineEdit->text());
-    if (!modelSavePathDir.exists() || ui->saveModelPathLineEdit->text().length() == 0) {
+    if (!modelSavePathDir.exists() || ui->saveModelPathLineEdit->text()
+                                              .length() == 0) {
         QMessageBox::warning(
             this,
             "Предупреждение",
@@ -204,6 +205,8 @@ NewModelGroupBox::NewModelGroupBox(QWidget *parent)
             this, SLOT(chooseModelSavePath()));
     connect(ui->createAndSaveNewModelBtn, SIGNAL(pressed()),
             this, SLOT(newModelDataCheck()));
+    connect(this, SIGNAL(modelReadyToBeCreated()),
+            this, SLOT(createAndSaveNewModel()));
 }
 
 NewModelGroupBox::~NewModelGroupBox()
