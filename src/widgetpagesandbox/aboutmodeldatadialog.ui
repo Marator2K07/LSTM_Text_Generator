@@ -17,9 +17,15 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>О основных характеристиках модели</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="topMargin">
+    <number>3</number>
+   </property>
+   <property name="bottomMargin">
+    <number>3</number>
+   </property>
    <item>
     <widget class="QScrollArea" name="scrollArea">
      <property name="widgetResizable">
@@ -29,7 +35,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-270</y>
+        <y>0</y>
         <width>363</width>
         <height>620</height>
        </rect>

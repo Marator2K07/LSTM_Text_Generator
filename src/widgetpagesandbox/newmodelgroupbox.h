@@ -67,7 +67,7 @@ private slots:
     /// \brief deleteSelectedLayer слот удаления
     /// созданного слоя по индексу строки в которой
     /// находится непосредственно кнопка
-    void deleteSelectedLayer();
+    void deleteSelectedLayer();    
 
 public:
     explicit NewModelGroupBox(QWidget *parent = nullptr);
