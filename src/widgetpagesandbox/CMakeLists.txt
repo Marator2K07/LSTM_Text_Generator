@@ -10,6 +10,11 @@ target_link_libraries(pagesandbox PRIVATE
     Qt6::Widgets
 )
 target_link_libraries(pagesandbox PRIVATE
-    
+    activationfunctions
+    neuralnetwork
+    textembedding
+    exception
+    matrix
+    loss
 )
 target_include_directories(pagesandbox PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
