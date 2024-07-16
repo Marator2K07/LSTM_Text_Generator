@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QGroupBox>
 
+#include "newmodelgroupbox.h"
+
 ///
 /// \brief The WorkMode enum
 /// определение режима работы виджета
@@ -28,6 +30,7 @@ class PageSandbox : public QWidget
 private:
     Ui::PageSandbox *ui;
     WorkMode _currenWorkMode; // текущим режим работы виджета
+    QGroupBox *_currentModeGroupBox; // ссылка на текущий виджет режима работы
 
     ///
     /// \brief cleanGroupBox очистка виджетов-детей

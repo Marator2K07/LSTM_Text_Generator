@@ -14,8 +14,9 @@ void PageSandbox::cleanGroupBox(QGroupBox *groupBox)
 
 PageSandbox::PageSandbox(QWidget *parent)
     : QWidget(parent)
-    , _currenWorkMode{WorkMode::NONE}
     , ui(new Ui::PageSandbox)
+    , _currenWorkMode{WorkMode::NONE}
+    , _currentModeGroupBox{nullptr}
 {
     ui->setupUi(this);
 }
