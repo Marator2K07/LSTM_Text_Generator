@@ -4,6 +4,7 @@ qt_add_library(pagesandbox STATIC
     aboutlayersdialog.h aboutlayersdialog.cpp aboutlayersdialog.ui
     aboutlearningdatadialog.h aboutlearningdatadialog.cpp aboutlearningdatadialog.ui
     aboutmodeldatadialog.h aboutmodeldatadialog.cpp aboutmodeldatadialog.ui
+    modeltraininggroupbox.h modeltraininggroupbox.cpp modeltraininggroupbox.ui
 )
 target_link_libraries(pagesandbox PRIVATE
     Qt6::Core
