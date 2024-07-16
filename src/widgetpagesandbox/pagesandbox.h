@@ -38,6 +38,12 @@ private:
     /// \param groupBox выбранный виджет группировки
     void cleanGroupBox(QGroupBox *groupBox);
 
+private slots:
+    ///
+    /// \brief selectNewModelMode если был выбран
+    /// режим создания новой можели нейронной сети
+    void selectNewModelMode();
+
 public:
     explicit PageSandbox(QWidget *parent = nullptr);
     ~PageSandbox();
