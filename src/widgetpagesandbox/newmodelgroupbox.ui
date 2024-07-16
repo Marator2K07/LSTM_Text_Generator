@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>360</width>
-    <height>464</height>
+    <height>465</height>
    </rect>
   </property>
   <property name="font">
@@ -36,8 +36,10 @@
     <widget class="QLabel" name="learningDataPathLabel">
      <property name="font">
       <font>
-       <family>Segoe UI Light</family>
-       <pointsize>10</pointsize>
+       <family>Rockwell</family>
+       <pointsize>11</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="text">
@@ -52,7 +54,7 @@
        <property name="font">
         <font>
          <family>Segoe UI Light</family>
-         <pointsize>11</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
       </widget>
@@ -102,6 +104,38 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="modelNameLabel">
+     <property name="font">
+      <font>
+       <family>Rockwell</family>
+       <pointsize>11</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Имя новой модели и ее основные характеристики:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="modelNameLineEdit">
+     <property name="font">
+      <font>
+       <family>Segoe UI Light</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -200,25 +234,9 @@
     </layout>
    </item>
    <item>
-    <widget class="QLabel" name="modelNameLabel">
-     <property name="font">
-      <font>
-       <family>Segoe UI Light</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Наименование новой модели нейронной сети:</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLineEdit" name="modelNameLineEdit">
-     <property name="font">
-      <font>
-       <family>Segoe UI Light</family>
-       <pointsize>11</pointsize>
-      </font>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
@@ -231,8 +249,10 @@
       <widget class="QLabel" name="layersLabel">
        <property name="font">
         <font>
-         <family>Segoe UI Light</family>
-         <pointsize>10</pointsize>
+         <family>Rockwell</family>
+         <pointsize>11</pointsize>
+         <italic>false</italic>
+         <bold>false</bold>
         </font>
        </property>
        <property name="text">
@@ -395,11 +415,20 @@
     </widget>
    </item>
    <item>
+    <widget class="Line" name="line_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="savePathLabel">
      <property name="font">
       <font>
-       <family>Segoe UI Light</family>
-       <pointsize>10</pointsize>
+       <family>Rockwell</family>
+       <pointsize>11</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="text">
@@ -414,7 +443,7 @@
        <property name="font">
         <font>
          <family>Segoe UI Light</family>
-         <pointsize>11</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
       </widget>
