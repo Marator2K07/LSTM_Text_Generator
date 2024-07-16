@@ -50,10 +50,11 @@ private:
 
 private:
     ///
-    /// \brief layersFromTable получение списка
+    ///\brief layersFromTable получение списка
     /// слоев с формы заполнения в виде таблицы
+    /// \param outputSize размер выхода для слоя
     /// \return текущий список с виджета таблицы
-    QList<INeuralNetworkLayer *> layersFromTable() const;
+    QList<INeuralNetworkLayer *> layersFromTable(int outputSize) const;
 
 private slots:
     ///

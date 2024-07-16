@@ -10,7 +10,7 @@ int NewModelGroupBox::LAYERS_COLUMN_SCALE_WIDTH = 105;
 int NewModelGroupBox::LAYERS_COLUMN_HIDDEN_SIZE_WIDTH = 85;
 int NewModelGroupBox::LAYERS_COLUMN_DELETE_BUTTON_WIDTH = 65;
 
-QList<INeuralNetworkLayer *> NewModelGroupBox::layersFromTable() const
+QList<INeuralNetworkLayer *> NewModelGroupBox::layersFromTable(int outputSize) const
 {
     // подготовка
     QList<INeuralNetworkLayer *> layers;
@@ -29,7 +29,7 @@ QList<INeuralNetworkLayer *> NewModelGroupBox::layersFromTable() const
         int layerHiddenSize = hiddenSizeSpinBox->value();
         // наконец создаем свежий слой по данным выше
         layers.push_back(
-            new LSTMLayer(layerName, layerScale, layerHiddenSize)
+            new LSTMLayer(layerName, layerHiddenSize, outputSize, layerScale)
             );
     }
 
