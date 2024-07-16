@@ -82,6 +82,29 @@ void NewModelGroupBox::newModelDataCheck()
     emit modelReadyToBeCreated();
 }
 
+void NewModelGroupBox::createAndSaveNewModel()
+{
+    // создаем нужные обьекты
+    CharAsVectorEmbedding<double> embedding(
+        ui->learningDataPathLineEdit->text(),
+        ui->sequenceLengthSpinBox->value(),
+        ui->batchSizeSpinBox->value()
+        );
+    SoftmaxCrossEntropyLoss *loss = new SoftmaxCrossEntropyLoss();
+    QList<INeuralNetworkLayer *> layers = layersFromTable();
+    LSTMModel lstmModel(
+        ui->modelNameLineEdit->text(), loss, &embedding, layers
+        );
+    // сохраняем и уведомляем
+    lstmModel.save(ui->saveModelPathLineEdit->text());
+    QMessageBox::information(this, "Информация", "Модель успешно сохранена");
+    // освобождаем память
+    delete loss;
+    foreach (INeuralNetworkLayer *layer, layers) {
+        delete layer;
+    }
+}
+
 void NewModelGroupBox::chooseLearningData()
 {
     QString fileName = QFileDialog::getOpenFileName(

@@ -61,6 +61,10 @@ private slots:
     /// всех полей ввода и выбора перед созданием новой модели
     void newModelDataCheck();
     ///
+    /// \brief createAndSaveNewModel создание и сохранение
+    /// свежесозданной модели после удачной проверки
+    void createAndSaveNewModel();
+    ///
     /// \brief openLearningData слот выбора
     /// текстовых обучающих данных для модели
     void chooseLearningData();
