@@ -1,7 +1,9 @@
 #ifndef MODELTRAININGGROUPBOX_H
 #define MODELTRAININGGROUPBOX_H
 
+#include <QFileDialog>
 #include <QGroupBox>
+#include <QFile>
 
 namespace Ui {
 class ModelTrainingGroupBox;
@@ -18,6 +20,11 @@ class ModelTrainingGroupBox : public QGroupBox
 
 private:
     Ui::ModelTrainingGroupBox *ui;
+
+    ///
+    /// \brief chooseCurrentModel слот выбора
+    /// папки с моделью для обучения
+    void chooseCurrentModel();
 
 public:
     explicit ModelTrainingGroupBox(QWidget *parent = nullptr);
