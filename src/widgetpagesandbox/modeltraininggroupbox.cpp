@@ -12,9 +12,10 @@ void ModelTrainingGroupBox::chooseCurrentModel()
     ui->currentModelLineEdit->setText(currentModelPath);
 }
 
-ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent) :
-    QGroupBox(parent),
-    ui(new Ui::ModelTrainingGroupBox)
+ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
+    : QGroupBox(parent)
+    , ui(new Ui::ModelTrainingGroupBox)
+    , _modelNameMainPart{QString()}
 {
     ui->setupUi(this);
 

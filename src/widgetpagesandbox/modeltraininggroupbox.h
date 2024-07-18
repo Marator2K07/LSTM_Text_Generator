@@ -20,6 +20,7 @@ class ModelTrainingGroupBox : public QGroupBox
 
 private:
     Ui::ModelTrainingGroupBox *ui;
+    QString _modelNameMainPart; // основная часть имени загруженной модели
 
     ///
     /// \brief chooseCurrentModel слот выбора
