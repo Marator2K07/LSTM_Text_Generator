@@ -1,6 +1,9 @@
 #include "lstmmodel.h"
 #include "charasvectorembedding.cpp"
 
+QString LSTMModel::LAYERS_DATA_NAME = "layersData";
+QString LSTMModel::EMBEDDING_DATA_NAME = "embeddingData";
+
 LSTMModel::LSTMModel(QString name,
                      ILoss *loss,
                      ITextEmbedding<double> *embedding,

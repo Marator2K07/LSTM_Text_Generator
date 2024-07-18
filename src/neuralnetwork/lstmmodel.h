@@ -13,9 +13,7 @@ private:
     QString _name; // для идентификации при сохранении/загрузке
     ILoss *_loss; // интерфейс вычисления потерь
     ITextEmbedding<double> *_embedding; // интерфейс эмбеддинга
-    QList<INeuralNetworkLayer *> _layers; // список слоев модели
-    const QString LAYERS_DATA_NAME = "layersData";
-    const QString EMBEDDING_DATA_NAME = "embeddingData";
+    QList<INeuralNetworkLayer *> _layers; // список слоев модели    
 
 public:
     LSTMModel(QString name,
@@ -23,6 +21,9 @@ public:
               ITextEmbedding<double> *embedding,
               QList<INeuralNetworkLayer *> layers);
     LSTMModel(const QString path, const QString modelName, ILoss *loss);
+
+    static QString LAYERS_DATA_NAME;
+    static QString EMBEDDING_DATA_NAME;
 
     bool operator==(const LSTMModel model);
 
