@@ -1,9 +1,12 @@
 #ifndef MODELTRAININGGROUPBOX_H
 #define MODELTRAININGGROUPBOX_H
 
+#include <QMessageBox>
 #include <QFileDialog>
 #include <QGroupBox>
 #include <QFile>
+
+#include "lstmmodel.h"
 
 namespace Ui {
 class ModelTrainingGroupBox;
@@ -22,6 +25,11 @@ private:
     Ui::ModelTrainingGroupBox *ui;
     QString _modelNameMainPart; // основная часть имени загруженной модели
 
+private slots:
+    ///
+    /// \brief checkCurrentModel просмотр доступности текущей модели
+    /// \param modelPathAndName путь по которому проверяется доступность
+    void checkCurrentModel(const QString modelPathAndName);
     ///
     /// \brief chooseCurrentModel слот выбора
     /// папки с моделью для обучения
