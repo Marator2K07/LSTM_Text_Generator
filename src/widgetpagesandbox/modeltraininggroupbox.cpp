@@ -50,6 +50,7 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     , _modelNameMainPart{QString()}
 {
     ui->setupUi(this);
+    ui->frame->setEnabled(false);
 
     connect(ui->chooseCurrentModelButton, SIGNAL(pressed()),
             this, SLOT(chooseCurrentModel()));
