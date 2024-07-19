@@ -1,6 +1,8 @@
 #include "modeltraininggroupbox.h"
 #include "ui_modeltraininggroupbox.h"
 
+QString ModelTrainingGroupBox::TRAINING_DATA_NAME = "trainingData";
+
 void ModelTrainingGroupBox::checkCurrentModel(const QString modelPathAndName)
 {
     // находим основную часть имени модели
