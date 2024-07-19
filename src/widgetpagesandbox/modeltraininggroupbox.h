@@ -7,6 +7,14 @@
 #include <QFile>
 
 #include "lstmmodel.h"
+///
+/// \brief The OptimizerType enum
+/// перечисление для доступных оптимизиаторов при обучении
+enum class OptimizerType {
+    SGD = 0,
+    ADA_GRAD,
+    NONE
+};
 
 namespace Ui {
 class ModelTrainingGroupBox;
