@@ -50,6 +50,10 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     : QGroupBox(parent)
     , ui(new Ui::ModelTrainingGroupBox)
     , _modelNameMainPart{QString()}
+    , _trainingRate{0.0}
+    , _epochsCompleted{0.0}
+    , _currentOptimizerType{OptimizerType::NONE}
+    , _currentOptimizer{nullptr}
 {
     ui->setupUi(this);
     ui->frame->setEnabled(false);

@@ -14,6 +14,7 @@ target_link_libraries(pagesandbox PRIVATE
     activationfunctions
     neuralnetwork
     textembedding
+    optimizer
     exception
     matrix
     loss

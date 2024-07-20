@@ -7,6 +7,9 @@
 #include <QFile>
 
 #include "lstmmodel.h"
+#include "adagrad.h"
+#include "sgd.h"
+
 ///
 /// \brief The OptimizerType enum
 /// перечисление для доступных оптимизиаторов при обучении
@@ -32,6 +35,10 @@ class ModelTrainingGroupBox : public QGroupBox
 private:
     Ui::ModelTrainingGroupBox *ui;
     QString _modelNameMainPart; // основная часть имени загруженной модели
+    double _trainingRate; // обученность выбранной модели
+    double _epochsCompleted; // количество пройденных эпох обучения
+    OptimizerType _currentOptimizerType;
+    IOptimizer *_currentOptimizer;
 
 private slots:
     ///
