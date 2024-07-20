@@ -6,6 +6,7 @@
 #include <QGroupBox>
 #include <QFile>
 
+#include "softmaxcrossentropyloss.h"
 #include "lstmmodel.h"
 #include "adagrad.h"
 #include "sgd.h"
@@ -35,6 +36,7 @@ class ModelTrainingGroupBox : public QGroupBox
 private:
     Ui::ModelTrainingGroupBox *ui;
     QString _modelNameMainPart; // основная часть имени загруженной модели
+    LSTMModel *_loadedModel; // текущая загруженная модель нейронной сети
     double _trainingRate; // обученность выбранной модели
     double _epochsCompleted; // количество пройденных эпох обучения
     OptimizerType _currentOptimizerType;

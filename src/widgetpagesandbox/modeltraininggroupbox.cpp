@@ -5,10 +5,11 @@ QString ModelTrainingGroupBox::TRAINING_DATA_NAME = "trainingData";
 
 void ModelTrainingGroupBox::checkCurrentModel(const QString modelPathAndName)
 {
-    // находим основную часть имени модели
+    // находим основную часть имени и пути модели
     QString fileNameMainPart = modelPathAndName.right(
         modelPathAndName.length() - modelPathAndName.lastIndexOf("/") - 1
         );
+    QString filePath = modelPathAndName.left(modelPathAndName.lastIndexOf("/"));
     // конфигурируем предполагаемые файлы
     QFile currentModelLayersFile(QString("%1/%2_%3.txt")
                                      .arg(modelPathAndName,
@@ -25,6 +26,12 @@ void ModelTrainingGroupBox::checkCurrentModel(const QString modelPathAndName)
     if (currentModelLayersFile.exists() && currentModelEmbeddingFile.exists()) {
         ui->frame->setEnabled(true);
         _modelNameMainPart = fileNameMainPart;
+        // подгружаем модель для обучения
+        _loadedModel = new LSTMModel(
+            filePath,
+            fileNameMainPart,
+            new SoftmaxCrossEntropyLoss()
+            );
     } else {
         ui->frame->setEnabled(false);
         _modelNameMainPart = QString();
@@ -33,6 +40,11 @@ void ModelTrainingGroupBox::checkCurrentModel(const QString modelPathAndName)
             "Предупреждение",
             "По указанному пути не существует модели для обучения"
             );
+        // в любом случае отгружаем модель, если она была выбрана
+        if (_loadedModel != nullptr) {
+            delete _loadedModel;
+            _loadedModel = nullptr;
+        }
     }
 }
 
@@ -50,6 +62,7 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     : QGroupBox(parent)
     , ui(new Ui::ModelTrainingGroupBox)
     , _modelNameMainPart{QString()}
+    , _loadedModel{nullptr}
     , _trainingRate{0.0}
     , _epochsCompleted{0.0}
     , _currentOptimizerType{OptimizerType::NONE}
