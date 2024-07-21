@@ -23,6 +23,16 @@ LSTMModel::LSTMModel(const QString path, const QString modelName, ILoss *loss)
     load(pathModel);
 }
 
+LSTMModel::~LSTMModel()
+{
+    delete _loss;
+    delete _embedding;
+    for (int i = 0; i < _layers.size(); ++i) {
+        delete _layers[i];
+    }
+    cout << "deleted" << endl;
+}
+
 bool LSTMModel::operator==(const LSTMModel model)
 {
     // смотрим совпадает ли количество слоев в моделях

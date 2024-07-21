@@ -21,7 +21,9 @@ public:
               ITextEmbedding<double> *embedding,
               QList<INeuralNetworkLayer *> layers);
     LSTMModel(const QString path, const QString modelName, ILoss *loss);
+    ~LSTMModel();
 
+    // суффиксы именований файлов с данными о модели
     static QString LAYERS_DATA_NAME;
     static QString EMBEDDING_DATA_NAME;
 
