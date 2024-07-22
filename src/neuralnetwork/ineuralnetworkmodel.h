@@ -21,6 +21,10 @@ public:
     /// \param path путь к папке с моделью
     virtual void load(const QString path = QDir::currentPath()) = 0;
     ///
+    /// \brief name получение имени модели
+    /// \return заданное имя модели нейронной сети
+    virtual QString name() const = 0;
+    ///
     /// \brief embedding доступ к текстовому эмбеддингу для модели
     /// \return текущий эмбеддинг
     virtual ITextEmbedding<double> *embedding() const = 0;

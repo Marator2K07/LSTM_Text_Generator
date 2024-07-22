@@ -204,6 +204,11 @@ void LSTMModel::load(const QString path)
     fileEmbeddingStream.close();
 }
 
+QString LSTMModel::name() const
+{
+    return _name;
+}
+
 ITextEmbedding<double> *LSTMModel::embedding() const
 {
     return _embedding;
