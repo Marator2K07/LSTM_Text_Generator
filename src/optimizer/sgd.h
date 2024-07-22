@@ -21,6 +21,7 @@ public:
 
 public:
     // IOprimizer interface
+    void newLearningRate(const double learningRate) override;
     void update() override;
     //
 

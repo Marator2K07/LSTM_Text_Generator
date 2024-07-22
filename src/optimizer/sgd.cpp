@@ -10,6 +10,11 @@ SGD::SGD(INeuralNetworkModel *model,
 {
 }
 
+void SGD::newLearningRate(const double learningRate)
+{
+    _learningRate = learningRate;
+}
+
 void SGD::update()
 {
     // каждого параметра каждого слоя

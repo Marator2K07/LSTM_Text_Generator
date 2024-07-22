@@ -12,7 +12,12 @@
 /// нейронной сети(обновление параметров сети при обучении)
 class IOptimizer
 {
-public:   
+public:
+    ///
+    /// \brief newLearningRate обновление рейтинга
+    /// обучения для текущего оптимизатора
+    /// \param learningRate рейтинг обучения для обновления
+    virtual void newLearningRate(const double learningRate) = 0;
     ///
     /// \brief update обновление параметров модели путем
     /// применения обрезки градиентов и дополнительных

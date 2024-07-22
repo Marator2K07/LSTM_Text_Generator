@@ -36,6 +36,11 @@ AdaGrad::AdaGrad(INeuralNetworkModel *model,
 {
 }
 
+void AdaGrad::newLearningRate(const double learningRate)
+{
+    _learningRate = learningRate;
+}
+
 void AdaGrad::update()
 {
     // при первом проходе инициализируем словарь хранения суммы
