@@ -1,13 +1,18 @@
 #ifndef CONSISTENTTRAINER_H
 #define CONSISTENTTRAINER_H
 
+#include <QObject>
+
 #include "itrainer.h"
 
 ///
 /// \brief The ConsistentTrainer class
 /// тренер последовательной тренировки на основе текста
-class ConsistentTrainer : public ITrainer
+class ConsistentTrainer : public QObject,
+                          public ITrainer
 {
+    Q_OBJECT
+
 private:
     INeuralNetworkModel *_model;
     ITextEmbedding<double> *_embedding;
@@ -26,6 +31,12 @@ public:
     // ITrainer interface
     void sampleOutput(int startCharIdx, char endingChar = '.') override;
     void train(int iterCount, bool textSample, int sampleEvery) override;
+    //
+
+signals:
+    // ITrainer interface
+    void percentageOfTrainingUpdated(double newPercentageOfTraining) override;
+    void epochsCompletedUpdated(double newEpochsCompleted) override;
     //
 
 };
