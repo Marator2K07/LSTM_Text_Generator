@@ -4,6 +4,7 @@ qt_add_library(exception STATIC
     textembeddingexception.h textembeddingexception.cpp
     activationfunctionsexception.h activationfunctionsexception.cpp
     neuralnetworkexception.h neuralnetworkexception.cpp
+    trainerexception.h trainerexception.cpp
 )
 target_link_libraries(exception PRIVATE
     Qt6::Core
