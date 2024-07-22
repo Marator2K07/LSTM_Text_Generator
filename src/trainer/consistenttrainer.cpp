@@ -3,15 +3,12 @@
 #include "matrix3d.cpp"
 
 ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
-                                     ITextEmbedding<double> *embedding,
-                                     IOptimizer *optimizer,
-                                     int sequenceLenght,
-                                     int batchSize)
+                                     IOptimizer *optimizer)
     : _model{model}
-    , _embedding{embedding}
+    , _embedding{model->embedding()}
     , _optimizer{optimizer}
-    , _sequenceLenght{sequenceLenght}
-    , _batchSize{batchSize}
+    , _sequenceLenght{model->embedding()->sequenceLength()}
+    , _batchSize{model->embedding()->batchSize()}
 {
 }
 

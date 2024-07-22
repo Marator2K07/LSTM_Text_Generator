@@ -21,11 +21,7 @@ private:
     int _batchSize;
 
 public:
-    ConsistentTrainer(INeuralNetworkModel *model,
-                      ITextEmbedding<double> *embedding,
-                      IOptimizer *optimizer,
-                      int sequenceLenght = 16,
-                      int batchSize = 32);
+    ConsistentTrainer(INeuralNetworkModel *model, IOptimizer *optimizer);
 
 public:
     // ITrainer interface
