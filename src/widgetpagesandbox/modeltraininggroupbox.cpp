@@ -3,6 +3,36 @@
 
 QString ModelTrainingGroupBox::TRAINING_DATA_NAME = "trainingData";
 
+void ModelTrainingGroupBox::selectSGDOptimizer()
+{
+    // только если связанная радио кнопка включена
+    if (ui->optimizerSGDRadioButton->isChecked()) {
+        _currentOptimizerType = OptimizerType::SGD;
+        // если память ранее была уже занята
+        if (_currentOptimizer != nullptr) {
+            delete _currentOptimizer;
+        }
+        // в заключении создаем новый оптимизатор
+        _currentOptimizer = new SGD(_loadedModel,
+                                    ui->optimizerLearningRateSpinBox->value());
+    }
+}
+
+void ModelTrainingGroupBox::selectAdaGradOptimizer()
+{
+    // только если связанная радио кнопка включена
+    if (ui->optimizerAdaGradRadioButton->isChecked()) {
+        _currentOptimizerType = OptimizerType::ADA_GRAD;
+        // если память ранее была уже занята
+        if (_currentOptimizer != nullptr) {
+            delete _currentOptimizer;
+        }
+        // в заключении создаем новый оптимизатор
+        _currentOptimizer = new AdaGrad(_loadedModel,
+                                        ui->optimizerLearningRateSpinBox->value());
+    }
+}
+
 void ModelTrainingGroupBox::checkCurrentModel(const QString modelPathAndName)
 {
     // находим основную часть имени и пути модели
@@ -75,6 +105,10 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
             this, SLOT(chooseCurrentModel()));
     connect(ui->currentModelLineEdit, SIGNAL(textChanged(QString)),
             this, SLOT(checkCurrentModel(QString)));
+    connect(ui->optimizerSGDRadioButton, SIGNAL(toggled(bool)),
+            this, SLOT(selectSGDOptimizer()));
+    connect(ui->optimizerAdaGradRadioButton, SIGNAL(toggled(bool)),
+            this, SLOT(selectAdaGradOptimizer()));
 }
 
 ModelTrainingGroupBox::~ModelTrainingGroupBox()

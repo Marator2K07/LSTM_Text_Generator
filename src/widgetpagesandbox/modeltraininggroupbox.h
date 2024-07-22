@@ -44,6 +44,14 @@ private:
 
 private slots:
     ///
+    /// \brief selectSGDOptimizer если был выбран оптимизатор
+    /// типа SGD с помощью радио кнопки
+    void selectSGDOptimizer();
+    ///
+    /// \brief selectAdaGradOptimizer если был выбран оптимизатор
+    /// типа AdaGrad c помощью соотвествующей ради кнопки
+    void selectAdaGradOptimizer();
+    ///
     /// \brief checkCurrentModel просмотр доступности текущей модели
     /// \param modelPathAndName путь по которому проверяется доступность
     void checkCurrentModel(const QString modelPathAndName);
