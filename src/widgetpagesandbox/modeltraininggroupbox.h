@@ -52,6 +52,11 @@ private slots:
     /// типа AdaGrad c помощью соотвествующей ради кнопки
     void selectAdaGradOptimizer();
     ///
+    /// \brief updateOptimizerLearningRate обновление
+    /// рейтинга обучения текущего оптимизатора
+    /// \param newRate новый рейтинг обучения из виджета спинбокс
+    void updateOptimizerLearningRate(const double newRate);
+    ///
     /// \brief checkCurrentModel просмотр доступности текущей модели
     /// \param modelPathAndName путь по которому проверяется доступность
     void checkCurrentModel(const QString modelPathAndName);

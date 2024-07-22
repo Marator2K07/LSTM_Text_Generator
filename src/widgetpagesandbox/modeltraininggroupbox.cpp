@@ -33,6 +33,13 @@ void ModelTrainingGroupBox::selectAdaGradOptimizer()
     }
 }
 
+void ModelTrainingGroupBox::updateOptimizerLearningRate(const double newRate)
+{
+    if (_currentOptimizer != nullptr) {
+        _currentOptimizer->newLearningRate(newRate);
+    }
+}
+
 void ModelTrainingGroupBox::checkCurrentModel(const QString modelPathAndName)
 {
     // находим основную часть имени и пути модели
@@ -109,6 +116,8 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
             this, SLOT(selectSGDOptimizer()));
     connect(ui->optimizerAdaGradRadioButton, SIGNAL(toggled(bool)),
             this, SLOT(selectAdaGradOptimizer()));
+    connect(ui->optimizerLearningRateSpinBox, SIGNAL(valueChanged(double)),
+            this, SLOT(updateOptimizerLearningRate(double)));
 }
 
 ModelTrainingGroupBox::~ModelTrainingGroupBox()
