@@ -27,6 +27,16 @@ public:
     virtual void train(int iterCount,
                        bool textSample = false,
                        int sampleEvery = 100) = 0;
+
+protected:
+    ///
+    /// \brief percentageOfTrainingUpdated сигнал обновления процента обученности
+    /// \param newPercentageOfTraining новый текущий процент обученности модели
+    virtual void percentageOfTrainingUpdated(double newPercentageOfTraining) = 0;
+    ///
+    /// \brief epochsCompletedUpdated сигнал обновления количества пройденных эпох
+    /// \param newEpochsCompleted новое количество пройденных эпох обучения
+    virtual void epochsCompletedUpdated(double newEpochsCompleted) = 0;
 };
 
 #endif // ITRAINER_H
