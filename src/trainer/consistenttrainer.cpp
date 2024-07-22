@@ -2,6 +2,8 @@
 #include "matrix2d.cpp"
 #include "matrix3d.cpp"
 
+QString ConsistentTrainer::TRAINER_DATA_NAME = "trainerData";
+
 ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
                                      IOptimizer *optimizer)
     : _model{model}
@@ -9,6 +11,9 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
     , _optimizer{optimizer}
     , _sequenceLenght{model->embedding()->sequenceLength()}
     , _batchSize{model->embedding()->batchSize()}
+    , _currentPos{0}
+    , _percentageOfTraining{0.0}
+    , _epochsCompleted{0.0}
 {
 }
 
