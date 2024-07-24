@@ -37,7 +37,9 @@ public:
 public:
     // INeuralNetworkLayer interface
     QString name() const override;
-    bool compareLayer(const INeuralNetworkLayer *layer) override;
+    bool compareLayer(INeuralNetworkLayer *layer);
+    Matrix2d<double> paramAt(const QString firstKey,
+                             const QString secondKey) const override;
     void updateParam(const QString firstKey,
                      const QString secondKey,
                      const Matrix2d<double> value) override;

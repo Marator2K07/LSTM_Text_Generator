@@ -73,68 +73,68 @@ QString LSTMLayer::name() const
     return _name;
 }
 
-bool LSTMLayer::compareLayer(const INeuralNetworkLayer *layer)
+bool LSTMLayer::compareLayer(INeuralNetworkLayer *layer)
 {
     // сравниваем все значения
-    if (!_params["W_f"]["value"].compareDoubles(&(layer->params().value("W_f")["value"]), 1e-5)) {
+    if (!_params["W_f"]["value"].compareDoubles(layer->paramAt("W_f", "value"), 1e-5)) {
         return false;
     }
-    if (!_params["W_i"]["value"].compareDoubles(&(layer->params().value("W_i")["value"]), 1e-5)) {
+    if (!_params["W_i"]["value"].compareDoubles(layer->paramAt("W_i", "value"), 1e-5)) {
         return false;
     }
-    if (!_params["W_c"]["value"].compareDoubles(&(layer->params().value("W_c")["value"]), 1e-5)) {
+    if (!_params["W_c"]["value"].compareDoubles(layer->paramAt("W_c", "value"), 1e-5)) {
         return false;
     }
-    if (!_params["W_o"]["value"].compareDoubles(&(layer->params().value("W_o")["value"]), 1e-5)) {
+    if (!_params["W_o"]["value"].compareDoubles(layer->paramAt("W_o", "value"), 1e-5)) {
         return false;
     }
-    if (!_params["W_v"]["value"].compareDoubles(&(layer->params().value("W_v")["value"]), 1e-5)) {
+    if (!_params["W_v"]["value"].compareDoubles(layer->paramAt("W_v", "value"), 1e-5)) {
         return false;
     }
-    if (!_params["B_f"]["value"].compareDoubles(&(layer->params().value("B_f")["value"]), 1e-5)) {
+    if (!_params["B_f"]["value"].compareDoubles(layer->paramAt("B_f", "value"), 1e-5)) {
         return false;
     }
-    if (!_params["B_i"]["value"].compareDoubles(&(layer->params().value("B_i")["value"]), 1e-5)) {
+    if (!_params["B_i"]["value"].compareDoubles(layer->paramAt("B_i", "value"), 1e-5)) {
         return false;
     }
-    if (!_params["B_c"]["value"].compareDoubles(&(layer->params().value("B_c")["value"]), 1e-5)) {
+    if (!_params["B_c"]["value"].compareDoubles(layer->paramAt("B_c", "value"), 1e-5)) {
         return false;
     }
-    if (!_params["B_o"]["value"].compareDoubles(&(layer->params().value("B_o")["value"]), 1e-5)) {
+    if (!_params["B_o"]["value"].compareDoubles(layer->paramAt("B_o", "value"), 1e-5)) {
         return false;
     }
-    if (!_params["B_v"]["value"].compareDoubles(&(layer->params().value("B_v")["value"]), 1e-5)) {
+    if (!_params["B_v"]["value"].compareDoubles(layer->paramAt("B_v", "value"), 1e-5)) {
         return false;
     }
     // сравниваем все градиенты
-    if (!_params["W_f"]["deriv"].compareDoubles(&(layer->params().value("W_f")["deriv"]), 1e-5)) {
+    if (!_params["W_f"]["deriv"].compareDoubles(layer->paramAt("W_f", "deriv"), 1e-5)) {
         return false;
     }
-    if (!_params["W_i"]["deriv"].compareDoubles(&(layer->params().value("W_i")["deriv"]), 1e-5)) {
+    if (!_params["W_i"]["deriv"].compareDoubles(layer->paramAt("W_i", "deriv"), 1e-5)) {
         return false;
     }
-    if (!_params["W_c"]["deriv"].compareDoubles(&(layer->params().value("W_c")["deriv"]), 1e-5)) {
+    if (!_params["W_c"]["deriv"].compareDoubles(layer->paramAt("W_c", "deriv"), 1e-5)) {
         return false;
     }
-    if (!_params["W_o"]["deriv"].compareDoubles(&(layer->params().value("W_o")["deriv"]), 1e-5)) {
+    if (!_params["W_o"]["deriv"].compareDoubles(layer->paramAt("W_o", "deriv"), 1e-5)) {
         return false;
     }
-    if (!_params["W_v"]["deriv"].compareDoubles(&(layer->params().value("W_v")["deriv"]), 1e-5)) {
+    if (!_params["W_v"]["deriv"].compareDoubles(layer->paramAt("W_v", "deriv"), 1e-5)) {
         return false;
     }
-    if (!_params["B_f"]["deriv"].compareDoubles(&(layer->params().value("B_f")["deriv"]), 1e-5)) {
+    if (!_params["B_f"]["deriv"].compareDoubles(layer->paramAt("B_f", "deriv"), 1e-5)) {
         return false;
     }
-    if (!_params["B_i"]["deriv"].compareDoubles(&(layer->params().value("B_i")["deriv"]), 1e-5)) {
+    if (!_params["B_i"]["deriv"].compareDoubles(layer->paramAt("B_i", "deriv"), 1e-5)) {
         return false;
     }
-    if (!_params["B_c"]["deriv"].compareDoubles(&(layer->params().value("B_c")["deriv"]), 1e-5)) {
+    if (!_params["B_c"]["deriv"].compareDoubles(layer->paramAt("B_c", "deriv"), 1e-5)) {
         return false;
     }
-    if (!_params["B_o"]["deriv"].compareDoubles(&(layer->params().value("B_o")["deriv"]), 1e-5)) {
+    if (!_params["B_o"]["deriv"].compareDoubles(layer->paramAt("B_o", "deriv"), 1e-5)) {
         return false;
     }
-    if (!_params["B_v"]["deriv"].compareDoubles(&(layer->params().value("B_v")["deriv"]), 1e-5)) {
+    if (!_params["B_v"]["deriv"].compareDoubles(layer->paramAt("B_v", "deriv"), 1e-5)) {
         return false;
     }
     // если дошли до сюда, то все успешно

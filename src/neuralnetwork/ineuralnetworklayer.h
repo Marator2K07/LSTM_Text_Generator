@@ -23,7 +23,7 @@ public:
     ///
     /// \brief compare сравнение с другим слоем
     /// \param layer другой слой для сравнения
-    virtual bool compareLayer(const INeuralNetworkLayer *layer) = 0;
+    virtual bool compareLayer(INeuralNetworkLayer *layer) = 0;
     ///
     /// \brief paramAt получение параметра слоя сети по заданным ключам
     /// \param firstKey - вторичный ключ параметров слоя
