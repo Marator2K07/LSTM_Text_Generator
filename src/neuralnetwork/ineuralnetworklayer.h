@@ -25,6 +25,13 @@ public:
     /// \param layer другой слой для сравнения
     virtual bool compareLayer(const INeuralNetworkLayer *layer) = 0;
     ///
+    /// \brief paramAt получение параметра слоя сети по заданным ключам
+    /// \param firstKey - вторичный ключ параметров слоя
+    /// \param secondKey - вторичный ключ параметров слоя
+    /// \return текущее значение определенного параметра слоя
+    virtual Matrix2d<double> paramAt(const QString firstKey,
+                                     const QString secondKey) const = 0;
+    ///
     /// \brief updateParam обновление параметра
     /// слоя сети в процессе оптимизации
     /// \param firstKey - вторичный ключ параметров слоя

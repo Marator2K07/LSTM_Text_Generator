@@ -141,6 +141,11 @@ bool LSTMLayer::compareLayer(const INeuralNetworkLayer *layer)
     return true;
 }
 
+Matrix2d<double> LSTMLayer::paramAt(const QString firstKey, const QString secondKey) const
+{
+    return _params[firstKey][secondKey];
+}
+
 void LSTMLayer::updateParam(const QString firstKey,
                             const QString secondKey,
                             const Matrix2d<double> value)
