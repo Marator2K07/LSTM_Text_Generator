@@ -25,12 +25,6 @@ LSTMModel::LSTMModel(const QString path, const QString modelName, ILoss *loss)
 
 LSTMModel::~LSTMModel()
 {
-    delete _loss;
-    delete _embedding;
-    for (int i = 0; i < _layers.size(); ++i) {
-        delete _layers[i];
-    }
-    _layers.clear();
 }
 
 bool LSTMModel::operator==(const LSTMModel model)
