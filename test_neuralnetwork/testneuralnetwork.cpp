@@ -117,9 +117,12 @@ void TestNeuralNetwork::testLSTMnode()
     //forwardMap["H_out"].print();
     //forwardMap["C_out"].print();
 
-    vector<unsigned long long> properXoutSizes{batchSize, outputSize};
-    vector<unsigned long long> properHoutSizes{batchSize, hiddenSize};
-    vector<unsigned long long> properCoutSizes{batchSize, hiddenSize};
+    vector<unsigned long long> properXoutSizes{static_cast<unsigned long long>(batchSize),
+                                               static_cast<unsigned long long>(outputSize)};
+    vector<unsigned long long> properHoutSizes{static_cast<unsigned long long>(batchSize),
+                                               static_cast<unsigned long long>(hiddenSize)};
+    vector<unsigned long long> properCoutSizes{static_cast<unsigned long long>(batchSize),
+                                               static_cast<unsigned long long>(hiddenSize)};
     QCOMPARE(forwardMap["X_out"].sizes(), properXoutSizes);
     QCOMPARE(forwardMap["H_out"].sizes(), properHoutSizes);
     QCOMPARE(forwardMap["C_out"].sizes(), properCoutSizes);
@@ -248,9 +251,9 @@ void TestNeuralNetwork::testLSTMModelOne()
 void TestNeuralNetwork::testLSTMModelSaveLoad()
 {
     // инициализация
-    int hiddenSize = 77;
-    int batchSize = 44;
-    int sequenceLenght = 33;
+    int hiddenSize = 62;
+    int batchSize = 32;
+    int sequenceLenght = 28;
     int outputSize = 22;
     int vocabSize = 22;
     CharAsVectorEmbedding<double> *embedding
@@ -258,7 +261,7 @@ void TestNeuralNetwork::testLSTMModelSaveLoad()
     LSTMModel lstmModel("testLSTMModel",
                         new SoftmaxCrossEntropyLoss(), embedding,
                         QList<INeuralNetworkLayer *>{
-                            new LSTMLayer("layer1", hiddenSize*2, outputSize),
+                            new LSTMLayer("layer1", hiddenSize*1.5, outputSize),
                             new LSTMLayer("layer2", hiddenSize, outputSize)
                         });
     // расчеты
