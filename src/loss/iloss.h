@@ -30,6 +30,9 @@ public:
     /// прогноза относительно потери
     virtual unique_ptr<IMatrix<double>> backward() = 0;
 
+public:
+    virtual ~ILoss() {}
+
 private:
     ///
     /// \brief calcLoss непосредственное вычисление штрафа сети

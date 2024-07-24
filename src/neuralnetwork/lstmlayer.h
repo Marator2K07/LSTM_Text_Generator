@@ -33,6 +33,7 @@ public:
               int outputSize,
               double weightScale = 0.01);
     LSTMLayer(const QString path, const QString layerName);
+    ~LSTMLayer();
 
 public:
     // INeuralNetworkLayer interface

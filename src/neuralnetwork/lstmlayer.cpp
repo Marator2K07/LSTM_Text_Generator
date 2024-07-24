@@ -68,6 +68,10 @@ LSTMLayer::LSTMLayer(const QString path, const QString layerName)
     loadParams(path);
 }
 
+LSTMLayer::~LSTMLayer()
+{
+}
+
 QString LSTMLayer::name() const
 {
     return _name;

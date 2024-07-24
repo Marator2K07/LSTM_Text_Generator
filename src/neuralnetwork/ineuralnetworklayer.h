@@ -80,6 +80,9 @@ public:
     /// \param xSequenceOutGrad трехмерная матрица партии градиентов по выходу
     /// \return партия градиентов по входу
     virtual Matrix3d<double> backward(Matrix3d<double> xSequenceOutGrad) = 0;
+
+public:
+    virtual ~INeuralNetworkLayer() {}
 };
 
 #endif // INEURALNETWORKLAYER_H

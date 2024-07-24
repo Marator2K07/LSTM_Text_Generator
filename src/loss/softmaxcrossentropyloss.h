@@ -22,6 +22,7 @@ private:
 
 public:
     SoftmaxCrossEntropyLoss(double stabBorder = 1e-9);
+    ~SoftmaxCrossEntropyLoss();
 
 public:
     // ILoss interface

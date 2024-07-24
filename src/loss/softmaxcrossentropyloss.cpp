@@ -6,6 +6,10 @@ SoftmaxCrossEntropyLoss::SoftmaxCrossEntropyLoss(double stabBorder)
 {
 }
 
+SoftmaxCrossEntropyLoss::~SoftmaxCrossEntropyLoss()
+{
+}
+
 double SoftmaxCrossEntropyLoss::forward(IMatrix<double> *prediction,
                                         IMatrix<double> *target)
 {
