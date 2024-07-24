@@ -903,8 +903,8 @@ void TestMatrix::testAxisMeanMatrix2d()
     Matrix2d<double> resultMatrix1(matrix.axisMean(1)->data());
     Matrix2d<double> properMatrix1{{2.0},{6.0},{4.0}};
 
-    QCOMPARE(resultMatrix0.compareDoubles(&properMatrix0, 0.001), true);
-    QCOMPARE(resultMatrix1.compareDoubles(&properMatrix1, 0.001), true);
+    QCOMPARE(resultMatrix0.compareDoubles(properMatrix0, 0.001), true);
+    QCOMPARE(resultMatrix1.compareDoubles(properMatrix1, 0.001), true);
 }
 
 void TestMatrix::testAxisMeanMatrix3d()
@@ -924,9 +924,9 @@ void TestMatrix::testAxisMeanMatrix3d()
     Matrix3d<double> properMatrix2{{{3.333},{2.0}},
                                    {{3.667},{4.0}}};
 
-    QCOMPARE(resultMatrix0.compareDoubles(&properMatrix0, 0.001), true);
-    QCOMPARE(resultMatrix1.compareDoubles(&properMatrix1, 0.001), true);
-    QCOMPARE(resultMatrix2.compareDoubles(&properMatrix2, 0.001), true);
+    QCOMPARE(resultMatrix0.compareDoubles(properMatrix0, 0.001), true);
+    QCOMPARE(resultMatrix1.compareDoubles(properMatrix1, 0.001), true);
+    QCOMPARE(resultMatrix2.compareDoubles(properMatrix2, 0.001), true);
 }
 
 void TestMatrix::testSlice2dMatrix()

@@ -223,10 +223,11 @@ void TestNeuralNetwork::testLSTMModelOne()
     int sequenceLenght = 10;
     int outputSize = 44;
     int vocabSize = 44;
-    CharAsVectorEmbedding<double> embedding("test_text.txt", sequenceLenght, batchSize);
+    CharAsVectorEmbedding<double> *embedding
+        = new CharAsVectorEmbedding<double>("test_text.txt", sequenceLenght, batchSize);
     LSTMModel lstmModel("testLSTMModel",
                         new SoftmaxCrossEntropyLoss(),
-                        &embedding,
+                        embedding,
                         QList<INeuralNetworkLayer *>{
                             new LSTMLayer("layer1", hiddenSize, outputSize)
                         });
@@ -252,13 +253,14 @@ void TestNeuralNetwork::testLSTMModelSaveLoad()
     int sequenceLenght = 33;
     int outputSize = 22;
     int vocabSize = 22;
-    LSTMLayer layer1("layer1", hiddenSize*2, vocabSize);
-    LSTMLayer layer2("layer2", hiddenSize, vocabSize);
-    QList<INeuralNetworkLayer *> layers;
-    layers.push_back(&layer1);
-    layers.push_back(&layer2);
-    CharAsVectorEmbedding<double> embedding("test_text.txt", sequenceLenght, batchSize);
-    LSTMModel lstmModel("testLSTMModel", new SoftmaxCrossEntropyLoss(), &embedding, layers);
+    CharAsVectorEmbedding<double> *embedding
+        = new CharAsVectorEmbedding<double>("test_text.txt", sequenceLenght, batchSize);
+    LSTMModel lstmModel("testLSTMModel",
+                        new SoftmaxCrossEntropyLoss(), embedding,
+                        QList<INeuralNetworkLayer *>{
+                            new LSTMLayer("layer1", hiddenSize*2, outputSize),
+                            new LSTMLayer("layer2", hiddenSize, outputSize)
+                        });
     // расчеты
     try {
         lstmModel.singleStep(Matrix3d<double>::zeroM(batchSize, sequenceLenght, vocabSize),
@@ -275,7 +277,6 @@ void TestNeuralNetwork::testLSTMModelSaveLoad()
     } catch (const exception &e) {
         cout << e.what() << endl;
     }
-
 }
 
 QTEST_MAIN(TestNeuralNetwork)

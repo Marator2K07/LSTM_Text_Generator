@@ -234,7 +234,7 @@ void TestActivationFunctions::testDTanhMatrix2d()
                                   {1.64742191e-05,3.30841523e-04,6.04474683e-05},
                                   {7.13055916e-07,6.68045716e-05,5.11147998e-03}};
 
-    QCOMPARE(currentResult.compareDoubles(&properResult, 1e-10), true);
+    QCOMPARE(currentResult.compareDoubles(properResult, 1e-10), true);
 }
 
 void TestActivationFunctions::testDTanhMatrix3d()
@@ -251,7 +251,7 @@ void TestActivationFunctions::testDTanhMatrix3d()
                                   {{4.50140598e-07,7.06508249e-02,4.19974342e-01},
                                    {1.81583231e-04,2.45765474e-05,4.19974342e-01}}};
 
-    QCOMPARE(resultMatrix.compareDoubles(&properMatrix, 1e-9), true);
+    QCOMPARE(resultMatrix.compareDoubles(properMatrix, 1e-9), true);
 }
 
 QTEST_MAIN(TestActivationFunctions)

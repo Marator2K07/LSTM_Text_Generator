@@ -51,7 +51,7 @@ void TestLoss::testSoftmaxCrossEntropyLossFull()
                                      {0.28884668,-0.01653041,-0.47231627}}};
 
     QCOMPARE(resultPenalty, properPenalty);
-    QCOMPARE(resultGradient.compareDoubles(&properGradient, 1e-7), true);
+    QCOMPARE(resultGradient.compareDoubles(properGradient, 1e-7), true);
 
     // случай с исключением
     try {
