@@ -64,15 +64,17 @@ ActivationFunctions<T>::softmax(const IMatrix<T> *matrix)
     if (matrix->type() == Dimensions::THREE) {
         vector<Matrix2d<double>> resultData3d;
         // при проходе по 3д матрице, вызываем этот же метод но для 2д подматриц
-        for (const Matrix2d<double> &rowM : ((Matrix3d<double>*)matrix)->dataToVector()) {
+        for (const Matrix2d<double> &rowM : Matrix3d<double>::dataToVector(matrix)) {
             Matrix2d<double> stepMatrix(softmax(&rowM));
             resultData3d.push_back(stepMatrix);
         }
         return unique_ptr<Matrix3d<T>>(new Matrix3d(resultData3d));
     } else if (matrix->type() == Dimensions::TWO) {
+        // подготовка
         vector<vector<T>> resultData2d;
+        Matrix2d<double> *currentMatrix = (Matrix2d<double>*)matrix;
         // при проходе по 2д матрице, просто проходимся по каждой строчке
-        for (const vector<double> &row : ((Matrix2d<double>*)matrix)->dataToVector()) {
+        for (const vector<double> &row : currentMatrix->dataToVector()) {
             resultData2d.push_back(softmaxRow(row));
         }
         return unique_ptr<Matrix2d<double>>(new Matrix2d(resultData2d));

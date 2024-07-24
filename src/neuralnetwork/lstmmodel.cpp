@@ -30,7 +30,7 @@ LSTMModel::~LSTMModel()
     for (int i = 0; i < _layers.size(); ++i) {
         delete _layers[i];
     }
-    cout << "deleted" << endl;
+    _layers.clear();
 }
 
 bool LSTMModel::operator==(const LSTMModel model)
