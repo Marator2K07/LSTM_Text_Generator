@@ -346,16 +346,14 @@ bool Matrix2d<T>::sameShape(const IMatrix<T> *matrix)
 }
 
 template<typename T>
-bool Matrix2d<T>::compareDoubles(const IMatrix<T> *matrix, double epsilon)
+bool Matrix2d<T>::compareDoubles(const Matrix2d<T> matrix, double epsilon)
 {
-    // подготовка
-    Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(matrix);
     // пытаемся сравнить числа матриц, учитывая погрешность epsilon
     try {
         for (int rowI = 0; rowI < _data.size(); ++rowI) {
             for (int i = 0; i < _data[0].size(); ++i) {
                 if (abs(_data[rowI][i]
-                        - otherMatrix->dataToVector()[rowI][i]) > epsilon) {
+                        - matrix.dataToVector()[rowI][i]) > epsilon) {
                     return false;
                 }
             }

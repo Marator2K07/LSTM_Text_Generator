@@ -62,6 +62,12 @@ public:
     /// \param rows переданная матрица
     /// \param index индекс для задания строк
     void setRowsWithIndex(const Matrix2d<T> rows, unsigned long long index);
+    ///
+    /// \brief compareDoubles сравнение значений матриц с вещественными значениями
+    /// \param matrix матрица для сравнения
+    /// \param epsilon допустимая погрешность
+    /// \return флаг равенства значений матриц
+    bool compareDoubles(const Matrix3d<T> matrix, double epsilon);
 
     bool operator==(Matrix3d<T> &matrix);
 
@@ -69,8 +75,7 @@ public:
     Dimensions type() const override;
     QVariant data() const override;
     vector<unsigned long long> sizes() const override;
-    bool sameShape(const IMatrix<T> *matrix) override;
-    bool compareDoubles(const IMatrix<T> *matrix, double epsilon) override;
+    bool sameShape(const IMatrix<T> *matrix) override;    
     unique_ptr<IMatrix<T>> doOperation(const IMatrix<T> *matrix) override;
     unique_ptr<IMatrix<T>> doOperation(const T num, bool reverseOrder) override;
     unique_ptr<IMatrix<T>> doOperation(T extraParam = 0) override;

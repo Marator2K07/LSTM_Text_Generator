@@ -259,15 +259,13 @@ bool Matrix3d<T>::sameShape(const IMatrix<T> *matrix)
 }
 
 template<typename T>
-bool Matrix3d<T>::compareDoubles(const IMatrix<T> *matrix, double epsilon)
+bool Matrix3d<T>::compareDoubles(const Matrix3d<T> matrix, double epsilon)
 {
-    // подготовка
-    Matrix3d<T> *otherMatrix = (Matrix3d<T>*)(matrix);
     // пытаемся сравнить числа матриц, учитывая погрешность epsilon
     try {
         for (int matrixI = 0; matrixI < _data.size(); ++matrixI) {
-            if (!_data[matrixI].compareDoubles(&otherMatrix->dataToVector()[matrixI],
-                                                epsilon)) {
+            if (!_data[matrixI].compareDoubles(matrix.dataToVector()[matrixI],
+                                               epsilon)) {
                 return false;
             }
         }
