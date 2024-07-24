@@ -17,6 +17,50 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
 {
 }
 
+void ConsistentTrainer::save(const QString path)
+{
+    // пытаемся открыть файл для сохранения данных о текущем обучении
+    QString fileNameTrainer = QString("%1/%2_%3.txt").
+                              arg(path, _model->name(), TRAINER_DATA_NAME);
+    ofstream fileTrainer;
+    fileTrainer.open(fileNameTrainer.toStdString());
+    if (!fileTrainer.is_open()) {
+        throw TrainerException(
+            QString("Catch saving training data exception:\n[%1]\n")
+                .arg("Failed to open file")
+            );
+    }
+    // пишем главную информацию об обучении
+    fileTrainer << _currentPos << " "
+                << _percentageOfTraining << " "
+                << _epochsCompleted << endl;
+    // закрываем файл
+    fileTrainer.close();
+}
+
+void ConsistentTrainer::load(const QString path)
+{
+    // пытаемся открыть файл с тренировочными данными
+    QString trainerDataFile = QString("%1/%2_%3.txt").
+                              arg(path, _model->name(), TRAINER_DATA_NAME);
+    ifstream fileTrainerStream;
+    fileTrainerStream.open(trainerDataFile.toStdString());
+    if (!fileTrainerStream.is_open()) {
+        throw TrainerException(
+            QString("Catch loading training data exception:\n[%1]\n")
+                .arg("Failed to open file")
+            );
+    }
+    // грузим данные
+    string line;
+    // считываем данные
+    getline(fileTrainerStream, line);
+    istringstream rowStreamMain(line);
+    rowStreamMain >> _currentPos >> _percentageOfTraining >> _epochsCompleted;
+    // закрываем файл
+    fileTrainerStream.close();
+}
+
 void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
 {
     // формируем начальные условия для последовательности

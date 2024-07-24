@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+#include "trainerexception.h"
 #include "itrainer.h"
 
 ///
@@ -31,6 +32,8 @@ public:
 
 public:
     // ITrainer interface
+    void save(const QString path = QDir::currentPath()) override;
+    void load(const QString path = QDir::currentPath()) override;
     void sampleOutput(int startCharIdx, char endingChar = '.') override;
     void train(int iterCount, bool textSample, int sampleEvery) override;
     //

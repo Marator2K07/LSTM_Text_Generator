@@ -12,6 +12,15 @@ class ITrainer
 {
 public:
     ///
+    /// \brief save cохранение всех необходимых
+    /// параметров тренера нейронной сети в отдельной папке
+    /// \param path путь сохранения
+    virtual void save(const QString path = QDir::currentPath()) = 0;
+    ///
+    /// \brief load загрузка всех необходимых параметров из папки с моделью
+    /// \param path путь к папке с моделью
+    virtual void load(const QString path = QDir::currentPath()) = 0;
+    ///
     /// \brief sampleOutput вывод текста на основе
     /// текущей модели и ее степени обученности до
     /// первого символа окончания, по умолчанию точки
