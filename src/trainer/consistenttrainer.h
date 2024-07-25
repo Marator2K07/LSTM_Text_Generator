@@ -26,6 +26,9 @@ private:
 
 public:
     ConsistentTrainer(INeuralNetworkModel *model, IOptimizer *optimizer);
+    ConsistentTrainer(const QString path,
+                      INeuralNetworkModel *model,
+                      IOptimizer *optimizer);
 
     // суффикс именования файла с данными о тренировке модели
     static QString TRAINER_DATA_NAME;

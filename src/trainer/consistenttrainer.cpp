@@ -17,6 +17,19 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
 {
 }
 
+ConsistentTrainer::ConsistentTrainer(const QString path,
+                                     INeuralNetworkModel *model,
+                                     IOptimizer *optimizer)
+    : _model{model}
+    , _embedding{model->embedding()}
+    , _optimizer{optimizer}
+    , _sequenceLenght{model->embedding()->sequenceLength()}
+    , _batchSize{model->embedding()->batchSize()}
+{
+    // оставшиеся три поля класса подгружаем из файла
+    load(path);
+}
+
 void ConsistentTrainer::save(const QString path)
 {
     // пытаемся открыть файл для сохранения данных о текущем обучении
