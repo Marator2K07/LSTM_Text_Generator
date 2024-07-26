@@ -140,45 +140,51 @@ void ConsistentTrainer::train(int iterCount,
                               bool textSample,
                               int sampleEvery)
 {
+    // подготовка
     int numIter = 0;
     double meanLoss = 0;
-    //int currentPos = 36127;
-    // последнее для 128_24_50_Layer1 10752
-    // последнее для 160_24_48(один слой)(TheRedRoom) 17112
-    int currentPos = 30558;
     // обучаем:
     while (numIter < iterCount) {
-        // "конец эпохи"
-        if (currentPos + _sequenceLenght + _batchSize + 1 >
+        // если "конец эпохи"
+        if (_currentPos + _sequenceLenght + _batchSize + 1 >
             _embedding->text().length()) {
             // после "конца эпохи" сохраняем обученные данные
             _model->save();
             cout << "end of an era" << endl;
-            currentPos = numIter;
+            _currentPos = numIter;
         }
         // генерируем входные и целевые индексы, соотвественно
-        Matrix2d<double> inputIndices = _embedding->genTextIndices(currentPos);
-        Matrix2d<double> targetIndices = _embedding->genTextIndices(currentPos+1);
+        Matrix2d<double> inputIndices = _embedding->genTextIndices(_currentPos);
+        Matrix2d<double> targetIndices = _embedding->genTextIndices(_currentPos+1);
         // генерируем входные и целевые партии данных, соотвественно
         Matrix3d<double> inputBatch = _embedding->genTextBatch(inputIndices);
         Matrix3d<double> targetBatch = _embedding->genTextBatch(targetIndices);
-        // вычислеям потери сети
-        double loss = _model->singleStep(inputBatch, targetBatch);
-        cout << numIter << ") " << loss << " pos - " << currentPos << endl;
+        // вычислеям потери сети и сравниваем с максимальным значением потери
+        double loss = _model->singleStep(inputBatch, targetBatch);        
+        if (loss > _maxCalculatedLoss) {
+            _maxCalculatedLoss = loss;
+        }
+        // статистика и средние потери
+        cout << numIter << ") " << loss << " pos - " << _currentPos << endl;
         meanLoss += loss;
         // оптимизируем нейронную сеть
         _optimizer->update();
         // сдвигаем позицию в тексте на размер партии
-        currentPos += _batchSize;
+        _currentPos += _batchSize;
         // возможная генерация вывода для анализа
         if (textSample && numIter % sampleEvery == 0) {
             sampleOutput(rand() % _embedding->vocabSize(), '.');
         }
         numIter++;
     }
+    // вычисляем главные параметры статистики
+    _percentageOfTraining = meanLoss / _maxCalculatedLoss*100;
+    _epochsCompleted += (iterCount * _batchSize / _embedding->text().length());
     // в конце всегда сохраняем данные нейронной модели
     // и выводим оценивающие данные
     _model->save();
-    cout << "end of iter" << " currentPos - " << currentPos << endl;
+    cout << "end of iter" << " currentPos - " << _currentPos << endl;
     cout << "mean loss value - " << meanLoss / iterCount << endl;
+    cout << "percentage of training - " << _percentageOfTraining << endl;
+    cout << "epochs completed - " << _epochsCompleted << endl;
 }
