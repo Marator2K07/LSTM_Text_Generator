@@ -31,6 +31,24 @@ ConsistentTrainer::ConsistentTrainer(const QString path,
     load(path);
 }
 
+bool ConsistentTrainer::operator==(const ConsistentTrainer &trainer)
+{
+    if (_currentPos != trainer._currentPos) {
+        return false;
+    }
+    if (abs(_percentageOfTraining - trainer._percentageOfTraining) > 1e-3) {
+        return false;
+    }
+    if (abs(_epochsCompleted - trainer._epochsCompleted) > 1e-5) {
+        return false;
+    }
+    if (abs(_maxCalculatedLoss - trainer._maxCalculatedLoss) > 1e-2) {
+        return false;
+    }
+
+    return true;
+}
+
 void ConsistentTrainer::save(const QString path)
 {
     // пытаемся открыть файл для сохранения данных о текущем обучении

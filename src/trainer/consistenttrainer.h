@@ -34,6 +34,8 @@ public:
     // суффикс именования файла с данными о тренировке модели
     static QString TRAINER_DATA_NAME;
 
+    bool operator==(const ConsistentTrainer &trainer);
+
 public:
     // ITrainer interface
     void save(const QString path = QDir::currentPath()) override;
