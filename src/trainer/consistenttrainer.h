@@ -23,6 +23,7 @@ private:
     long _currentPos; // позиция в данных для обучения
     double _percentageOfTraining; // приблизительная степень обученности модели
     double _epochsCompleted; // количество пройденных эпох обучения с высокой точностью
+    double _maxCalculatedLoss; // нужно для вычисления обученности модели
 
 public:
     ConsistentTrainer(INeuralNetworkModel *model, IOptimizer *optimizer);

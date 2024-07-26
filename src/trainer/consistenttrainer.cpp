@@ -14,6 +14,7 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
     , _currentPos{0}
     , _percentageOfTraining{0.0}
     , _epochsCompleted{0.0}
+    , _maxCalculatedLoss{1.0}
 {
 }
 
@@ -46,7 +47,8 @@ void ConsistentTrainer::save(const QString path)
     // пишем главную информацию об обучении
     fileTrainer << _currentPos << " "
                 << _percentageOfTraining << " "
-                << _epochsCompleted << endl;
+                << _epochsCompleted << " "
+                << _maxCalculatedLoss << endl;
     // закрываем файл
     fileTrainer.close();
 }
@@ -69,7 +71,10 @@ void ConsistentTrainer::load(const QString path)
     // считываем данные
     getline(fileTrainerStream, line);
     istringstream rowStreamMain(line);
-    rowStreamMain >> _currentPos >> _percentageOfTraining >> _epochsCompleted;
+    rowStreamMain >> _currentPos
+        >> _percentageOfTraining
+        >> _epochsCompleted
+        >> _maxCalculatedLoss;
     // закрываем файл
     fileTrainerStream.close();
 }
