@@ -178,13 +178,16 @@ void ConsistentTrainer::train(int iterCount,
         numIter++;
     }
     // вычисляем главные параметры статистики
-    _percentageOfTraining = meanLoss / _maxCalculatedLoss*100;
-    _epochsCompleted += (iterCount * _batchSize / _embedding->text().length());
+    _percentageOfTraining = (_maxCalculatedLoss - meanLoss/ iterCount) / 100;
+    double temp = (double)iterCount * (double)_batchSize
+                  / (double)_embedding->text().size();
+    _epochsCompleted += temp;
     // в конце всегда сохраняем данные нейронной модели
     // и выводим оценивающие данные
     _model->save();
     cout << "end of iter" << " currentPos - " << _currentPos << endl;
     cout << "mean loss value - " << meanLoss / iterCount << endl;
     cout << "percentage of training - " << _percentageOfTraining << endl;
-    cout << "epochs completed - " << _epochsCompleted << endl;
+    cout << "epochs completed - "
+         << QString::number(_epochsCompleted, 'f', 10).toStdString() << endl;
 }
