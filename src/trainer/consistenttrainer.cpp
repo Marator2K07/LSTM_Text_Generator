@@ -49,6 +49,10 @@ bool ConsistentTrainer::operator==(const ConsistentTrainer &trainer)
     if (abs(_maxCalculatedLoss - trainer._maxCalculatedLoss) > 1e-2) {
         return false;
     }
+    if (_currentOptimizerType != trainer._currentOptimizerType ||
+        _optimizer->learningRate() != trainer._optimizer->learningRate()) {
+        return false;
+    }
 
     return true;
 }
