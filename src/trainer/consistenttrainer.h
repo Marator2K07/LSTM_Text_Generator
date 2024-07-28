@@ -5,6 +5,17 @@
 
 #include "trainerexception.h"
 #include "itrainer.h"
+#include "adagrad.h"
+#include "sgd.h"
+
+///
+/// \brief The OptimizerType enum
+/// перечисление для доступных оптимизиаторов при обучении
+enum class OptimizerType {
+    SGD = 0,
+    ADA_GRAD,
+    NONE
+};
 
 ///
 /// \brief The ConsistentTrainer class
@@ -18,6 +29,7 @@ private:
     INeuralNetworkModel *_model;
     ITextEmbedding<double> *_embedding; // вынесенный эмбеддинг, используемый моделью
     IOptimizer *_optimizer;
+    OptimizerType _currentOptimizerType;
     int _sequenceLenght; // длина контекста(последовательности) эмбеддинга модели
     int _batchSize; // длина партии эмбеддинга модели
     long _currentPos; // позиция в данных для обучения

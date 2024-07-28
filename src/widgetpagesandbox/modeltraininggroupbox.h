@@ -12,15 +12,6 @@
 #include "adagrad.h"
 #include "sgd.h"
 
-///
-/// \brief The OptimizerType enum
-/// перечисление для доступных оптимизиаторов при обучении
-enum class OptimizerType {
-    SGD = 0,
-    ADA_GRAD,
-    NONE
-};
-
 namespace Ui {
 class ModelTrainingGroupBox;
 }
@@ -40,7 +31,6 @@ private:
     LSTMModel *_loadedModel; // текущая загруженная модель нейронной сети
     double _trainingRate; // обученность выбранной модели
     double _epochsCompleted; // количество пройденных эпох обучения
-    OptimizerType _currentOptimizerType;
     IOptimizer *_currentOptimizer;
 
 private slots:

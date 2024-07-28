@@ -7,7 +7,6 @@ void ModelTrainingGroupBox::selectSGDOptimizer()
 {
     // только если связанная радио кнопка включена
     if (ui->optimizerSGDRadioButton->isChecked()) {
-        _currentOptimizerType = OptimizerType::SGD;
         // если память ранее была уже занята
         if (_currentOptimizer != nullptr) {
             delete _currentOptimizer;
@@ -22,7 +21,6 @@ void ModelTrainingGroupBox::selectAdaGradOptimizer()
 {
     // только если связанная радио кнопка включена
     if (ui->optimizerAdaGradRadioButton->isChecked()) {
-        _currentOptimizerType = OptimizerType::ADA_GRAD;
         // если память ранее была уже занята
         if (_currentOptimizer != nullptr) {
             delete _currentOptimizer;
@@ -122,7 +120,6 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     , _loadedModel{nullptr}
     , _trainingRate{0.0}
     , _epochsCompleted{0.0}
-    , _currentOptimizerType{OptimizerType::NONE}
     , _currentOptimizer{nullptr}
 {
     ui->setupUi(this);

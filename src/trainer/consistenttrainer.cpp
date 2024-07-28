@@ -16,6 +16,11 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
     , _epochsCompleted{0.0}
     , _maxCalculatedLoss{1.0}
 {
+    if (dynamic_cast<SGD *>(optimizer)) {
+        _currentOptimizerType = OptimizerType::SGD;
+    } else {
+        _currentOptimizerType = OptimizerType::ADA_GRAD;
+    }
 }
 
 ConsistentTrainer::ConsistentTrainer(const QString path,
