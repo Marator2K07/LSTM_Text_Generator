@@ -88,7 +88,7 @@ void ModelTrainingGroupBox::checkCurrentModel(const QString modelPathAndName)
 void ModelTrainingGroupBox::checkForTrainBefore()
 {
     // подготовка
-    QString trainerFilePath = QString("1%/%2_%3.txt").arg(
+    QString trainerFilePath = QString("%1/%2_%3.txt").arg(
         ui->currentModelLineEdit->text(),
         _modelNameMainPart,
         ConsistentTrainer::TRAINER_DATA_NAME

@@ -65,7 +65,7 @@ private slots:
     /// \brief checkForTrainBefore просмотр наличия файла обучения
     /// (тренера) в папке с выбранной моделью нейронной сети
     /// \param modelPath путь до папки с моделью
-    void checkForTrainBefore(const QString modelPath);
+    void checkForTrainBefore();
     ///
     /// \brief chooseCurrentModel слот выбора
     /// папки с моделью для обучения
