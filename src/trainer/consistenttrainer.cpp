@@ -71,7 +71,9 @@ void ConsistentTrainer::save(const QString path)
     fileTrainer << _currentPos << " "
                 << _percentageOfTraining << " "
                 << _epochsCompleted << " "
-                << _maxCalculatedLoss << endl;
+                << _maxCalculatedLoss << " "
+                << (int)_currentOptimizerType << " "
+                << _optimizer->learningRate();
     // закрываем файл
     fileTrainer.close();
 }
@@ -89,15 +91,35 @@ void ConsistentTrainer::load(const QString path)
                 .arg("Failed to open file")
             );
     }
-    // грузим данные
+    // подготовка
     string line;
+    double learningRate;
+    int intCurrentOptimizerType;
     // считываем данные
     getline(fileTrainerStream, line);
     istringstream rowStreamMain(line);
     rowStreamMain >> _currentPos
         >> _percentageOfTraining
         >> _epochsCompleted
-        >> _maxCalculatedLoss;
+        >> _maxCalculatedLoss
+        >> intCurrentOptimizerType
+        >> learningRate;
+    // подготовка
+    _currentOptimizerType = (OptimizerType)intCurrentOptimizerType;
+    if (_optimizer != nullptr) {
+        delete _optimizer;
+    }
+    // на основе части считанных данных создаем оптимизатор
+    switch (_currentOptimizerType) {
+    case OptimizerType::SGD:
+        _optimizer = new SGD(_model, learningRate);
+        break;
+    case OptimizerType::ADA_GRAD:
+        _optimizer = new AdaGrad(_model, learningRate);
+        break;
+    default:
+        break;
+    }
     // закрываем файл
     fileTrainerStream.close();
 }
