@@ -27,6 +27,11 @@ private slots:
     /// тестирование корректности сохранения и загрузки
     /// данных обучения модели нейронной сети
     void testConsistentTrainerSaveLoad();
+    ///
+    /// \brief testConsistentTrainerSaveLoadVersionTwo
+    /// тестирование корректности сохранения и загрузки
+    /// данных обучения модели нейронной сети - версия два
+    void testConsistentTrainerSaveLoadVersionTwo();
 };
 
 void TestTrainer::testConsistentTrainerOne()
@@ -77,6 +82,37 @@ void TestTrainer::testConsistentTrainerSaveLoad()
 
         QCOMPARE(trainer == properTrainer, true);
         optimizer->newLearningRate(0.01);
+        QCOMPARE(trainer == properTrainer, false);
+    } catch (const MatrixException &e) {
+        cout << e.what();
+    } catch (const NeuralNetworkException &e) {
+        cout << e.what();
+    } catch (const exception &e) {
+        cout << e.what();
+    }
+}
+
+void TestTrainer::testConsistentTrainerSaveLoadVersionTwo()
+{
+    // инициализация
+    int hiddenSize = 100;
+    int batchSize = 44;
+    int sequenceLenght = 32;
+    try {
+        CharAsVectorEmbedding<double> embedding("The_Body_Snatcher.txt", sequenceLenght, batchSize);
+        LSTMLayer layer("layer1", hiddenSize, embedding.vocabSize());
+        QList<INeuralNetworkLayer *> layers;
+        layers.push_back(&layer);
+        LSTMModel model("LSTMModelTestTwoVersionTwo", new SoftmaxCrossEntropyLoss(), &embedding, layers);
+        AdaGrad *optimizer = new AdaGrad(&model, 0.00077, true);
+        ConsistentTrainer trainer(&model, optimizer);
+        // расчеты
+        trainer.train(7, false, 3);
+        trainer.save();
+        ConsistentTrainer properTrainer(QDir::currentPath(), &model);
+
+        QCOMPARE(trainer == properTrainer, true);
+        optimizer->newLearningRate(0.002);
         QCOMPARE(trainer == properTrainer, false);
     } catch (const MatrixException &e) {
         cout << e.what();
