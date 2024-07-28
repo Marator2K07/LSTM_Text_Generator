@@ -85,6 +85,24 @@ void ModelTrainingGroupBox::checkCurrentModel(const QString modelPathAndName)
     }
 }
 
+void ModelTrainingGroupBox::checkForTrainBefore()
+{
+    // подготовка
+    QString trainerFilePath = QString("1%/%2_%3.txt").arg(
+        ui->currentModelLineEdit->text(),
+        _modelNameMainPart,
+        ConsistentTrainer::TRAINER_DATA_NAME
+        );
+    QFile trainerFile(trainerFilePath);
+    // проверяем наличие файла обучения
+    if (!trainerFile.exists()) {
+        QMessageBox::information(
+            this,
+            "Информация",
+            "Выбранная модель нейронной сети ранее не обучалась.");
+    }
+}
+
 void ModelTrainingGroupBox::chooseCurrentModel()
 {
     QString currentModelPath = QFileDialog::getExistingDirectory(

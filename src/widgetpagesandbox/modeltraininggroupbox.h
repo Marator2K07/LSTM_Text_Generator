@@ -7,6 +7,7 @@
 #include <QFile>
 
 #include "softmaxcrossentropyloss.h"
+#include "consistenttrainer.h"
 #include "lstmmodel.h"
 #include "adagrad.h"
 #include "sgd.h"
@@ -60,6 +61,11 @@ private slots:
     /// \brief checkCurrentModel просмотр доступности текущей модели
     /// \param modelPathAndName путь по которому проверяется доступность
     void checkCurrentModel(const QString modelPathAndName);
+    ///
+    /// \brief checkForTrainBefore просмотр наличия файла обучения
+    /// (тренера) в папке с выбранной моделью нейронной сети
+    /// \param modelPath путь до папки с моделью
+    void checkForTrainBefore(const QString modelPath);
     ///
     /// \brief chooseCurrentModel слот выбора
     /// папки с моделью для обучения

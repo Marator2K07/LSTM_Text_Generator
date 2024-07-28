@@ -16,6 +16,7 @@ target_link_libraries(pagesandbox PRIVATE
     textembedding
     optimizer
     exception
+    trainer
     matrix
     loss
 )
