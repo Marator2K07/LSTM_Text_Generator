@@ -69,6 +69,8 @@ void ModelTrainingGroupBox::checkCurrentModel(const QString modelPathAndName)
             fileNameMainPart,
             new SoftmaxCrossEntropyLoss()
             );
+        // посылаем сигнал о корректности
+        emit selectedModelCorrect();
     } else {
         ui->frame->setEnabled(false);
         _modelNameMainPart = QString();
@@ -136,6 +138,8 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
             this, SLOT(selectAdaGradOptimizer()));
     connect(ui->optimizerLearningRateSpinBox, SIGNAL(valueChanged(double)),
             this, SLOT(updateOptimizerLearningRate(double)));
+    connect(this, SIGNAL(selectedModelCorrect()),
+            this, SLOT(checkForTrainBefore()));
 }
 
 ModelTrainingGroupBox::~ModelTrainingGroupBox()

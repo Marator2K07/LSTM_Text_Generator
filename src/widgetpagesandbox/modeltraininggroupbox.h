@@ -78,6 +78,12 @@ public:
     // суффикс именования файла с данными об обучении
     static QString TRAINING_DATA_NAME;
 
+signals:
+    ///
+    /// \brief selectedModelCorrect
+    /// когда модель для обучения успешно выбрана и загружена
+    void selectedModelCorrect();
+
 };
 
 #endif // MODELTRAININGGROUPBOX_H
