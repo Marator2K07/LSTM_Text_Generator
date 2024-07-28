@@ -24,15 +24,14 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
 }
 
 ConsistentTrainer::ConsistentTrainer(const QString path,
-                                     INeuralNetworkModel *model,
-                                     IOptimizer *optimizer)
+                                     INeuralNetworkModel *model)
     : _model{model}
     , _embedding{model->embedding()}
-    , _optimizer{optimizer}
+    , _optimizer{nullptr}
     , _sequenceLenght{model->embedding()->sequenceLength()}
     , _batchSize{model->embedding()->batchSize()}
 {
-    // оставшиеся три поля класса подгружаем из файла
+    // оставшиеся три поля класса и оптимизатор подгружаем из файла
     load(path);
 }
 
