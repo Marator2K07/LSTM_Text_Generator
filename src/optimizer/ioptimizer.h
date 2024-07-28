@@ -14,6 +14,10 @@ class IOptimizer
 {
 public:
     ///
+    /// \brief learningRate скорость обучения данного оптимизатора
+    /// \return текущая скорость обучения
+    virtual double learningRate() const = 0;
+    ///
     /// \brief newLearningRate обновление рейтинга
     /// обучения для текущего оптимизатора
     /// \param learningRate рейтинг обучения для обновления

@@ -36,6 +36,11 @@ AdaGrad::AdaGrad(INeuralNetworkModel *model,
 {
 }
 
+double AdaGrad::learningRate() const
+{
+    return _learningRate;
+}
+
 void AdaGrad::newLearningRate(const double learningRate)
 {
     _learningRate = learningRate;

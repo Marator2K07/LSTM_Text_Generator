@@ -10,6 +10,11 @@ SGD::SGD(INeuralNetworkModel *model,
 {
 }
 
+double SGD::learningRate() const
+{
+    return _learningRate;
+}
+
 void SGD::newLearningRate(const double learningRate)
 {
     _learningRate = learningRate;
