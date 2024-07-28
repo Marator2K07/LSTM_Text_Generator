@@ -68,14 +68,16 @@ void TestTrainer::testConsistentTrainerSaveLoad()
         QList<INeuralNetworkLayer *> layers;
         layers.push_back(&layer);
         LSTMModel model("LSTMModelTestTwo", new SoftmaxCrossEntropyLoss(), &embedding, layers);
-        SGD optimizer(&model, 0.004, true);
-        ConsistentTrainer trainer(&model, &optimizer);
+        SGD *optimizer = new SGD(&model, 0.004, true);
+        ConsistentTrainer trainer(&model, optimizer);
         // расчеты
         trainer.train(16, false, 5);
         trainer.save();
-        ConsistentTrainer properTrainer(QDir::currentPath(), &model, &optimizer);
+        ConsistentTrainer properTrainer(QDir::currentPath(), &model);
 
         QCOMPARE(trainer == properTrainer, true);
+        optimizer->newLearningRate(0.01);
+        QCOMPARE(trainer == properTrainer, false);
     } catch (const MatrixException &e) {
         cout << e.what();
     } catch (const NeuralNetworkException &e) {
