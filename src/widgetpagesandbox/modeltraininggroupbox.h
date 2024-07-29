@@ -61,6 +61,11 @@ private slots:
     /// \brief chooseCurrentModel слот выбора
     /// папки с моделью для обучения
     void chooseCurrentModel();
+    ///
+    /// \brief loadExistingTrainer загрузка
+    /// (при наличии) данных тренера
+    /// \param path путь до папки с тренером(его файлом)
+    void loadExistingTrainer();
 
 public:
     explicit ModelTrainingGroupBox(QWidget *parent = nullptr);
@@ -74,6 +79,10 @@ signals:
     /// \brief selectedModelCorrect
     /// когда модель для обучения успешно выбрана и загружена
     void selectedModelCorrect();
+    ///
+    /// \brief trainerExists
+    /// в случае, если модель ранее обучалась
+    void trainerExists();
 
 };
 

@@ -113,6 +113,18 @@ void ModelTrainingGroupBox::chooseCurrentModel()
     ui->currentModelLineEdit->setText(currentModelPath);
 }
 
+void ModelTrainingGroupBox::loadExistingTrainer()
+{
+    // если ранее тренер уже создавался
+    if (_trainer != nullptr) {
+        delete _trainer;
+    }
+    // иницилизируем новый из файла
+    _trainer = new ConsistentTrainer(
+        ui->currentModelLineEdit->text(), _loadedModel
+        );
+}
+
 ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     : QGroupBox(parent)
     , ui(new Ui::ModelTrainingGroupBox)
