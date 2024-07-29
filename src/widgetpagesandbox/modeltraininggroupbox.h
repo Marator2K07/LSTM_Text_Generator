@@ -34,6 +34,12 @@ private:
     IOptimizer *_currentOptimizer; // оптимизатор, используемый в тренере
     ConsistentTrainer *_trainer; // основной обьект виджета обучения
 
+private:
+    ///
+    /// \brief newTrainerForModel инициализация
+    /// тренера для загруженной модели с нуля
+    void newTrainerForModel();
+
 private slots:
     ///
     /// \brief selectSGDOptimizer если был выбран оптимизатор

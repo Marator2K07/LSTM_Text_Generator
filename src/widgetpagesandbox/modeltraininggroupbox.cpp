@@ -3,6 +3,17 @@
 
 QString ModelTrainingGroupBox::TRAINING_DATA_NAME = "trainingData";
 
+void ModelTrainingGroupBox::newTrainerForModel()
+{
+    // если ранее тренер вдруг уже создавался
+    if (_trainer != nullptr) {
+        return;
+    }
+    // иницилизируем нового неполноценного тренера
+    // (без инициализации оптимизатора)
+    _trainer = new ConsistentTrainer(_loadedModel, _currentOptimizer);
+}
+
 void ModelTrainingGroupBox::selectSGDOptimizer()
 {
     // только если связанная радио кнопка включена
@@ -99,7 +110,10 @@ void ModelTrainingGroupBox::checkForTrainBefore()
         QMessageBox::information(
             this,
             "Информация",
-            "Выбранная модель нейронной сети ранее не обучалась.");
+            "Выбранная модель нейронной сети ранее не обучалась.\n"
+            "Создан тренер по умолчанию.");
+        // в данном случае инициализируем тренера с нуля
+        newTrainerForModel();
         return;
     }
     // если дошли до сюда, то файл обучения существует
