@@ -100,7 +100,10 @@ void ModelTrainingGroupBox::checkForTrainBefore()
             this,
             "Информация",
             "Выбранная модель нейронной сети ранее не обучалась.");
+        return;
     }
+    // если дошли до сюда, то файл обучения существует
+    emit trainerExists();
 }
 
 void ModelTrainingGroupBox::chooseCurrentModel()
@@ -150,6 +153,8 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
             this, SLOT(updateOptimizerLearningRate(double)));
     connect(this, SIGNAL(selectedModelCorrect()),
             this, SLOT(checkForTrainBefore()));
+    connect(this, SIGNAL(trainerExists()),
+            this, SLOT(loadExistingTrainer()));
 }
 
 ModelTrainingGroupBox::~ModelTrainingGroupBox()
