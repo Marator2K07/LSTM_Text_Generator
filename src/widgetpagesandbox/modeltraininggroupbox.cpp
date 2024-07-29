@@ -88,10 +88,15 @@ void ModelTrainingGroupBox::checkCurrentModel(const QString modelPathAndName)
             "Предупреждение",
             "По указанному пути не существует модели для обучения"
             );
-        // в любом случае отгружаем модель, если она была выбрана
+        // в любом случае отгружаем(удаляем) модель
+        // и тренера, если они были выбраны/созданы
         if (_loadedModel != nullptr) {
             delete _loadedModel;
             _loadedModel = nullptr;
+        }
+        if (_trainer != nullptr) {
+            delete _trainer;
+            _trainer = nullptr;
         }
     }
 }
