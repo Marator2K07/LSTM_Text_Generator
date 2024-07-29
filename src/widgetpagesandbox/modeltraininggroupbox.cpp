@@ -121,6 +121,7 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     , _trainingRate{0.0}
     , _epochsCompleted{0.0}
     , _currentOptimizer{nullptr}
+    , _trainer{nullptr}
 {
     ui->setupUi(this);
     ui->frame->setEnabled(false);

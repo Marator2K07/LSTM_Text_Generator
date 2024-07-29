@@ -31,7 +31,8 @@ private:
     LSTMModel *_loadedModel; // текущая загруженная модель нейронной сети
     double _trainingRate; // обученность выбранной модели
     double _epochsCompleted; // количество пройденных эпох обучения
-    IOptimizer *_currentOptimizer;
+    IOptimizer *_currentOptimizer; // оптимизатор, используемый в тренере
+    ConsistentTrainer *_trainer; // основной обьект виджета обучения
 
 private slots:
     ///
