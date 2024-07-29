@@ -59,10 +59,10 @@ private slots:
     /// \param modelPathAndName путь по которому проверяется доступность
     void checkCurrentModel(const QString modelPathAndName);
     ///
-    /// \brief checkForTrainBefore просмотр наличия файла обучения
+    /// \brief checkModelForTrainBefore просмотр наличия файла обучения
     /// (тренера) в папке с выбранной моделью нейронной сети
     /// \param modelPath путь до папки с моделью
-    void checkForTrainBefore();
+    void checkModelForTrainBefore();
     ///
     /// \brief chooseModelFolderPath слот выбора
     /// папки с моделью для обучения

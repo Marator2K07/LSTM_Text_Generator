@@ -96,7 +96,7 @@ void ModelTrainingGroupBox::checkCurrentModel(const QString modelPathAndName)
     }
 }
 
-void ModelTrainingGroupBox::checkForTrainBefore()
+void ModelTrainingGroupBox::checkModelForTrainBefore()
 {
     // подготовка
     QString trainerFilePath = QString("%1/%2_%3.txt").arg(
@@ -166,7 +166,7 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     connect(ui->optimizerLearningRateSpinBox, SIGNAL(valueChanged(double)),
             this, SLOT(updateOptimizerLearningRate(double)));
     connect(this, SIGNAL(selectedModelCorrect()),
-            this, SLOT(checkForTrainBefore()));
+            this, SLOT(checkModelForTrainBefore()));
     connect(this, SIGNAL(trainerExists()),
             this, SLOT(loadExistingTrainer()));
 }
