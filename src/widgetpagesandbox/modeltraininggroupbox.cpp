@@ -106,7 +106,7 @@ void ModelTrainingGroupBox::checkForTrainBefore()
     emit trainerExists();
 }
 
-void ModelTrainingGroupBox::chooseCurrentModel()
+void ModelTrainingGroupBox::chooseModelFolderPath()
 {
     QString currentModelPath = QFileDialog::getExistingDirectory(
         this,
@@ -142,7 +142,7 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     ui->frame->setEnabled(false);
 
     connect(ui->chooseCurrentModelButton, SIGNAL(pressed()),
-            this, SLOT(chooseCurrentModel()));
+            this, SLOT(chooseModelFolderPath()));
     connect(ui->currentModelLineEdit, SIGNAL(textChanged(QString)),
             this, SLOT(checkCurrentModel(QString)));
     connect(ui->optimizerSGDRadioButton, SIGNAL(toggled(bool)),

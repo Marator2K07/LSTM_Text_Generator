@@ -58,9 +58,9 @@ private slots:
     /// \param modelPath путь до папки с моделью
     void checkForTrainBefore();
     ///
-    /// \brief chooseCurrentModel слот выбора
+    /// \brief chooseModelFolderPath слот выбора
     /// папки с моделью для обучения
-    void chooseCurrentModel();
+    void chooseModelFolderPath();
     ///
     /// \brief loadExistingTrainer загрузка
     /// (при наличии) данных тренера
