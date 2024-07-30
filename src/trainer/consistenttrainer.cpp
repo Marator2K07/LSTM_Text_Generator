@@ -21,6 +21,9 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
     } else {
         _currentOptimizerType = OptimizerType::ADA_GRAD;
     }
+    // даем знать связанным виджетам об изменениях
+    emit percentageOfTrainingUpdated(_percentageOfTraining);
+    emit epochsCompletedUpdated(_epochsCompleted);
 }
 
 ConsistentTrainer::ConsistentTrainer(const QString path,
@@ -33,6 +36,9 @@ ConsistentTrainer::ConsistentTrainer(const QString path,
 {
     // оставшиеся три поля класса и оптимизатор подгружаем из файла
     load(path);
+    // даем знать связанным виджетам об изменениях
+    emit percentageOfTrainingUpdated(_percentageOfTraining);
+    emit epochsCompletedUpdated(_epochsCompleted);
 }
 
 bool ConsistentTrainer::operator==(const ConsistentTrainer &trainer)
