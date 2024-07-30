@@ -36,6 +36,11 @@ public:
     virtual void train(int iterCount,
                        bool textSample = false,
                        int sampleEvery = 100) = 0;
+    ///
+    /// \brief updateStatus метод, для объединения
+    /// посыла всех необходимых сигналов, связанных
+    /// с соотвествующим виджетом для показа информации
+    virtual void updateStatus() = 0;
 
 protected:
     ///

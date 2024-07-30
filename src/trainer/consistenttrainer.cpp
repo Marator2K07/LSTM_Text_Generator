@@ -21,9 +21,6 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
     } else {
         _currentOptimizerType = OptimizerType::ADA_GRAD;
     }
-    // даем знать связанным виджетам об изменениях
-    emit percentageOfTrainingUpdated(_percentageOfTraining);
-    emit epochsCompletedUpdated(_epochsCompleted);
 }
 
 ConsistentTrainer::ConsistentTrainer(const QString path,
@@ -35,10 +32,7 @@ ConsistentTrainer::ConsistentTrainer(const QString path,
     , _batchSize{model->embedding()->batchSize()}
 {
     // оставшиеся три поля класса и оптимизатор подгружаем из файла
-    load(path);
-    // даем знать связанным виджетам об изменениях
-    emit percentageOfTrainingUpdated(_percentageOfTraining);
-    emit epochsCompletedUpdated(_epochsCompleted);
+    load(path);    
 }
 
 bool ConsistentTrainer::operator==(const ConsistentTrainer &trainer)
@@ -244,4 +238,11 @@ void ConsistentTrainer::train(int iterCount,
     cout << "percentage of training - " << _percentageOfTraining << endl;
     cout << "epochs completed - "
          << QString::number(_epochsCompleted, 'f', 10).toStdString() << endl;
+}
+
+void ConsistentTrainer::updateStatus()
+{
+    // даем знать связанным виджетам об изменениях
+    emit percentageOfTrainingUpdated(_percentageOfTraining);
+    emit epochsCompletedUpdated(_epochsCompleted);
 }
