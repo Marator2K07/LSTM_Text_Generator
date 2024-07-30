@@ -42,6 +42,10 @@ private:
 
 private slots:
     ///
+    /// \brief beforeTrainDataCheck слот проверки
+    /// корректности заполнения всех связанных виджетов тренировки
+    void beforeTrainDataCheck();
+    ///
     /// \brief selectSGDOptimizer если был выбран оптимизатор
     /// типа SGD с помощью радио кнопки
     void selectSGDOptimizer();

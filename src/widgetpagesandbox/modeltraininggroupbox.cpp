@@ -20,6 +20,11 @@ void ModelTrainingGroupBox::newTrainerForModel()
     _trainer->updateStatus();
 }
 
+void ModelTrainingGroupBox::beforeTrainDataCheck()
+{
+
+}
+
 void ModelTrainingGroupBox::selectSGDOptimizer()
 {
     // только если связанная радио кнопка включена
