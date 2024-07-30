@@ -161,6 +161,12 @@ void ConsistentTrainer::train(int iterCount,
     // подготовка
     int numIter = 0;
     double meanLoss = 0;
+
+    //int currentPos = 36127;
+    // последнее для 128_24_50_Layer1 10752
+    // последнее для 160_24_48(один слой)(TheRedRoom) 17112
+    // //////////////////////////////////////////////// int currentPos = 5608;
+
     // обучаем:
     while (numIter < iterCount) {
         // если "конец эпохи"
