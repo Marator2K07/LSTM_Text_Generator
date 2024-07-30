@@ -3,11 +3,32 @@
 
 QString ModelTrainingGroupBox::TRAINING_DATA_NAME = "trainingData";
 
+void ModelTrainingGroupBox::newTrainerForModel()
+{
+    // если ранее тренер вдруг уже создавался
+    if (_trainer != nullptr) {
+        return;
+    }
+    // иницилизируем нового неполноценного тренера
+    // (без инициализации оптимизатора) и ставим связи
+    _trainer = new ConsistentTrainer(_loadedModel, _currentOptimizer);
+    connect(_trainer, SIGNAL(percentageOfTrainingUpdated(double)),
+            ui->traningValueLcdNumber, SLOT(display(double)));
+    connect(_trainer, SIGNAL(epochsCompletedUpdated(double)),
+            ui->epochsCountLcdNumber, SLOT(display(double)));
+    // в конце получаем все необходимые данные для отображения
+    _trainer->updateStatus();
+}
+
+void ModelTrainingGroupBox::beforeTrainDataCheck()
+{
+
+}
+
 void ModelTrainingGroupBox::selectSGDOptimizer()
 {
     // только если связанная радио кнопка включена
     if (ui->optimizerSGDRadioButton->isChecked()) {
-        _currentOptimizerType = OptimizerType::SGD;
         // если память ранее была уже занята
         if (_currentOptimizer != nullptr) {
             delete _currentOptimizer;
@@ -22,7 +43,6 @@ void ModelTrainingGroupBox::selectAdaGradOptimizer()
 {
     // только если связанная радио кнопка включена
     if (ui->optimizerAdaGradRadioButton->isChecked()) {
-        _currentOptimizerType = OptimizerType::ADA_GRAD;
         // если память ранее была уже занята
         if (_currentOptimizer != nullptr) {
             delete _currentOptimizer;
@@ -69,6 +89,8 @@ void ModelTrainingGroupBox::checkCurrentModel(const QString modelPathAndName)
             fileNameMainPart,
             new SoftmaxCrossEntropyLoss()
             );
+        // посылаем сигнал о корректности
+        emit selectedModelCorrect();
     } else {
         ui->frame->setEnabled(false);
         _modelNameMainPart = QString();
@@ -77,15 +99,45 @@ void ModelTrainingGroupBox::checkCurrentModel(const QString modelPathAndName)
             "Предупреждение",
             "По указанному пути не существует модели для обучения"
             );
-        // в любом случае отгружаем модель, если она была выбрана
+        // в любом случае отгружаем(удаляем) модель
+        // и тренера, если они были выбраны/созданы
         if (_loadedModel != nullptr) {
             delete _loadedModel;
             _loadedModel = nullptr;
         }
+        if (_trainer != nullptr) {
+            disconnect(_trainer);
+            delete _trainer;
+            _trainer = nullptr;
+        }
     }
 }
 
-void ModelTrainingGroupBox::chooseCurrentModel()
+void ModelTrainingGroupBox::checkModelForTrainBefore()
+{
+    // подготовка
+    QString trainerFilePath = QString("%1/%2_%3.txt").arg(
+        ui->currentModelLineEdit->text(),
+        _modelNameMainPart,
+        ConsistentTrainer::TRAINER_DATA_NAME
+        );
+    QFile trainerFile(trainerFilePath);
+    // проверяем наличие файла обучения
+    if (!trainerFile.exists()) {
+        QMessageBox::information(
+            this,
+            "Информация",
+            "Выбранная модель нейронной сети ранее не обучалась.\n"
+            "Создан тренер по умолчанию.");
+        // в данном случае инициализируем тренера с нуля
+        newTrainerForModel();
+        return;
+    }
+    // если дошли до сюда, то файл обучения существует
+    emit trainerExists();
+}
+
+void ModelTrainingGroupBox::chooseModelFolderPath()
 {
     QString currentModelPath = QFileDialog::getExistingDirectory(
         this,
@@ -95,6 +147,25 @@ void ModelTrainingGroupBox::chooseCurrentModel()
     ui->currentModelLineEdit->setText(currentModelPath);
 }
 
+void ModelTrainingGroupBox::loadExistingTrainer()
+{
+    // если ранее тренер уже создавался
+    if (_trainer != nullptr) {
+        disconnect(_trainer);
+        delete _trainer;        
+    }
+    // иницилизируем новый из файла и ставим связи
+    _trainer = new ConsistentTrainer(
+        ui->currentModelLineEdit->text(), _loadedModel
+        );
+    connect(_trainer, SIGNAL(percentageOfTrainingUpdated(double)),
+            ui->traningValueLcdNumber, SLOT(display(double)));
+    connect(_trainer, SIGNAL(epochsCompletedUpdated(double)),
+            ui->epochsCountLcdNumber, SLOT(display(double)));
+    // в конце получаем все необходимые данные для отображения
+    _trainer->updateStatus();
+}
+
 ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     : QGroupBox(parent)
     , ui(new Ui::ModelTrainingGroupBox)
@@ -102,14 +173,14 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     , _loadedModel{nullptr}
     , _trainingRate{0.0}
     , _epochsCompleted{0.0}
-    , _currentOptimizerType{OptimizerType::NONE}
     , _currentOptimizer{nullptr}
+    , _trainer{nullptr}
 {
     ui->setupUi(this);
     ui->frame->setEnabled(false);
 
     connect(ui->chooseCurrentModelButton, SIGNAL(pressed()),
-            this, SLOT(chooseCurrentModel()));
+            this, SLOT(chooseModelFolderPath()));
     connect(ui->currentModelLineEdit, SIGNAL(textChanged(QString)),
             this, SLOT(checkCurrentModel(QString)));
     connect(ui->optimizerSGDRadioButton, SIGNAL(toggled(bool)),
@@ -118,6 +189,10 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
             this, SLOT(selectAdaGradOptimizer()));
     connect(ui->optimizerLearningRateSpinBox, SIGNAL(valueChanged(double)),
             this, SLOT(updateOptimizerLearningRate(double)));
+    connect(this, SIGNAL(selectedModelCorrect()),
+            this, SLOT(checkModelForTrainBefore()));
+    connect(this, SIGNAL(trainerExists()),
+            this, SLOT(loadExistingTrainer()));
 }
 
 ModelTrainingGroupBox::~ModelTrainingGroupBox()

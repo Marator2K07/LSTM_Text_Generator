@@ -7,18 +7,10 @@
 #include <QFile>
 
 #include "softmaxcrossentropyloss.h"
+#include "consistenttrainer.h"
 #include "lstmmodel.h"
 #include "adagrad.h"
 #include "sgd.h"
-
-///
-/// \brief The OptimizerType enum
-/// перечисление для доступных оптимизиаторов при обучении
-enum class OptimizerType {
-    SGD = 0,
-    ADA_GRAD,
-    NONE
-};
 
 namespace Ui {
 class ModelTrainingGroupBox;
@@ -39,10 +31,20 @@ private:
     LSTMModel *_loadedModel; // текущая загруженная модель нейронной сети
     double _trainingRate; // обученность выбранной модели
     double _epochsCompleted; // количество пройденных эпох обучения
-    OptimizerType _currentOptimizerType;
-    IOptimizer *_currentOptimizer;
+    IOptimizer *_currentOptimizer; // оптимизатор, используемый в тренере
+    ConsistentTrainer *_trainer; // основной обьект виджета обучения
+
+private:
+    ///
+    /// \brief newTrainerForModel инициализация
+    /// тренера для загруженной модели с нуля
+    void newTrainerForModel();
 
 private slots:
+    ///
+    /// \brief beforeTrainDataCheck слот проверки
+    /// корректности заполнения всех связанных виджетов тренировки
+    void beforeTrainDataCheck();
     ///
     /// \brief selectSGDOptimizer если был выбран оптимизатор
     /// типа SGD с помощью радио кнопки
@@ -61,9 +63,19 @@ private slots:
     /// \param modelPathAndName путь по которому проверяется доступность
     void checkCurrentModel(const QString modelPathAndName);
     ///
-    /// \brief chooseCurrentModel слот выбора
+    /// \brief checkModelForTrainBefore просмотр наличия файла обучения
+    /// (тренера) в папке с выбранной моделью нейронной сети
+    /// \param modelPath путь до папки с моделью
+    void checkModelForTrainBefore();
+    ///
+    /// \brief chooseModelFolderPath слот выбора
     /// папки с моделью для обучения
-    void chooseCurrentModel();
+    void chooseModelFolderPath();
+    ///
+    /// \brief loadExistingTrainer загрузка
+    /// (при наличии) данных тренера
+    /// \param path путь до папки с тренером(его файлом)
+    void loadExistingTrainer();
 
 public:
     explicit ModelTrainingGroupBox(QWidget *parent = nullptr);
@@ -71,6 +83,16 @@ public:
 
     // суффикс именования файла с данными об обучении
     static QString TRAINING_DATA_NAME;
+
+signals:
+    ///
+    /// \brief selectedModelCorrect
+    /// когда модель для обучения успешно выбрана и загружена
+    void selectedModelCorrect();
+    ///
+    /// \brief trainerExists
+    /// в случае, если модель ранее обучалась
+    void trainerExists();
 
 };
 

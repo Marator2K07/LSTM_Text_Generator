@@ -31,6 +31,7 @@ public:
 
 public:
     // IOptimizer interface
+    double learningRate() const override;
     void newLearningRate(const double learningRate) override;
     void update() override;
     //

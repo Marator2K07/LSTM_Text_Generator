@@ -16,19 +16,23 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
     , _epochsCompleted{0.0}
     , _maxCalculatedLoss{1.0}
 {
+    if (dynamic_cast<SGD *>(optimizer)) {
+        _currentOptimizerType = OptimizerType::SGD;
+    } else {
+        _currentOptimizerType = OptimizerType::ADA_GRAD;
+    }
 }
 
 ConsistentTrainer::ConsistentTrainer(const QString path,
-                                     INeuralNetworkModel *model,
-                                     IOptimizer *optimizer)
+                                     INeuralNetworkModel *model)
     : _model{model}
     , _embedding{model->embedding()}
-    , _optimizer{optimizer}
+    , _optimizer{nullptr}
     , _sequenceLenght{model->embedding()->sequenceLength()}
     , _batchSize{model->embedding()->batchSize()}
 {
-    // оставшиеся три поля класса подгружаем из файла
-    load(path);
+    // оставшиеся три поля класса и оптимизатор подгружаем из файла
+    load(path);    
 }
 
 bool ConsistentTrainer::operator==(const ConsistentTrainer &trainer)
@@ -43,6 +47,10 @@ bool ConsistentTrainer::operator==(const ConsistentTrainer &trainer)
         return false;
     }
     if (abs(_maxCalculatedLoss - trainer._maxCalculatedLoss) > 1e-2) {
+        return false;
+    }
+    if (_currentOptimizerType != trainer._currentOptimizerType ||
+        _optimizer->learningRate() != trainer._optimizer->learningRate()) {
         return false;
     }
 
@@ -66,7 +74,9 @@ void ConsistentTrainer::save(const QString path)
     fileTrainer << _currentPos << " "
                 << _percentageOfTraining << " "
                 << _epochsCompleted << " "
-                << _maxCalculatedLoss << endl;
+                << _maxCalculatedLoss << " "
+                << (int)_currentOptimizerType << " "
+                << _optimizer->learningRate();
     // закрываем файл
     fileTrainer.close();
 }
@@ -84,15 +94,35 @@ void ConsistentTrainer::load(const QString path)
                 .arg("Failed to open file")
             );
     }
-    // грузим данные
+    // подготовка
     string line;
+    double learningRate;
+    int intCurrentOptimizerType;
     // считываем данные
     getline(fileTrainerStream, line);
     istringstream rowStreamMain(line);
     rowStreamMain >> _currentPos
         >> _percentageOfTraining
         >> _epochsCompleted
-        >> _maxCalculatedLoss;
+        >> _maxCalculatedLoss
+        >> intCurrentOptimizerType
+        >> learningRate;
+    // подготовка
+    _currentOptimizerType = (OptimizerType)intCurrentOptimizerType;
+    if (_optimizer != nullptr) {
+        delete _optimizer;
+    }
+    // на основе части считанных данных создаем оптимизатор
+    switch (_currentOptimizerType) {
+    case OptimizerType::SGD:
+        _optimizer = new SGD(_model, learningRate);
+        break;
+    case OptimizerType::ADA_GRAD:
+        _optimizer = new AdaGrad(_model, learningRate);
+        break;
+    default:
+        break;
+    }
     // закрываем файл
     fileTrainerStream.close();
 }
@@ -214,4 +244,11 @@ void ConsistentTrainer::train(int iterCount,
     cout << "percentage of training - " << _percentageOfTraining << endl;
     cout << "epochs completed - "
          << QString::number(_epochsCompleted, 'f', 10).toStdString() << endl;
+}
+
+void ConsistentTrainer::updateStatus()
+{
+    // даем знать связанным виджетам об изменениях
+    emit percentageOfTrainingUpdated(_percentageOfTraining);
+    emit epochsCompletedUpdated(_epochsCompleted);
 }
