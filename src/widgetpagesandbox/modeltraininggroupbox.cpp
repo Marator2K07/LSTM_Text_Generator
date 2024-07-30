@@ -101,6 +101,7 @@ void ModelTrainingGroupBox::checkCurrentModel(const QString modelPathAndName)
             _loadedModel = nullptr;
         }
         if (_trainer != nullptr) {
+            disconnect(_trainer);
             delete _trainer;
             _trainer = nullptr;
         }
@@ -145,7 +146,8 @@ void ModelTrainingGroupBox::loadExistingTrainer()
 {
     // если ранее тренер уже создавался
     if (_trainer != nullptr) {
-        delete _trainer;
+        disconnect(_trainer);
+        delete _trainer;        
     }
     // иницилизируем новый из файла и ставим связи
     _trainer = new ConsistentTrainer(
