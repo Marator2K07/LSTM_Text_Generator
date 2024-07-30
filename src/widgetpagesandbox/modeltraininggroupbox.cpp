@@ -10,8 +10,14 @@ void ModelTrainingGroupBox::newTrainerForModel()
         return;
     }
     // иницилизируем нового неполноценного тренера
-    // (без инициализации оптимизатора)
+    // (без инициализации оптимизатора) и ставим связи
     _trainer = new ConsistentTrainer(_loadedModel, _currentOptimizer);
+    connect(_trainer, SIGNAL(percentageOfTrainingUpdated(double)),
+            ui->traningValueLcdNumber, SLOT(display(double)));
+    connect(_trainer, SIGNAL(epochsCompletedUpdated(double)),
+            ui->epochsCountLcdNumber, SLOT(display(double)));
+    // в конце получаем все необходимые данные для отображения
+    _trainer->updateStatus();
 }
 
 void ModelTrainingGroupBox::selectSGDOptimizer()
@@ -141,10 +147,16 @@ void ModelTrainingGroupBox::loadExistingTrainer()
     if (_trainer != nullptr) {
         delete _trainer;
     }
-    // иницилизируем новый из файла
+    // иницилизируем новый из файла и ставим связи
     _trainer = new ConsistentTrainer(
         ui->currentModelLineEdit->text(), _loadedModel
         );
+    connect(_trainer, SIGNAL(percentageOfTrainingUpdated(double)),
+            ui->traningValueLcdNumber, SLOT(display(double)));
+    connect(_trainer, SIGNAL(epochsCompletedUpdated(double)),
+            ui->epochsCountLcdNumber, SLOT(display(double)));
+    // в конце получаем все необходимые данные для отображения
+    _trainer->updateStatus();
 }
 
 ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
