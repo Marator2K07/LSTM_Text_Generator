@@ -77,6 +77,13 @@ QString LSTMLayer::name() const
     return _name;
 }
 
+int LSTMLayer::power() const
+{
+    // пусть мощность слоя выражается как произведение
+    // всех параметров, влияющих на "тяжеловесность" слоя
+    return _hiddenSize * _outputSize * _vocabSize * _sequenceSize;
+}
+
 bool LSTMLayer::compareLayer(INeuralNetworkLayer *layer)
 {
     // сравниваем все значения

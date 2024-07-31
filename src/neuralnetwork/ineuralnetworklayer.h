@@ -21,6 +21,10 @@ public:
     /// \return текущее имя слоя
     virtual QString name() const = 0;
     ///
+    /// \brief power получение оценки совокупности всех параметров слоя
+    /// \return оценка параметров слоя в виде целого числа
+    virtual int power() const = 0;
+    ///
     /// \brief compare сравнение с другим слоем
     /// \param layer другой слой для сравнения
     virtual bool compareLayer(INeuralNetworkLayer *layer) = 0;
