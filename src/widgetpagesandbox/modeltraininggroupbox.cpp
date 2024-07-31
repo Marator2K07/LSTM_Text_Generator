@@ -178,6 +178,14 @@ void ModelTrainingGroupBox::loadExistingTrainer()
     _trainer->updateStatus();
 }
 
+void ModelTrainingGroupBox::trainModel()
+{
+    // в случае корректности данных, связанных с обучением
+    if (trainPreDataIsCorrect()) {
+
+    }
+}
+
 ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     : QGroupBox(parent)
     , ui(new Ui::ModelTrainingGroupBox)
@@ -201,6 +209,8 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
             this, SLOT(selectAdaGradOptimizer()));
     connect(ui->optimizerLearningRateSpinBox, SIGNAL(valueChanged(double)),
             this, SLOT(updateOptimizerLearningRate(double)));
+    connect(ui->startTrainButton, SIGNAL(pressed()),
+            this, SLOT(trainModel()));
     connect(this, SIGNAL(selectedModelCorrect()),
             this, SLOT(checkModelForTrainBefore()));
     connect(this, SIGNAL(trainerExists()),

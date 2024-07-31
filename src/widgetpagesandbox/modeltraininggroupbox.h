@@ -77,6 +77,10 @@ private slots:
     /// (при наличии) данных тренера
     /// \param path путь до папки с тренером(его файлом)
     void loadExistingTrainer();
+    ///
+    /// \brief trainModel главный метод-слот данного
+    /// виджета для тренировки выбранной модели
+    void trainModel();
 
 public:
     explicit ModelTrainingGroupBox(QWidget *parent = nullptr);
