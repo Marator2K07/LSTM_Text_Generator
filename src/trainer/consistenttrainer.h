@@ -59,6 +59,7 @@ signals:
     // ITrainer interface
     void percentageOfTrainingUpdated(double newPercentageOfTraining) override;
     void epochsCompletedUpdated(double newEpochsCompleted) override;
+    void recommendedNumberOfTrainingIter(int iterCount) override;
     //
 
 };

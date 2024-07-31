@@ -51,6 +51,11 @@ protected:
     /// \brief epochsCompletedUpdated сигнал обновления количества пройденных эпох
     /// \param newEpochsCompleted новое количество пройденных эпох обучения
     virtual void epochsCompletedUpdated(double newEpochsCompleted) = 0;
+    ///
+    /// \brief recommendedNumberOfTrainingIter сигнал для получения рекомендованного
+    /// (относительно максимального) количества итерация для обучения текущей модели
+    /// \param iterCount рекомендованное количество итераций
+    virtual void recommendedNumberOfTrainingIter(int iterCount) = 0;
 };
 
 #endif // ITRAINER_H
