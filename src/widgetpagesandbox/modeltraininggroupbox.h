@@ -39,12 +39,13 @@ private:
     /// \brief newTrainerForModel инициализация
     /// тренера для загруженной модели с нуля
     void newTrainerForModel();
-
-private slots:
     ///
-    /// \brief beforeTrainDataCheck слот проверки
+    /// \brief trainPreDataIsCorrect проверки
     /// корректности заполнения всех связанных виджетов тренировки
-    void beforeTrainDataCheck();
+    /// \return флаг корректности
+    bool trainPreDataIsCorrect();
+
+private slots:    
     ///
     /// \brief selectSGDOptimizer если был выбран оптимизатор
     /// типа SGD с помощью радио кнопки

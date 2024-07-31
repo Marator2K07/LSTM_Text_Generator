@@ -20,9 +20,21 @@ void ModelTrainingGroupBox::newTrainerForModel()
     _trainer->updateStatus();
 }
 
-void ModelTrainingGroupBox::beforeTrainDataCheck()
+bool ModelTrainingGroupBox::trainPreDataIsCorrect()
 {
+    // проверка выбранного оптимизатора
+    if (!ui->optimizerSGDRadioButton->isChecked() &&
+        !ui->optimizerAdaGradRadioButton->isChecked()) {
+        QMessageBox::warning(
+            this,
+            "Предупреждение",
+            "Оптимизатор не выбран."
+            );
+        return false;
+    }
 
+    // если дошли до этого участка, то все впорядке
+    return true;
 }
 
 void ModelTrainingGroupBox::selectSGDOptimizer()
