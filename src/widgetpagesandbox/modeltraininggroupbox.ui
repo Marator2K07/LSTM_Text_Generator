@@ -147,11 +147,23 @@
           <property name="enabled">
            <bool>true</bool>
           </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI Light</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
           <property name="frameShadow">
-           <enum>QFrame::Plain</enum>
+           <enum>QFrame::Raised</enum>
           </property>
           <property name="smallDecimalPoint">
            <bool>true</bool>
+          </property>
+          <property name="digitCount">
+           <number>7</number>
           </property>
           <property name="mode">
            <enum>QLCDNumber::Dec</enum>
@@ -185,14 +197,29 @@
           <property name="enabled">
            <bool>true</bool>
           </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI Light</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
           <property name="frameShadow">
-           <enum>QFrame::Plain</enum>
+           <enum>QFrame::Raised</enum>
           </property>
           <property name="smallDecimalPoint">
            <bool>true</bool>
           </property>
+          <property name="digitCount">
+           <number>7</number>
+          </property>
           <property name="segmentStyle">
            <enum>QLCDNumber::Flat</enum>
+          </property>
+          <property name="value" stdset="0">
+           <double>0.000000000000000</double>
           </property>
          </widget>
         </item>
@@ -332,7 +359,7 @@
            <double>0.000100000000000</double>
           </property>
           <property name="value">
-           <double>0.001000000000000</double>
+           <double>0.007000000000000</double>
           </property>
          </widget>
         </item>
@@ -432,6 +459,9 @@
             <family>Segoe UI Light</family>
             <pointsize>10</pointsize>
            </font>
+          </property>
+          <property name="minimum">
+           <number>1</number>
           </property>
          </widget>
         </item>
