@@ -204,6 +204,11 @@ QString LSTMModel::name() const
     return _name;
 }
 
+int LSTMModel::power() const
+{
+
+}
+
 ITextEmbedding<double> *LSTMModel::embedding() const
 {
     return _embedding;

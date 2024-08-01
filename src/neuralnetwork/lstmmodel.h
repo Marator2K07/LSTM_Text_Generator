@@ -36,6 +36,7 @@ public:
     void save(const QString path = QDir::currentPath()) override;
     void load(const QString path = QDir::currentPath()) override;
     QString name() const override;
+    int power() const override;
     ITextEmbedding<double> *embedding() const override;
     QList<INeuralNetworkLayer *> layers() const override;
     Matrix3d<double> forward(Matrix3d<double> batch) override;

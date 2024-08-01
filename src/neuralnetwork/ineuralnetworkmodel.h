@@ -25,6 +25,10 @@ public:
     /// \return заданное имя модели нейронной сети
     virtual QString name() const = 0;
     ///
+    /// \brief power получение оценки совокупности всех параметров модели
+    /// \return оценка параметров модели в виде целого числа
+    virtual int power() const = 0;
+    ///
     /// \brief embedding доступ к текстовому эмбеддингу для модели
     /// \return текущий эмбеддинг
     virtual ITextEmbedding<double> *embedding() const = 0;
