@@ -3,7 +3,6 @@
 
 QString LSTMModel::LAYERS_DATA_NAME = "layersData";
 QString LSTMModel::EMBEDDING_DATA_NAME = "embeddingData";
-double LSTMModel::POWER_FACTOR = 0.00011796236;
 
 LSTMModel::LSTMModel(QString name,
                      ILoss *loss,

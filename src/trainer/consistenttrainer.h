@@ -43,6 +43,8 @@ public:
 
     // суффикс именования файла с данными о тренировке модели
     static QString TRAINER_DATA_NAME;
+    // коэффициент мощности("тяжеловесности") модели
+    static double MODEL_POWER_FACTOR;
 
     bool operator==(const ConsistentTrainer &trainer);
 

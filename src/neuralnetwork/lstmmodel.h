@@ -26,8 +26,6 @@ public:
     // суффиксы именований файлов с данными о модели
     static QString LAYERS_DATA_NAME;
     static QString EMBEDDING_DATA_NAME;
-    // коэффициент для нахождения мощности("тяжеловесности") модели
-    static double POWER_FACTOR;
 
     bool operator==(const LSTMModel model);
 
