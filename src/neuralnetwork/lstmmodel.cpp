@@ -206,7 +206,13 @@ QString LSTMModel::name() const
 
 int LSTMModel::power() const
 {
-
+    // находим общую мощность слоев
+    int totalLayersPower = 0;
+    for (INeuralNetworkLayer *layer : _layers) {
+        totalLayersPower += layer->power();
+    }
+    // и при возврате еще учитывается размер партии
+    return totalLayersPower * _embedding->batchSize();
 }
 
 ITextEmbedding<double> *LSTMModel::embedding() const
