@@ -16,6 +16,8 @@ void ModelTrainingGroupBox::newTrainerForModel()
             ui->traningValueLcdNumber, SLOT(display(double)));
     connect(_trainer, SIGNAL(epochsCompletedUpdated(double)),
             ui->epochsCountLcdNumber, SLOT(display(double)));
+    connect(_trainer, SIGNAL(recommendedNumberOfTrainingIter(int)),
+            this, SLOT(updateMaxTrainCountValue(int)));
     // в конце получаем все необходимые данные для отображения
     _trainer->updateStatus();
 }
@@ -159,6 +161,11 @@ void ModelTrainingGroupBox::chooseModelFolderPath()
     ui->currentModelLineEdit->setText(currentModelPath);
 }
 
+void ModelTrainingGroupBox::updateMaxTrainCountValue(int newValue)
+{
+    ui->iterTrainCountSpinBox->setMaximum(newValue);
+}
+
 void ModelTrainingGroupBox::loadExistingTrainer()
 {
     // если ранее тренер уже создавался
@@ -174,6 +181,8 @@ void ModelTrainingGroupBox::loadExistingTrainer()
             ui->traningValueLcdNumber, SLOT(display(double)));
     connect(_trainer, SIGNAL(epochsCompletedUpdated(double)),
             ui->epochsCountLcdNumber, SLOT(display(double)));
+    connect(_trainer, SIGNAL(recommendedNumberOfTrainingIter(int)),
+            this, SLOT(updateMaxTrainCountValue(int)));
     // в конце получаем все необходимые данные для отображения
     _trainer->updateStatus();
 }

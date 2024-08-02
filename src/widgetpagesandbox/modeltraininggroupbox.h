@@ -73,6 +73,12 @@ private slots:
     /// папки с моделью для обучения
     void chooseModelFolderPath();
     ///
+    /// \brief updateMaxTrainCountValue слот посредник
+    /// для назначения максимального значения для виджета прокрутки
+    /// количества итераций тренировок текущей модели
+    /// \param newValue новое максимальное значение
+    void updateMaxTrainCountValue(int newValue);
+    ///
     /// \brief loadExistingTrainer загрузка
     /// (при наличии) данных тренера
     /// \param path путь до папки с тренером(его файлом)
