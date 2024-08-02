@@ -252,4 +252,7 @@ void ConsistentTrainer::updateStatus()
     // даем знать связанным виджетам об изменениях
     emit percentageOfTrainingUpdated(_percentageOfTraining);
     emit epochsCompletedUpdated(_epochsCompleted);
+    emit recommendedNumberOfTrainingIter(
+        _model->power() * MODEL_POWER_FACTOR
+        );
 }
