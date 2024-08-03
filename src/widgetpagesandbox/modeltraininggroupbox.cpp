@@ -164,6 +164,7 @@ void ModelTrainingGroupBox::chooseModelFolderPath()
 void ModelTrainingGroupBox::updateMaxTrainCountValue(int newValue)
 {
     ui->iterTrainCountSpinBox->setMaximum(newValue);
+    ui->sampleEverySpinBox->setMaximum(newValue);
 }
 
 void ModelTrainingGroupBox::loadExistingTrainer()

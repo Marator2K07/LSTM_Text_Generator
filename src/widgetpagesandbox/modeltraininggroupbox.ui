@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>360</width>
+    <width>374</width>
     <height>485</height>
    </rect>
   </property>
@@ -463,6 +463,12 @@
           <property name="minimum">
            <number>1</number>
           </property>
+          <property name="maximum">
+           <number>1</number>
+          </property>
+          <property name="stepType">
+           <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+          </property>
          </widget>
         </item>
         <item>
@@ -514,7 +520,7 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>45</width>
+            <width>65</width>
             <height>0</height>
            </size>
           </property>
@@ -532,6 +538,12 @@
           </property>
           <property name="minimum">
            <number>10</number>
+          </property>
+          <property name="maximum">
+           <number>11</number>
+          </property>
+          <property name="stepType">
+           <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
           </property>
          </widget>
         </item>
