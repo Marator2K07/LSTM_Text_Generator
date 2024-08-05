@@ -191,7 +191,10 @@ void ModelTrainingGroupBox::trainModel()
 {
     // в случае корректности данных, связанных с обучением
     if (trainPreDataIsCorrect()) {
-
+        _trainer->train(ui->iterTrainCountSpinBox->value(),
+                        ui->sampleOutputCheckBox->isChecked(),
+                        ui->sampleEverySpinBox->value()
+                        );
     }
 }
 
