@@ -19,8 +19,10 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
 {
     if (dynamic_cast<SGD *>(optimizer)) {
         _currentOptimizerType = OptimizerType::SGD;
-    } else {
+    } else if (dynamic_cast<AdaGrad *>(optimizer)) {
         _currentOptimizerType = OptimizerType::ADA_GRAD;
+    } else {
+        _currentOptimizerType = OptimizerType::NONE;
     }
 }
 
