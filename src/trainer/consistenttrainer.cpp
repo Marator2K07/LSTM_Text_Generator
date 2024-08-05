@@ -60,6 +60,11 @@ bool ConsistentTrainer::operator==(const ConsistentTrainer &trainer)
     return true;
 }
 
+IOptimizer *ConsistentTrainer::optimizer() const
+{
+    return _optimizer;
+}
+
 void ConsistentTrainer::save(const QString path)
 {
     // пытаемся открыть файл для сохранения данных о текущем обучении

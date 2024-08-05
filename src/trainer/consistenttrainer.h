@@ -50,6 +50,7 @@ public:
 
 public:
     // ITrainer interface
+    IOptimizer *optimizer() const override;
     void save(const QString path = QDir::currentPath()) override;
     void load(const QString path = QDir::currentPath()) override;
     void sampleOutput(int startCharIdx, char endingChar = '.') override;

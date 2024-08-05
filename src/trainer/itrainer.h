@@ -12,6 +12,10 @@ class ITrainer
 {
 public:
     ///
+    /// \brief optimizer обычный геттер для оптимизатора
+    /// \return используемый тренером оптимизатор
+    virtual IOptimizer *optimizer() const = 0;
+    ///
     /// \brief save cохранение всех необходимых
     /// параметров тренера нейронной сети в отдельной папке
     /// \param path путь сохранения
