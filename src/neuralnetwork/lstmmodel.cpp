@@ -70,7 +70,7 @@ void LSTMModel::save(const QString path, bool inNewFolder)
     // в зависимости от флага создания новой папки
     if (inNewFolder) {
         // создаем новую папку в указанном месте
-        QString folderPath = QString("%1/%2").arg(path, _name);
+        folderPath = QString("%1/%2").arg(path, _name);
         QDir dir;
         dir.mkdir(folderPath);
         // полный путь до файла слоев
