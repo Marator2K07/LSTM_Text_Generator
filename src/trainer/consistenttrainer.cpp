@@ -205,7 +205,7 @@ void ConsistentTrainer::train(int iterCount,
             _embedding->text().length()) {
             // после "конца эпохи" сохраняем обученные данные
             _model->save();
-            cout << "end of an era" << endl;
+            emit showLearningInfo(QString("end of an era"));
             _currentPos = numIter;
         }
         // генерируем входные и целевые индексы, соотвественно
@@ -220,7 +220,9 @@ void ConsistentTrainer::train(int iterCount,
             _maxCalculatedLoss = loss;
         }
         // статистика и средние потери
-        cout << numIter << ") " << loss << " pos - " << _currentPos << endl;
+        QString stepInfo = QString("%1) mean loss - %2; pos - %3\n")
+                               .arg(numIter).arg(loss).arg(_currentPos);
+        emit showLearningInfo(stepInfo);
         meanLoss += loss;
         // оптимизируем нейронную сеть
         _optimizer->update();
@@ -240,11 +242,15 @@ void ConsistentTrainer::train(int iterCount,
     // в конце всегда сохраняем данные нейронной модели
     // и выводим оценивающие данные
     _model->save();
-    cout << "end of iter" << " currentPos - " << _currentPos << endl;
-    cout << "mean loss value - " << meanLoss / iterCount << endl;
-    cout << "percentage of training - " << _percentageOfTraining << endl;
-    cout << "epochs completed - "
-         << QString::number(_epochsCompleted, 'f', 10).toStdString() << endl;
+    emit showLearningInfo(QString("end of learning\n"));
+    emit showLearningInfo(QString("current position - %1\n").arg(_currentPos));
+    emit showLearningInfo(QString("mean loss value - %1\n").arg(meanLoss/iterCount));
+    emit showLearningInfo(QString("percentage of training - %1\n")
+                              .arg(_percentageOfTraining));
+    emit showLearningInfo(QString("epochs completed - %1\n")
+                              .arg(QString::number(_epochsCompleted, 'f', 10)));
+    // не забываем обновить статус для связанного виджета
+    updateStatus();
 }
 
 void ConsistentTrainer::updateStatus()
