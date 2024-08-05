@@ -9,15 +9,6 @@
 #include "sgd.h"
 
 ///
-/// \brief The OptimizerType enum
-/// перечисление для доступных оптимизиаторов при обучении
-enum class OptimizerType {
-    SGD = 0,
-    ADA_GRAD,
-    NONE
-};
-
-///
 /// \brief The ConsistentTrainer class
 /// тренер последовательной тренировки на основе текста
 class ConsistentTrainer : public QObject,

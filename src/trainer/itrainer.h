@@ -6,6 +6,15 @@
 #include "ioptimizer.h"
 
 ///
+/// \brief The OptimizerType enum
+/// перечисление для доступных оптимизиаторов при обучении
+enum class OptimizerType {
+    SGD = 0,
+    ADA_GRAD,
+    NONE
+};
+
+///
 /// \brief The ITrainer interface
 /// определение функционала тренера модели
 class ITrainer
