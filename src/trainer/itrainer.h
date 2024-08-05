@@ -38,8 +38,8 @@ public:
                        int sampleEvery = 100) = 0;
     ///
     /// \brief updateStatus метод, для объединения
-    /// посыла всех необходимых сигналов, связанных
-    /// с соотвествующим виджетом для показа информации
+    /// посыла всех необходимых сигналов, связанных с соотвествующим
+    /// виджетом для показа статистики информации
     virtual void updateStatus() = 0;
 
 protected:
@@ -56,6 +56,16 @@ protected:
     /// (относительно максимального) количества итерация для обучения текущей модели
     /// \param iterCount рекомендованное количество итераций
     virtual void recommendedNumberOfTrainingIter(int iterCount) = 0;
+    ///
+    /// \brief sampleSymbolReady сигнал для связанного виджета о готовности
+    /// нового предсказанного символа на текущей стадии обученности модели
+    /// \param newSymbol новый символ для отображения
+    virtual void sampleSymbolReady(QChar newSymbol) = 0;
+    ///
+    /// \brief showLearningInfo дополнительный сигнал для отображения разнообразной
+    /// информации для связанного виджета во время обучения модели
+    /// \param learningInfo необходимая информация для отображения
+    virtual void showLearningInfo(QString learningInfo) = 0;
 };
 
 #endif // ITRAINER_H

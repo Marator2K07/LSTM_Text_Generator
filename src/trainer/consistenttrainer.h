@@ -62,6 +62,8 @@ signals:
     void percentageOfTrainingUpdated(double newPercentageOfTraining) override;
     void epochsCompletedUpdated(double newEpochsCompleted) override;
     void recommendedNumberOfTrainingIter(int iterCount) override;
+    void sampleSymbolReady(QChar newSymbol) override;
+    void showLearningInfo(QString learningInfo) override;
     //
 
 };
