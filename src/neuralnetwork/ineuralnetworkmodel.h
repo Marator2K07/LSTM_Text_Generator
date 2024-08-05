@@ -15,11 +15,12 @@ public:
     /// \brief save cохранение всех необходимых
     /// параметров модели в отдельной папке
     /// \param path путь сохранения
-    virtual void save(const QString path = QDir::currentPath()) = 0;
+    virtual void save(const QString path = QDir::currentPath(),
+                      bool inNewFolder = true) = 0;
     ///
     /// \brief load загрузка всех необходимых параметров из папки с моделью
     /// \param path путь к папке с моделью
-    virtual void load(const QString path = QDir::currentPath()) = 0;
+    virtual void load(const QString path) = 0;
     ///
     /// \brief name получение имени модели
     /// \return заданное имя модели нейронной сети
