@@ -194,7 +194,8 @@ void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
 
 void ConsistentTrainer::train(int iterCount,
                               bool textSample,
-                              int sampleEvery)
+                              int sampleEvery,
+                              QString savePath)
 {
     // подготовка
     int numIter = 0;
@@ -210,8 +211,11 @@ void ConsistentTrainer::train(int iterCount,
         // если "конец эпохи"
         if (_currentPos + _sequenceLenght + _batchSize + 1 >
             _embedding->text().length()) {
-            // после "конца эпохи" сохраняем обученные данные
-            _model->save();
+            // после "конца эпохи" сохраняем обученные данные модели
+            _model->save(savePath, false);
+            // и тренера
+            this->save(savePath);
+            // даем знать об окончании эпохи обучения
             emit showLearningInfo(QString("end of an era"));
             _currentPos = numIter;
         }
@@ -227,7 +231,7 @@ void ConsistentTrainer::train(int iterCount,
             _maxCalculatedLoss = loss;
         }
         // статистика и средние потери
-        QString stepInfo = QString("%1) mean loss - %2; pos - %3\n")
+        QString stepInfo = QString("%1) mean loss - %2; pos - %3")
                                .arg(numIter).arg(loss).arg(_currentPos);
         emit showLearningInfo(stepInfo);
         meanLoss += loss;
@@ -247,14 +251,16 @@ void ConsistentTrainer::train(int iterCount,
                   / (double)_embedding->text().size();
     _epochsCompleted += temp;
     // в конце всегда сохраняем данные нейронной модели
+    _model->save(savePath, false);
+    // и тренера
+    this->save(savePath);
     // и выводим оценивающие данные
-    _model->save();
-    emit showLearningInfo(QString("end of learning\n"));
-    emit showLearningInfo(QString("current position - %1\n").arg(_currentPos));
-    emit showLearningInfo(QString("mean loss value - %1\n").arg(meanLoss/iterCount));
-    emit showLearningInfo(QString("percentage of training - %1\n")
+    emit showLearningInfo(QString("end of learning"));
+    emit showLearningInfo(QString("current position - %1").arg(_currentPos));
+    emit showLearningInfo(QString("mean loss value - %1").arg(meanLoss/iterCount));
+    emit showLearningInfo(QString("percentage of training - %1")
                               .arg(_percentageOfTraining));
-    emit showLearningInfo(QString("epochs completed - %1\n")
+    emit showLearningInfo(QString("epochs completed - %1")
                               .arg(QString::number(_epochsCompleted, 'f', 10)));
     // не забываем обновить статус для связанного виджета
     updateStatus();

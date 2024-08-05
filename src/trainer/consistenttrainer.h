@@ -54,7 +54,10 @@ public:
     void save(const QString path = QDir::currentPath()) override;
     void load(const QString path = QDir::currentPath()) override;
     void sampleOutput(int startCharIdx, char endingChar = '.') override;
-    void train(int iterCount, bool textSample, int sampleEvery) override;
+    void train(int iterCount,
+               bool textSample = false,
+               int sampleEvery = 100,
+               QString savePath = QDir::currentPath()) override;
     void updateStatus() override;
     void refreshOptimizerStatus(IOptimizer *optimizer) override;
     //

@@ -193,7 +193,8 @@ void ModelTrainingGroupBox::trainModel()
     if (trainPreDataIsCorrect()) {
         _trainer->train(ui->iterTrainCountSpinBox->value(),
                         ui->sampleOutputCheckBox->isChecked(),
-                        ui->sampleEverySpinBox->value()
+                        ui->sampleEverySpinBox->value(),
+                        ui->currentModelLineEdit->text()
                         );
     }
 }
