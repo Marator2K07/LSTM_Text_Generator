@@ -18,6 +18,8 @@ void ModelTrainingGroupBox::newTrainerForModel()
             ui->epochsCountLcdNumber, SLOT(display(double)));
     connect(_trainer, SIGNAL(recommendedNumberOfTrainingIter(int)),
             this, SLOT(updateMaxTrainCountValue(int)));
+    connect(_trainer, SIGNAL(showLearningInfo(QString)),
+            ui->logTextEdit, SLOT(append(QString)));
     // в конце получаем все необходимые данные для отображения
     _trainer->updateStatus();
 }
@@ -184,6 +186,8 @@ void ModelTrainingGroupBox::loadExistingTrainer()
             ui->epochsCountLcdNumber, SLOT(display(double)));
     connect(_trainer, SIGNAL(recommendedNumberOfTrainingIter(int)),
             this, SLOT(updateMaxTrainCountValue(int)));
+    connect(_trainer, SIGNAL(showLearningInfo(QString)),
+            ui->logTextEdit, SLOT(append(QString)));
     // в конце получаем все необходимые данные для отображения
     _trainer->updateStatus();
 }
@@ -221,6 +225,8 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
             this, SLOT(updateOptimizerLearningRate(double)));
     connect(ui->startTrainButton, SIGNAL(pressed()),
             this, SLOT(trainModel()));
+    connect(ui->cleanTrainLogButton, SIGNAL(pressed()),
+            ui->logTextEdit, SLOT(clear()));
     connect(this, SIGNAL(selectedModelCorrect()),
             this, SLOT(checkModelForTrainBefore()));
     connect(this, SIGNAL(trainerExists()),
