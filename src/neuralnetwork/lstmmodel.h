@@ -31,7 +31,8 @@ public:
 
 public:
     // INeuralNetworkModel interface
-    void save(const QString path = QDir::currentPath()) override;
+    void save(const QString path = QDir::currentPath(),
+              bool inNewFolder = true) override;
     void load(const QString path = QDir::currentPath()) override;
     QString name() const override;
     int power() const override;

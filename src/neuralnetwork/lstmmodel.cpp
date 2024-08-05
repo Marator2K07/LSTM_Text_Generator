@@ -61,15 +61,28 @@ bool LSTMModel::operator==(const LSTMModel model)
     return true;
 }
 
-void LSTMModel::save(const QString path)
+void LSTMModel::save(const QString path, bool inNewFolder)
 {
-    // создаем новую папку в указанном месте
-    QString folderPath = QString("%1/%2").arg(path, _name);
-    QDir dir;
-    dir.mkdir(folderPath);
+    // подготовка
+    QString fileNameLayers;
+    QString fileNameEmbedding;
+    QString folderPath;
+    // в зависимости от флага создания новой папки
+    if (inNewFolder) {
+        // создаем новую папку в указанном месте
+        QString folderPath = QString("%1/%2").arg(path, _name);
+        QDir dir;
+        dir.mkdir(folderPath);
+        // полный путь до файла слоев
+        fileNameLayers = QString("%1/%2_%3.txt")
+                             .arg(folderPath, _name, LAYERS_DATA_NAME);
+    } else {
+        folderPath = QString("%1").arg(path);
+        // полный путь до файла слоев
+        fileNameLayers = QString("%1_%2.txt")
+                             .arg(_name, LAYERS_DATA_NAME);
+    }
     // пытаемся открыть файл для сохранения в новой папке данных о слоях
-    QString fileNameLayers = QString("%1/%2_%3.txt").
-                             arg(folderPath, _name, LAYERS_DATA_NAME);
     ofstream fileLayers;
     fileLayers.open(fileNameLayers.toStdString());
     if (!fileLayers.is_open()) {
@@ -92,9 +105,17 @@ void LSTMModel::save(const QString path)
     }
     // закрываем файл
     fileLayers.close();
+    // в зависимости от флага создания новой папки
+    if (inNewFolder) {
+        // полный путь до файла эмбеддинга
+        fileNameEmbedding = QString("%1/%2_%3.txt")
+                                .arg(folderPath, _name, EMBEDDING_DATA_NAME);
+    } else {
+        // полный путь до файла эмбеддинга
+        fileNameEmbedding = QString("%1_%2.txt")
+                                .arg(_name, EMBEDDING_DATA_NAME);
+    }
     // пытаемся открыть файл для сохранения в новой папке данных о текущем эмбеддинге
-    QString fileNameEmbedding = QString("%1/%2_%3.txt").
-                                arg(folderPath, _name, EMBEDDING_DATA_NAME);
     ofstream fileEmbedding;
     fileEmbedding.open(fileNameEmbedding.toStdString());
     if (!fileEmbedding.is_open()) {
