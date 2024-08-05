@@ -11,7 +11,7 @@ void ModelTrainingGroupBox::newTrainerForModel()
     }
     // иницилизируем нового неполноценного тренера
     // (без инициализации оптимизатора) и ставим связи
-    _trainer = new ConsistentTrainer(_loadedModel, _currentOptimizer);
+    _trainer = new ConsistentTrainer(_loadedModel, nullptr);
     connect(_trainer, SIGNAL(percentageOfTrainingUpdated(double)),
             ui->traningValueLcdNumber, SLOT(display(double)));
     connect(_trainer, SIGNAL(epochsCompletedUpdated(double)),
@@ -28,7 +28,8 @@ bool ModelTrainingGroupBox::trainPreDataIsCorrect()
 {
     // проверка выбранного оптимизатора
     if (!ui->optimizerSGDRadioButton->isChecked() &&
-        !ui->optimizerAdaGradRadioButton->isChecked()) {
+        !ui->optimizerAdaGradRadioButton->isChecked() &&
+        _trainer->optimizer() == nullptr) {
         QMessageBox::warning(
             this,
             "Предупреждение",
@@ -45,13 +46,10 @@ void ModelTrainingGroupBox::selectSGDOptimizer()
 {
     // только если связанная радио кнопка включена
     if (ui->optimizerSGDRadioButton->isChecked()) {
-        // если память ранее была уже занята
-        if (_currentOptimizer != nullptr) {
-            delete _currentOptimizer;
-        }
-        // в заключении создаем новый оптимизатор
-        _currentOptimizer = new SGD(_loadedModel,
-                                    ui->optimizerLearningRateSpinBox->value());
+        // задаем новый оптимизатор
+        _trainer->refreshOptimizerStatus(
+            new SGD(_loadedModel, ui->optimizerLearningRateSpinBox->value())
+            );
     }
 }
 
@@ -59,20 +57,17 @@ void ModelTrainingGroupBox::selectAdaGradOptimizer()
 {
     // только если связанная радио кнопка включена
     if (ui->optimizerAdaGradRadioButton->isChecked()) {
-        // если память ранее была уже занята
-        if (_currentOptimizer != nullptr) {
-            delete _currentOptimizer;
-        }
-        // в заключении создаем новый оптимизатор
-        _currentOptimizer = new AdaGrad(_loadedModel,
-                                        ui->optimizerLearningRateSpinBox->value());
+        // задаем новый оптимизатор
+        _trainer->refreshOptimizerStatus(
+            new AdaGrad(_loadedModel, ui->optimizerLearningRateSpinBox->value())
+            );
     }
 }
 
 void ModelTrainingGroupBox::updateOptimizerLearningRate(const double newRate)
 {
-    if (_currentOptimizer != nullptr) {
-        _currentOptimizer->newLearningRate(newRate);
+    if (_trainer->optimizer() != nullptr) {
+        _trainer->optimizer()->newLearningRate(newRate);
     }
 }
 
@@ -207,7 +202,6 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     , _loadedModel{nullptr}
     , _trainingRate{0.0}
     , _epochsCompleted{0.0}
-    , _currentOptimizer{nullptr}
     , _trainer{nullptr}
 {
     ui->setupUi(this);
