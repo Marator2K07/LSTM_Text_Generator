@@ -41,6 +41,10 @@ public:
     /// посыла всех необходимых сигналов, связанных с соотвествующим
     /// виджетом для показа статистики информации
     virtual void updateStatus() = 0;
+    ///
+    /// \brief refreshOptimizerStatus обновление статуса текущего оптимизатора
+    /// \param optimizer оптимизатор для сверки и обновления статуса
+    virtual void refreshOptimizerStatus(IOptimizer *optimizer) = 0;
 
 protected:
     ///

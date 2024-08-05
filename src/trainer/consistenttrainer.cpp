@@ -262,3 +262,20 @@ void ConsistentTrainer::updateStatus()
         (1 / (double)_model->power()) * MODEL_POWER_FACTOR
         );
 }
+
+void ConsistentTrainer::refreshOptimizerStatus(IOptimizer *optimizer)
+{
+    // если оптимизатор был проинициализирован
+    if (_optimizer != nullptr) {
+        delete _optimizer;
+    }
+    _optimizer = optimizer;
+    // не забываем проставить тип
+    if (dynamic_cast<SGD *>(optimizer)) {
+        _currentOptimizerType = OptimizerType::SGD;
+    } else if (dynamic_cast<AdaGrad *>(optimizer)) {
+        _currentOptimizerType = OptimizerType::ADA_GRAD;
+    } else {
+        _currentOptimizerType = OptimizerType::NONE;
+    }
+}

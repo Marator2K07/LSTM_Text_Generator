@@ -55,6 +55,7 @@ public:
     void sampleOutput(int startCharIdx, char endingChar = '.') override;
     void train(int iterCount, bool textSample, int sampleEvery) override;
     void updateStatus() override;
+    void refreshOptimizerStatus(IOptimizer *optimizer) override;
     //
 
 signals:
