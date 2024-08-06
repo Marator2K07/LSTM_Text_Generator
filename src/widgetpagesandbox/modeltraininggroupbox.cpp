@@ -183,7 +183,19 @@ void ModelTrainingGroupBox::loadExistingTrainer()
             this, SLOT(updateMaxTrainCountValue(int)));
     connect(_trainer, SIGNAL(showLearningInfo(QString)),
             ui->logTextEdit, SLOT(append(QString)));
-    // в конце получаем все необходимые данные для отображения
+    // в конце ставим все полученные данные
+    ui->optimizerLearningRateSpinBox
+        ->setValue(_trainer->optimizer()->learningRate());
+    switch (_trainer->optimizer()->type()) {
+    case OptimizerType::SGD:
+        ui->optimizerSGDRadioButton->setChecked(true);
+        break;
+    case OptimizerType::ADA_GRAD:
+        ui->optimizerAdaGradRadioButton->setChecked(true);
+        break;
+    default:
+        break;
+    }    
     _trainer->updateStatus();
 }
 
