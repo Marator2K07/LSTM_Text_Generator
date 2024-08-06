@@ -51,7 +51,8 @@ void TestTrainer::testConsistentTrainerOne()
         SGD optimizer(&model, 0.003, true);
         ConsistentTrainer trainer(&model, &optimizer);
         // расчеты
-        trainer.train(17, true, 5);
+        trainer.applyAssignmentForTrain(17, true, 5);
+        trainer.train();
     } catch (const MatrixException &e) {
         cout << e.what();
     } catch (const NeuralNetworkException &e) {
@@ -76,7 +77,8 @@ void TestTrainer::testConsistentTrainerSaveLoad()
         SGD *optimizer = new SGD(&model, 0.004, true);
         ConsistentTrainer trainer(&model, optimizer);
         // расчеты
-        trainer.train(16, false, 5);
+        trainer.applyAssignmentForTrain(16, false, 5);
+        trainer.train();
         trainer.save();
         ConsistentTrainer properTrainer(QDir::currentPath(), &model);
 
@@ -107,7 +109,8 @@ void TestTrainer::testConsistentTrainerSaveLoadVersionTwo()
         AdaGrad *optimizer = new AdaGrad(&model, 0.00077, true);
         ConsistentTrainer trainer(&model, optimizer);
         // расчеты
-        trainer.train(7, false, 3);
+        trainer.applyAssignmentForTrain(7, false, 3);
+        trainer.train();
         trainer.save();
         ConsistentTrainer properTrainer(QDir::currentPath(), &model);
 
