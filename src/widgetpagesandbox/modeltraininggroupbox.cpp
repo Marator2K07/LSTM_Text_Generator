@@ -204,10 +204,10 @@ void ModelTrainingGroupBox::trainModel()
     // в случае корректности данных, связанных с обучением,
     // обновляем параметры для нового задания(обучения)
     if (trainPreDataIsCorrect()) {
-        emit newAssignmentForTrain(ui->iterTrainCountSpinBox->value(),
-                                   ui->sampleOutputCheckBox->isChecked(),
-                                   ui->sampleEverySpinBox->value(),
-                                   ui->currentModelLineEdit->text());
+        _trainer->applyAssignmentForTrain(ui->iterTrainCountSpinBox->value(),
+                                          ui->sampleOutputCheckBox->isChecked(),
+                                          ui->sampleEverySpinBox->value(),
+                                          ui->currentModelLineEdit->text());
     }
 }
 

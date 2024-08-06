@@ -96,17 +96,6 @@ public:
 
 signals:
     ///
-    /// \brief newAssignmentForTrain сигнал передачи всех
-    /// необходимых параметров для тренировки
-    /// \param iterCount количество итераций из виджета итераций
-    /// \param withSample возможный вывод примера по флагу чекбокса
-    /// \param sampleEvery шаг между выводами примеров по виджету
-    /// \param savePath путь сохранения по строчному текстовому полю
-    void newAssignmentForTrain(int iterCount,
-                               bool withSample = false,
-                               int sampleEvery = 100,
-                               QString savePath = QDir::currentPath());
-    ///
     /// \brief selectedModelCorrect
     /// когда модель для обучения успешно выбрана и загружена
     void selectedModelCorrect();
