@@ -20,6 +20,13 @@ void ModelTrainingGroupBox::newTrainerForModel()
             this, SLOT(updateMaxTrainCountValue(int)));
     connect(_trainer, SIGNAL(showLearningInfo(QString)),
             ui->logTextEdit, SLOT(append(QString)));
+    // экстра важные связи связанные с многопоточкой
+    connect(&_trainThread, SIGNAL(started()),
+            _trainer, SLOT(train()));
+    connect(_trainer, SIGNAL(learningStoped()),
+            &_trainThread, SLOT(exit()));
+    // не забываем поместить тренер в отдельный поток
+    _trainer->moveToThread(&_trainThread);
     // в конце получаем все необходимые данные для отображения
     _trainer->updateStatus();
 }
@@ -183,6 +190,13 @@ void ModelTrainingGroupBox::loadExistingTrainer()
             this, SLOT(updateMaxTrainCountValue(int)));
     connect(_trainer, SIGNAL(showLearningInfo(QString)),
             ui->logTextEdit, SLOT(append(QString)));
+    // экстра важные связи связанные с многопоточкой
+    connect(&_trainThread, SIGNAL(started()),
+            _trainer, SLOT(train()));
+    connect(_trainer, SIGNAL(learningStoped()),
+            &_trainThread, SLOT(exit()));
+    // не забываем поместить тренер в отдельный поток
+    _trainer->moveToThread(&_trainThread);
     // в конце ставим все полученные данные
     ui->optimizerLearningRateSpinBox
         ->setValue(_trainer->optimizer()->learningRate());
@@ -208,6 +222,7 @@ void ModelTrainingGroupBox::trainModel()
                                           ui->sampleOutputCheckBox->isChecked(),
                                           ui->sampleEverySpinBox->value(),
                                           ui->currentModelLineEdit->text());
+        _trainThread.start();
     }
 }
 

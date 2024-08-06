@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QGroupBox>
+#include <QThread>
 #include <QFile>
 
 #include "softmaxcrossentropyloss.h"
@@ -32,6 +33,7 @@ private:
     double _trainingRate; // обученность выбранной модели
     double _epochsCompleted; // количество пройденных эпох обучения
     ConsistentTrainer *_trainer; // основной обьект виджета обучения
+    QThread _trainThread; // поток, выделенный под обучение
 
 private:
     ///
