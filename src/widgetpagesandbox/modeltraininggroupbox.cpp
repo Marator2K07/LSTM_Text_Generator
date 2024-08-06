@@ -215,14 +215,25 @@ void ModelTrainingGroupBox::loadExistingTrainer()
 
 void ModelTrainingGroupBox::trainModel()
 {
-    // в случае корректности данных, связанных с обучением,
-    // обновляем параметры для нового задания(обучения)
-    if (trainPreDataIsCorrect()) {
-        _trainer->applyAssignmentForTrain(ui->iterTrainCountSpinBox->value(),
-                                          ui->sampleOutputCheckBox->isChecked(),
-                                          ui->sampleEverySpinBox->value(),
-                                          ui->currentModelLineEdit->text());
-        _trainThread.start();
+    // только если прошлое обучение закончилось
+    if (!_trainThread.isRunning()) {
+        // в случае корректности данных, связанных с обучением,
+        // обновляем параметры для нового задания(обучения)
+        if (trainPreDataIsCorrect()) {
+            _trainer->applyAssignmentForTrain(ui->iterTrainCountSpinBox->value(),
+                                              ui->sampleOutputCheckBox->isChecked(),
+                                              ui->sampleEverySpinBox->value(),
+                                              ui->currentModelLineEdit->text());
+            _trainThread.start();
+        }
+    }
+    // иначе просто предупреждение
+    else {
+        QMessageBox::information(
+            this,
+            "Информация",
+            "Обучение уже происходит.\n"
+            "Если это необходимо, то остановите процесс с помощью специальной кнопки.");
     }
 }
 
