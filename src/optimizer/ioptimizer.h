@@ -7,6 +7,15 @@
 #include "ineuralnetworkmodel.h"
 
 ///
+/// \brief The OptimizerType enum
+/// перечисление для доступных оптимизиаторов при обучении
+enum class OptimizerType {
+    SGD = 0,
+    ADA_GRAD,
+    NONE
+};
+
+///
 /// \brief The IOptimizer interface
 /// определение функционала оптимизатора модели
 /// нейронной сети(обновление параметров сети при обучении)
