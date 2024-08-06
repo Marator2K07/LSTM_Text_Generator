@@ -264,6 +264,8 @@ void ConsistentTrainer::train()
                               .arg(QString::number(_epochsCompleted, 'f', 10)));
     // не забываем обновить статус для связанного виджета
     updateStatus();
+    // даем сигнал завершения процесса
+    emit learningStoped();
 }
 
 void ConsistentTrainer::applyAssignmentForTrain(int iterCount, bool withSample,

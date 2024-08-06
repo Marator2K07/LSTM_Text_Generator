@@ -81,6 +81,9 @@ protected:
     /// информации для связанного виджета во время обучения модели
     /// \param learningInfo необходимая информация для отображения
     virtual void showLearningInfo(QString learningInfo) = 0;
+    ///
+    /// \brief learningStoped сигнал окончания обучения для связанного виджета
+    virtual void learningStoped() = 0;
 };
 
 #endif // ITRAINER_H
