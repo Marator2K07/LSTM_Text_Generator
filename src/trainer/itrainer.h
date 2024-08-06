@@ -34,13 +34,13 @@ public:
     ///
     /// \brief train тренирует модель генерации текста
     /// \param iterCount количество шагов обучения
-    /// \param textSample флаг наличия вывода сгенерированного
+    /// \param withSample флаг наличия вывода сгенерированного
     /// текста, используя последнюю версию модели
     /// \param sampleEvery частота вывода текста
     /// \param savePath путь сохранения данных модели
     /// и тренера после завершения обучения(или во время обучения)
     virtual void train(int iterCount,
-                       bool textSample = false,
+                       bool withSample = false,
                        int sampleEvery = 100,
                        QString savePath = QDir::currentPath()) = 0;
     ///

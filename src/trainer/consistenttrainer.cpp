@@ -16,6 +16,10 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
     , _percentageOfTraining{0.0}
     , _epochsCompleted{0.0}
     , _maxCalculatedLoss{1.0}
+    , _iterCountOnAssignment{0}
+    , _withSampleOnAssignment{false}
+    , _sampleEveryOnAssignment{0}
+    , _savePathOnAssignment{QDir::currentPath()}
 {
 }
 
@@ -26,6 +30,10 @@ ConsistentTrainer::ConsistentTrainer(const QString path,
     , _optimizer{nullptr}
     , _sequenceLenght{model->embedding()->sequenceLength()}
     , _batchSize{model->embedding()->batchSize()}
+    , _iterCountOnAssignment{0}
+    , _withSampleOnAssignment{false}
+    , _sampleEveryOnAssignment{0}
+    , _savePathOnAssignment{QDir::currentPath()}
 {
     // оставшиеся три поля класса и оптимизатор подгружаем из файла
     load(path);    
@@ -186,7 +194,7 @@ void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
 }
 
 void ConsistentTrainer::train(int iterCount,
-                              bool textSample,
+                              bool withSample,
                               int sampleEvery,
                               QString savePath)
 {
@@ -233,7 +241,7 @@ void ConsistentTrainer::train(int iterCount,
         // сдвигаем позицию в тексте на размер партии
         _currentPos += _batchSize;
         // возможная генерация вывода для анализа
-        if (textSample && numIter % sampleEvery == 0) {
+        if (withSample && numIter % sampleEvery == 0) {
             sampleOutput(rand() % _embedding->vocabSize(), '.');
         }
         numIter++;

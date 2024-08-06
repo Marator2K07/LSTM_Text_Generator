@@ -27,6 +27,12 @@ private:
     double _epochsCompleted; // количество пройденных эпох обучения с высокой точностью
     double _maxCalculatedLoss; // нужно для вычисления обученности модели
 
+    // поля для работы метода train в отдельном потоке
+    int _iterCountOnAssignment; // количество шагов обучения по заданию
+    bool _withSampleOnAssignment; // флаг возможной генерации сэмпла по заданию
+    int _sampleEveryOnAssignment; // частота вывода примеров при флаге выше = true по заданию
+    QString _savePathOnAssignment; // путь сохранения прогресса модели по заданию
+
 public:
     ConsistentTrainer(INeuralNetworkModel *model, IOptimizer *optimizer);
     ConsistentTrainer(const QString path, INeuralNetworkModel *model);
@@ -45,7 +51,7 @@ public:
     void load(const QString path = QDir::currentPath()) override;
     void sampleOutput(int startCharIdx, char endingChar = '.') override;
     void train(int iterCount,
-               bool textSample = false,
+               bool withSample = false,
                int sampleEvery = 100,
                QString savePath = QDir::currentPath()) override;
     void updateStatus() override;
