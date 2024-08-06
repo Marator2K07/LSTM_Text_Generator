@@ -32,17 +32,8 @@ public:
     /// \param endingChar конечный символ
     virtual void sampleOutput(int startCharIdx, char endingChar = '.') = 0;
     ///
-    /// \brief train тренирует модель генерации текста
-    /// \param iterCount количество шагов обучения
-    /// \param withSample флаг наличия вывода сгенерированного
-    /// текста, используя последнюю версию модели
-    /// \param sampleEvery частота вывода текста
-    /// \param savePath путь сохранения данных модели
-    /// и тренера после завершения обучения(или во время обучения)
-    virtual void train(int iterCount,
-                       bool withSample = false,
-                       int sampleEvery = 100,
-                       QString savePath = QDir::currentPath()) = 0;
+    /// \brief train слот тренировки модели генерации текста по данным задания
+    virtual void train() = 0;
     ///
     /// \brief applyAssignmentForTrain слот применения всех необходимых
     /// параметров для начала корректного обучения модели в отдельном потоке

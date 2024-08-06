@@ -193,10 +193,7 @@ void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
     cout << endl;
 }
 
-void ConsistentTrainer::train(int iterCount,
-                              bool withSample,
-                              int sampleEvery,
-                              QString savePath)
+void ConsistentTrainer::train()
 {
     // подготовка
     int numIter = 0;
@@ -208,14 +205,14 @@ void ConsistentTrainer::train(int iterCount,
     // //////////////////////////////////////////////// int currentPos = 5608;
 
     // обучаем:
-    while (numIter < iterCount) {
+    while (numIter < _iterCountOnAssignment) {
         // если "конец эпохи"
         if (_currentPos + _sequenceLenght + _batchSize + 1 >
             _embedding->text().length()) {
             // после "конца эпохи" сохраняем обученные данные модели
-            _model->save(savePath, false);
+            _model->save(_savePathOnAssignment, false);
             // и тренера
-            this->save(savePath);
+            this->save(_savePathOnAssignment);
             // даем знать об окончании эпохи обучения
             emit showLearningInfo(QString("end of an era"));
             _currentPos = numIter;
@@ -241,24 +238,26 @@ void ConsistentTrainer::train(int iterCount,
         // сдвигаем позицию в тексте на размер партии
         _currentPos += _batchSize;
         // возможная генерация вывода для анализа
-        if (withSample && numIter % sampleEvery == 0) {
+        if (_withSampleOnAssignment && numIter % _sampleEveryOnAssignment == 0) {
             sampleOutput(rand() % _embedding->vocabSize(), '.');
         }
         numIter++;
     }
     // вычисляем главные параметры статистики
-    _percentageOfTraining = (_maxCalculatedLoss - meanLoss/ iterCount) / 100;
-    double temp = (double)iterCount * (double)_batchSize
+    _percentageOfTraining
+        = (_maxCalculatedLoss - meanLoss / _iterCountOnAssignment) / 100;
+    double temp = (double)_iterCountOnAssignment * (double)_batchSize
                   / (double)_embedding->text().size();
     _epochsCompleted += temp;
     // в конце всегда сохраняем данные нейронной модели
-    _model->save(savePath, false);
+    _model->save(_savePathOnAssignment, false);
     // и тренера
-    this->save(savePath);
+    this->save(_savePathOnAssignment);
     // и выводим оценивающие данные
     emit showLearningInfo(QString("end of learning"));
     emit showLearningInfo(QString("current position - %1").arg(_currentPos));
-    emit showLearningInfo(QString("mean loss value - %1").arg(meanLoss/iterCount));
+    emit showLearningInfo(QString("mean loss value - %1")
+                              .arg(meanLoss/_iterCountOnAssignment));
     emit showLearningInfo(QString("percentage of training - %1")
                               .arg(_percentageOfTraining));
     emit showLearningInfo(QString("epochs completed - %1")
