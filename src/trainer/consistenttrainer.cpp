@@ -17,13 +17,6 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
     , _epochsCompleted{0.0}
     , _maxCalculatedLoss{1.0}
 {
-    if (dynamic_cast<SGD *>(optimizer)) {
-        _currentOptimizerType = OptimizerType::SGD;
-    } else if (dynamic_cast<AdaGrad *>(optimizer)) {
-        _currentOptimizerType = OptimizerType::ADA_GRAD;
-    } else {
-        _currentOptimizerType = OptimizerType::NONE;
-    }
 }
 
 ConsistentTrainer::ConsistentTrainer(const QString path,
@@ -52,7 +45,7 @@ bool ConsistentTrainer::operator==(const ConsistentTrainer &trainer)
     if (abs(_maxCalculatedLoss - trainer._maxCalculatedLoss) > 1e-2) {
         return false;
     }
-    if (_currentOptimizerType != trainer._currentOptimizerType ||
+    if (optimizer()->type() != trainer.optimizer()->type() ||
         _optimizer->learningRate() != trainer._optimizer->learningRate()) {
         return false;
     }
@@ -83,7 +76,7 @@ void ConsistentTrainer::save(const QString path)
                 << _percentageOfTraining << " "
                 << _epochsCompleted << " "
                 << _maxCalculatedLoss << " "
-                << (int)_currentOptimizerType << " "
+                << (int)optimizer()->type() << " "
                 << _optimizer->learningRate();
     // закрываем файл
     fileTrainer.close();
@@ -116,12 +109,12 @@ void ConsistentTrainer::load(const QString path)
         >> intCurrentOptimizerType
         >> learningRate;
     // подготовка
-    _currentOptimizerType = (OptimizerType)intCurrentOptimizerType;
+    OptimizerType optimizerType = (OptimizerType)intCurrentOptimizerType;
     if (_optimizer != nullptr) {
         delete _optimizer;
     }
     // на основе части считанных данных создаем оптимизатор
-    switch (_currentOptimizerType) {
+    switch (optimizerType) {
     case OptimizerType::SGD:
         _optimizer = new SGD(_model, learningRate);
         break;
@@ -283,12 +276,4 @@ void ConsistentTrainer::refreshOptimizerStatus(IOptimizer *optimizer)
         delete _optimizer;
     }
     _optimizer = optimizer;
-    // не забываем проставить тип
-    if (dynamic_cast<SGD *>(optimizer)) {
-        _currentOptimizerType = OptimizerType::SGD;
-    } else if (dynamic_cast<AdaGrad *>(optimizer)) {
-        _currentOptimizerType = OptimizerType::ADA_GRAD;
-    } else {
-        _currentOptimizerType = OptimizerType::NONE;
-    }
 }

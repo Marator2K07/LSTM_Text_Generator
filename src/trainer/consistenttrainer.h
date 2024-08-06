@@ -20,7 +20,6 @@ private:
     INeuralNetworkModel *_model;
     ITextEmbedding<double> *_embedding; // вынесенный эмбеддинг, используемый моделью
     IOptimizer *_optimizer;
-    OptimizerType _currentOptimizerType;
     int _sequenceLenght; // длина контекста(последовательности) эмбеддинга модели
     int _batchSize; // длина партии эмбеддинга модели
     long _currentPos; // позиция в данных для обучения
