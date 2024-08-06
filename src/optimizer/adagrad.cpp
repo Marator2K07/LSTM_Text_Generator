@@ -36,6 +36,11 @@ AdaGrad::AdaGrad(INeuralNetworkModel *model,
 {
 }
 
+OptimizerType AdaGrad::type() const
+{
+    return OptimizerType::ADA_GRAD;
+}
+
 double AdaGrad::learningRate() const
 {
     return _learningRate;

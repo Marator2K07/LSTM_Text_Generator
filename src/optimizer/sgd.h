@@ -21,6 +21,7 @@ public:
 
 public:
     // IOprimizer interface
+    OptimizerType type() const override;
     double learningRate() const override;
     void newLearningRate(const double learningRate) override;
     void update() override;

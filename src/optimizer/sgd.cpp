@@ -10,6 +10,11 @@ SGD::SGD(INeuralNetworkModel *model,
 {
 }
 
+OptimizerType SGD::type() const
+{
+    return OptimizerType::SGD;
+}
+
 double SGD::learningRate() const
 {
     return _learningRate;

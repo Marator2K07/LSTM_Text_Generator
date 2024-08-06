@@ -23,6 +23,10 @@ class IOptimizer
 {
 public:
     ///
+    /// \brief type тип данного оптмизатора
+    /// \return текущий тип оптимизатора
+    virtual OptimizerType type() const = 0;
+    ///
     /// \brief learningRate скорость обучения данного оптимизатора
     /// \return текущая скорость обучения
     virtual double learningRate() const = 0;
