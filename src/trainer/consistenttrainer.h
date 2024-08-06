@@ -49,14 +49,18 @@ public:
     IOptimizer *optimizer() const override;
     void save(const QString path = QDir::currentPath()) override;
     void load(const QString path = QDir::currentPath()) override;
-    void sampleOutput(int startCharIdx, char endingChar = '.') override;
+    void sampleOutput(int startCharIdx, char endingChar = '.') override;    
+    void updateStatus() override;
+    void refreshOptimizerStatus(IOptimizer *optimizer) override;
+    //
+
+public slots:
+    // ITrainer interface
     void train() override;
     void applyAssignmentForTrain(int iterCount,
                                  bool withSample = false,
                                  int sampleEvery = 100,
                                  QString savePath = QDir::currentPath()) override;
-    void updateStatus() override;
-    void refreshOptimizerStatus(IOptimizer *optimizer) override;
     //
 
 signals:
