@@ -54,6 +54,8 @@ public:
                bool withSample = false,
                int sampleEvery = 100,
                QString savePath = QDir::currentPath()) override;
+    void applyAssignmentForTrain(int iterCount, bool withSample,
+                                 int sampleEvery, QString savePath) override;
     void updateStatus() override;
     void refreshOptimizerStatus(IOptimizer *optimizer) override;
     //

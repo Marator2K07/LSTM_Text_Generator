@@ -44,6 +44,19 @@ public:
                        int sampleEvery = 100,
                        QString savePath = QDir::currentPath()) = 0;
     ///
+    /// \brief applyAssignmentForTrain слот применения всех необходимых
+    /// параметров для начала корректного обучения модели в отдельном потоке
+    /// \param iterCount необходимое количество шагов обучения
+    /// \param withSample флаг наличия генерации
+    /// примера, используя последнюю версию модели
+    /// \param sampleEvery частота вывода текста примера
+    /// \param savePath путь сохранения данных модели
+    /// и тренера после завершения обучения(или во время обучения)
+    virtual void applyAssignmentForTrain(int iterCount,
+                                         bool withSample = false,
+                                         int sampleEvery = 100,
+                                         QString savePath = QDir::currentPath()) = 0;
+    ///
     /// \brief updateStatus метод, для объединения
     /// посыла всех необходимых сигналов, связанных с соотвествующим
     /// виджетом для показа статистики информации

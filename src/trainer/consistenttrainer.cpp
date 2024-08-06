@@ -267,6 +267,15 @@ void ConsistentTrainer::train(int iterCount,
     updateStatus();
 }
 
+void ConsistentTrainer::applyAssignmentForTrain(int iterCount, bool withSample,
+                                                int sampleEvery, QString savePath)
+{
+    _iterCountOnAssignment = iterCount;
+    _withSampleOnAssignment = withSample;
+    _sampleEveryOnAssignment = sampleEvery;
+    _savePathOnAssignment = savePath;
+}
+
 void ConsistentTrainer::updateStatus()
 {
     // даем знать связанным виджетам об изменениях
