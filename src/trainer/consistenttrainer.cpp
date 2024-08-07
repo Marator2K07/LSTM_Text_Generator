@@ -144,8 +144,9 @@ void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
     // подготовка для будущей рандомизации
     random_device rd;
     mt19937 gen(rd());
-    // вывод:
-    cout << _embedding->idxToChar().value(startCharIdx);
+    // вывод первого символа и предисловия:
+    emit showLearningInfo(QString("sample["));
+    emit showLearningInfo(QString(_embedding->idxToChar().value(startCharIdx)));
     while (true) {
         // начальная входная партия состоящая
         // из lastCharsIdxs.size() символов
@@ -179,7 +180,7 @@ void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
             lastCharsIdxs.erase(lastCharsIdxs.begin());
         }
         // и наконец выводим найденный символ
-        cout << chosenSymbol;
+        emit showLearningInfo(QString(chosenSymbol));
         // в случае если символ = символу окончания вывода
         if (chosenSymbol == endingChar) {
             break;
@@ -190,7 +191,7 @@ void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
         // }
         // cout << "]" << endl;
     }
-    cout << endl;
+    emit showLearningInfo(QString("]\n"));
 }
 
 void ConsistentTrainer::train()
