@@ -185,11 +185,6 @@ void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
         if (chosenSymbol == endingChar) {
             break;
         }
-
-        // cout << endl << "[" ;        for (const int value : lastCharsIdxs) {
-        //     cout << value << "|";
-        // }
-        // cout << "]" << endl;
     }
     emit showLearningInfo(QString("]\n"));
 }
@@ -199,12 +194,6 @@ void ConsistentTrainer::train()
     // подготовка
     int numIter = 0;
     double meanLoss = 0;
-
-    //int currentPos = 36127;
-    // последнее для 128_24_50_Layer1 10752
-    // последнее для 160_24_48(один слой)(TheRedRoom) 17112
-    // //////////////////////////////////////////////// int currentPos = 5608;
-
     // обучаем:
     while (numIter < _iterCountOnAssignment) {
         // если "конец эпохи"
