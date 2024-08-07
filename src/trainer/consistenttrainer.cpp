@@ -214,7 +214,7 @@ void ConsistentTrainer::train()
             // и тренера
             this->save(_savePathOnAssignment);
             // даем знать об окончании эпохи обучения
-            emit showLearningInfo(QString("end of an era"));
+            emit showLearningInfo(QString("end of an era\n"));
             _currentPos = numIter;
         }
         // генерируем входные и целевые индексы, соотвественно
@@ -229,7 +229,7 @@ void ConsistentTrainer::train()
             _maxCalculatedLoss = loss;
         }
         // статистика и средние потери
-        QString stepInfo = QString("%1) mean loss - %2; pos - %3")
+        QString stepInfo = QString("%1) mean loss - %2; pos - %3\n")
                                .arg(numIter).arg(loss).arg(_currentPos);
         emit showLearningInfo(stepInfo);
         meanLoss += loss;
@@ -254,13 +254,13 @@ void ConsistentTrainer::train()
     // и тренера
     this->save(_savePathOnAssignment);
     // и выводим оценивающие данные
-    emit showLearningInfo(QString("end of learning"));
-    emit showLearningInfo(QString("current position - %1").arg(_currentPos));
-    emit showLearningInfo(QString("mean loss value - %1")
+    emit showLearningInfo(QString("end of learning\n"));
+    emit showLearningInfo(QString("current position - %1\n").arg(_currentPos));
+    emit showLearningInfo(QString("mean loss value - %1\n")
                               .arg(meanLoss/_iterCountOnAssignment));
-    emit showLearningInfo(QString("percentage of training - %1")
+    emit showLearningInfo(QString("percentage of training - %1\n")
                               .arg(_percentageOfTraining));
-    emit showLearningInfo(QString("epochs completed - %1")
+    emit showLearningInfo(QString("epochs completed - %1\n")
                               .arg(QString::number(_epochsCompleted, 'f', 10)));
     // не забываем обновить статус для связанного виджета
     updateStatus();

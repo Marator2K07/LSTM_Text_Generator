@@ -19,7 +19,7 @@ void ModelTrainingGroupBox::newTrainerForModel()
     connect(_trainer, SIGNAL(recommendedNumberOfTrainingIter(int)),
             this, SLOT(updateMaxTrainCountValue(int)));
     connect(_trainer, SIGNAL(showLearningInfo(QString)),
-            ui->logTextEdit, SLOT(append(QString)));
+            ui->logTextEdit, SLOT(insertPlainText(QString)));
     // экстра важные связи связанные с многопоточкой
     connect(&_trainThread, SIGNAL(started()),
             _trainer, SLOT(train()));
@@ -189,7 +189,7 @@ void ModelTrainingGroupBox::loadExistingTrainer()
     connect(_trainer, SIGNAL(recommendedNumberOfTrainingIter(int)),
             this, SLOT(updateMaxTrainCountValue(int)));
     connect(_trainer, SIGNAL(showLearningInfo(QString)),
-            ui->logTextEdit, SLOT(append(QString)));
+            ui->logTextEdit, SLOT(insertPlainText(QString)));
     // экстра важные связи связанные с многопоточкой
     connect(&_trainThread, SIGNAL(started()),
             _trainer, SLOT(train()));
