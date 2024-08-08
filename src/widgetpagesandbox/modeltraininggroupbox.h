@@ -88,6 +88,14 @@ private slots:
     /// \brief trainModel главный метод-слот данного
     /// виджета для тренировки выбранной модели
     void trainModel();
+    ///
+    /// \brief trainingActiveState приведение формы обучения
+    /// к состоянию активного обучения(блокировка всех лишних виджетов)
+    void trainingActiveState();
+    ///
+    /// \brief trainingNotActiveState приведение формы обучения
+    /// к состоянию неактивного обучения(включение всех виджетов задания параметров)
+    void trainingNotActiveState();
 
 public:
     explicit ModelTrainingGroupBox(QWidget *parent = nullptr);

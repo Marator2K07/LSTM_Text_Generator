@@ -49,6 +49,40 @@ bool ModelTrainingGroupBox::trainPreDataIsCorrect()
     return true;
 }
 
+void ModelTrainingGroupBox::trainingActiveState()
+{
+    ui->chooseCurrentModelButton->setEnabled(false);
+    ui->currentModelLineEdit->setEnabled(false);
+    ui->optimizerSGDRadioButton->setEnabled(false);
+    ui->optimizerAdaGradRadioButton->setEnabled(false);
+    ui->optimizerLearningRateSpinBox->setEnabled(false);
+    ui->iterTrainCountSpinBox->setEnabled(false);
+    ui->sampleOutputCheckBox->setEnabled(false);
+    ui->startTrainButton->setEnabled(false);
+    ui->sampleEverySpinBox->setEnabled(false);
+    ui->iterTrainCountLabel->setEnabled(false);
+    ui->sampleEveryLabel->setEnabled(false);
+    ui->trainingValueLabel->setEnabled(false);
+    ui->optimizerLearningRateLabel->setEnabled(false);
+}
+
+void ModelTrainingGroupBox::trainingNotActiveState()
+{
+    ui->chooseCurrentModelButton->setEnabled(true);
+    ui->currentModelLineEdit->setEnabled(true);
+    ui->optimizerSGDRadioButton->setEnabled(true);
+    ui->optimizerAdaGradRadioButton->setEnabled(true);
+    ui->optimizerLearningRateSpinBox->setEnabled(true);
+    ui->iterTrainCountSpinBox->setEnabled(true);
+    ui->sampleOutputCheckBox->setEnabled(true);
+    ui->startTrainButton->setEnabled(true);
+    ui->sampleEverySpinBox->setEnabled(true);
+    ui->iterTrainCountLabel->setEnabled(true);
+    ui->sampleEveryLabel->setEnabled(true);
+    ui->trainingValueLabel->setEnabled(true);
+    ui->optimizerLearningRateLabel->setEnabled(true);
+}
+
 void ModelTrainingGroupBox::selectSGDOptimizer()
 {
     // только если связанная радио кнопка включена
