@@ -70,6 +70,7 @@ signals:
     void recommendedNumberOfTrainingIter(int iterCount) override;
     void sampleSymbolReady(QChar newSymbol) override;
     void showLearningInfo(QString learningInfo) override;
+    void learningProgress(int percentCompleted) override;
     void learningStoped() override;
     //
 
