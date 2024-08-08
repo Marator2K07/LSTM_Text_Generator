@@ -25,6 +25,8 @@ void ModelTrainingGroupBox::newTrainerForModel()
             _trainer, SLOT(train()));
     connect(_trainer, SIGNAL(learningStoped()),
             &_trainThread, SLOT(exit()));
+    connect(_trainer, SIGNAL(learningStoped()),
+            this, SLOT(trainingNotActiveState()));
     // не забываем поместить тренер в отдельный поток
     _trainer->moveToThread(&_trainThread);
     // в конце получаем все необходимые данные для отображения
@@ -229,6 +231,8 @@ void ModelTrainingGroupBox::loadExistingTrainer()
             _trainer, SLOT(train()));
     connect(_trainer, SIGNAL(learningStoped()),
             &_trainThread, SLOT(exit()));
+    connect(_trainer, SIGNAL(learningStoped()),
+            this, SLOT(trainingNotActiveState()));
     // не забываем поместить тренер в отдельный поток
     _trainer->moveToThread(&_trainThread);
     // в конце ставим все полученные данные
@@ -252,22 +256,15 @@ void ModelTrainingGroupBox::trainModel()
     // только если прошлое обучение закончилось
     if (!_trainThread.isRunning()) {
         // в случае корректности данных, связанных с обучением,
-        // обновляем параметры для нового задания(обучения)
+        // обновляем параметры для нового задания(обучения) и запускаем процесс
         if (trainPreDataIsCorrect()) {
             _trainer->applyAssignmentForTrain(ui->iterTrainCountSpinBox->value(),
                                               ui->sampleOutputCheckBox->isChecked(),
                                               ui->sampleEverySpinBox->value(),
                                               ui->currentModelLineEdit->text());
             _trainThread.start();
+            trainingActiveState();
         }
-    }
-    // иначе просто предупреждение
-    else {
-        QMessageBox::information(
-            this,
-            "Информация",
-            "Обучение уже происходит.\n"
-            "Если это необходимо, то остановите процесс с помощью специальной кнопки.");
     }
 }
 
