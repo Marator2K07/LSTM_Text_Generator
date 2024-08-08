@@ -116,7 +116,7 @@ void ModelTrainingGroupBox::updateOptimizerLearningRate(const double newRate)
     }
 }
 
-void ModelTrainingGroupBox::checkCurrentModel(const QString modelPathAndName)
+void ModelTrainingGroupBox::tryLoadModel(const QString modelPathAndName)
 {
     // находим основную часть имени и пути модели
     QString fileNameMainPart = modelPathAndName.right(
@@ -287,7 +287,7 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     connect(ui->chooseCurrentModelButton, SIGNAL(pressed()),
             this, SLOT(chooseModelFolderPath()));
     connect(ui->currentModelLineEdit, SIGNAL(textChanged(QString)),
-            this, SLOT(checkCurrentModel(QString)));
+            this, SLOT(tryLoadModel(QString)));
     connect(ui->optimizerSGDRadioButton, SIGNAL(toggled(bool)),
             this, SLOT(selectSGDOptimizer()));
     connect(ui->optimizerAdaGradRadioButton, SIGNAL(toggled(bool)),

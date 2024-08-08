@@ -61,9 +61,9 @@ private slots:
     /// \param newRate новый рейтинг обучения из виджета спинбокс
     void updateOptimizerLearningRate(const double newRate);
     ///
-    /// \brief checkCurrentModel просмотр доступности текущей модели
+    /// \brief tryLoadModel просмотр доступности текущей модели
     /// \param modelPathAndName путь по которому проверяется доступность
-    void checkCurrentModel(const QString modelPathAndName);
+    void tryLoadModel(const QString modelPathAndName);
     ///
     /// \brief checkModelForTrainBefore просмотр наличия файла обучения
     /// (тренера) в папке с выбранной моделью нейронной сети
