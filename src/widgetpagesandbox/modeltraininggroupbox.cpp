@@ -18,6 +18,8 @@ void ModelTrainingGroupBox::newTrainerForModel()
             ui->epochsCountLcdNumber, SLOT(display(double)));
     connect(_trainer, SIGNAL(recommendedNumberOfTrainingIter(int)),
             this, SLOT(updateMaxTrainCountValue(int)));
+    connect(_trainer, SIGNAL(learningProgress(int)),
+            ui->trainingProgressBar, SLOT(setValue(int)));
     connect(_trainer, SIGNAL(showLearningInfo(QString)),
             ui->logTextEdit, SLOT(insertPlainText(QString)));
     // экстра важные связи связанные с многопоточкой
@@ -224,6 +226,8 @@ void ModelTrainingGroupBox::loadExistingTrainer()
             ui->epochsCountLcdNumber, SLOT(display(double)));
     connect(_trainer, SIGNAL(recommendedNumberOfTrainingIter(int)),
             this, SLOT(updateMaxTrainCountValue(int)));
+    connect(_trainer, SIGNAL(learningProgress(int)),
+            ui->trainingProgressBar, SLOT(setValue(int)));
     connect(_trainer, SIGNAL(showLearningInfo(QString)),
             ui->logTextEdit, SLOT(insertPlainText(QString)));
     // экстра важные связи связанные с многопоточкой

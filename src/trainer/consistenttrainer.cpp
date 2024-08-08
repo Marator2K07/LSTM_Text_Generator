@@ -222,6 +222,9 @@ void ConsistentTrainer::train()
         QString stepInfo = QString("%1) mean loss - %2; pos - %3\n")
                                .arg(numIter).arg(loss).arg(_currentPos);
         emit showLearningInfo(stepInfo);
+        emit learningProgress(
+            (double)(numIter+1) / (double)_iterCountOnAssignment * 100
+            );
         meanLoss += loss;
         // оптимизируем нейронную сеть
         _optimizer->update();
