@@ -238,7 +238,7 @@ void ConsistentTrainer::train()
     }
     // вычисляем главные параметры статистики
     _percentageOfTraining
-        = (_maxCalculatedLoss - meanLoss / _iterCountOnAssignment) / 100;
+        = (meanLoss / _maxCalculatedLoss) / 100;
     double temp = (double)_iterCountOnAssignment * (double)_batchSize
                   / (double)_embedding->text().size();
     _epochsCompleted += temp;
