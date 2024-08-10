@@ -25,6 +25,7 @@ public:
     // ITextGeneration interface
     INeuralNetworkModel *neuralNetworkModel() const override;
     void setNeuralNetworkModel(INeuralNetworkModel *model) override;
+    //
 
 public slots:
     // ITextGeneration interface
@@ -32,7 +33,7 @@ public slots:
 
 signals:
     // ITextGenerator interface
-    void symbolReady(QChar) override;
+    void symbolReady(const QString symbol) override;
 
 };
 

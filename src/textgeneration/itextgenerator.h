@@ -34,7 +34,7 @@ signals:
     ///
     /// \brief symbolReady сигнал о готовности сгенерированного символа
     /// \param symbol новый сгенерированный символ
-    virtual void symbolReady(const QChar symbol) = 0;
+    virtual void symbolReady(const QString symbol) = 0;
 
 };
 

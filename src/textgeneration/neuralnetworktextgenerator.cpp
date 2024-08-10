@@ -31,6 +31,12 @@ void NeuralNetworkTextGenerator::genSymbols(const vector<int> context)
     // подготовка для будущей рандомизации
     random_device rd;
     mt19937 gen(rd());
+    // генерация начального контекста
+    for (int simbolIndex : context) {
+        char symbol = _neuralNetworkModel->embedding()
+                          ->idxToChar().value(simbolIndex);
+        emit symbolReady(QString(symbol));
+    }
     // генерация символов:
     while(true) {
         // начальная входная партия состоящая
@@ -72,7 +78,7 @@ void NeuralNetworkTextGenerator::genSymbols(const vector<int> context)
             lastCharsIdxs.erase(lastCharsIdxs.begin());
         }
         // и наконец посылаем сигнал о готовом сгенерированном символе
-        emit symbolReady(QChar(chosenIndex));
+        emit symbolReady(QString(chosenSymbol));
         // в случае если символ = символу окончания вывода
         if (chosenSymbol == '.') {
             break;

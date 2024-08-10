@@ -38,9 +38,12 @@ void PageModel::selectNeuralNetworkModel(QModelIndex index)
     }
     // пытаемся поставить новую модель
     try {
-        _neuralNetworkModel = new LSTMModel(modelPath,
-                                            modelName,
-                                            new SoftmaxCrossEntropyLoss());
+        _neuralNetworkModel = new LSTMModel(
+            modelPath,
+            modelName,
+            new SoftmaxCrossEntropyLoss()
+            );
+        _textGenerator.setNeuralNetworkModel(_neuralNetworkModel);
         // если все успешно, уведомляем пользователя
         QMessageBox::information(
             this,
@@ -62,7 +65,16 @@ void PageModel::stringToVector(const QString str)
 {
     vector<int> convertedStr
         = _neuralNetworkModel->embedding()->textToIndeces(str);
-    emit strAsVectorReady(convertedStr);
+
+}
+
+void PageModel::generateWithModel()
+{
+    vector<int> convertedStr
+        = _neuralNetworkModel->embedding()->textToIndeces(
+            ui->sampleGenLineEdit->text()
+            );
+    _textGenerator.genSymbols(convertedStr);
 }
 
 void PageModel::adaptFormElements()
@@ -89,10 +101,14 @@ PageModel::PageModel(QWidget *parent)
             this, SLOT(openFolderWithModels()));
     connect(ui->modelsListView, SIGNAL(activated(QModelIndex)),
             this, SLOT(selectNeuralNetworkModel(QModelIndex)));
+    connect(ui->genSampleButton, SIGNAL(pressed()),
+            this, SLOT(generateWithModel()));
+
     connect(this, SIGNAL(neuralNetworkModelChanged()),
             this, SLOT(adaptFormElements()));
-    connect(this, SIGNAL(stringСonverted(vector)),
-            &_textGenerator, SLOT(genSymbols(vector)));
+    connect(&_textGenerator, SIGNAL(symbolReady(QString)),
+            ui->sampleOutputText, SLOT(insertPlainText(QString)));
+
 }
 
 PageModel::~PageModel()

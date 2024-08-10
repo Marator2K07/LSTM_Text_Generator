@@ -44,6 +44,9 @@ private slots:
     /// \param str строка для преобразования
     /// \return представление строки в виде вектора
     void stringToVector(const QString str);
+
+    void generateWithModel();
+
     ///
     /// \brief adaptFormElements анализ текущего
     /// состояния экземпляра обьекта данной формы
