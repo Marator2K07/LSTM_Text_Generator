@@ -77,13 +77,13 @@ protected:
     /// \param learningInfo необходимая информация для отображения
     virtual void showLearningInfo(const QString learningInfo) = 0;
     ///
-    /// \brief learningProgress уведомление о прогрессе данного
+    /// \brief trainingProgress уведомление о прогрессе данного
     /// задания по обучению выбранной модели
     /// \param percentCompleted сколько процентов задания выполнено
-    virtual void learningProgress(int percentCompleted) = 0;
+    virtual void trainingProgress(int percentCompleted) = 0;
     ///
     /// \brief learningStoped сигнал окончания обучения для связанного виджета
-    virtual void learningStoped() = 0;
+    virtual void trainingStoped() = 0;
 };
 
 #endif // ITRAINER_H

@@ -69,8 +69,8 @@ signals:
     void epochsCompletedUpdated(double newEpochsCompleted) override;
     void recommendedNumberOfTrainingIter(int iterCount) override;
     void showLearningInfo(QString learningInfo) override;
-    void learningProgress(int percentCompleted) override;
-    void learningStoped() override;
+    void trainingProgress(int percentCompleted) override;
+    void trainingStoped() override;
     //
 
 };

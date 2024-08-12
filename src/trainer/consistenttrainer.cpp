@@ -222,7 +222,7 @@ void ConsistentTrainer::train()
         QString stepInfo = QString("%1) mean loss - %2; pos - %3\n")
                                .arg(numIter).arg(loss).arg(_currentPos);
         emit showLearningInfo(stepInfo);
-        emit learningProgress(
+        emit trainingProgress(
             (double)(numIter+1) / (double)_iterCountOnAssignment * 100
             );
         meanLoss += loss;
@@ -258,7 +258,7 @@ void ConsistentTrainer::train()
     // не забываем обновить статус для связанного виджета
     updateStatus();
     // даем сигнал завершения процесса
-    emit learningStoped();
+    emit trainingStoped();
 }
 
 void ConsistentTrainer::applyAssignmentForTrain(int iterCount,
