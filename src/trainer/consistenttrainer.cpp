@@ -3,7 +3,7 @@
 #include "matrix3d.cpp"
 
 QString ConsistentTrainer::TRAINER_DATA_NAME = "trainerData";
-long long ConsistentTrainer::MODEL_POWER_FACTOR = 43403673600;
+long long ConsistentTrainer::MODEL_POWER_FACTOR = 130211020800;
 
 ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
                                      IOptimizer *optimizer)
