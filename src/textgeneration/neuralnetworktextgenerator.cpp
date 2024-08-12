@@ -24,15 +24,15 @@ void NeuralNetworkTextGenerator::setNeuralNetworkModel(INeuralNetworkModel *mode
     _neuralNetworkModel = model;
 }
 
-void NeuralNetworkTextGenerator::generate(const vector<int> context)
+void NeuralNetworkTextGenerator::generate()
 {
     // формируем начальные условия на основе контекста
-    vector<int> lastCharsIdxs{context};
+    vector<int> lastCharsIdxs{_contextOnAssignment};
     // подготовка для будущей рандомизации
     random_device rd;
     mt19937 gen(rd());
     // генерация начального контекста
-    for (int simbolIndex : context) {
+    for (int simbolIndex : _contextOnAssignment) {
         char symbol = _neuralNetworkModel->embedding()
                           ->idxToChar().value(simbolIndex);
         emit showGenerationInfo(QString(symbol));
@@ -84,4 +84,9 @@ void NeuralNetworkTextGenerator::generate(const vector<int> context)
             break;
         }
     }
+}
+
+void NeuralNetworkTextGenerator::applyAssignmentForGenerate(vector<int> context)
+{
+    _contextOnAssignment = context;
 }

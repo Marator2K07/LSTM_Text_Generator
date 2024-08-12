@@ -16,6 +16,9 @@ class NeuralNetworkTextGenerator : public QObject,
 private:
     INeuralNetworkModel *_neuralNetworkModel;
 
+    // поле для работы метода generation в отдельном потоке
+    vector<int> _contextOnAssignment; // полученный контекст по заданию
+
 public:
     explicit NeuralNetworkTextGenerator(INeuralNetworkModel *neuralNetworkModel,
                                         QObject *parent = nullptr);
@@ -29,11 +32,15 @@ public:
 
 public slots:
     // ITextGeneration interface
-    void generate(const vector<int> context) override;
+    void generate() override;
+    void applyAssignmentForGenerate(vector<int> context) override;
+    //
 
 signals:
     // ITextGenerator interface
     void showGenerationInfo(const QString symbol) override;
+    void generationStoped() override;
+    //
 
 };
 
