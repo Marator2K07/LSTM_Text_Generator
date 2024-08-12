@@ -25,6 +25,10 @@ LSTMModel::LSTMModel(const QString path, const QString modelName, ILoss *loss)
 
 LSTMModel::~LSTMModel()
 {
+//    delete _loss;
+//    for (INeuralNetworkLayer *layer : _layers) {
+//        delete layer;
+//    }
 }
 
 bool LSTMModel::operator==(const LSTMModel model)

@@ -56,6 +56,9 @@ public:
     /// \return потери при проходе сети
     virtual double singleStep(Matrix3d<double> xBatch,
                               Matrix3d<double> yBatch) = 0;
+
+public:
+    virtual ~INeuralNetworkModel() {}
 };
 
 #endif // INEURALNETWORKMODEL_H
