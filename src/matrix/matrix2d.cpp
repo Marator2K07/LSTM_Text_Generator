@@ -17,7 +17,7 @@ unique_ptr<IMatrix<T>> Matrix2d<T>::doOperation(const IMatrix<T> *matrix)
             }
         }    
         // подготовка
-        vector<vector<T>> otherMatrixData = Matrix2d::dataToVector(matrix);
+        vector<vector<T>> otherMatrixData = dataToVector(matrix);
         vector<vector<T>> resultData;
         // заполнение данных для результирующей матрицы
         for (int rowI = 0; rowI < _data.size(); ++rowI) {
@@ -204,9 +204,7 @@ template<typename T>
 vector<vector<T>> Matrix2d<T>::dataToVector(const IMatrix<T> *matrix)
 {
     Matrix2d<T> *otherMatrix = (Matrix2d<T>*)(matrix);
-    QVariant otherMatrixAutoData = otherMatrix->data();
-
-    return otherMatrixAutoData.value<vector<vector<T>>>();
+    return otherMatrix->dataToVector();
 }
 
 template<typename T>
@@ -531,8 +529,7 @@ template<typename T>
 unique_ptr<IMatrix<T>> Matrix2d<T>::axisMean(const int axis)
 {
     // подготовка
-    vector<vector<T>> resultData
-        = Matrix2d<T>::dataToVector(axisSum(axis).get());
+    vector<vector<T>> resultData = dataToVector(axisSum(axis).get());
     unsigned long long divider = sizes()[axis];
     // заполнение данных для результирующей матрицы
     for (vector<T> &row : resultData) {
