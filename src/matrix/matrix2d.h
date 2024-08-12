@@ -18,6 +18,8 @@ private:
 
 public:
     Matrix2d();
+    Matrix2d(const Matrix2d<T> &other);
+    Matrix2d(const Matrix2d<T> *other);
     Matrix2d(unique_ptr<IMatrix<T>> other);
     Matrix2d(QVariant data);
     Matrix2d(vector<vector<T>> data);

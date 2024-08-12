@@ -78,6 +78,20 @@ Matrix2d<T>::Matrix2d()
 }
 
 template<typename T>
+Matrix2d<T>::Matrix2d(const Matrix2d<T> &other)
+{
+    _data = other._data;
+    _operationPtr = other._operationPtr;
+}
+
+template<typename T>
+Matrix2d<T>::Matrix2d(const Matrix2d<T> *other)
+{
+    _data = other->_data;
+    _operationPtr = other->_operationPtr;
+}
+
+template<typename T>
 Matrix2d<T>::Matrix2d(unique_ptr<IMatrix<T>> other)
 {
     //cout << "unique_ptr matrix2d constructor" << endl;
