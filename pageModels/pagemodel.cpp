@@ -43,7 +43,7 @@ void PageModel::selectNeuralNetworkModel(QModelIndex index)
             modelName,
             new SoftmaxCrossEntropyLoss()
             );
-        _textGenerator.setNeuralNetworkModel(_neuralNetworkModel);
+        _textGenerator->setNeuralNetworkModel(_neuralNetworkModel);
         // если все успешно, уведомляем пользователя
         QMessageBox::information(
             this,
@@ -70,11 +70,17 @@ void PageModel::stringToVector(const QString str)
 
 void PageModel::generateWithModel()
 {
-    vector<int> convertedStr
-        = _neuralNetworkModel->embedding()->textToIndeces(
-            ui->sampleGenLineEdit->text()
-            );
-    _textGenerator.generate();
+    // только если прошлая генерация закончилась
+    if (!_generateThread.isRunning()) {
+        // преобразуем контекст в нужный вид
+        vector<int> convertedStr
+            = _neuralNetworkModel->embedding()->textToIndeces(
+                ui->sampleGenLineEdit->text()
+                );
+        // обновляем данные для нового задания(генерации) и запускаем процесс
+        _textGenerator->applyAssignmentForGenerate(convertedStr);
+        _generateThread.start();
+    }
 }
 
 void PageModel::adaptFormElements()
@@ -92,7 +98,7 @@ PageModel::PageModel(QWidget *parent)
     , ui(new Ui::PageModel)
     , _dirModelView{nullptr}
     , _neuralNetworkModel{nullptr}
-    , _textGenerator{NeuralNetworkTextGenerator(this)}
+    , _textGenerator{new NeuralNetworkTextGenerator()}
 {
     ui->setupUi(this);
     adaptFormElements();
@@ -103,12 +109,17 @@ PageModel::PageModel(QWidget *parent)
             this, SLOT(selectNeuralNetworkModel(QModelIndex)));
     connect(ui->genSampleButton, SIGNAL(pressed()),
             this, SLOT(generateWithModel()));
-
     connect(this, SIGNAL(neuralNetworkModelChanged()),
             this, SLOT(adaptFormElements()));
-    connect(&_textGenerator, SIGNAL(symbolReady(QString)),
+    connect(_textGenerator, SIGNAL(showGenerationInfo(QString)),
             ui->sampleOutputText, SLOT(insertPlainText(QString)));
-
+    // экстра важные связи связанные с многопоточкой
+    connect(&_generateThread, SIGNAL(started()),
+            _textGenerator, SLOT(generate()));
+    connect(_textGenerator, SIGNAL(generationStoped()),
+            &_generateThread, SLOT(exit()));
+    // не забываем поместить тренер в отдельный поток
+    _textGenerator->moveToThread(&_generateThread);
 }
 
 PageModel::~PageModel()

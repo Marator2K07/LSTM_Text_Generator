@@ -84,6 +84,8 @@ void NeuralNetworkTextGenerator::generate()
         emit showGenerationInfo(QString(chosenSymbol));
         // в случае если символ = символу окончания вывода
         if (chosenSymbol == '.') {
+            // даем сигнал завершения процесса и заканчиваем генерацию
+            emit generationStoped();
             break;
         }
     }

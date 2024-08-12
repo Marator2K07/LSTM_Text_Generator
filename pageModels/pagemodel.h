@@ -1,10 +1,11 @@
 #ifndef PAGEMODEL_H
 #define PAGEMODEL_H
 
-#include <QWidget>
+#include <QDirIterator>
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QDirIterator>
+#include <QThread>
+#include <QWidget>
 #include <QDir>
 
 #include "neuralnetworktextgenerator.h"
@@ -26,7 +27,8 @@ private:
     Ui::PageModel *ui;
     DirectoryModelView *_dirModelView; // текущая модель с папками моделей
     INeuralNetworkModel *_neuralNetworkModel; // выбранная модель нейронной сети
-    NeuralNetworkTextGenerator _textGenerator;
+    NeuralNetworkTextGenerator *_textGenerator; // основной компонент виджета генерации
+    QThread _generateThread; // поток, выделенный под генерацию
 
 private slots:
     ///
