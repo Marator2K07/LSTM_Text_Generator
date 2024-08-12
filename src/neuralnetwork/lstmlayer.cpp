@@ -254,7 +254,7 @@ void LSTMLayer::loadParams(const QString path)
         _startC.loadFromFile(fullPath + "C_start.txt");
         // инициализируем ячейки для нейронов/узлов
         for (int i = 0; i < _sequenceSize; ++i) { /// ПОТОМ УБРАТЬ ХАРДКОД
-            _cells.push_back(LSTMNode());
+            _cells.push_back(new LSTMNode());
         }
         // сбрасываем метку первой инициализации
         _firstStep = false;
@@ -344,7 +344,7 @@ void LSTMLayer::initParams(const Matrix3d<double> initMatrix)
     // инициализируем ячейки для нейронов/узлов
     _sequenceSize = initMatrix.sizes()[1];
     for (int i = 0; i < _sequenceSize; ++i) {
-        _cells.push_back(LSTMNode());
+        _cells.push_back(new LSTMNode());
     }
     // сбрасываем флаг инициализации
     _firstStep = false;
@@ -392,7 +392,7 @@ Matrix3d<double> LSTMLayer::forward(Matrix3d<double> xSequenceIn)
         for (unsigned long long t = 0; t < sequenceLength; ++t) {
             Matrix2d<double> xIn = xSequenceIn.rowsWithIndex(t);
             QMap<QString, Matrix2d<double>> out
-                = _cells[t].forward(xIn, hIn, cIn, _params);
+                = _cells[t]->forward(xIn, hIn, cIn, _params);
             hIn = out["H_out"];
             cIn = out["C_out"];
             xSequenceOut.setRowsWithIndex(out["X_out"], t);
@@ -437,7 +437,7 @@ Matrix3d<double> LSTMLayer::backward(Matrix3d<double> xSequenceOutGrad)
         do {
             Matrix2d<double> xInGrad = xSequenceOutGrad.rowsWithIndex(t);
             QMap<QString, Matrix2d<double>> inGrad
-                = _cells[t].backward(xInGrad, hInGrad, cInGrad, _params);
+                = _cells[t]->backward(xInGrad, hInGrad, cInGrad, _params);
             hInGrad = inGrad["dH_prev"];
             cInGrad = inGrad["dC_prev"];
             xSequenceInGrad.setRowsWithIndex(inGrad["dX_prev"], t);

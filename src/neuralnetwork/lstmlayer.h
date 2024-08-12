@@ -17,8 +17,8 @@ private:
     double _weightScale; // точность весов
     Matrix2d<double> _startH; // стартовое состояние слоя
     Matrix2d<double> _startC; // стартовое состояние ячейки/узла
-    bool _firstStep; // флаг начальной реализации    
-    QList<LSTMNode> _cells; // ячейки с нейронными узлами
+    bool _firstStep; // флаг начальной реализации
+    QList<LSTMNode *> _cells; // ячейки с нейронными узлами
     QMap<QString, QMap<QString, Matrix2d<double>>> _params;
 
 private:
