@@ -29,11 +29,11 @@ public:
 
 public slots:
     // ITextGeneration interface
-    void genSymbols(const vector<int> context) override;
+    void generate(const vector<int> context) override;
 
 signals:
     // ITextGenerator interface
-    void symbolReady(const QString symbol) override;
+    void showGenerationInfo(const QString symbol) override;
 
 };
 
