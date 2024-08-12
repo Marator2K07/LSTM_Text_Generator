@@ -122,7 +122,7 @@ vector<int> CharAsVectorEmbedding<T>::textToIndeces(const QString text)
     vector<int> resultIndeces;
     // проходимся по тексту:
     for (int i = 0; i < text.size(); ++i) {
-        char currentSymbol = text[i].toLatin1();
+        char currentSymbol = text[i].toLower().toLatin1();
         // если эмбеддинг не содержит в словаре текущего символа
         if (!_charToIdx.contains(currentSymbol)) {
             throw TextEmbeddingException(
