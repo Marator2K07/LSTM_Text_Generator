@@ -5,12 +5,15 @@
 NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(INeuralNetworkModel *neuralNetworkModel,
                                                        QObject *parent)
     : _neuralNetworkModel{neuralNetworkModel}
+    , _contextOnAssignment{vector<int>()}
     , QObject{parent}
 {
 }
 
 NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(QObject *parent)
-    : QObject{parent}
+    : _neuralNetworkModel{nullptr}
+    , _contextOnAssignment{vector<int>()}
+    , QObject{parent}
 {
 }
 

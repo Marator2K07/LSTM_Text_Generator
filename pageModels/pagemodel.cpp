@@ -74,7 +74,7 @@ void PageModel::generateWithModel()
         = _neuralNetworkModel->embedding()->textToIndeces(
             ui->sampleGenLineEdit->text()
             );
-    _textGenerator.generate(convertedStr);
+    _textGenerator.generate();
 }
 
 void PageModel::adaptFormElements()
