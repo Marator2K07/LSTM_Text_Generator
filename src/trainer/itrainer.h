@@ -72,15 +72,10 @@ protected:
     /// \param iterCount рекомендованное количество итераций
     virtual void recommendedNumberOfTrainingIter(int iterCount) = 0;
     ///
-    /// \brief sampleSymbolReady сигнал для связанного виджета о готовности
-    /// нового предсказанного символа на текущей стадии обученности модели
-    /// \param newSymbol новый символ для отображения
-    virtual void sampleSymbolReady(QChar newSymbol) = 0;
-    ///
     /// \brief showLearningInfo дополнительный сигнал для отображения разнообразной
     /// информации для связанного виджета во время обучения модели
     /// \param learningInfo необходимая информация для отображения
-    virtual void showLearningInfo(QString learningInfo) = 0;
+    virtual void showLearningInfo(const QString learningInfo) = 0;
     ///
     /// \brief learningProgress уведомление о прогрессе данного
     /// задания по обучению выбранной модели
