@@ -1,7 +1,7 @@
 #ifndef INEURALNETWORKNODE_H
 #define INEURALNETWORKNODE_H
 
-#include <QMap>
+#include <QHash>
 #include <QString>
 
 #include "matrix2d.h"
@@ -37,6 +37,9 @@ public:
              Matrix2d<double> hOutGrad,
              Matrix2d<double> cOutGrad,
              QMap<QString, QMap<QString, Matrix2d<double>>> &layerParams) = 0;
+
+public:
+    virtual ~INeuralNetworkNode() {}
 };
 
 #endif // INEURALNETWORKNODE_H

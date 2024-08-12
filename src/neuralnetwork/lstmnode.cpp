@@ -80,7 +80,10 @@ LSTMNode::LSTMNode()
     , _xOut{nullptr}
 {
 }
+
+LSTMNode::~LSTMNode()
 {
+    cleanUp();
 }
 
 QMap<QString, Matrix2d<double>>

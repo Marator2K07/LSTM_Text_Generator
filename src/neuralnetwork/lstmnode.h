@@ -34,6 +34,7 @@ private:
 
 public:
     LSTMNode();
+    ~LSTMNode();
 
 public:
     // INeuralNetworkNode interface
