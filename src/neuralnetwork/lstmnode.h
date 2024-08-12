@@ -10,7 +10,8 @@ class LSTMNode : public INeuralNetworkNode
 {
 private:
     // сохраненные значения после прямого прохода
-    QMap<QString, Matrix2d<double>> _forwardPassValues;
+    QMap<QString, IMatrix<double>*> _forwardPassValues;
+
 
 public:
     LSTMNode();
