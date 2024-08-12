@@ -2,6 +2,15 @@
 #include "matrix2d.cpp"
 #include "activationfunctions.cpp"
 
+void LSTMNode::cleanUp()
+{
+    // очищаем память по указателям, а потом и сам словарь
+    for (IMatrix<double> *value : _forwardPassValues.values()) {
+        delete value;
+    }
+    _forwardPassValues.clear();
+}
+
 LSTMNode::LSTMNode()
 {
 }
@@ -299,6 +308,8 @@ LSTMNode::backward(Matrix2d<double> xOutGrad,
         Matrix2d<double> dCPrev(
             _forwardPassValues["f"]->simplifiedMult(&dCOut)
             );
+        // подчищаем память
+        cleanUp();
         // формируем и возвращаем ответ
         QMap<QString, Matrix2d<double>> result;
         result.insert("dX_prev", dXPrev);

@@ -12,6 +12,11 @@ private:
     // сохраненные значения после прямого прохода
     QMap<QString, IMatrix<double>*> _forwardPassValues;
 
+private:
+    ///
+    /// \brief cleanUp подчищаем память словаря после прямого
+    /// и обратного проходов по заданным параметрам слоя
+    void cleanUp();
 
 public:
     LSTMNode();
