@@ -70,6 +70,9 @@ LSTMLayer::LSTMLayer(const QString path, const QString layerName)
 
 LSTMLayer::~LSTMLayer()
 {
+//    for (LSTMNode *node : _cells) {
+//        delete node;
+//    }
 }
 
 QString LSTMLayer::name() const
