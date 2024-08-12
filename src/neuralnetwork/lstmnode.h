@@ -9,12 +9,26 @@
 class LSTMNode : public INeuralNetworkNode
 {
 private:
-    // сохраненные значения после прямого прохода
-    QMap<QString, IMatrix<double>*> _forwardPassValues;
+    // данные прямого прохода LSTM узла нейронной сети
+    IMatrix<double> *_xIn;
+    IMatrix<double> *_cIn;
+    IMatrix<double> *_z;
+    IMatrix<double> *_fInter;
+    IMatrix<double> *_f;
+    IMatrix<double> *_iInter;
+    IMatrix<double> *_i;
+    IMatrix<double> *_cBarInter;
+    IMatrix<double> *_cBar;
+    IMatrix<double> *_oInter;
+    IMatrix<double> *_o;
+    IMatrix<double> *_cOut;
+    IMatrix<double> *_hOut;
+    IMatrix<double> *_xOut;
+    //
 
 private:
     ///
-    /// \brief cleanUp подчищаем память словаря после прямого
+    /// \brief cleanUp подчистка памяти после прямого
     /// и обратного проходов по заданным параметрам слоя
     void cleanUp();
 

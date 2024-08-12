@@ -4,14 +4,82 @@
 
 void LSTMNode::cleanUp()
 {
-    // очищаем память по указателям, а потом и сам словарь
-    for (IMatrix<double> *value : _forwardPassValues.values()) {
-        delete value;
+    // очищаем память по указателям
+    if (_xIn != nullptr) {
+        delete _xIn;
+        _xIn = nullptr;
     }
-    _forwardPassValues.clear();
+    if (_cIn != nullptr) {
+        delete _cIn;
+        _cIn = nullptr;
+    }
+    if (_z != nullptr) {
+        delete _z;
+        _z = nullptr;
+    }
+    if (_fInter != nullptr) {
+        delete _fInter;
+        _fInter = nullptr;
+    }
+    if (_f != nullptr) {
+        delete _f;
+        _f = nullptr;
+    }
+    if (_iInter != nullptr) {
+        delete _iInter;
+        _iInter = nullptr;
+    }
+    if (_i != nullptr) {
+        delete _i;
+        _i = nullptr;
+    }
+    if (_cBarInter != nullptr) {
+        delete _cBarInter;
+        _cBarInter = nullptr;
+    }
+    if (_cBar != nullptr) {
+        delete _cBar;
+        _cBar = nullptr;
+    }
+    if (_oInter != nullptr) {
+        delete _oInter;
+        _oInter = nullptr;
+    }
+    if (_o != nullptr) {
+        delete _o;
+        _o = nullptr;
+    }
+    if (_cOut != nullptr) {
+        delete _cOut;
+        _cOut = nullptr;
+    }
+    if (_hOut != nullptr) {
+        delete _hOut;
+        _hOut = nullptr;
+    }
+    if (_xOut != nullptr) {
+        delete _xOut;
+        _xOut = nullptr;
+    }
 }
 
 LSTMNode::LSTMNode()
+    : _xIn{nullptr}
+    , _cIn{nullptr}
+    , _z{nullptr}
+    , _fInter{nullptr}
+    , _f{nullptr}
+    , _iInter{nullptr}
+    , _i{nullptr}
+    , _cBarInter{nullptr}
+    , _cBar{nullptr}
+    , _oInter{nullptr}
+    , _o{nullptr}
+    , _cOut{nullptr}
+    , _hOut{nullptr}
+    , _xOut{nullptr}
+{
+}
 {
 }
 
