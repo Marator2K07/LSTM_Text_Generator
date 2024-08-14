@@ -18,16 +18,16 @@ void ModelTrainingGroupBox::newTrainerForModel()
             ui->epochsCountLcdNumber, SLOT(display(double)));
     connect(_trainer, SIGNAL(recommendedNumberOfTrainingIter(int)),
             this, SLOT(updateMaxTrainCountValue(int)));
-    connect(_trainer, SIGNAL(learningProgress(int)),
+    connect(_trainer, SIGNAL(trainingProgress(int)),
             ui->trainingProgressBar, SLOT(setValue(int)));
     connect(_trainer, SIGNAL(showLearningInfo(QString)),
             ui->logTextEdit, SLOT(insertPlainText(QString)));
     // экстра важные связи связанные с многопоточкой
     connect(&_trainThread, SIGNAL(started()),
             _trainer, SLOT(train()));
-    connect(_trainer, SIGNAL(learningStoped()),
+    connect(_trainer, SIGNAL(trainingStoped()),
             &_trainThread, SLOT(exit()));
-    connect(_trainer, SIGNAL(learningStoped()),
+    connect(_trainer, SIGNAL(trainingStoped()),
             this, SLOT(trainingNotActiveState()));
     // не забываем поместить тренер в отдельный поток
     _trainer->moveToThread(&_trainThread);
@@ -226,16 +226,16 @@ void ModelTrainingGroupBox::loadExistingTrainer()
             ui->epochsCountLcdNumber, SLOT(display(double)));
     connect(_trainer, SIGNAL(recommendedNumberOfTrainingIter(int)),
             this, SLOT(updateMaxTrainCountValue(int)));
-    connect(_trainer, SIGNAL(learningProgress(int)),
+    connect(_trainer, SIGNAL(trainingProgress(int)),
             ui->trainingProgressBar, SLOT(setValue(int)));
     connect(_trainer, SIGNAL(showLearningInfo(QString)),
             ui->logTextEdit, SLOT(insertPlainText(QString)));
     // экстра важные связи связанные с многопоточкой
     connect(&_trainThread, SIGNAL(started()),
             _trainer, SLOT(train()));
-    connect(_trainer, SIGNAL(learningStoped()),
+    connect(_trainer, SIGNAL(trainingStoped()),
             &_trainThread, SLOT(exit()));
-    connect(_trainer, SIGNAL(learningStoped()),
+    connect(_trainer, SIGNAL(trainingStoped()),
             this, SLOT(trainingNotActiveState()));
     // не забываем поместить тренер в отдельный поток
     _trainer->moveToThread(&_trainThread);
