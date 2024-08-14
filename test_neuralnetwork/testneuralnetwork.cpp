@@ -3,7 +3,9 @@
 #include <QMapIterator>
 
 #include "softmaxcrossentropyloss.h"
-#include "charasvectorembedding.cpp"
+#include "charasvectorembedding.h"
+#include "matrix2d.cpp"
+#include "matrix3d.cpp"
 #include "lstmnode.h"
 #include "lstmlayer.h"
 #include "lstmmodel.h"
@@ -226,8 +228,8 @@ void TestNeuralNetwork::testLSTMModelOne()
     int sequenceLenght = 10;
     int outputSize = 44;
     int vocabSize = 44;
-    CharAsVectorEmbedding<double> *embedding
-        = new CharAsVectorEmbedding<double>("test_text.txt", sequenceLenght, batchSize);
+    CharAsVectorEmbedding *embedding
+        = new CharAsVectorEmbedding("test_text.txt", sequenceLenght, batchSize);
     LSTMModel lstmModel("testLSTMModel",
                         new SoftmaxCrossEntropyLoss(),
                         embedding,
@@ -256,8 +258,8 @@ void TestNeuralNetwork::testLSTMModelSaveLoad()
     int sequenceLenght = 28;
     int outputSize = 22;
     int vocabSize = 22;
-    CharAsVectorEmbedding<double> *embedding
-        = new CharAsVectorEmbedding<double>("test_text.txt", sequenceLenght, batchSize);
+    CharAsVectorEmbedding *embedding
+        = new CharAsVectorEmbedding("test_text.txt", sequenceLenght, batchSize);
     LSTMModel lstmModel("testLSTMModel",
                         new SoftmaxCrossEntropyLoss(), embedding,
                         QList<INeuralNetworkLayer *>{

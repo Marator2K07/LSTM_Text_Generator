@@ -3,7 +3,8 @@
 #include <QMapIterator>
 
 #include "charasvectorembedding.h"
-#include "charasvectorembedding.cpp"
+#include "matrix2d.cpp"
+#include "matrix3d.cpp"
 
 using namespace std;
 
@@ -36,7 +37,7 @@ void TestTextEmbedding::textFileProcessing()
 {
     try {
         // инициализация
-        CharAsVectorEmbedding<int> txtEmbed(QDir::currentPath());
+        CharAsVectorEmbedding txtEmbed(QDir::currentPath());
         // результаты
         for (int i = 0; i < txtEmbed.text().size(); ++i) {
             cout << txtEmbed.charToIdx().value(txtEmbed.text()[i].toLatin1()) << " ";
@@ -60,7 +61,7 @@ void TestTextEmbedding::testTextToIndeces()
 {
     try {
         // инициализация
-        CharAsVectorEmbedding<double> txtEmbed("Plain_Kate.txt", 16, 32);
+        CharAsVectorEmbedding txtEmbed("Plain_Kate.txt", 16, 32);
         QString strOne = "erin bow";
         QString strTwo = "some text";
         QString strError = "3853*&54";
@@ -82,7 +83,7 @@ void TestTextEmbedding::testGenTextEmbeddingIndices()
 {
     try {
         // инициализация
-        CharAsVectorEmbedding<double> txtEmbed("Plain_Kate.txt", 16, 32);
+        CharAsVectorEmbedding txtEmbed("Plain_Kate.txt", 16, 32);
         cout << txtEmbed.vocabSize() << endl;
         // результаты
         Matrix2d<double> resIndices = txtEmbed.genTextIndices(0);
@@ -91,7 +92,7 @@ void TestTextEmbedding::testGenTextEmbeddingIndices()
             QCOMPARE(txtEmbed.idxToChar()[i], str[i].toLatin1());
         }
         // информация для анализа
-        QMapIterator<int, char> it(txtEmbed.idxToChar());
+        QHashIterator<int, char> it(txtEmbed.idxToChar());
         while (it.hasNext()) {
             it.next();
             cout << it.key() << ": " << it.value() << endl;
@@ -106,7 +107,7 @@ void TestTextEmbedding::testGenTextBatchEmbedding()
 {
     try {
         // инициализация
-        CharAsVectorEmbedding<double> txtEmbed("simple_text.txt", 4, 8);
+        CharAsVectorEmbedding txtEmbed("simple_text.txt", 4, 8);
         // результаты (str = "abcdabc dacd ab")
         Matrix2d<double> resIndices = txtEmbed.genTextIndices(0);
         Matrix3d<double> resBatch = txtEmbed.genTextBatch(resIndices);

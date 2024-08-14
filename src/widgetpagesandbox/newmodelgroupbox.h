@@ -8,6 +8,7 @@
 
 #include "aboutlearningdatadialog.h"
 #include "softmaxcrossentropyloss.h"
+#include "charasvectorembedding.h"
 #include "aboutmodeldatadialog.h"
 #include "aboutlayersdialog.h"
 #include "lstmmodel.h"

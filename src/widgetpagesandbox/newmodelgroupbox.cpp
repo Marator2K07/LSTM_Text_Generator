@@ -1,6 +1,5 @@
 #include "newmodelgroupbox.h"
 #include "ui_newmodelgroupbox.h"
-#include "charasvectorembedding.cpp"
 
 long NewModelGroupBox::LAYERS_CREATED = 0;
 long NewModelGroupBox::MIN_NAME_MODEL_LENGTH = 5;
@@ -85,7 +84,7 @@ void NewModelGroupBox::newModelDataCheck()
 void NewModelGroupBox::createAndSaveNewModel()
 {
     // создаем нужные обьекты
-    CharAsVectorEmbedding<double> embedding(
+    CharAsVectorEmbedding embedding(
         ui->learningDataPathLineEdit->text(),
         ui->sequenceLengthSpinBox->value(),
         ui->batchSizeSpinBox->value()

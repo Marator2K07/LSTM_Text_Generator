@@ -7,14 +7,13 @@
 /// \brief The CharAsVectorEmbedding class
 /// классический эмбеддинг с представлением символа
 /// как массива(вектора) цирф и размером в длину словаря
-template<typename T>
-class CharAsVectorEmbedding : public ITextEmbedding<T>
+class CharAsVectorEmbedding : public ITextEmbedding
 {
 private:
     QString _text;
     QString _filePath;
-    QMap<int, char> _idxToChar;
-    QMap<char, int> _charToIdx;
+    QHash<int, char> _idxToChar;
+    QHash<char, int> _charToIdx;
     int _batchSize; // размер партии символов текста
     int _sequenceLength; // макс. длина последовательности для партии
     int _vocabSize; // найденный размер словаря
@@ -35,8 +34,8 @@ private:
 
 public:
     CharAsVectorEmbedding(QString filePath,
-                          QMap<int, char> idxToChar,
-                          QMap<char, int> charToIdx,
+                          QHash<int, char> idxToChar,
+                          QHash<char, int> charToIdx,
                           int sequenceLength,
                           int batchSize);
     CharAsVectorEmbedding(QString fullFilePath,
@@ -50,11 +49,11 @@ public:
     int batchSize() const override;
     int sequenceLength() const override;
     int vocabSize() const override;
-    QMap<int, char> idxToChar() const override;
-    QMap<char, int> charToIdx() const override;
+    QHash<int, char> idxToChar() const override;
+    QHash<char, int> charToIdx() const override;
     vector<int> textToIndeces(const QString text) override;
-    Matrix2d<T> genTextIndices(int startPos) override;
-    Matrix3d<T> genTextBatch(Matrix2d<T> indices) override;
+    Matrix2d<double> genTextIndices(int startPos) override;
+    Matrix3d<double> genTextBatch(Matrix2d<double> indices) override;
     //
 
 };

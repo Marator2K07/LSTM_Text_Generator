@@ -1,12 +1,12 @@
 #include "lstmmodel.h"
-#include "charasvectorembedding.cpp"
+#include "matrix3d.cpp"
 
 QString LSTMModel::LAYERS_DATA_NAME = "layersData";
 QString LSTMModel::EMBEDDING_DATA_NAME = "embeddingData";
 
 LSTMModel::LSTMModel(QString name,
                      ILoss *loss,
-                     ITextEmbedding<double> *embedding,
+                     ITextEmbedding *embedding,
                      QList<INeuralNetworkLayer *> layers)
     : _name{name}
     , _loss{loss}
@@ -183,8 +183,8 @@ void LSTMModel::load(const QString path)
             );
     }
     // готовим данные для конструктора эмбеддинга
-    QMap<int, char> idxToChar;
-    QMap<char, int> charToIdx;
+    QHash<int, char> idxToChar;
+    QHash<char, int> charToIdx;
     string filePath;
     int sequenceLength;
     int batchSize;
@@ -208,7 +208,7 @@ void LSTMModel::load(const QString path)
             charToIdx.insert(symbol, index);
         }
         // создаем эмбеддинг на основе данных
-        _embedding = new CharAsVectorEmbedding<double>(
+        _embedding = new CharAsVectorEmbedding(
             QString::fromStdString(filePath),
             idxToChar, charToIdx,
             sequenceLength, batchSize
@@ -239,7 +239,7 @@ int LSTMModel::power() const
     return totalLayersPower * _embedding->batchSize();
 }
 
-ITextEmbedding<double> *LSTMModel::embedding() const
+ITextEmbedding *LSTMModel::embedding() const
 {
     return _embedding;
 }

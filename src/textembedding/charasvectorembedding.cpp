@@ -2,8 +2,7 @@
 #include "matrix2d.cpp"
 #include "matrix3d.cpp"
 
-template<typename T>
-void CharAsVectorEmbedding<T>::processTheFile(QString fileName)
+void CharAsVectorEmbedding::processTheFile(QString fileName)
 {
     QFile file(fileName);
     QByteArray filedata;
@@ -46,12 +45,11 @@ void CharAsVectorEmbedding<T>::processTheFile(QString fileName)
     _vocabSize = _charToIdx.size();
 }
 
-template<typename T>
-CharAsVectorEmbedding<T>::CharAsVectorEmbedding(QString filePath,
-                                                QMap<int, char> idxToChar,
-                                                QMap<char, int> charToIdx,
-                                                int sequenceLength,
-                                                int batchSize)
+CharAsVectorEmbedding::CharAsVectorEmbedding(QString filePath,
+                                             QHash<int, char> idxToChar,
+                                             QHash<char, int> charToIdx,
+                                             int sequenceLength,
+                                             int batchSize)
     : _filePath{filePath}
     , _idxToChar{idxToChar}
     , _charToIdx{charToIdx}
@@ -62,10 +60,9 @@ CharAsVectorEmbedding<T>::CharAsVectorEmbedding(QString filePath,
     processTheFile(filePath);
 }
 
-template<typename T>
-CharAsVectorEmbedding<T>::CharAsVectorEmbedding(QString fullFilePath,
-                                                int sequenceLength,
-                                                int batchSize)
+CharAsVectorEmbedding::CharAsVectorEmbedding(QString fullFilePath,
+                                             int sequenceLength,
+                                             int batchSize)
     : _filePath{fullFilePath}
     , _sequenceLength{sequenceLength}
     , _batchSize{batchSize}
@@ -73,50 +70,42 @@ CharAsVectorEmbedding<T>::CharAsVectorEmbedding(QString fullFilePath,
     processTheFile(fullFilePath);
 }
 
-template<typename T>
-QString CharAsVectorEmbedding<T>::text() const
+QString CharAsVectorEmbedding::text() const
 {
     return _text;
 }
 
-template<typename T>
-QString CharAsVectorEmbedding<T>::filePath() const
+QString CharAsVectorEmbedding::filePath() const
 {
     return _filePath;
 }
 
-template<typename T>
-int CharAsVectorEmbedding<T>::batchSize() const
+int CharAsVectorEmbedding::batchSize() const
 {
     return _batchSize;
 }
 
-template<typename T>
-int CharAsVectorEmbedding<T>::sequenceLength() const
+int CharAsVectorEmbedding::sequenceLength() const
 {
     return _sequenceLength;
 }
 
-template<typename T>
-int CharAsVectorEmbedding<T>::vocabSize() const
+int CharAsVectorEmbedding::vocabSize() const
 {
     return _vocabSize;
 }
 
-template<typename T>
-QMap<int, char> CharAsVectorEmbedding<T>::idxToChar() const
+QHash<int, char> CharAsVectorEmbedding::idxToChar() const
 {
     return _idxToChar;
 }
 
-template<typename T>
-QMap<char, int> CharAsVectorEmbedding<T>::charToIdx() const
+QHash<char, int> CharAsVectorEmbedding::charToIdx() const
 {
     return _charToIdx;
 }
 
-template<typename T>
-vector<int> CharAsVectorEmbedding<T>::textToIndeces(const QString text)
+vector<int> CharAsVectorEmbedding::textToIndeces(const QString text)
 {
     // подготовка
     vector<int> resultIndeces;
@@ -137,12 +126,11 @@ vector<int> CharAsVectorEmbedding<T>::textToIndeces(const QString text)
     return resultIndeces;
 }
 
-template<typename T>
-Matrix2d<T> CharAsVectorEmbedding<T>::genTextIndices(int startPos)
+Matrix2d<double> CharAsVectorEmbedding::genTextIndices(int startPos)
 {
     // создаем матрицу нужных размеров
-    Matrix2d<T> textIndices
-        = Matrix2d<T>::zeroM(_batchSize, _sequenceLength);
+    Matrix2d<double> textIndices
+        = Matrix2d<double>::zeroM(_batchSize, _sequenceLength);
     // ставим индексы символов из текста
     for (int i = 0; i < _batchSize; ++i) {
         int k = 0;
@@ -166,15 +154,14 @@ Matrix2d<T> CharAsVectorEmbedding<T>::genTextIndices(int startPos)
     return textIndices;
 }
 
-template<typename T>
-Matrix3d<T> CharAsVectorEmbedding<T>::genTextBatch(Matrix2d<T> indices)
+Matrix3d<double> CharAsVectorEmbedding::genTextBatch(Matrix2d<double> indices)
 {
     // готовим будущий результат
-    vector<Matrix2d<T>> resBatchData;
+    vector<Matrix2d<double>> resBatchData;
     for (vector row : indices.dataToVector()) {
         // подготовливаем подматрицу для заполнения
-        Matrix2d<T> seqMatrix
-            = Matrix2d<T>::zeroM(_sequenceLength, _vocabSize);
+        Matrix2d<double> seqMatrix
+            = Matrix2d<double>::zeroM(_sequenceLength, _vocabSize);
         // cтавим единицу в уникальном месте,
         // ради идентификации буквы как вектора
         for (int i = 0; i < _sequenceLength; ++i) {
@@ -184,5 +171,5 @@ Matrix3d<T> CharAsVectorEmbedding<T>::genTextBatch(Matrix2d<T> indices)
         resBatchData.push_back(seqMatrix);
     }
 
-    return Matrix3d<T>(resBatchData);
+    return Matrix3d<double>(resBatchData);
 }
