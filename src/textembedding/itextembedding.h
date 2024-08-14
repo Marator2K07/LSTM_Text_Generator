@@ -41,13 +41,15 @@ public:
     /// \return текущий размер словаря
     virtual int vocabSize() const = 0;
     ///
-    /// \brief idxToChar геттер словаря индексов и букв для них
-    /// \return словарь индекс->буква
-    virtual QHash<int, char> idxToChar() const = 0;
+    /// \brief charForIndex получение чар символа по его индексу
+    /// \param index индекс для обработки словарем
+    /// \return чар символ по данному индексу
+    virtual char charForIndex(int index) const = 0;
     ///
-    /// \brief charToIdx геттер словаря букв и индексов для них
-    /// \return словарь буква->индекс
-    virtual QHash<char, int> charToIdx() const = 0;
+    /// \brief indexForChar получение индекса по переданному символу
+    /// \param symbol символ для обработки словарем
+    /// \return индекс для данного символа
+    virtual int indexForChar(char symbol) const = 0;
     ///
     /// \brief textToIndeces замена текста вектором индексов словаря
     /// \param text текст для анализа

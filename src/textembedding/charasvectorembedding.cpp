@@ -95,14 +95,14 @@ int CharAsVectorEmbedding::vocabSize() const
     return _vocabSize;
 }
 
-QHash<int, char> CharAsVectorEmbedding::idxToChar() const
+char CharAsVectorEmbedding::charForIndex(int index) const
 {
-    return _idxToChar;
+    return _idxToChar.value(index);
 }
 
-QHash<char, int> CharAsVectorEmbedding::charToIdx() const
+int CharAsVectorEmbedding::indexForChar(char symbol) const
 {
-    return _charToIdx;
+    return _charToIdx.value(symbol);
 }
 
 vector<int> CharAsVectorEmbedding::textToIndeces(const QString text)

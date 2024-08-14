@@ -49,8 +49,8 @@ public:
     int batchSize() const override;
     int sequenceLength() const override;
     int vocabSize() const override;
-    QHash<int, char> idxToChar() const override;
-    QHash<char, int> charToIdx() const override;
+    char charForIndex(int index) const override;
+    int indexForChar(char symbol) const override;
     vector<int> textToIndeces(const QString text) override;
     Matrix2d<double> genTextIndices(int startPos) override;
     Matrix3d<double> genTextBatch(Matrix2d<double> indices) override;
