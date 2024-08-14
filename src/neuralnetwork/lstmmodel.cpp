@@ -46,10 +46,10 @@ bool LSTMModel::operator==(const LSTMModel model)
         }
     }
     // если и тут все впорядке, то готовим данные для сравнения эмбеддинга
-    QList<int> thisIndeces = _embedding->idxToChar().keys();
-    QList<char> thisChars = _embedding->charToIdx().keys();
-    QList<int> otherIndeces = model._embedding->idxToChar().keys();
-    QList<char> otherChars = model._embedding->charToIdx().keys();
+    QList<int> thisIndeces = _embedding->indeces();
+    QList<char> thisChars = _embedding->symbols();
+    QList<int> otherIndeces = model._embedding->indeces();
+    QList<char> otherChars = model._embedding->symbols();
     // пытаемся сравнить
     try {
         for (int i = 0; i < _embedding->vocabSize(); ++i) {
@@ -133,8 +133,8 @@ void LSTMModel::save(const QString path, bool inNewFolder)
                   << _embedding->batchSize() << " "
                   << _embedding->sequenceLength() << " "
                   << _embedding->vocabSize() << endl;
-    QList<char> symbols = _embedding->charToIdx().keys();
-    QList<int> indeces = _embedding->charToIdx().values();
+    QList<char> symbols = _embedding->symbols();
+    QList<int> indeces = _embedding->indeces();
     for (int i = 0; i < _embedding->vocabSize(); ++i) {
         fileEmbedding << symbols[i] << indeces[i] << endl;
     }

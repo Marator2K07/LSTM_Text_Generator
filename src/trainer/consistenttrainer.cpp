@@ -146,7 +146,7 @@ void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
     mt19937 gen(rd());
     // вывод первого символа и предисловия:
     emit showLearningInfo(QString("sample["));
-    emit showLearningInfo(QString(_embedding->idxToChar().value(startCharIdx)));
+    emit showLearningInfo(QString(_embedding->charForIndex(startCharIdx)));
     while (true) {
         // начальная входная партия состоящая
         // из lastCharsIdxs.size() символов
@@ -173,7 +173,7 @@ void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
                                      lastSoftSymbolPred.end());
         // находим предсказанный индекс и его символ, пишем его в последовательность
         int chosenIndex = dist(gen);
-        char chosenSymbol = _embedding->idxToChar().value(chosenIndex);
+        char chosenSymbol = _embedding->charForIndex(chosenIndex);
         lastCharsIdxs.push_back(chosenIndex);
         // смотрим, превышен ли размер контекста
         if (lastCharsIdxs.size() > _sequenceLenght) {

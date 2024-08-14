@@ -40,17 +40,17 @@ void TestTextEmbedding::textFileProcessing()
         CharAsVectorEmbedding txtEmbed(QDir::currentPath());
         // результаты
         for (int i = 0; i < txtEmbed.text().size(); ++i) {
-            cout << txtEmbed.charToIdx().value(txtEmbed.text()[i].toLatin1()) << " ";
+            cout << txtEmbed.indexForChar(txtEmbed.text()[i].toLatin1()) << " ";
         }
-        QCOMPARE(txtEmbed.charToIdx().size(), txtEmbed.idxToChar().size());
-        QCOMPARE(txtEmbed.text().size() > txtEmbed.idxToChar().size(), true);
-        QCOMPARE(txtEmbed.text().size() > txtEmbed.charToIdx().size(), true);
-        QCOMPARE(txtEmbed.charToIdx()['1']
-                     == txtEmbed.charToIdx()[txtEmbed.idxToChar()[0]], true);
-        QCOMPARE(txtEmbed.charToIdx()['w']
-                     == txtEmbed.charToIdx()[txtEmbed.idxToChar()[2]], true);
-        QCOMPARE(txtEmbed.charToIdx()['f']
-                     == txtEmbed.charToIdx()[txtEmbed.idxToChar()[7]], false);
+        QCOMPARE(txtEmbed.indeces().size(), txtEmbed.symbols().size());
+        QCOMPARE(txtEmbed.text().size() > txtEmbed.indeces().size(), true);
+        QCOMPARE(txtEmbed.text().size() > txtEmbed.symbols().size(), true);
+        QCOMPARE(txtEmbed.indexForChar('1')
+                     == txtEmbed.indexForChar(txtEmbed.charForIndex(0)), true);
+        QCOMPARE(txtEmbed.indexForChar('w')
+                     == txtEmbed.indexForChar(txtEmbed.charForIndex(2)), true);
+        QCOMPARE(txtEmbed.indexForChar('f')
+                     == txtEmbed.indexForChar(txtEmbed.charForIndex(7)), false);
 
     } catch (const TextEmbeddingException &e) {
         cout << e.what() << endl;
@@ -89,14 +89,14 @@ void TestTextEmbedding::testGenTextEmbeddingIndices()
         Matrix2d<double> resIndices = txtEmbed.genTextIndices(0);
         QString str = "erin bow";
         for (int i= 0; i < str.size(); ++i) {
-            QCOMPARE(txtEmbed.idxToChar()[i], str[i].toLatin1());
+            QCOMPARE(txtEmbed.charForIndex(i), str[i].toLatin1());
         }
         // информация для анализа
-        QHashIterator<int, char> it(txtEmbed.idxToChar());
-        while (it.hasNext()) {
-            it.next();
-            cout << it.key() << ": " << it.value() << endl;
-        }
+//        QHashIterator<int, char> it(txtEmbed.idxToChar());
+//        while (it.hasNext()) {
+//            it.next();
+//            cout << it.key() << ": " << it.value() << endl;
+//        }
         resIndices.print();        
     } catch (const TextEmbeddingException &e) {
         cout << e.what() << endl;
