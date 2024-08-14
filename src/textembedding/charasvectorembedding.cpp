@@ -173,3 +173,13 @@ Matrix3d<double> CharAsVectorEmbedding::genTextBatch(Matrix2d<double> indices)
 
     return Matrix3d<double>(resBatchData);
 }
+
+QList<char> CharAsVectorEmbedding::symbols() const
+{
+    return _charToIdx.keys();
+}
+
+QList<int> CharAsVectorEmbedding::indeces() const
+{
+    return _idxToChar.keys();
+}

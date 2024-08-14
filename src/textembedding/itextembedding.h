@@ -51,6 +51,14 @@ public:
     /// \return индекс для данного символа
     virtual int indexForChar(char symbol) const = 0;
     ///
+    /// \brief symbols получение всех символов эмбеддинга
+    /// \return коллекция доступных символов
+    virtual QList<char> symbols() const = 0;
+    ///
+    /// \brief indeces получение всех индексов символов
+    /// \return коллекция доступных индексов символов
+    virtual QList<int> indeces() const = 0;
+    ///
     /// \brief textToIndeces замена текста вектором индексов словаря
     /// \param text текст для анализа
     /// \return вектор индексов(из словаря) букв текста
