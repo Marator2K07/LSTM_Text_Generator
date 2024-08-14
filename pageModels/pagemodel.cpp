@@ -66,7 +66,7 @@ void PageModel::generateWithModel()
     // только если прошлая генерация закончилась
     if (!_generateThread.isRunning()) {
         // преобразуем контекст в нужный вид
-        vector<int> convertedStr
+        QList<int> convertedStr
             = _neuralNetworkModel->embedding()->textToIndeces(
                 ui->sampleGenLineEdit->text()
                 );

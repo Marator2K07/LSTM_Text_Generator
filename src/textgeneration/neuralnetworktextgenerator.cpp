@@ -5,14 +5,14 @@
 NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(INeuralNetworkModel *neuralNetworkModel,
                                                        QObject *parent)
     : _neuralNetworkModel{neuralNetworkModel}
-    , _contextOnAssignment{vector<int>()}
+    , _contextOnAssignment{QList<int>()}
     , QObject{parent}
 {
 }
 
 NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(QObject *parent)
     : _neuralNetworkModel{nullptr}
-    , _contextOnAssignment{vector<int>()}
+    , _contextOnAssignment{QList<int>()}
     , QObject{parent}
 {
 }
@@ -30,7 +30,7 @@ void NeuralNetworkTextGenerator::setNeuralNetworkModel(INeuralNetworkModel *mode
 void NeuralNetworkTextGenerator::generate()
 {
     // формируем начальные условия на основе контекста
-    vector<int> lastCharsIdxs{_contextOnAssignment};
+    QList<int> lastCharsIdxs{_contextOnAssignment};
     // подготовка для будущей рандомизации
     random_device rd;
     mt19937 gen(rd());
@@ -91,7 +91,7 @@ void NeuralNetworkTextGenerator::generate()
     }
 }
 
-void NeuralNetworkTextGenerator::applyAssignmentForGenerate(vector<int> context)
+void NeuralNetworkTextGenerator::applyAssignmentForGenerate(QList<int> context)
 {
     _contextOnAssignment = context;
 }

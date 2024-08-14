@@ -66,11 +66,11 @@ void TestTextEmbedding::testTextToIndeces()
         QString strTwo = "some text";
         QString strError = "3853*&54";
         // результаты
-        vector<int> resIndicesOne = txtEmbed.textToIndeces(strOne);
-        vector<int> resIndicesTwo = txtEmbed.textToIndeces(strTwo);
-        vector<int> resIndicesError = txtEmbed.textToIndeces(strError);
-        vector<int> resProperIndicesOne{0,1,2,3,4,5,6,7};
-        vector<int> resProperIndicesTwo{22,6,13,0,4,12,0,33,12};
+        QList<int> resIndicesOne = txtEmbed.textToIndeces(strOne);
+        QList<int> resIndicesTwo = txtEmbed.textToIndeces(strTwo);
+        QList<int> resIndicesError = txtEmbed.textToIndeces(strError);
+        QList<int> resProperIndicesOne{0,1,2,3,4,5,6,7};
+        QList<int> resProperIndicesTwo{22,6,13,0,4,12,0,33,12};
 
         QCOMPARE(resIndicesOne, resProperIndicesOne);
         QCOMPARE(resIndicesTwo, resProperIndicesTwo);

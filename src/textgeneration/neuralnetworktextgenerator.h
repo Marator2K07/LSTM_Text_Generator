@@ -17,7 +17,7 @@ private:
     INeuralNetworkModel *_neuralNetworkModel;
 
     // поле для работы метода generation в отдельном потоке
-    vector<int> _contextOnAssignment; // полученный контекст по заданию
+    QList<int> _contextOnAssignment; // полученный контекст по заданию
 
 public:
     explicit NeuralNetworkTextGenerator(INeuralNetworkModel *neuralNetworkModel,
@@ -33,7 +33,7 @@ public:
 public slots:
     // ITextGeneration interface
     void generate() override;
-    void applyAssignmentForGenerate(vector<int> context) override;
+    void applyAssignmentForGenerate(QList<int> context) override;
     //
 
 signals:
