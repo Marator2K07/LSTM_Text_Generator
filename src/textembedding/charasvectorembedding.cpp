@@ -105,10 +105,10 @@ int CharAsVectorEmbedding::indexForChar(char symbol) const
     return _charToIdx.value(symbol);
 }
 
-vector<int> CharAsVectorEmbedding::textToIndeces(const QString text)
+QList<int> CharAsVectorEmbedding::textToIndeces(const QString text)
 {
     // подготовка
-    vector<int> resultIndeces;
+    QList<int> resultIndeces;
     // проходимся по тексту:
     for (int i = 0; i < text.size(); ++i) {
         char currentSymbol = text[i].toLower().toLatin1();

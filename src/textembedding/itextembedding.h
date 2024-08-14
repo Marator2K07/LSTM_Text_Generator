@@ -61,8 +61,8 @@ public:
     ///
     /// \brief textToIndeces замена текста вектором индексов словаря
     /// \param text текст для анализа
-    /// \return вектор индексов(из словаря) букв текста
-    virtual vector<int> textToIndeces(const QString text) = 0;
+    /// \return список индексов(из словаря) букв текста
+    virtual QList<int> textToIndeces(const QString text) = 0;
     ///
     /// \brief genTextIndices генерация 2д матрицы
     /// индексов символов для заданного текста
