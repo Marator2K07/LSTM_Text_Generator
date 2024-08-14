@@ -40,12 +40,6 @@ private slots:
     /// нейронной сети из списка представления типа list view
     /// \param index выбранный индекс модели в представлении
     void selectNeuralNetworkModel(QModelIndex index);
-    ///
-    /// \brief strToVector преобразование строки в вектор
-    /// на основе индексов словаря эмбеддинга модели нейронной сети
-    /// \param str строка для преобразования
-    /// \return представление строки в виде вектора
-    void stringToVector(const QString str);
 
     void generateWithModel();
 

@@ -61,13 +61,6 @@ void PageModel::selectNeuralNetworkModel(QModelIndex index)
     emit neuralNetworkModelChanged();
 }
 
-void PageModel::stringToVector(const QString str)
-{
-    vector<int> convertedStr
-        = _neuralNetworkModel->embedding()->textToIndeces(str);
-
-}
-
 void PageModel::generateWithModel()
 {
     // только если прошлая генерация закончилась
