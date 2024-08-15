@@ -42,6 +42,11 @@ public:
                           int sequenceLength = 16,
                           int batchSize = 32);
 
+    // списки недостумых символов в обучающих данных
+    static QList<QChar> INVALID_CHARACTERS_WITH_REPLACE;
+    static QList<QChar> INVALID_CHARACTERS_WITHOUT_REPLACE;
+    //
+
 public:
     // ITextEmbedding interface
     QString text() const override;
