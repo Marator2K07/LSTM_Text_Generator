@@ -24,6 +24,10 @@ private slots:
     /// текста в индексы из словаря
     void testTextToIndeces();
     ///
+    /// \brief testCorrectRemoveInvalidSymbols
+    /// тестирование чистки некорректных символов из обучающих данных
+    void testCorrectRemoveInvalidSymbols();
+    ///
     /// \brief testGenTextEmbeddingIndices
     /// тестирование генерации индексов символов в матрицу
     void testGenTextEmbeddingIndices();
@@ -74,6 +78,20 @@ void TestTextEmbedding::testTextToIndeces()
 
         QCOMPARE(resIndicesOne, resProperIndicesOne);
         QCOMPARE(resIndicesTwo, resProperIndicesTwo);
+    } catch (const TextEmbeddingException &e) {
+        cout << e.what() << endl;
+    }
+}
+
+void TestTextEmbedding::testCorrectRemoveInvalidSymbols()
+{
+    try {
+        // инициализация
+        CharAsVectorEmbedding txtEmbed("text_with_invalid_symbols.txt", 16, 32);
+        QString testStr = "The quick brown fox jumps over the lazy dog."
+                          " Practice makes perfect. Actions speak louder than words.";
+        // результаты
+        QCOMPARE(testStr, txtEmbed.text());
     } catch (const TextEmbeddingException &e) {
         cout << e.what() << endl;
     }
