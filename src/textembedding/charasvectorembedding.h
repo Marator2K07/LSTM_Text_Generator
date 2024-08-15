@@ -31,6 +31,12 @@ private:
     /// + словарей символа к индексу и наоборот
     /// \param fileName полученный из файла текст
     void processTheFile(QString fileName);
+    ///
+    /// \brief removeInvalidCharacters
+    /// чистка из текста, мешающих для обучения символов
+    /// \param text текст для анализа
+    /// \return обработанный текст
+    QString removeInvalidCharacters(const QString &text) const;
 
 public:
     CharAsVectorEmbedding(QString filePath,

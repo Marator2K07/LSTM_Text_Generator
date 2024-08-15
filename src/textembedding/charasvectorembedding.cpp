@@ -5,7 +5,7 @@
 QList<QChar> CharAsVectorEmbedding::INVALID_CHARACTERS_WITHOUT_REPLACE {
     '~', '`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
     '@', '$', '%', '^', '&', '*', '+', '-', '_', '=', '#',
-    '{', '}', '[', ']', '/', '\'', '|', ':'
+    '{', '}', '[', ']', '/', '\'', '|', ':', '"'
 };
 
 QList<QChar> CharAsVectorEmbedding::INVALID_CHARACTERS_WITH_REPLACE {
@@ -51,8 +51,45 @@ void CharAsVectorEmbedding::processTheFile(QString fileName)
             }
         }
     }
-    _text = QString(filedata);
+    _text = removeInvalidCharacters(QString(filedata));
     _vocabSize = _charToIdx.size();
+}
+
+QString CharAsVectorEmbedding::removeInvalidCharacters(const QString &text) const
+{
+    // подготовка
+    long long index = -1;
+    QString result{text};
+    QString doubleSpace("  ");
+    // первичная обработка на символы без замены
+    for (const QChar &symbol : INVALID_CHARACTERS_WITHOUT_REPLACE) {
+        // пытаемся найти
+        index = result.indexOf(symbol);
+        // пока такой символ существует
+        while (index != -1) {
+            result.removeAt(index);
+            index = result.indexOf(symbol);
+        }
+    }
+    // вторичная обработка на символы с заменой
+    for (const QChar &symbol : INVALID_CHARACTERS_WITH_REPLACE) {
+        // пытаемся найти
+        index = result.indexOf(symbol);
+        // пока такой символ существует
+        while (index != -1) {
+            result.replace(index, 1, QChar('.'));
+            index = result.indexOf(symbol);
+        }
+    }
+    // проверка на двойной пробел
+    index = result.indexOf(doubleSpace);
+    // удаляем лишний пробел
+    while (index != -1) {
+        result.removeAt(index);
+        index = result.indexOf(doubleSpace);
+    }
+
+    return result;
 }
 
 CharAsVectorEmbedding::CharAsVectorEmbedding(QString filePath,
