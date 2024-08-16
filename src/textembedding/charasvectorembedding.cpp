@@ -14,6 +14,7 @@ QList<QChar> CharAsVectorEmbedding::INVALID_CHARACTERS_WITH_REPLACE {
 
 void CharAsVectorEmbedding::processTheFile(QString fileName)
 {
+    // подготовка
     QFile file(fileName);
     QByteArray filedata;
     // пытаемся открыть файл
@@ -25,33 +26,22 @@ void CharAsVectorEmbedding::processTheFile(QString fileName)
     }
     // заполняем оставшиеся поля класса
     filedata = file.readAll();
+    QString curText = removeInvalidCharacters(QString(filedata));
     unsigned long index = 0;
-    for (unsigned long i = 0; i < filedata.length(); ++i) {
-        // буква со сдвигом
-        char shiftChar = filedata.at(i)+_letterShift;
-        // проверяем промежутки
-        if (!_charToIdx.contains(shiftChar) &&
-            !_charToIdx.contains(filedata.at(i))) {
-            // если буква является английской заглавной
-            if (filedata.at(i) >= _letterAIdx &&
-                _letterZIdx >= filedata.at(i)) {
-                cout << shiftChar << endl;
-                _charToIdx.insert(shiftChar, index);
-                _idxToChar.insert(index, shiftChar);
-                index++;
-                continue;
-            }
-            // остальные символы кроме заглавных англ. букв
-            if (_rightIdxBorder >= filedata.at(i) &&
-                _leftIdxBorder <= filedata.at(i)) {
-                cout << filedata.at(i) << endl;
-                _charToIdx.insert(filedata.at(i), index);
-                _idxToChar.insert(index, filedata.at(i));
-                index++;
-            }
+    for (unsigned long i = 0; i < curText.length(); ++i) {
+        // определяем текущую букву
+        QChar curChar(curText.at(i));
+        if (curChar.isUpper()) {
+            curChar = curChar.toLower();
+        }
+        // проверяем символ на наличие в словаре
+        if (!_charToIdx.contains(curChar)) {
+            _charToIdx.insert(curChar, index);
+            _idxToChar.insert(index, curChar);
+            index++;
         }
     }
-    _text = removeInvalidCharacters(QString(filedata));
+    _text = curText;
     _vocabSize = _charToIdx.size();
 }
 
@@ -158,7 +148,7 @@ QList<int> CharAsVectorEmbedding::textToIndeces(const QString text)
     QList<int> resultIndeces;
     // проходимся по тексту:
     for (int i = 0; i < text.size(); ++i) {
-        char currentSymbol = text[i].toLower().toLatin1();
+        QChar currentSymbol = text[i].toLower();
         // если эмбеддинг не содержит в словаре текущего символа
         if (!_charToIdx.contains(currentSymbol)) {
             throw TextEmbeddingException(
@@ -193,7 +183,7 @@ Matrix2d<double> CharAsVectorEmbedding::genTextIndices(int startPos)
             textIndices.setValue(
                 i,
                 k++,
-                _charToIdx[currentSymbol.toLatin1()]
+                _charToIdx[currentSymbol]
             );
         }
     }
