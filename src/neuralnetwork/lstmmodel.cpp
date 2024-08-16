@@ -183,8 +183,8 @@ void LSTMModel::load(const QString path)
             );
     }
     // готовим данные для конструктора эмбеддинга
-    QHash<int, char> idxToChar;
-    QHash<char, int> charToIdx;
+    QHash<int, QChar> idxToChar;
+    QHash<QChar, int> charToIdx;
     string filePath;
     int sequenceLength;
     int batchSize;
@@ -198,14 +198,15 @@ void LSTMModel::load(const QString path)
         rowStreamMain >> filePath >> batchSize >> sequenceLength;
         // заполняем словари        
         while (getline(fileEmbeddingStream, line)) {
-            istringstream rowStream(line);
+            QString curQText(QString::fromStdString(line));
+            QTextStream rowStream(&curQText);
             // считываем данные строки
-            char symbol;
+            QChar symbol;
             int index;
-            rowStream >> noskipws >> symbol >> index;
+            rowStream >> symbol >> index;
             // и пишем их в словари
-            idxToChar.insert(index, symbol);
-            charToIdx.insert(symbol, index);
+            idxToChar.insert(index, QChar(symbol));
+            charToIdx.insert(QChar(symbol), index);
         }
         // создаем эмбеддинг на основе данных
         _embedding = new CharAsVectorEmbedding(
