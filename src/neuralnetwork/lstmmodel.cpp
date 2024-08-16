@@ -120,23 +120,23 @@ void LSTMModel::save(const QString path, bool inNewFolder)
                                 .arg(_name, EMBEDDING_DATA_NAME);
     }
     // пытаемся открыть файл для сохранения в новой папке данных о текущем эмбеддинге
-    ofstream fileEmbedding;
-    fileEmbedding.open(fileNameEmbedding.toStdString());
-    if (!fileEmbedding.is_open()) {
+    QFile fileEmbedding(fileNameEmbedding);
+    if (!fileEmbedding.open(QIODevice::WriteOnly | QIODevice::Text)) {
         throw NeuralNetworkException(
             QString("Catch neural network model saving embedding data exception:\n[%1]\n")
                 .arg("Failed to open file")
             );
-    }
+    }    
     // пишем главную эмбеддинговую информацию
-    fileEmbedding << _embedding->filePath().toStdString() << " "
-                  << _embedding->batchSize() << " "
-                  << _embedding->sequenceLength() << " "
-                  << _embedding->vocabSize() << endl;
-    QList<char> symbols = _embedding->symbols();
+    QTextStream embeddingStream(&fileEmbedding);
+    embeddingStream << _embedding->filePath() << " "
+                    << _embedding->batchSize() << " "
+                    << _embedding->sequenceLength() << " "
+                    << _embedding->vocabSize() << "\n";
+    QList<QChar> symbols = _embedding->symbols();
     QList<int> indeces = _embedding->indeces();
     for (int i = 0; i < _embedding->vocabSize(); ++i) {
-        fileEmbedding << symbols[i] << indeces[i] << endl;
+        embeddingStream << symbols[i] << indeces[i] << "\n";
     }
     // закрываем файл
     fileEmbedding.close();
