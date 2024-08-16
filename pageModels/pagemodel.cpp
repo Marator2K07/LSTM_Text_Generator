@@ -109,6 +109,8 @@ PageModel::PageModel(QWidget *parent)
             this, SLOT(selectNeuralNetworkModel(QModelIndex)));
     connect(ui->genSampleButton, SIGNAL(pressed()),
             this, SLOT(generateWithModel()));
+    connect(ui->cleanLogButton, SIGNAL(pressed()),
+            ui->sampleOutputText, SLOT(clear()));
     connect(this, SIGNAL(neuralNetworkModelChanged()),
             this, SLOT(adaptFormElements()));
     connect(_textGenerator, SIGNAL(showGenerationInfo(QString)),
