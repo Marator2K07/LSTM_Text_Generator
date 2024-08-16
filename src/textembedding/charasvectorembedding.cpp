@@ -93,8 +93,8 @@ QString CharAsVectorEmbedding::removeInvalidCharacters(const QString &text) cons
 }
 
 CharAsVectorEmbedding::CharAsVectorEmbedding(QString filePath,
-                                             QHash<int, char> idxToChar,
-                                             QHash<char, int> charToIdx,
+                                             QHash<int, QChar> idxToChar,
+                                             QHash<QChar, int> charToIdx,
                                              int sequenceLength,
                                              int batchSize)
     : _filePath{filePath}
@@ -142,12 +142,12 @@ int CharAsVectorEmbedding::vocabSize() const
     return _vocabSize;
 }
 
-char CharAsVectorEmbedding::charForIndex(int index) const
+QChar CharAsVectorEmbedding::charForIndex(int index) const
 {
     return _idxToChar.value(index);
 }
 
-int CharAsVectorEmbedding::indexForChar(char symbol) const
+int CharAsVectorEmbedding::indexForChar(QChar symbol) const
 {
     return _charToIdx.value(symbol);
 }
@@ -221,7 +221,7 @@ Matrix3d<double> CharAsVectorEmbedding::genTextBatch(Matrix2d<double> indices)
     return Matrix3d<double>(resBatchData);
 }
 
-QList<char> CharAsVectorEmbedding::symbols() const
+QList<QChar> CharAsVectorEmbedding::symbols() const
 {
     return _charToIdx.keys();
 }
