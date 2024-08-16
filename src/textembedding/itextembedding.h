@@ -44,16 +44,16 @@ public:
     /// \brief charForIndex получение чар символа по его индексу
     /// \param index индекс для обработки словарем
     /// \return чар символ по данному индексу
-    virtual char charForIndex(int index) const = 0;
+    virtual QChar charForIndex(int index) const = 0;
     ///
     /// \brief indexForChar получение индекса по переданному символу
     /// \param symbol символ для обработки словарем
     /// \return индекс для данного символа
-    virtual int indexForChar(char symbol) const = 0;
+    virtual int indexForChar(QChar symbol) const = 0;
     ///
     /// \brief symbols получение всех символов эмбеддинга
     /// \return коллекция доступных символов
-    virtual QList<char> symbols() const = 0;
+    virtual QList<QChar> symbols() const = 0;
     ///
     /// \brief indeces получение всех индексов символов
     /// \return коллекция доступных индексов символов
