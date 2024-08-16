@@ -12,16 +12,11 @@ class CharAsVectorEmbedding : public ITextEmbedding
 private:
     QString _text;
     QString _filePath;
-    QHash<int, char> _idxToChar;
-    QHash<char, int> _charToIdx;
+    QHash<int, QChar> _idxToChar;
+    QHash<QChar, int> _charToIdx;
     int _batchSize; // размер партии символов текста
     int _sequenceLength; // макс. длина последовательности для партии
     int _vocabSize; // найденный размер словаря
-    int _leftIdxBorder = 32; // крайняя левая граница доступных индексов
-    int _rightIdxBorder = 127; // крайняя прав. граница доступных индексов
-    int _letterAIdx = 65; // индекс заглавной буквы А
-    int _letterZIdx = 90; // индекс заглавной буквы Z
-    int _letterShift = 32; // сдвиг буквы от заглавной к прописной
 
 private:
     ///
@@ -40,8 +35,8 @@ private:
 
 public:
     CharAsVectorEmbedding(QString filePath,
-                          QHash<int, char> idxToChar,
-                          QHash<char, int> charToIdx,
+                          QHash<int, QChar> idxToChar,
+                          QHash<QChar, int> charToIdx,
                           int sequenceLength,
                           int batchSize);
     CharAsVectorEmbedding(QString fullFilePath,
@@ -60,9 +55,9 @@ public:
     int batchSize() const override;
     int sequenceLength() const override;
     int vocabSize() const override;
-    char charForIndex(int index) const override;
-    int indexForChar(char symbol) const override;
-    QList<char> symbols() const override;
+    QChar charForIndex(int index) const override;
+    int indexForChar(QChar symbol) const override;
+    QList<QChar> symbols() const override;
     QList<int> indeces() const override;
     QList<int> textToIndeces(const QString text) override;
     Matrix2d<double> genTextIndices(int startPos) override;
