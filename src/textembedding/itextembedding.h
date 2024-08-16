@@ -1,11 +1,10 @@
 #ifndef ITEXTEMBEDDING_H
 #define ITEXTEMBEDDING_H
 
-#include <QDir>
-#include <QMap>
-#include <QFile>
 #include <QByteArray>
-#include <vector>
+#include <QFile>
+#include <QHash>
+#include <QDir>
 
 #include "textembeddingexception.h"
 #include "matrix2d.h"
@@ -18,7 +17,6 @@ using namespace std;
 /// определение функциональности преобразователя
 /// текста в математическое представление
 /// (набор вложенных векторов - или матрицы)
-template<typename T>
 class ITextEmbedding
 {
 public:
@@ -43,30 +41,40 @@ public:
     /// \return текущий размер словаря
     virtual int vocabSize() const = 0;
     ///
-    /// \brief idxToChar геттер словаря индексов и букв для них
-    /// \return словарь индекс->буква
-    virtual QMap<int, char> idxToChar() const = 0;
+    /// \brief charForIndex получение чар символа по его индексу
+    /// \param index индекс для обработки словарем
+    /// \return чар символ по данному индексу
+    virtual QChar charForIndex(int index) const = 0;
     ///
-    /// \brief charToIdx геттер словаря букв и индексов для них
-    /// \return словарь буква->индекс
-    virtual QMap<char, int> charToIdx() const = 0;
+    /// \brief indexForChar получение индекса по переданному символу
+    /// \param symbol символ для обработки словарем
+    /// \return индекс для данного символа
+    virtual int indexForChar(QChar symbol) const = 0;
+    ///
+    /// \brief symbols получение всех символов эмбеддинга
+    /// \return коллекция доступных символов
+    virtual QList<QChar> symbols() const = 0;
+    ///
+    /// \brief indeces получение всех индексов символов
+    /// \return коллекция доступных индексов символов
+    virtual QList<int> indeces() const = 0;
     ///
     /// \brief textToIndeces замена текста вектором индексов словаря
     /// \param text текст для анализа
-    /// \return вектор индексов(из словаря) букв текста
-    virtual vector<int> textToIndeces(const QString text) = 0;
+    /// \return список индексов(из словаря) букв текста
+    virtual QList<int> textToIndeces(const QString text) = 0;
     ///
     /// \brief genTextIndices генерация 2д матрицы
     /// индексов символов для заданного текста
     /// \param startPos точка старта генерации
     /// \return 2д матрица с индексами символов текста
-    virtual Matrix2d<T> genTextIndices(int startPos) = 0;
+    virtual Matrix2d<double> genTextIndices(int startPos) = 0;
     ///
     /// \brief genTextBatch генерация партии (3д матрицы)
     /// представлений символов для заданного текста
     /// \param indices 2д матрица индексов символов текста
     /// \return 3д матрица с матем. представлениями символов текста
-    virtual Matrix3d<T> genTextBatch(Matrix2d<T> indices) = 0;
+    virtual Matrix3d<double> genTextBatch(Matrix2d<double> indices) = 0;
 
 public:
     virtual ~ITextEmbedding() {}

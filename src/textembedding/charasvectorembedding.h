@@ -7,22 +7,16 @@
 /// \brief The CharAsVectorEmbedding class
 /// классический эмбеддинг с представлением символа
 /// как массива(вектора) цирф и размером в длину словаря
-template<typename T>
-class CharAsVectorEmbedding : public ITextEmbedding<T>
+class CharAsVectorEmbedding : public ITextEmbedding
 {
 private:
     QString _text;
     QString _filePath;
-    QMap<int, char> _idxToChar;
-    QMap<char, int> _charToIdx;
+    QHash<int, QChar> _idxToChar;
+    QHash<QChar, int> _charToIdx;
     int _batchSize; // размер партии символов текста
     int _sequenceLength; // макс. длина последовательности для партии
     int _vocabSize; // найденный размер словаря
-    int _leftIdxBorder = 32; // крайняя левая граница доступных индексов
-    int _rightIdxBorder = 127; // крайняя прав. граница доступных индексов
-    int _letterAIdx = 65; // индекс заглавной буквы А
-    int _letterZIdx = 90; // индекс заглавной буквы Z
-    int _letterShift = 32; // сдвиг буквы от заглавной к прописной
 
 private:
     ///
@@ -32,16 +26,27 @@ private:
     /// + словарей символа к индексу и наоборот
     /// \param fileName полученный из файла текст
     void processTheFile(QString fileName);
+    ///
+    /// \brief removeInvalidCharacters
+    /// чистка из текста, мешающих для обучения символов
+    /// \param text текст для анализа
+    /// \return обработанный текст
+    QString removeInvalidCharacters(const QString &text) const;
 
 public:
     CharAsVectorEmbedding(QString filePath,
-                          QMap<int, char> idxToChar,
-                          QMap<char, int> charToIdx,
+                          QHash<int, QChar> idxToChar,
+                          QHash<QChar, int> charToIdx,
                           int sequenceLength,
                           int batchSize);
     CharAsVectorEmbedding(QString fullFilePath,
                           int sequenceLength = 16,
                           int batchSize = 32);
+
+    // списки недостумых символов в обучающих данных
+    static QList<QChar> INVALID_CHARACTERS_WITH_REPLACE;
+    static QList<QChar> INVALID_CHARACTERS_WITHOUT_REPLACE;
+    //
 
 public:
     // ITextEmbedding interface
@@ -50,11 +55,13 @@ public:
     int batchSize() const override;
     int sequenceLength() const override;
     int vocabSize() const override;
-    QMap<int, char> idxToChar() const override;
-    QMap<char, int> charToIdx() const override;
-    vector<int> textToIndeces(const QString text) override;
-    Matrix2d<T> genTextIndices(int startPos) override;
-    Matrix3d<T> genTextBatch(Matrix2d<T> indices) override;
+    QChar charForIndex(int index) const override;
+    int indexForChar(QChar symbol) const override;
+    QList<QChar> symbols() const override;
+    QList<int> indeces() const override;
+    QList<int> textToIndeces(const QString text) override;
+    Matrix2d<double> genTextIndices(int startPos) override;
+    Matrix3d<double> genTextBatch(Matrix2d<double> indices) override;
     //
 
 };

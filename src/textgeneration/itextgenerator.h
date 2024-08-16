@@ -33,7 +33,7 @@ public:
     /// \brief applyAssignmentForTrain слот применения всех необходимых
     /// параметров для начала корректной генерации текста на основе обученной модели
     /// \param context переданный текст(контекст) для генерации
-    virtual void applyAssignmentForGenerate(vector<int> context) = 0;
+    virtual void applyAssignmentForGenerate(QList<int> context) = 0;
 
 protected:
     ///

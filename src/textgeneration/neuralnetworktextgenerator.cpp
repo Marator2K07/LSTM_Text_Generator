@@ -5,14 +5,14 @@
 NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(INeuralNetworkModel *neuralNetworkModel,
                                                        QObject *parent)
     : _neuralNetworkModel{neuralNetworkModel}
-    , _contextOnAssignment{vector<int>()}
+    , _contextOnAssignment{QList<int>()}
     , QObject{parent}
 {
 }
 
 NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(QObject *parent)
     : _neuralNetworkModel{nullptr}
-    , _contextOnAssignment{vector<int>()}
+    , _contextOnAssignment{QList<int>()}
     , QObject{parent}
 {
 }
@@ -30,14 +30,14 @@ void NeuralNetworkTextGenerator::setNeuralNetworkModel(INeuralNetworkModel *mode
 void NeuralNetworkTextGenerator::generate()
 {
     // формируем начальные условия на основе контекста
-    vector<int> lastCharsIdxs{_contextOnAssignment};
+    QList<int> lastCharsIdxs{_contextOnAssignment};
     // подготовка для будущей рандомизации
     random_device rd;
     mt19937 gen(rd());
     // генерация начального контекста
     for (int simbolIndex : _contextOnAssignment) {
-        char symbol = _neuralNetworkModel->embedding()
-                          ->idxToChar().value(simbolIndex);
+        QChar symbol = _neuralNetworkModel->embedding()
+                           ->charForIndex(simbolIndex);
         emit showGenerationInfo(QString(symbol));
     }
     // генерация символов:
@@ -72,8 +72,8 @@ void NeuralNetworkTextGenerator::generate()
                                      lastSoftSymbolPred.end());
         // находим предсказанный индекс и его символ, пишем его в последовательность
         int chosenIndex = dist(gen);
-        char chosenSymbol = _neuralNetworkModel->embedding()
-                                ->idxToChar().value(chosenIndex);
+        QChar chosenSymbol = _neuralNetworkModel->embedding()
+                                 ->charForIndex(chosenIndex);
         lastCharsIdxs.push_back(chosenIndex);
         // смотрим, превышен ли размер контекста
         if (lastCharsIdxs.size() > _neuralNetworkModel->embedding()
@@ -91,7 +91,7 @@ void NeuralNetworkTextGenerator::generate()
     }
 }
 
-void NeuralNetworkTextGenerator::applyAssignmentForGenerate(vector<int> context)
+void NeuralNetworkTextGenerator::applyAssignmentForGenerate(QList<int> context)
 {
     _contextOnAssignment = context;
 }

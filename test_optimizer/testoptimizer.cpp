@@ -7,7 +7,6 @@
 #include "lstmlayer.h"
 #include "softmaxcrossentropyloss.h"
 #include "charasvectorembedding.h"
-#include "charasvectorembedding.cpp"
 
 using namespace std;
 
@@ -34,8 +33,8 @@ void TestOptimizer::testSGDOptimizer()
     int hiddenSize = 111;
     int batchSize = 12;
     int sequenceLenght = 22;
-    CharAsVectorEmbedding<double> *txtEmbed
-        = new CharAsVectorEmbedding<double>("Plain_Kate.txt", sequenceLenght, batchSize);
+    CharAsVectorEmbedding *txtEmbed
+        = new CharAsVectorEmbedding("Plain_Kate.txt", sequenceLenght, batchSize);
     LSTMModel lstmModel("LSTMModelSGD",
                         new SoftmaxCrossEntropyLoss(),
                         txtEmbed,
@@ -78,8 +77,8 @@ void TestOptimizer::testAdaGradOptimizer()
     int hiddenSize = 128;
     int batchSize = 16;
     int sequenceLenght = 12;
-    CharAsVectorEmbedding<double> *txtEmbed
-        = new CharAsVectorEmbedding<double>("Plain_Kate.txt", sequenceLenght, batchSize);
+    CharAsVectorEmbedding *txtEmbed
+        = new CharAsVectorEmbedding("Plain_Kate.txt", sequenceLenght, batchSize);
     LSTMModel lstmModel("LSTMModelAdaGrad",
                         new SoftmaxCrossEntropyLoss(),
                         txtEmbed,

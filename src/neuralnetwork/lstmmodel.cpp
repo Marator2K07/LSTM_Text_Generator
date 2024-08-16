@@ -1,12 +1,12 @@
 #include "lstmmodel.h"
-#include "charasvectorembedding.cpp"
+#include "matrix3d.cpp"
 
 QString LSTMModel::LAYERS_DATA_NAME = "layersData";
 QString LSTMModel::EMBEDDING_DATA_NAME = "embeddingData";
 
 LSTMModel::LSTMModel(QString name,
                      ILoss *loss,
-                     ITextEmbedding<double> *embedding,
+                     ITextEmbedding *embedding,
                      QList<INeuralNetworkLayer *> layers)
     : _name{name}
     , _loss{loss}
@@ -46,10 +46,10 @@ bool LSTMModel::operator==(const LSTMModel model)
         }
     }
     // если и тут все впорядке, то готовим данные для сравнения эмбеддинга
-    QList<int> thisIndeces = _embedding->idxToChar().keys();
-    QList<char> thisChars = _embedding->charToIdx().keys();
-    QList<int> otherIndeces = model._embedding->idxToChar().keys();
-    QList<char> otherChars = model._embedding->charToIdx().keys();
+    QList<int> thisIndeces = _embedding->indeces();
+    QList<QChar> thisChars = _embedding->symbols();
+    QList<int> otherIndeces = model._embedding->indeces();
+    QList<QChar> otherChars = model._embedding->symbols();
     // пытаемся сравнить
     try {
         for (int i = 0; i < _embedding->vocabSize(); ++i) {
@@ -120,23 +120,23 @@ void LSTMModel::save(const QString path, bool inNewFolder)
                                 .arg(_name, EMBEDDING_DATA_NAME);
     }
     // пытаемся открыть файл для сохранения в новой папке данных о текущем эмбеддинге
-    ofstream fileEmbedding;
-    fileEmbedding.open(fileNameEmbedding.toStdString());
-    if (!fileEmbedding.is_open()) {
+    QFile fileEmbedding(fileNameEmbedding);
+    if (!fileEmbedding.open(QIODevice::WriteOnly | QIODevice::Text)) {
         throw NeuralNetworkException(
             QString("Catch neural network model saving embedding data exception:\n[%1]\n")
                 .arg("Failed to open file")
             );
-    }
+    }    
     // пишем главную эмбеддинговую информацию
-    fileEmbedding << _embedding->filePath().toStdString() << " "
-                  << _embedding->batchSize() << " "
-                  << _embedding->sequenceLength() << " "
-                  << _embedding->vocabSize() << endl;
-    QList<char> symbols = _embedding->charToIdx().keys();
-    QList<int> indeces = _embedding->charToIdx().values();
+    QTextStream embeddingStream(&fileEmbedding);
+    embeddingStream << _embedding->filePath() << " "
+                    << _embedding->batchSize() << " "
+                    << _embedding->sequenceLength() << " "
+                    << _embedding->vocabSize() << "\n";
+    QList<QChar> symbols = _embedding->symbols();
+    QList<int> indeces = _embedding->indeces();
     for (int i = 0; i < _embedding->vocabSize(); ++i) {
-        fileEmbedding << symbols[i] << indeces[i] << endl;
+        embeddingStream << symbols[i] << indeces[i] << "\n";
     }
     // закрываем файл
     fileEmbedding.close();
@@ -183,8 +183,8 @@ void LSTMModel::load(const QString path)
             );
     }
     // готовим данные для конструктора эмбеддинга
-    QMap<int, char> idxToChar;
-    QMap<char, int> charToIdx;
+    QHash<int, QChar> idxToChar;
+    QHash<QChar, int> charToIdx;
     string filePath;
     int sequenceLength;
     int batchSize;
@@ -198,17 +198,18 @@ void LSTMModel::load(const QString path)
         rowStreamMain >> filePath >> batchSize >> sequenceLength;
         // заполняем словари        
         while (getline(fileEmbeddingStream, line)) {
-            istringstream rowStream(line);
+            QString curQText(QString::fromStdString(line));
+            QTextStream rowStream(&curQText);
             // считываем данные строки
-            char symbol;
+            QChar symbol;
             int index;
-            rowStream >> noskipws >> symbol >> index;
+            rowStream >> symbol >> index;
             // и пишем их в словари
-            idxToChar.insert(index, symbol);
-            charToIdx.insert(symbol, index);
+            idxToChar.insert(index, QChar(symbol));
+            charToIdx.insert(QChar(symbol), index);
         }
         // создаем эмбеддинг на основе данных
-        _embedding = new CharAsVectorEmbedding<double>(
+        _embedding = new CharAsVectorEmbedding(
             QString::fromStdString(filePath),
             idxToChar, charToIdx,
             sequenceLength, batchSize
@@ -239,7 +240,7 @@ int LSTMModel::power() const
     return totalLayersPower * _embedding->batchSize();
 }
 
-ITextEmbedding<double> *LSTMModel::embedding() const
+ITextEmbedding *LSTMModel::embedding() const
 {
     return _embedding;
 }

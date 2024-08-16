@@ -2,9 +2,19 @@
 #include "matrix2d.cpp"
 #include "matrix3d.cpp"
 
-template<typename T>
-void CharAsVectorEmbedding<T>::processTheFile(QString fileName)
+QList<QChar> CharAsVectorEmbedding::INVALID_CHARACTERS_WITHOUT_REPLACE {
+    '~', '`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+    '@', '$', '%', '^', '&', '*', '+', '-', '_', '=', '#',
+    '{', '}', '[', ']', '/', '\'', '|', ':', '"'
+};
+
+QList<QChar> CharAsVectorEmbedding::INVALID_CHARACTERS_WITH_REPLACE {
+    '!', '?', ';'
+};
+
+void CharAsVectorEmbedding::processTheFile(QString fileName)
 {
+    // подготовка
     QFile file(fileName);
     QByteArray filedata;
     // пытаемся открыть файл
@@ -16,42 +26,67 @@ void CharAsVectorEmbedding<T>::processTheFile(QString fileName)
     }
     // заполняем оставшиеся поля класса
     filedata = file.readAll();
+    QString curText = removeInvalidCharacters(QString(filedata));
     unsigned long index = 0;
-    for (unsigned long i = 0; i < filedata.length(); ++i) {
-        // буква со сдвигом
-        char shiftChar = filedata.at(i)+_letterShift;
-        // проверяем промежутки
-        if (!_charToIdx.contains(shiftChar) &&
-            !_charToIdx.contains(filedata.at(i))) {
-            // если буква является английской заглавной
-            if (filedata.at(i) >= _letterAIdx &&
-                _letterZIdx >= filedata.at(i)) {
-                cout << shiftChar << endl;
-                _charToIdx.insert(shiftChar, index);
-                _idxToChar.insert(index, shiftChar);
-                index++;
-                continue;
-            }
-            // остальные символы кроме заглавных англ. букв
-            if (_rightIdxBorder >= filedata.at(i) &&
-                _leftIdxBorder <= filedata.at(i)) {
-                cout << filedata.at(i) << endl;
-                _charToIdx.insert(filedata.at(i), index);
-                _idxToChar.insert(index, filedata.at(i));
-                index++;
-            }
+    for (unsigned long i = 0; i < curText.length(); ++i) {
+        // определяем текущую букву
+        QChar curChar(curText.at(i));
+        if (curChar.isUpper()) {
+            curChar = curChar.toLower();
+        }
+        // проверяем символ на наличие в словаре
+        if (!_charToIdx.contains(curChar)) {
+            _charToIdx.insert(curChar, index);
+            _idxToChar.insert(index, curChar);
+            index++;
         }
     }
-    _text = QString(filedata);
+    _text = curText;
     _vocabSize = _charToIdx.size();
 }
 
-template<typename T>
-CharAsVectorEmbedding<T>::CharAsVectorEmbedding(QString filePath,
-                                                QMap<int, char> idxToChar,
-                                                QMap<char, int> charToIdx,
-                                                int sequenceLength,
-                                                int batchSize)
+QString CharAsVectorEmbedding::removeInvalidCharacters(const QString &text) const
+{
+    // подготовка
+    long long index = -1;
+    QString result{text};
+    QString doubleSpace("  ");
+    // первичная обработка на символы без замены
+    for (const QChar &symbol : INVALID_CHARACTERS_WITHOUT_REPLACE) {
+        // пытаемся найти
+        index = result.indexOf(symbol);
+        // пока такой символ существует
+        while (index != -1) {
+            result.removeAt(index);
+            index = result.indexOf(symbol);
+        }
+    }
+    // вторичная обработка на символы с заменой
+    for (const QChar &symbol : INVALID_CHARACTERS_WITH_REPLACE) {
+        // пытаемся найти
+        index = result.indexOf(symbol);
+        // пока такой символ существует
+        while (index != -1) {
+            result.replace(index, 1, QChar('.'));
+            index = result.indexOf(symbol);
+        }
+    }
+    // проверка на двойной пробел
+    index = result.indexOf(doubleSpace);
+    // удаляем лишний пробел
+    while (index != -1) {
+        result.removeAt(index);
+        index = result.indexOf(doubleSpace);
+    }
+
+    return result;
+}
+
+CharAsVectorEmbedding::CharAsVectorEmbedding(QString filePath,
+                                             QHash<int, QChar> idxToChar,
+                                             QHash<QChar, int> charToIdx,
+                                             int sequenceLength,
+                                             int batchSize)
     : _filePath{filePath}
     , _idxToChar{idxToChar}
     , _charToIdx{charToIdx}
@@ -62,10 +97,9 @@ CharAsVectorEmbedding<T>::CharAsVectorEmbedding(QString filePath,
     processTheFile(filePath);
 }
 
-template<typename T>
-CharAsVectorEmbedding<T>::CharAsVectorEmbedding(QString fullFilePath,
-                                                int sequenceLength,
-                                                int batchSize)
+CharAsVectorEmbedding::CharAsVectorEmbedding(QString fullFilePath,
+                                             int sequenceLength,
+                                             int batchSize)
     : _filePath{fullFilePath}
     , _sequenceLength{sequenceLength}
     , _batchSize{batchSize}
@@ -73,56 +107,48 @@ CharAsVectorEmbedding<T>::CharAsVectorEmbedding(QString fullFilePath,
     processTheFile(fullFilePath);
 }
 
-template<typename T>
-QString CharAsVectorEmbedding<T>::text() const
+QString CharAsVectorEmbedding::text() const
 {
     return _text;
 }
 
-template<typename T>
-QString CharAsVectorEmbedding<T>::filePath() const
+QString CharAsVectorEmbedding::filePath() const
 {
     return _filePath;
 }
 
-template<typename T>
-int CharAsVectorEmbedding<T>::batchSize() const
+int CharAsVectorEmbedding::batchSize() const
 {
     return _batchSize;
 }
 
-template<typename T>
-int CharAsVectorEmbedding<T>::sequenceLength() const
+int CharAsVectorEmbedding::sequenceLength() const
 {
     return _sequenceLength;
 }
 
-template<typename T>
-int CharAsVectorEmbedding<T>::vocabSize() const
+int CharAsVectorEmbedding::vocabSize() const
 {
     return _vocabSize;
 }
 
-template<typename T>
-QMap<int, char> CharAsVectorEmbedding<T>::idxToChar() const
+QChar CharAsVectorEmbedding::charForIndex(int index) const
 {
-    return _idxToChar;
+    return _idxToChar.value(index);
 }
 
-template<typename T>
-QMap<char, int> CharAsVectorEmbedding<T>::charToIdx() const
+int CharAsVectorEmbedding::indexForChar(QChar symbol) const
 {
-    return _charToIdx;
+    return _charToIdx.value(symbol);
 }
 
-template<typename T>
-vector<int> CharAsVectorEmbedding<T>::textToIndeces(const QString text)
+QList<int> CharAsVectorEmbedding::textToIndeces(const QString text)
 {
     // подготовка
-    vector<int> resultIndeces;
+    QList<int> resultIndeces;
     // проходимся по тексту:
     for (int i = 0; i < text.size(); ++i) {
-        char currentSymbol = text[i].toLower().toLatin1();
+        QChar currentSymbol = text[i].toLower();
         // если эмбеддинг не содержит в словаре текущего символа
         if (!_charToIdx.contains(currentSymbol)) {
             throw TextEmbeddingException(
@@ -137,12 +163,11 @@ vector<int> CharAsVectorEmbedding<T>::textToIndeces(const QString text)
     return resultIndeces;
 }
 
-template<typename T>
-Matrix2d<T> CharAsVectorEmbedding<T>::genTextIndices(int startPos)
+Matrix2d<double> CharAsVectorEmbedding::genTextIndices(int startPos)
 {
     // создаем матрицу нужных размеров
-    Matrix2d<T> textIndices
-        = Matrix2d<T>::zeroM(_batchSize, _sequenceLength);
+    Matrix2d<double> textIndices
+        = Matrix2d<double>::zeroM(_batchSize, _sequenceLength);
     // ставим индексы символов из текста
     for (int i = 0; i < _batchSize; ++i) {
         int k = 0;
@@ -158,7 +183,7 @@ Matrix2d<T> CharAsVectorEmbedding<T>::genTextIndices(int startPos)
             textIndices.setValue(
                 i,
                 k++,
-                _charToIdx[currentSymbol.toLatin1()]
+                _charToIdx[currentSymbol]
             );
         }
     }
@@ -166,15 +191,14 @@ Matrix2d<T> CharAsVectorEmbedding<T>::genTextIndices(int startPos)
     return textIndices;
 }
 
-template<typename T>
-Matrix3d<T> CharAsVectorEmbedding<T>::genTextBatch(Matrix2d<T> indices)
+Matrix3d<double> CharAsVectorEmbedding::genTextBatch(Matrix2d<double> indices)
 {
     // готовим будущий результат
-    vector<Matrix2d<T>> resBatchData;
+    vector<Matrix2d<double>> resBatchData;
     for (vector row : indices.dataToVector()) {
         // подготовливаем подматрицу для заполнения
-        Matrix2d<T> seqMatrix
-            = Matrix2d<T>::zeroM(_sequenceLength, _vocabSize);
+        Matrix2d<double> seqMatrix
+            = Matrix2d<double>::zeroM(_sequenceLength, _vocabSize);
         // cтавим единицу в уникальном месте,
         // ради идентификации буквы как вектора
         for (int i = 0; i < _sequenceLength; ++i) {
@@ -184,5 +208,15 @@ Matrix3d<T> CharAsVectorEmbedding<T>::genTextBatch(Matrix2d<T> indices)
         resBatchData.push_back(seqMatrix);
     }
 
-    return Matrix3d<T>(resBatchData);
+    return Matrix3d<double>(resBatchData);
+}
+
+QList<QChar> CharAsVectorEmbedding::symbols() const
+{
+    return _charToIdx.keys();
+}
+
+QList<int> CharAsVectorEmbedding::indeces() const
+{
+    return _idxToChar.keys();
 }

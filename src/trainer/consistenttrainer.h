@@ -18,7 +18,7 @@ class ConsistentTrainer : public QObject,
 
 private:
     INeuralNetworkModel *_model;
-    ITextEmbedding<double> *_embedding; // вынесенный эмбеддинг, используемый моделью
+    ITextEmbedding *_embedding; // вынесенный эмбеддинг, используемый моделью
     IOptimizer *_optimizer;
     int _sequenceLenght; // длина контекста(последовательности) эмбеддинга модели
     int _batchSize; // длина партии эмбеддинга модели

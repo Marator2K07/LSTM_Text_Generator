@@ -12,13 +12,13 @@ class LSTMModel : public INeuralNetworkModel
 private:
     QString _name; // для идентификации при сохранении/загрузке
     ILoss *_loss; // интерфейс вычисления потерь
-    ITextEmbedding<double> *_embedding; // интерфейс эмбеддинга
+    ITextEmbedding *_embedding; // интерфейс эмбеддинга
     QList<INeuralNetworkLayer *> _layers; // список слоев модели    
 
 public:
     LSTMModel(QString name,
               ILoss *loss,
-              ITextEmbedding<double> *embedding,
+              ITextEmbedding *embedding,
               QList<INeuralNetworkLayer *> layers);
     LSTMModel(const QString path, const QString modelName, ILoss *loss);
     ~LSTMModel();
@@ -36,7 +36,7 @@ public:
     void load(const QString path = QDir::currentPath()) override;
     QString name() const override;
     int power() const override;
-    ITextEmbedding<double> *embedding() const override;
+    ITextEmbedding *embedding() const override;
     QList<INeuralNetworkLayer *> layers() const override;
     Matrix3d<double> forward(Matrix3d<double> batch) override;
     Matrix3d<double> backward(Matrix3d<double> gradient) override;

@@ -61,19 +61,12 @@ void PageModel::selectNeuralNetworkModel(QModelIndex index)
     emit neuralNetworkModelChanged();
 }
 
-void PageModel::stringToVector(const QString str)
-{
-    vector<int> convertedStr
-        = _neuralNetworkModel->embedding()->textToIndeces(str);
-
-}
-
 void PageModel::generateWithModel()
 {
     // только если прошлая генерация закончилась
     if (!_generateThread.isRunning()) {
         // преобразуем контекст в нужный вид
-        vector<int> convertedStr
+        QList<int> convertedStr
             = _neuralNetworkModel->embedding()->textToIndeces(
                 ui->sampleGenLineEdit->text()
                 );

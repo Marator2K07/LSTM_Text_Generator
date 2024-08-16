@@ -2,8 +2,8 @@
 #define INEURALNETWORKMODEL_H
 
 #include "iloss.h"
-#include "itextembedding.h"
 #include "ineuralnetworklayer.h"
+#include "charasvectorembedding.h"
 
 ///
 /// \brief The INeuralNetworkModel interface
@@ -32,7 +32,7 @@ public:
     ///
     /// \brief embedding доступ к текстовому эмбеддингу для модели
     /// \return текущий эмбеддинг
-    virtual ITextEmbedding<double> *embedding() const = 0;
+    virtual ITextEmbedding *embedding() const = 0;
     ///
     /// \brief layers доступ к слоям нейронной сети
     /// \return список слоев данной модели

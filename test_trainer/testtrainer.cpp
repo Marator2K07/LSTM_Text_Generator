@@ -8,7 +8,6 @@
 #include "softmaxcrossentropyloss.h"
 #include "consistenttrainer.h"
 #include "charasvectorembedding.h"
-#include "charasvectorembedding.cpp"
 
 using namespace std;
 
@@ -41,7 +40,7 @@ void TestTrainer::testConsistentTrainerOne()
     int batchSize = 32;
     int sequenceLenght = 33;
     try {
-        CharAsVectorEmbedding<double> embedding("The_Body_Snatcher.txt", sequenceLenght, batchSize);
+        CharAsVectorEmbedding embedding("The_Body_Snatcher.txt", sequenceLenght, batchSize);
         LSTMLayer layer("layer1", hiddenSize, embedding.vocabSize());
         layer.loadParams(QDir::currentPath());
         QList<INeuralNetworkLayer *> layers;
@@ -69,7 +68,7 @@ void TestTrainer::testConsistentTrainerSaveLoad()
     int batchSize = 28;
     int sequenceLenght = 25;
     try {
-        CharAsVectorEmbedding<double> embedding("The_Body_Snatcher.txt", sequenceLenght, batchSize);
+        CharAsVectorEmbedding embedding("The_Body_Snatcher.txt", sequenceLenght, batchSize);
         LSTMLayer layer("layer1", hiddenSize, embedding.vocabSize());
         QList<INeuralNetworkLayer *> layers;
         layers.push_back(&layer);
@@ -101,7 +100,7 @@ void TestTrainer::testConsistentTrainerSaveLoadVersionTwo()
     int batchSize = 44;
     int sequenceLenght = 32;
     try {
-        CharAsVectorEmbedding<double> embedding("The_Body_Snatcher.txt", sequenceLenght, batchSize);
+        CharAsVectorEmbedding embedding("The_Body_Snatcher.txt", sequenceLenght, batchSize);
         LSTMLayer layer("layer1", hiddenSize, embedding.vocabSize());
         QList<INeuralNetworkLayer *> layers;
         layers.push_back(&layer);
