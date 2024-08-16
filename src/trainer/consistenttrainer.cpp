@@ -173,7 +173,7 @@ void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
                                      lastSoftSymbolPred.end());
         // находим предсказанный индекс и его символ, пишем его в последовательность
         int chosenIndex = dist(gen);
-        char chosenSymbol = _embedding->charForIndex(chosenIndex);
+        QChar chosenSymbol = _embedding->charForIndex(chosenIndex);
         lastCharsIdxs.push_back(chosenIndex);
         // смотрим, превышен ли размер контекста
         if (lastCharsIdxs.size() > _sequenceLenght) {

@@ -36,8 +36,8 @@ void NeuralNetworkTextGenerator::generate()
     mt19937 gen(rd());
     // генерация начального контекста
     for (int simbolIndex : _contextOnAssignment) {
-        char symbol = _neuralNetworkModel->embedding()
-                          ->charForIndex(simbolIndex);
+        QChar symbol = _neuralNetworkModel->embedding()
+                           ->charForIndex(simbolIndex);
         emit showGenerationInfo(QString(symbol));
     }
     // генерация символов:
@@ -72,8 +72,8 @@ void NeuralNetworkTextGenerator::generate()
                                      lastSoftSymbolPred.end());
         // находим предсказанный индекс и его символ, пишем его в последовательность
         int chosenIndex = dist(gen);
-        char chosenSymbol = _neuralNetworkModel->embedding()
-                                ->charForIndex(chosenIndex);
+        QChar chosenSymbol = _neuralNetworkModel->embedding()
+                                 ->charForIndex(chosenIndex);
         lastCharsIdxs.push_back(chosenIndex);
         // смотрим, превышен ли размер контекста
         if (lastCharsIdxs.size() > _neuralNetworkModel->embedding()

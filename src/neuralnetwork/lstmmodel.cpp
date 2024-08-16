@@ -47,9 +47,9 @@ bool LSTMModel::operator==(const LSTMModel model)
     }
     // если и тут все впорядке, то готовим данные для сравнения эмбеддинга
     QList<int> thisIndeces = _embedding->indeces();
-    QList<char> thisChars = _embedding->symbols();
+    QList<QChar> thisChars = _embedding->symbols();
     QList<int> otherIndeces = model._embedding->indeces();
-    QList<char> otherChars = model._embedding->symbols();
+    QList<QChar> otherChars = model._embedding->symbols();
     // пытаемся сравнить
     try {
         for (int i = 0; i < _embedding->vocabSize(); ++i) {
