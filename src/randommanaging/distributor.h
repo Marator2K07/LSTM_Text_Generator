@@ -32,6 +32,12 @@ public:
     /// \param width ширина или величина отклонения от середины
     /// \return сгенерированное число
     double normal(double mean, double width);
+    ///
+    /// \brief discrete раздельное или дискретное
+    /// распределение по вектору весов
+    /// \param weightVector полученный вектор весов
+    /// \return сгенерированный индекс вектора
+    int discrete(vector<double> weightVector);
 
 };
 
