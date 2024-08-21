@@ -16,3 +16,13 @@ Distributor *Distributor::instance()
 
     return _distributor;
 }
+
+double Distributor::normal(double mean, double width)
+{
+    // задаем все необходимые параметры генерации
+    random_device rd;
+    mt19937 gen(rd());
+    normal_distribution<double> distribution(mean, width);
+
+    return distribution(gen);
+}
