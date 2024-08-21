@@ -17,7 +17,8 @@ target_link_libraries(Test_TextEmbedding PRIVATE
     Qt6::Core
     Qt6::Test
     activationfunctions
-    textembedding    
+    randommanaging
+    textembedding
     exception
     matrix
     loss

@@ -17,6 +17,7 @@ target_link_libraries(Test_Trainer PRIVATE
     Qt6::Core
     Qt6::Test	
     activationfunctions
+    randommanaging
     neuralnetwork
     textembedding
     optimizer

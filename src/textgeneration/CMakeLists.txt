@@ -8,6 +8,7 @@ target_link_libraries(textgeneration PRIVATE
 )
 target_link_libraries(textgeneration PRIVATE
     activationfunctions
+    randommanaging
     neuralnetwork
     textembedding
     optimizer

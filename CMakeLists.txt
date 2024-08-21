@@ -23,11 +23,12 @@ add_executable(LSTM_Text_Generator
 target_link_libraries(LSTM_Text_Generator PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Widgets
-    pagesandbox
     activationfunctions
+    randommanaging
     textgeneration
     neuralnetwork
     textembedding
+    pagesandbox
     optimizer
     exception
     trainer

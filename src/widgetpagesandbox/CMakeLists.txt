@@ -12,6 +12,7 @@ target_link_libraries(pagesandbox PRIVATE
 )
 target_link_libraries(pagesandbox PRIVATE
     activationfunctions
+    randommanaging
     neuralnetwork
     textembedding
     optimizer

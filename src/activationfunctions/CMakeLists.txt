@@ -7,5 +7,6 @@ target_link_libraries(activationfunctions PRIVATE
 target_link_libraries(activationfunctions PRIVATE
     matrix
     exception
+    randommanaging
 )
 target_include_directories(activationfunctions PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

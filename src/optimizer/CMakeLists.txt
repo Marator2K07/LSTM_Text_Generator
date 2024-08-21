@@ -12,6 +12,7 @@ target_link_libraries(optimizer PRIVATE
     exception
     textembedding
     neuralnetwork
+    randommanaging
     activationfunctions
 )
 target_include_directories(optimizer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

@@ -7,6 +7,7 @@ target_link_libraries(trainer PRIVATE
 )
 target_link_libraries(trainer PRIVATE
     activationfunctions
+    randommanaging
     neuralnetwork
     textembedding
     optimizer
