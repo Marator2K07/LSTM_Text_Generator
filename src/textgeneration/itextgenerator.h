@@ -2,12 +2,10 @@
 #define ITEXTGENERATOR_H
 
 #include <iostream>
-#include <random>
 
 #include "ineuralnetworkmodel.h"
+#include "distributor.h"
 #include "matrix2d.h"
-
-using namespace std;
 
 ///
 /// \brief The ITextGenerator interface

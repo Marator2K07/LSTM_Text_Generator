@@ -141,9 +141,6 @@ void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
     // формируем начальные условия для последовательности
     vector<int> lastCharsIdxs;
     lastCharsIdxs.push_back(startCharIdx);
-    // подготовка для будущей рандомизации
-    random_device rd;
-    mt19937 gen(rd());
     // вывод первого символа и предисловия:
     emit showLearningInfo(QString("sample["));
     emit showLearningInfo(QString(_embedding->charForIndex(startCharIdx)));
@@ -168,11 +165,8 @@ void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
                 .at(0).dataToVector()
                 .at(lastCharsIdxs.size()-1)
             );
-        // определяем возможный следующий символ
-        discrete_distribution<> dist(lastSoftSymbolPred.begin(),
-                                     lastSoftSymbolPred.end());
-        // находим предсказанный индекс и его символ, пишем его в последовательность
-        int chosenIndex = dist(gen);
+        // определяем возможный следующий символ(по его индексу) и пишем его
+        int chosenIndex = Distributor::instance()->discrete(lastSoftSymbolPred);
         QChar chosenSymbol = _embedding->charForIndex(chosenIndex);
         lastCharsIdxs.push_back(chosenIndex);
         // смотрим, превышен ли размер контекста
