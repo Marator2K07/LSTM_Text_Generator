@@ -3,9 +3,8 @@
 
 #include <vector>
 #include <cmath>
-#include <random>
 
-using namespace std;
+#include "distributor.h"
 
 ///
 /// \brief The OperationType enum
@@ -104,10 +103,8 @@ T Operations<T>::floorM(T mainNum, T numOfDecimal)
 template<typename T>
 T Operations<T>::gaussianDistribution(T mean, T width)
 {
-    random_device rd;
-    mt19937 gen(rd());
-    normal_distribution<double> distribution(mean, width);
-    return distribution(gen);
+    // теперь используем распределитель - синглотон для генерации
+    return Distributor::instance()->normal(mean, width);
 }
 
 #endif // OPERATIONS_H
