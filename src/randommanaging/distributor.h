@@ -1,6 +1,10 @@
 #ifndef DISTRIBUTOR_H
 #define DISTRIBUTOR_H
 
+#include <random>
+
+using namespace std;
+
 ///
 /// \brief The Distributor class
 /// стандартный распределитель случайностей
@@ -9,7 +13,7 @@ class Distributor
 {
 private:
     // основное поле синглтона
-    static Distributor *distributor;
+    static Distributor *_distributor;
 
 private:
     Distributor();
