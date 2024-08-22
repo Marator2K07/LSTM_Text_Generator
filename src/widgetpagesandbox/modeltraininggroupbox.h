@@ -89,6 +89,10 @@ private slots:
     /// виджета для тренировки выбранной модели
     void trainModel();
     ///
+    /// \brief stopTrainModel преждевременная остановка
+    /// обучения модели
+    void stopTrainModel();
+    ///
     /// \brief trainingActiveState приведение формы обучения
     /// к состоянию активного обучения(блокировка всех лишних виджетов)
     void trainingActiveState();

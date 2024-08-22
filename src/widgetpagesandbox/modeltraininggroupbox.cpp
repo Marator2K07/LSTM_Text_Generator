@@ -27,6 +27,8 @@ void ModelTrainingGroupBox::newTrainerForModel()
             &_trainThread, SLOT(exit()));
     connect(_trainer, SIGNAL(trainingStoped()),
             this, SLOT(trainingNotActiveState()));
+    connect(ui->stopTrainButton, SIGNAL(pressed()),
+            this, SLOT(stopTrainModel()));
     connect(_trainer, SIGNAL(trainingProgress(int)),
             ui->trainingProgressBar, SLOT(setValue(int)));
     // не забываем поместить тренер в отдельный поток
@@ -235,6 +237,8 @@ void ModelTrainingGroupBox::loadExistingTrainer()
             &_trainThread, SLOT(exit()));
     connect(_trainer, SIGNAL(trainingStoped()),
             this, SLOT(trainingNotActiveState()));
+    connect(ui->stopTrainButton, SIGNAL(pressed()),
+            this, SLOT(stopTrainModel()));
     connect(_trainer, SIGNAL(trainingProgress(int)),
             ui->trainingProgressBar, SLOT(setValue(int)));
     // не забываем поместить тренер в отдельный поток
@@ -269,6 +273,14 @@ void ModelTrainingGroupBox::trainModel()
             _trainThread.start();
             trainingActiveState();
         }
+    }
+}
+
+void ModelTrainingGroupBox::stopTrainModel()
+{
+    // только если обучение еще продолжается
+    if (_trainThread.isRunning()) {
+        _trainer->stop();
     }
 }
 
