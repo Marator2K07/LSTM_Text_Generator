@@ -48,6 +48,9 @@ public:
                                          int sampleEvery = 100,
                                          QString savePath = QDir::currentPath()) = 0;
     ///
+    /// \brief stop преждевременная остановка тренировки модели
+    virtual void stop() = 0;
+    ///
     /// \brief updateStatus метод, для объединения
     /// посыла всех необходимых сигналов, связанных с соотвествующим
     /// виджетом для показа статистики информации

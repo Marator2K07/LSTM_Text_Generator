@@ -27,6 +27,7 @@ private:
     double _epochsCompleted; // количество пройденных эпох обучения с высокой точностью
     double _maxCalculatedLoss; // нужно для вычисления обученности модели
     double _totalLosses; // все накопленные потери за обучение
+    bool _trainStoped; // флаг преждевременной остановки обучения
 
     // поля для работы метода train в отдельном потоке
     int _iterCountOnAssignment; // количество шагов обучения по заданию
@@ -64,6 +65,7 @@ public:
 public slots:
     // ITrainer interface
     void train() override;
+    void stop() override;
     void applyAssignmentForTrain(int iterCount,
                                  bool withSample = false,
                                  int sampleEvery = 100,

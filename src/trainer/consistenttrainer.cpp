@@ -31,6 +31,7 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
     , _epochsCompleted{0.0}
     , _maxCalculatedLoss{1.0}
     , _totalLosses{0.0}
+    , _trainStoped{false}
     , _iterCountOnAssignment{0}
     , _withSampleOnAssignment{false}
     , _sampleEveryOnAssignment{0}
@@ -46,6 +47,7 @@ ConsistentTrainer::ConsistentTrainer(const QString path,
     , _sequenceLenght{model->embedding()->sequenceLength()}
     , _batchSize{model->embedding()->batchSize()}
     , _totalLosses{0.0}
+    , _trainStoped{false}
     , _iterCountOnAssignment{0}
     , _withSampleOnAssignment{false}
     , _sampleEveryOnAssignment{0}
@@ -237,6 +239,11 @@ void ConsistentTrainer::train()
         if (_withSampleOnAssignment && numIter % _sampleEveryOnAssignment == 0) {
             sampleOutput(rand() % _embedding->vocabSize(), '.');
         }
+        // в случае преждевременной остановки обучения
+        if (_trainStoped) {
+            _trainStoped = false;
+            break;
+        }
         numIter++;
     }
     // вычисляем главные параметры статистики
@@ -254,6 +261,11 @@ void ConsistentTrainer::train()
     showFinalData();
     // даем сигнал завершения процесса
     emit trainingStoped();
+}
+
+void ConsistentTrainer::stop()
+{
+    _trainStoped = true;
 }
 
 void ConsistentTrainer::applyAssignmentForTrain(int iterCount,
