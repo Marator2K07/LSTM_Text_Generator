@@ -199,7 +199,7 @@ void ConsistentTrainer::train()
             this->save(_savePathOnAssignment);
             // даем знать об окончании эпохи обучения
             emit showLearningInfo(QString("end of an era\n"));
-            _currentPos = numIter;
+            _currentPos = 0; // ради более стабильного обучения
         }
         // генерируем входные и целевые индексы, соотвественно
         Matrix2d<double> inputIndices = _embedding->genTextIndices(_currentPos);
@@ -232,7 +232,8 @@ void ConsistentTrainer::train()
     }
     // вычисляем главные параметры статистики
     _percentageOfTraining
-        = (meanLoss / _maxCalculatedLoss) / 100;
+        = ((_maxCalculatedLoss - meanLoss / _iterCountOnAssignment)
+            / _maxCalculatedLoss) * 100;
     double temp = (double)_iterCountOnAssignment * (double)_batchSize
                   / (double)_embedding->text().size();
     _epochsCompleted += temp;
