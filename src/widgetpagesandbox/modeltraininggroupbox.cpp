@@ -318,5 +318,10 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
 
 ModelTrainingGroupBox::~ModelTrainingGroupBox()
 {
+    // в случае экстренного выхода мягко стопим поток
+    stopTrainModel();
+    _trainThread.quit();
+    _trainThread.wait();
+
     delete ui;
 }
