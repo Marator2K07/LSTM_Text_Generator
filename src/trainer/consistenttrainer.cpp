@@ -199,6 +199,7 @@ void ConsistentTrainer::train()
     // подготовка
     int numIter = 0;
     _totalLosses = 0;
+    _trainStoped = false;
     // обучаем:
     while (numIter < _iterCountOnAssignment) {
         // если "конец эпохи"
@@ -238,13 +239,14 @@ void ConsistentTrainer::train()
         // возможная генерация вывода для анализа
         if (_withSampleOnAssignment && numIter % _sampleEveryOnAssignment == 0) {
             sampleOutput(rand() % _embedding->vocabSize(), '.');
-        }
+        }        
+        numIter++;
         // в случае преждевременной остановки обучения
         if (_trainStoped) {
-            _trainStoped = false;
+            emit showLearningInfo(QString("premature training stop\n"));
+            emit trainingProgress(100);
             break;
         }
-        numIter++;
     }
     // вычисляем главные параметры статистики
     _percentageOfTraining
