@@ -5,6 +5,20 @@
 QString ConsistentTrainer::TRAINER_DATA_NAME = "trainerData";
 long long ConsistentTrainer::MODEL_POWER_FACTOR = 130211020800;
 
+void ConsistentTrainer::showFinalData()
+{
+    emit showLearningInfo(QString("end of learning\n"));
+    emit showLearningInfo(QString("current position - %1\n").arg(_currentPos));
+    emit showLearningInfo(QString("mean loss value - %1\n")
+                              .arg(_totalLosses/_iterCountOnAssignment));
+    emit showLearningInfo(QString("percentage of training - %1\n")
+                              .arg(_percentageOfTraining));
+    emit showLearningInfo(QString("epochs completed - %1\n")
+                              .arg(QString::number(_epochsCompleted, 'f', 10)));
+    // не забываем обновить статус для связанного виджета
+    updateStatus();
+}
+
 ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
                                      IOptimizer *optimizer)
     : _model{model}
@@ -236,17 +250,8 @@ void ConsistentTrainer::train()
     _model->save(_savePathOnAssignment, false);
     // и тренера
     this->save(_savePathOnAssignment);
-    // и выводим оценивающие данные
-    emit showLearningInfo(QString("end of learning\n"));
-    emit showLearningInfo(QString("current position - %1\n").arg(_currentPos));
-    emit showLearningInfo(QString("mean loss value - %1\n")
-                              .arg(_totalLosses/_iterCountOnAssignment));
-    emit showLearningInfo(QString("percentage of training - %1\n")
-                              .arg(_percentageOfTraining));
-    emit showLearningInfo(QString("epochs completed - %1\n")
-                              .arg(QString::number(_epochsCompleted, 'f', 10)));
-    // не забываем обновить статус для связанного виджета
-    updateStatus();
+    // и выводим заключительную информацию об обучении
+    showFinalData();
     // даем сигнал завершения процесса
     emit trainingStoped();
 }

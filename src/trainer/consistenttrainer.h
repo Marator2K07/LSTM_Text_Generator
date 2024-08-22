@@ -34,6 +34,12 @@ private:
     int _sampleEveryOnAssignment; // частота вывода примеров при флаге выше = true по заданию
     QString _savePathOnAssignment; // путь сохранения прогресса модели по заданию
 
+private:
+    ///
+    /// \brief showFinalData показ всех заключительных данных
+    /// после окончания тренировки по обучающим данным
+    void showFinalData();
+
 public:
     ConsistentTrainer(INeuralNetworkModel *model, IOptimizer *optimizer);
     ConsistentTrainer(const QString path, INeuralNetworkModel *model);
