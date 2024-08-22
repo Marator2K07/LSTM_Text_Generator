@@ -16,6 +16,7 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
     , _percentageOfTraining{0.0}
     , _epochsCompleted{0.0}
     , _maxCalculatedLoss{1.0}
+    , _totalLosses{0.0}
     , _iterCountOnAssignment{0}
     , _withSampleOnAssignment{false}
     , _sampleEveryOnAssignment{0}
@@ -30,6 +31,7 @@ ConsistentTrainer::ConsistentTrainer(const QString path,
     , _optimizer{nullptr}
     , _sequenceLenght{model->embedding()->sequenceLength()}
     , _batchSize{model->embedding()->batchSize()}
+    , _totalLosses{0.0}
     , _iterCountOnAssignment{0}
     , _withSampleOnAssignment{false}
     , _sampleEveryOnAssignment{0}
@@ -80,12 +82,9 @@ void ConsistentTrainer::save(const QString path)
             );
     }
     // пишем главную информацию об обучении
-    fileTrainer << _currentPos << " "
-                << _percentageOfTraining << " "
-                << _epochsCompleted << " "
-                << _maxCalculatedLoss << " "
-                << (int)optimizer()->type() << " "
-                << _optimizer->learningRate();
+    fileTrainer << _currentPos << " " << _percentageOfTraining << " "
+                << _epochsCompleted << " " << _maxCalculatedLoss << " "
+                << (int)optimizer()->type() << " " << _optimizer->learningRate();
     // закрываем файл
     fileTrainer.close();
 }
@@ -110,13 +109,9 @@ void ConsistentTrainer::load(const QString path)
     // считываем данные
     getline(fileTrainerStream, line);
     istringstream rowStreamMain(line);
-    rowStreamMain >> _currentPos
-        >> _percentageOfTraining
-        >> _epochsCompleted
-        >> _maxCalculatedLoss
-        >> intCurrentOptimizerType
-        >> learningRate;
-    // подготовка
+    rowStreamMain >> _currentPos >> _percentageOfTraining >> _epochsCompleted
+        >> _maxCalculatedLoss >> intCurrentOptimizerType >> learningRate;
+    // подготовка для оптимизатора
     OptimizerType optimizerType = (OptimizerType)intCurrentOptimizerType;
     if (_optimizer != nullptr) {
         delete _optimizer;
@@ -187,7 +182,7 @@ void ConsistentTrainer::train()
 {
     // подготовка
     int numIter = 0;
-    double meanLoss = 0;
+    _totalLosses = 0;
     // обучаем:
     while (numIter < _iterCountOnAssignment) {
         // если "конец эпохи"
@@ -219,7 +214,7 @@ void ConsistentTrainer::train()
         emit trainingProgress(
             (double)(numIter+1) / (double)_iterCountOnAssignment * 100
             );
-        meanLoss += loss;
+        _totalLosses += loss;
         // оптимизируем нейронную сеть
         _optimizer->update();
         // сдвигаем позицию в тексте на размер партии
@@ -232,7 +227,7 @@ void ConsistentTrainer::train()
     }
     // вычисляем главные параметры статистики
     _percentageOfTraining
-        = ((_maxCalculatedLoss - meanLoss / _iterCountOnAssignment)
+        = ((_maxCalculatedLoss - _totalLosses / _iterCountOnAssignment)
             / _maxCalculatedLoss) * 100;
     double temp = (double)_iterCountOnAssignment * (double)_batchSize
                   / (double)_embedding->text().size();
@@ -245,7 +240,7 @@ void ConsistentTrainer::train()
     emit showLearningInfo(QString("end of learning\n"));
     emit showLearningInfo(QString("current position - %1\n").arg(_currentPos));
     emit showLearningInfo(QString("mean loss value - %1\n")
-                              .arg(meanLoss/_iterCountOnAssignment));
+                              .arg(_totalLosses/_iterCountOnAssignment));
     emit showLearningInfo(QString("percentage of training - %1\n")
                               .arg(_percentageOfTraining));
     emit showLearningInfo(QString("epochs completed - %1\n")
