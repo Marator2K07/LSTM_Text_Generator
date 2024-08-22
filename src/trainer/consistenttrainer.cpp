@@ -239,12 +239,12 @@ void ConsistentTrainer::train()
         // возможная генерация вывода для анализа
         if (_withSampleOnAssignment && numIter % _sampleEveryOnAssignment == 0) {
             sampleOutput(rand() % _embedding->vocabSize(), '.');
-        }        
+        }
         numIter++;
         // в случае преждевременной остановки обучения
         if (_trainStoped) {
+            _iterCountOnAssignment = numIter;
             emit showLearningInfo(QString("premature training stop\n"));
-            emit trainingProgress(100);
             break;
         }
     }
