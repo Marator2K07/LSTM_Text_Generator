@@ -93,13 +93,13 @@ private slots:
     /// обучения модели
     void stopTrainModel();
     ///
-    /// \brief trainingActiveState приведение формы обучения
-    /// к состоянию активного обучения(блокировка всех лишних виджетов)
-    void trainingActiveState();
+    /// \brief trainFormActiveState приведение формы обучения
+    /// к состоянию неактивного обучения(разблокировка всех связанных виджетов)
+    void trainFormActiveState();
     ///
-    /// \brief trainingNotActiveState приведение формы обучения
-    /// к состоянию неактивного обучения(включение всех виджетов задания параметров)
-    void trainingNotActiveState();
+    /// \brief trainFormNotActiveState приведение формы обучения
+    /// к состоянию активного обучения(выключение всех виджетов задания параметров)
+    void trainFormNotActiveState();
 
 public:
     explicit ModelTrainingGroupBox(QWidget *parent = nullptr);
