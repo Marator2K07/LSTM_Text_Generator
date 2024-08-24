@@ -74,6 +74,7 @@ public slots:
 
 signals:
     // ITrainer interface
+    void modelIsBroken() override;
     void percentageOfTrainingUpdated(double newPercentageOfTraining) override;
     void epochsCompletedUpdated(double newEpochsCompleted) override;
     void recommendedNumberOfTrainingIter(int iterCount) override;

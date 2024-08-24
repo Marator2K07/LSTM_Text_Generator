@@ -63,6 +63,11 @@ public:
 
 protected:
     ///
+    /// \brief modelIsBroken в случае некорректного обучения модели
+    /// и появления испорченных параметров нужно послать
+    /// сигнал-уведомление и прекратить обучение
+    virtual void modelIsBroken() = 0;
+    ///
     /// \brief percentageOfTrainingUpdated сигнал обновления процента обученности
     /// \param newPercentageOfTraining новый текущий процент обученности модели
     virtual void percentageOfTrainingUpdated(double newPercentageOfTraining) = 0;
