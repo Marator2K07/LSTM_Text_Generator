@@ -225,6 +225,12 @@ void ConsistentTrainer::train()
         double loss = _model->singleStep(inputBatch, targetBatch);        
         if (loss > _maxCalculatedLoss) {
             _maxCalculatedLoss = loss;
+
+        }
+        // также проверяем на "сломанность"
+        else if(isnan(loss)) {
+            _trainStoped = true;
+            emit modelIsBroken();
         }
         // статистика и средние потери
         QString stepInfo = QString("%1) mean loss - %2; pos - %3\n")
