@@ -147,10 +147,12 @@ void ConsistentTrainer::load(const QString path)
     fileTrainerStream.close();
 }
 
-void ConsistentTrainer::sampleOutput(int startCharIdx, char endingChar)
+void ConsistentTrainer::sampleOutput(char endingChar)
 {
     // формируем начальные условия для последовательности
     vector<int> lastCharsIdxs;
+    int startCharIdx = QRandomGenerator::global()
+                           ->bounded(0, _embedding->vocabSize());
     lastCharsIdxs.push_back(startCharIdx);
     // вывод первого символа и предисловия:
     emit showLearningInfo(QString("sample["));
@@ -238,7 +240,7 @@ void ConsistentTrainer::train()
         _currentPos += _batchSize;
         // возможная генерация вывода для анализа
         if (_withSampleOnAssignment && numIter % _sampleEveryOnAssignment == 0) {
-            sampleOutput(rand() % _embedding->vocabSize(), '.');
+            sampleOutput();
         }
         numIter++;
         // в случае преждевременной остановки обучения

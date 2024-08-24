@@ -1,6 +1,8 @@
 #ifndef ITRAINER_H
 #define ITRAINER_H
 
+#include <QRandomGenerator>
+
 #include "ineuralnetworkmodel.h"
 #include "itextembedding.h"
 #include "ioptimizer.h"
@@ -28,9 +30,8 @@ public:
     /// \brief sampleOutput вывод текста на основе
     /// текущей модели и ее степени обученности до
     /// первого символа окончания, по умолчанию точки
-    /// \param startCharIdx индекс символа для старта генерации
     /// \param endingChar конечный символ
-    virtual void sampleOutput(int startCharIdx, char endingChar = '.') = 0;
+    virtual void sampleOutput(char endingChar = '.') = 0;
     ///
     /// \brief train слот тренировки модели генерации текста по данным задания
     virtual void train() = 0;

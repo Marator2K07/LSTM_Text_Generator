@@ -57,7 +57,7 @@ public:
     IOptimizer *optimizer() const override;
     void save(const QString path = QDir::currentPath()) override;
     void load(const QString path = QDir::currentPath()) override;
-    void sampleOutput(int startCharIdx, char endingChar = '.') override;    
+    void sampleOutput(char endingChar = '.') override;
     void updateStatus() override;
     void refreshOptimizerStatus(IOptimizer *optimizer) override;
     //
