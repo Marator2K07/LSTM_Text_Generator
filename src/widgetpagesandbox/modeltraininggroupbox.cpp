@@ -26,7 +26,7 @@ void ModelTrainingGroupBox::newTrainerForModel()
     connect(_trainer, SIGNAL(trainingStoped()),
             &_trainThread, SLOT(exit()));
     connect(_trainer, SIGNAL(trainingStoped()),
-            this, SLOT(trainingNotActiveState()));
+            this, SLOT(trainFormActiveState()));
     connect(ui->stopTrainButton, SIGNAL(pressed()),
             this, SLOT(stopTrainModel()));
     connect(_trainer, SIGNAL(trainingProgress(int)),
@@ -144,7 +144,7 @@ void ModelTrainingGroupBox::tryLoadModel(const QString modelPathAndName)
     // в зависимости от существования модели блокируем/разблокируем доступ
     // и ставим/убираем основную часть имени модели
     if (currentModelLayersFile.exists() && currentModelEmbeddingFile.exists()) {
-        ui->frame->setEnabled(true);
+        trainFormActiveState();
         _modelNameMainPart = fileNameMainPart;
         // подгружаем модель для обучения
         _loadedModel = new LSTMModel(
@@ -155,7 +155,7 @@ void ModelTrainingGroupBox::tryLoadModel(const QString modelPathAndName)
         // посылаем сигнал о корректности
         emit selectedModelCorrect();
     } else {
-        ui->frame->setEnabled(false);
+        trainFormNotActiveState();
         _modelNameMainPart = QString();
         QMessageBox::warning(
             this,
@@ -241,7 +241,7 @@ void ModelTrainingGroupBox::loadExistingTrainer()
     connect(_trainer, SIGNAL(trainingStoped()),
             &_trainThread, SLOT(exit()));
     connect(_trainer, SIGNAL(trainingStoped()),
-            this, SLOT(trainingNotActiveState()));
+            this, SLOT(trainFormActiveState()));
     connect(ui->stopTrainButton, SIGNAL(pressed()),
             this, SLOT(stopTrainModel()));
     connect(_trainer, SIGNAL(trainingProgress(int)),
@@ -276,7 +276,8 @@ void ModelTrainingGroupBox::trainModel()
                                               ui->sampleEverySpinBox->value(),
                                               ui->currentModelLineEdit->text());
             _trainThread.start();
-            trainingActiveState();
+            ui->stopTrainButton->setEnabled(true);
+            trainFormNotActiveState();
         }
     }
 }
@@ -286,6 +287,7 @@ void ModelTrainingGroupBox::stopTrainModel()
     // только если обучение еще продолжается
     if (_trainThread.isRunning()) {
         _trainer->stop();
+        ui->stopTrainButton->setEnabled(false);
     }
 }
 
@@ -299,7 +301,7 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     , _trainer{nullptr}
 {
     ui->setupUi(this);
-    ui->frame->setEnabled(false);
+    trainFormNotActiveState();
 
     connect(ui->chooseCurrentModelButton, SIGNAL(pressed()),
             this, SLOT(chooseModelFolderPath()));
