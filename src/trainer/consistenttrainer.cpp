@@ -122,8 +122,14 @@ void ConsistentTrainer::load(const QString path)
     string line;
     double learningRate;
     int intCurrentOptimizerType;
-    // считываем данные
     getline(fileTrainerStream, line);
+    // проверяем на сломанность модель при загрузке
+    if (line.find("nan") != string::npos) {
+        emit modelIsBroken();
+        fileTrainerStream.close();
+        return;
+    }
+    // считываем данные
     istringstream rowStreamMain(line);
     rowStreamMain >> _currentPos >> _percentageOfTraining >> _epochsCompleted
         >> _maxCalculatedLoss >> intCurrentOptimizerType >> learningRate;
@@ -143,8 +149,9 @@ void ConsistentTrainer::load(const QString path)
     default:
         break;
     }
-    // закрываем файл
+    // закрываем файл и даем сигнал, что модель корректна
     fileTrainerStream.close();
+    emit modelIsCorrect();
 }
 
 void ConsistentTrainer::sampleOutput(char endingChar)
