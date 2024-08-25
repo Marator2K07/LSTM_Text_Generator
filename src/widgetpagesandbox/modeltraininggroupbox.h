@@ -110,10 +110,6 @@ public:
 
 signals:
     ///
-    /// \brief selectedModelCorrect
-    /// когда модель для обучения успешно выбрана и загружена
-    void selectedModelCorrect();
-    ///
     /// \brief trainerExists
     /// в случае, если модель ранее обучалась
     void trainerExists();

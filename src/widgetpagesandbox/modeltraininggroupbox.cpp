@@ -152,10 +152,6 @@ void ModelTrainingGroupBox::tryLoadModel(const QString modelPathAndName)
             fileNameMainPart,
             new SoftmaxCrossEntropyLoss()
             );
-        // посылаем сигнал о корректности
-        emit selectedModelCorrect();
-    } else {
-        trainFormNotActiveState();
         _modelNameMainPart = QString();
         QMessageBox::warning(
             this,
@@ -317,8 +313,6 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
             this, SLOT(trainModel()));
     connect(ui->cleanTrainLogButton, SIGNAL(pressed()),
             ui->logTextEdit, SLOT(clear()));
-    connect(this, SIGNAL(selectedModelCorrect()),
-            this, SLOT(checkModelForTrainBefore()));
     connect(this, SIGNAL(trainerExists()),
             this, SLOT(loadExistingTrainer()));
 }
