@@ -222,9 +222,7 @@ void ModelTrainingGroupBox::loadExistingTrainer()
         delete _trainer;        
     }
     // иницилизируем новый из файла и ставим связи
-    _trainer = new ConsistentTrainer(
-        ui->currentModelLineEdit->text(), _loadedModel
-        );
+    _trainer = new ConsistentTrainer(_loadedModel, nullptr);
     connect(_trainer, SIGNAL(percentageOfTrainingUpdated(double)),
             ui->traningValueLcdNumber, SLOT(display(double)));
     connect(_trainer, SIGNAL(epochsCompletedUpdated(double)),

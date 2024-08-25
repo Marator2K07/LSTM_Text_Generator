@@ -79,7 +79,8 @@ void TestTrainer::testConsistentTrainerSaveLoad()
         trainer.applyAssignmentForTrain(16, false, 5);
         trainer.train();
         trainer.save();
-        ConsistentTrainer properTrainer(QDir::currentPath(), &model);
+        ConsistentTrainer properTrainer(&model, nullptr);
+        properTrainer.load(QDir::currentPath());
 
         QCOMPARE(trainer == properTrainer, true);
         optimizer->newLearningRate(0.01);
@@ -111,7 +112,8 @@ void TestTrainer::testConsistentTrainerSaveLoadVersionTwo()
         trainer.applyAssignmentForTrain(7, false, 3);
         trainer.train();
         trainer.save();
-        ConsistentTrainer properTrainer(QDir::currentPath(), &model);
+        ConsistentTrainer properTrainer(&model, nullptr);
+        properTrainer.load(QDir::currentPath());
 
         QCOMPARE(trainer == properTrainer, true);
         optimizer->newLearningRate(0.002);

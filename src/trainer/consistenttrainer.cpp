@@ -39,24 +39,6 @@ ConsistentTrainer::ConsistentTrainer(INeuralNetworkModel *model,
 {
 }
 
-ConsistentTrainer::ConsistentTrainer(const QString path,
-                                     INeuralNetworkModel *model)
-    : _model{model}
-    , _embedding{model->embedding()}
-    , _optimizer{nullptr}
-    , _sequenceLenght{model->embedding()->sequenceLength()}
-    , _batchSize{model->embedding()->batchSize()}
-    , _totalLosses{0.0}
-    , _trainStoped{false}
-    , _iterCountOnAssignment{0}
-    , _withSampleOnAssignment{false}
-    , _sampleEveryOnAssignment{0}
-    , _savePathOnAssignment{QDir::currentPath()}
-{
-    // оставшиеся три поля класса и оптимизатор подгружаем из файла
-    load(path);    
-}
-
 bool ConsistentTrainer::operator==(const ConsistentTrainer &trainer)
 {
     if (_currentPos != trainer._currentPos) {
