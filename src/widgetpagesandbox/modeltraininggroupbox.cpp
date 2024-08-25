@@ -131,20 +131,16 @@ void ModelTrainingGroupBox::tryLoadModel(const QString modelPathAndName)
         );
     QString filePath = modelPathAndName.left(modelPathAndName.lastIndexOf("/"));
     // конфигурируем предполагаемые файлы
-    QFile currentModelLayersFile(QString("%1/%2_%3.txt")
-                                     .arg(modelPathAndName,
-                                          fileNameMainPart,
-                                          LSTMModel::LAYERS_DATA_NAME)
-                                 );
-    QFile currentModelEmbeddingFile(QString("%1/%2_%3.txt")
-                                        .arg(modelPathAndName,
-                                             fileNameMainPart,
-                                             LSTMModel::EMBEDDING_DATA_NAME)
-                                    );
-    // в зависимости от существования модели блокируем/разблокируем доступ
-    // и ставим/убираем основную часть имени модели
+    QFile currentModelLayersFile(
+        QString("%1/%2_%3.txt")
+            .arg(modelPathAndName, fileNameMainPart, LSTMModel::LAYERS_DATA_NAME)
+        );
+    QFile currentModelEmbeddingFile(
+        QString("%1/%2_%3.txt")
+            .arg(modelPathAndName, fileNameMainPart, LSTMModel::EMBEDDING_DATA_NAME)
+        );
+    // инициализируем модель в случае ее существования
     if (currentModelLayersFile.exists() && currentModelEmbeddingFile.exists()) {
-        trainFormActiveState();
         _modelNameMainPart = fileNameMainPart;
         // подгружаем модель для обучения
         _loadedModel = new LSTMModel(
@@ -152,18 +148,23 @@ void ModelTrainingGroupBox::tryLoadModel(const QString modelPathAndName)
             fileNameMainPart,
             new SoftmaxCrossEntropyLoss()
             );
+        // и проверяем наличие тренера для текущей модели
+        checkModelForTrainBefore();
+    }
+    // предупреждение в случае ее отсутствия
+    else {
         _modelNameMainPart = QString();
         QMessageBox::warning(
             this,
             "Предупреждение",
             "По указанному пути не существует модели для обучения"
             );
-        // в любом случае отгружаем(удаляем) модель
-        // и тренера, если они были выбраны/созданы
+        // в любом случае удаляем модель
         if (_loadedModel != nullptr) {
             delete _loadedModel;
             _loadedModel = nullptr;
         }
+        // и тренера, если они были выбраны/созданы
         if (_trainer != nullptr) {
             disconnect(_trainer);
             delete _trainer;
