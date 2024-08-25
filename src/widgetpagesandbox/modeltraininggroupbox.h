@@ -108,12 +108,6 @@ public:
     // суффикс именования файла с данными об обучении
     static QString TRAINING_DATA_NAME;
 
-signals:
-    ///
-    /// \brief trainerExists
-    /// в случае, если модель ранее обучалась
-    void trainerExists();
-
 };
 
 #endif // MODELTRAININGGROUPBOX_H

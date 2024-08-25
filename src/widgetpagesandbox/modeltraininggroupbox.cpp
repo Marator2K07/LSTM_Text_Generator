@@ -188,13 +188,14 @@ void ModelTrainingGroupBox::checkModelForTrainBefore()
             this,
             "Информация",
             "Выбранная модель нейронной сети ранее не обучалась.\n"
-            "Создан тренер по умолчанию.");
+            "Создан тренер по умолчанию."
+            );
         // в данном случае инициализируем тренера с нуля
         newTrainerForModel();
         return;
     }
     // если дошли до сюда, то файл обучения существует
-    emit trainerExists();
+    loadExistingTrainer();
 }
 
 void ModelTrainingGroupBox::chooseModelFolderPath()
@@ -314,8 +315,6 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
             this, SLOT(trainModel()));
     connect(ui->cleanTrainLogButton, SIGNAL(pressed()),
             ui->logTextEdit, SLOT(clear()));
-    connect(this, SIGNAL(trainerExists()),
-            this, SLOT(loadExistingTrainer()));
 }
 
 ModelTrainingGroupBox::~ModelTrainingGroupBox()
