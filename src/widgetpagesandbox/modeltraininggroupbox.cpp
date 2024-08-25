@@ -10,17 +10,21 @@ void ModelTrainingGroupBox::newTrainerForModel()
         return;
     }
     // иницилизируем нового неполноценного тренера
-    // (без инициализации оптимизатора) и ставим связи
+    // (без инициализации оптимизатора) и ставим основные связи
     _trainer = new ConsistentTrainer(_loadedModel, nullptr);
     connect(_trainer, SIGNAL(percentageOfTrainingUpdated(double)),
             ui->traningValueLcdNumber, SLOT(display(double)));
     connect(_trainer, SIGNAL(epochsCompletedUpdated(double)),
             ui->epochsCountLcdNumber, SLOT(display(double)));
     connect(_trainer, SIGNAL(recommendedNumberOfTrainingIter(int)),
-            this, SLOT(updateMaxTrainCountValue(int)));    
+            this, SLOT(updateMaxTrainCountValue(int)));
+    connect(_trainer, SIGNAL(modelIsCorrect()),
+            this, SLOT(trainFormActiveState()));
+    connect(_trainer, SIGNAL(modelIsBroken()),
+            this, SLOT(trainFormNotActiveState()));
     connect(_trainer, SIGNAL(showLearningInfo(QString)),
             ui->logTextEdit, SLOT(insertPlainText(QString)));
-    // экстра важные связи связанные с многопоточкой
+    // экстра важные связи, связанные с многопоточкой
     connect(&_trainThread, SIGNAL(started()),
             _trainer, SLOT(train()));
     connect(_trainer, SIGNAL(trainingStoped()),
@@ -35,6 +39,8 @@ void ModelTrainingGroupBox::newTrainerForModel()
     _trainer->moveToThread(&_trainThread);
     // в конце получаем все необходимые данные для отображения
     _trainer->updateStatus();
+    // вручную активируем форму обучения
+    trainFormActiveState();
 }
 
 bool ModelTrainingGroupBox::trainPreDataIsCorrect()
