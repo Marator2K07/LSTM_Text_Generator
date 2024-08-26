@@ -17,7 +17,7 @@ private:
     double _weightScale; // точность весов
     Matrix2d<double> _startH; // стартовое состояние слоя
     Matrix2d<double> _startC; // стартовое состояние ячейки/узла
-    bool _firstStep; // флаг начальной реализации
+    bool _firstStep; // флаг начальной инициализации
     QList<LSTMNode *> _cells; // ячейки с нейронными узлами
     QMap<QString, QMap<QString, Matrix2d<double>>> _params;
 
@@ -39,6 +39,7 @@ public:
     // INeuralNetworkLayer interface
     QString name() const override;
     int power() const override;
+    void drop() override;
     bool compareLayer(INeuralNetworkLayer *layer);
     Matrix2d<double> paramAt(const QString firstKey,
                              const QString secondKey) const override;

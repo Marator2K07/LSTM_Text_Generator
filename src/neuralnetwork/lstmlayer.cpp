@@ -87,6 +87,12 @@ int LSTMLayer::power() const
     return _hiddenSize * _outputSize * _vocabSize * _sequenceSize;
 }
 
+void LSTMLayer::drop()
+{
+    // снова инициализируем параметры с нуля при следующем проходе
+    _firstStep = true;
+}
+
 bool LSTMLayer::compareLayer(INeuralNetworkLayer *layer)
 {
     // сравниваем все значения
