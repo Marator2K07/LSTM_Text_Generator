@@ -203,8 +203,9 @@ void ModelTrainingGroupBox::checkModelForTrainBefore()
         newTrainerForModel();
         return;
     }
-    // если дошли до сюда, то файл обучения существует
-    loadExistingTrainer();
+    // если дошли до сюда, то файл обучения существует - создаем и загружаем
+    newTrainerForModel();
+    _trainer->load(ui->currentModelLineEdit->text());
 }
 
 void ModelTrainingGroupBox::chooseModelFolderPath()
