@@ -224,6 +224,14 @@ void LSTMModel::load(const QString path)
     fileEmbeddingStream.close();
 }
 
+void LSTMModel::drop()
+{
+    // делаем сброс на каждом из слоев модели
+    for (INeuralNetworkLayer *layer : _layers) {
+        layer->drop();
+    }
+}
+
 QString LSTMModel::name() const
 {
     return _name;

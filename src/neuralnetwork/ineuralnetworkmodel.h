@@ -22,6 +22,9 @@ public:
     /// \param path путь к папке с моделью
     virtual void load(const QString path) = 0;
     ///
+    /// \brief drop сброс данных(параметров слоев сети)
+    virtual void drop() = 0;
+    ///
     /// \brief name получение имени модели
     /// \return заданное имя модели нейронной сети
     virtual QString name() const = 0;

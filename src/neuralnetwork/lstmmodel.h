@@ -34,6 +34,7 @@ public:
     void save(const QString path = QDir::currentPath(),
               bool inNewFolder = true) override;
     void load(const QString path = QDir::currentPath()) override;
+    void drop() override;
     QString name() const override;
     int power() const override;
     ITextEmbedding *embedding() const override;
