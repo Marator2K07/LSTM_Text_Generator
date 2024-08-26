@@ -25,6 +25,8 @@ void ModelTrainingGroupBox::newTrainerForModel()
             this, SLOT(trainFormActiveState()));
     connect(_trainer, SIGNAL(modelIsBroken()),
             this, SLOT(trainFormNotActiveState()));
+    connect(_trainer, SIGNAL(modelIsBroken()),
+            this, SLOT(processBadModel()));
     connect(_trainer, SIGNAL(showLearningInfo(QString)),
             ui->logTextEdit, SLOT(insertPlainText(QString)));
     // экстра важные связи, связанные с многопоточкой
@@ -240,6 +242,18 @@ void ModelTrainingGroupBox::uploadTrainerDataToForm()
         break;
     }    
     _trainer->updateStatus();
+}
+
+void ModelTrainingGroupBox::processBadModel()
+{
+    QMessageBox::warning(
+        this,
+        "Предупреждение",
+        "Выбранная модель нейронной сети похоже неисправна.\n"
+        "Создайте идентичную новую или выполните сброс с помощью связанной кнопки."
+        );
+    // разблокируем сброс
+    ui->dropModelButton->setEnabled(true);
 }
 
 void ModelTrainingGroupBox::trainModel()

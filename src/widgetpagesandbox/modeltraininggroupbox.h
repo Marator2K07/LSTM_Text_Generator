@@ -84,6 +84,11 @@ private slots:
     /// параметров тренера на форму обучения
     void uploadTrainerDataToForm();
     ///
+    /// \brief processBadModel в случае поломки/неисправности
+    /// данных модели уведомляем пользователя и открываем доступ
+    /// к сбросу модели
+    void processBadModel();
+    ///
     /// \brief trainModel главный метод-слот данного
     /// виджета для тренировки выбранной модели
     void trainModel();
