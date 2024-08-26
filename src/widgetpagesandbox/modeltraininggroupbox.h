@@ -80,10 +80,9 @@ private slots:
     /// \param newValue новое максимальное значение
     void updateMaxTrainCountValue(int newValue);
     ///
-    /// \brief loadExistingTrainer загрузка
-    /// (при наличии) данных тренера
-    /// \param path путь до папки с тренером(его файлом)
-    void loadExistingTrainer();
+    /// \brief uploadTrainerDataToForm перенос загруженных
+    /// параметров тренера на форму обучения
+    void uploadTrainerDataToForm();
     ///
     /// \brief trainModel главный метод-слот данного
     /// виджета для тренировки выбранной модели

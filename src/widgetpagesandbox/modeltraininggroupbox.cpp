@@ -7,7 +7,8 @@ void ModelTrainingGroupBox::newTrainerForModel()
 {
     // если ранее тренер вдруг уже создавался
     if (_trainer != nullptr) {
-        return;
+        disconnect(_trainer);
+        delete _trainer;
     }
     // иницилизируем нового неполноценного тренера
     // (без инициализации оптимизатора) и ставим основные связи
@@ -18,6 +19,8 @@ void ModelTrainingGroupBox::newTrainerForModel()
             ui->epochsCountLcdNumber, SLOT(display(double)));
     connect(_trainer, SIGNAL(recommendedNumberOfTrainingIter(int)),
             this, SLOT(updateMaxTrainCountValue(int)));
+    connect(_trainer, SIGNAL(modelIsCorrect()),
+            this, SLOT(uploadTrainerDataToForm()));
     connect(_trainer, SIGNAL(modelIsCorrect()),
             this, SLOT(trainFormActiveState()));
     connect(_trainer, SIGNAL(modelIsBroken()),
@@ -220,37 +223,9 @@ void ModelTrainingGroupBox::updateMaxTrainCountValue(int newValue)
     ui->sampleEverySpinBox->setMaximum(newValue);
 }
 
-void ModelTrainingGroupBox::loadExistingTrainer()
+void ModelTrainingGroupBox::uploadTrainerDataToForm()
 {
-    // если ранее тренер уже создавался
-    if (_trainer != nullptr) {
-        disconnect(_trainer);
-        delete _trainer;        
-    }
-    // иницилизируем новый из файла и ставим связи
-    _trainer = new ConsistentTrainer(_loadedModel, nullptr);
-    connect(_trainer, SIGNAL(percentageOfTrainingUpdated(double)),
-            ui->traningValueLcdNumber, SLOT(display(double)));
-    connect(_trainer, SIGNAL(epochsCompletedUpdated(double)),
-            ui->epochsCountLcdNumber, SLOT(display(double)));
-    connect(_trainer, SIGNAL(recommendedNumberOfTrainingIter(int)),
-            this, SLOT(updateMaxTrainCountValue(int)));    
-    connect(_trainer, SIGNAL(showLearningInfo(QString)),
-            ui->logTextEdit, SLOT(insertPlainText(QString)));
-    // экстра важные связи связанные с многопоточкой
-    connect(&_trainThread, SIGNAL(started()),
-            _trainer, SLOT(train()));
-    connect(_trainer, SIGNAL(trainingStoped()),
-            &_trainThread, SLOT(exit()));
-    connect(_trainer, SIGNAL(trainingStoped()),
-            this, SLOT(trainFormActiveState()));
-    connect(ui->stopTrainButton, SIGNAL(pressed()),
-            this, SLOT(stopTrainModel()));
-    connect(_trainer, SIGNAL(trainingProgress(int)),
-            ui->trainingProgressBar, SLOT(setValue(int)));
-    // не забываем поместить тренер в отдельный поток
-    _trainer->moveToThread(&_trainThread);
-    // в конце ставим все полученные данные
+    // ставим все загруженные из файла данные и обновляем
     ui->optimizerLearningRateSpinBox
         ->setValue(_trainer->optimizer()->learningRate());
     switch (_trainer->optimizer()->type()) {
