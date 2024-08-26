@@ -78,6 +78,7 @@ void ModelTrainingGroupBox::trainFormActiveState()
     ui->sampleOutputCheckBox->setEnabled(true);
     ui->startTrainButton->setEnabled(true);
     ui->stopTrainButton->setEnabled(false);
+    ui->dropModelButton->setEnabled(false);
     ui->sampleEverySpinBox->setEnabled(true);
     ui->epochsCountLabel->setEnabled(true);
     ui->iterTrainCountLabel->setEnabled(true);
