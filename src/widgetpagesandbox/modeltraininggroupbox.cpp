@@ -292,6 +292,7 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     , _trainingRate{0.0}
     , _epochsCompleted{0.0}
     , _trainer{nullptr}
+    , _chosenOptimizer{nullptr}
 {
     ui->setupUi(this);
     trainFormNotActiveState();

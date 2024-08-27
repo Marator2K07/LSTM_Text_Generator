@@ -29,6 +29,7 @@ class ModelTrainingGroupBox : public QGroupBox
 private:
     Ui::ModelTrainingGroupBox *ui;
     QString _modelNameMainPart; // основная часть имени загруженной модели
+    IOptimizer *_chosenOptimizer; // выбранный на форме обучения оптимизатор
     LSTMModel *_loadedModel; // текущая загруженная модель нейронной сети
     double _trainingRate; // обученность выбранной модели
     double _epochsCompleted; // количество пройденных эпох обучения
