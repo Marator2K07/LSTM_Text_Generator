@@ -214,7 +214,6 @@ void ConsistentTrainer::train()
         double loss = _model->singleStep(inputBatch, targetBatch);        
         if (loss > _maxCalculatedLoss) {
             _maxCalculatedLoss = loss;
-
         }
         // также проверяем на "сломанность"
         else if(isnan(loss)) {

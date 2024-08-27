@@ -60,7 +60,6 @@ bool ModelTrainingGroupBox::trainPreDataIsCorrect()
             );
         return false;
     }
-
     // если дошли до этого участка, то все впорядке
     return true;
 }

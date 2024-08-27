@@ -58,8 +58,6 @@ LSTMLayer::LSTMLayer(QString name, int hiddenSize, int outputSize, double weight
     , _weightScale{weightScale}
     , _firstStep{true}
 {
-    _startH = Matrix2d<double>::zeroM(1, hiddenSize);
-    _startC = Matrix2d<double>::zeroM(1, hiddenSize);
 }
 
 LSTMLayer::LSTMLayer(const QString path, const QString layerName)
@@ -262,7 +260,7 @@ void LSTMLayer::loadParams(const QString path)
         _startH.loadFromFile(fullPath + "H_start.txt");
         _startC.loadFromFile(fullPath + "C_start.txt");
         // инициализируем ячейки для нейронов/узлов
-        for (int i = 0; i < _sequenceSize; ++i) { /// ПОТОМ УБРАТЬ ХАРДКОД
+        for (int i = 0; i < _sequenceSize; ++i) {
             _cells.push_back(new LSTMNode());
         }
     } catch (const MatrixException &e) {
@@ -280,6 +278,7 @@ void LSTMLayer::loadParams(const QString path)
 
 void LSTMLayer::initParams(const Matrix3d<double> initMatrix)
 {
+    _params.clear();
     _vocabSize = initMatrix.sizes()[2];
     // преинициализация параметров слоя
     _params.insert("W_f", QMap<QString, Matrix2d<double>>());
@@ -348,7 +347,11 @@ void LSTMLayer::initParams(const Matrix3d<double> initMatrix)
                 _params[key]["value"].sizes()[1])
             );
     }
+    // инициализируем начальные состояния
+    _startH = Matrix2d<double>::zeroM(1, _hiddenSize);
+    _startC = Matrix2d<double>::zeroM(1, _hiddenSize);
     // инициализируем ячейки для нейронов/узлов
+    _cells.clear();
     _sequenceSize = initMatrix.sizes()[1];
     for (int i = 0; i < _sequenceSize; ++i) {
         _cells.push_back(new LSTMNode());
