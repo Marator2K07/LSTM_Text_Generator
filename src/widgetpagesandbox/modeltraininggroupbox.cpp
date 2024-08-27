@@ -259,6 +259,40 @@ void ModelTrainingGroupBox::processBadModel()
     ui->dropModelButton->setEnabled(true);
 }
 
+void ModelTrainingGroupBox::dropCurrentModel()
+{
+    _loadedModel->drop();
+    _loadedModel->save(ui->currentModelLineEdit->text(), false);
+    // удаляем файл тренера
+    QString trainerFilePath = QString("%1/%2_%3.txt").arg(
+        ui->currentModelLineEdit->text(),
+        _modelNameMainPart,
+        ConsistentTrainer::TRAINER_DATA_NAME
+        );
+    QFile trainerFile(trainerFilePath);
+    bool success = trainerFile.remove();
+    // переинициализируем модель, тренера и блокируем кнопку сброса
+    newTrainerForModel();
+    ui->dropModelButton->setEnabled(false);
+    // и уведомляем пользователя и предоставляем доступ
+    if (success) {
+        QMessageBox::information(
+            this,
+            "Информация",
+            "Успешный сброс.\n"
+            "Теперь вы можете обучать модель заного."
+            );
+        trainFormActiveState();
+    } else {
+        QMessageBox::warning(
+            this,
+            "Предупреждение",
+            "Что-то пошло не так.\n"
+            "Попробуйте удалить модель и все связанное с ней вручную."
+            );
+    }
+}
+
 void ModelTrainingGroupBox::trainModel()
 {
     // только если прошлое обучение закончилось
@@ -309,6 +343,8 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
             this, SLOT(selectAdaGradOptimizer()));
     connect(ui->optimizerLearningRateSpinBox, SIGNAL(valueChanged(double)),
             this, SLOT(updateOptimizerLearningRate(double)));
+    connect(ui->dropModelButton, SIGNAL(pressed()),
+            this, SLOT(dropCurrentModel()));
     connect(ui->startTrainButton, SIGNAL(pressed()),
             this, SLOT(trainModel()));
     connect(ui->cleanTrainLogButton, SIGNAL(pressed()),

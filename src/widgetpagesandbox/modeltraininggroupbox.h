@@ -90,6 +90,10 @@ private slots:
     /// к сбросу модели
     void processBadModel();
     ///
+    /// \brief dropCurrentModel сброс данных текущей
+    /// обучаемой модели в случае их неисправности
+    void dropCurrentModel();
+    ///
     /// \brief trainModel главный метод-слот данного
     /// виджета для тренировки выбранной модели
     void trainModel();
