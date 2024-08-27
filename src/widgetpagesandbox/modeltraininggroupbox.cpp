@@ -10,9 +10,8 @@ void ModelTrainingGroupBox::newTrainerForModel()
         disconnect(_trainer);
         delete _trainer;
     }
-    // иницилизируем нового неполноценного тренера
-    // (без инициализации оптимизатора) и ставим основные связи
-    _trainer = new ConsistentTrainer(_loadedModel, nullptr);
+    // иницилизируем нового тренера и ставим основные связи
+    _trainer = new ConsistentTrainer(_loadedModel, _chosenOptimizer);
     connect(_trainer, SIGNAL(percentageOfTrainingUpdated(double)),
             ui->traningValueLcdNumber, SLOT(display(double)));
     connect(_trainer, SIGNAL(epochsCompletedUpdated(double)),
@@ -111,9 +110,11 @@ void ModelTrainingGroupBox::selectSGDOptimizer()
     // только если связанная радио кнопка включена
     if (ui->optimizerSGDRadioButton->isChecked()) {
         // задаем новый оптимизатор
-        _trainer->refreshOptimizerStatus(
-            new SGD(_loadedModel, ui->optimizerLearningRateSpinBox->value())
+        _chosenOptimizer = new SGD(
+            _loadedModel, ui->optimizerLearningRateSpinBox->value()
             );
+        // и ставим его
+        _trainer->refreshOptimizerStatus(_chosenOptimizer);
     }
 }
 
@@ -122,9 +123,11 @@ void ModelTrainingGroupBox::selectAdaGradOptimizer()
     // только если связанная радио кнопка включена
     if (ui->optimizerAdaGradRadioButton->isChecked()) {
         // задаем новый оптимизатор
-        _trainer->refreshOptimizerStatus(
-            new AdaGrad(_loadedModel, ui->optimizerLearningRateSpinBox->value())
+        _chosenOptimizer = new AdaGrad(
+            _loadedModel, ui->optimizerLearningRateSpinBox->value()
             );
+        // и ставим его
+        _trainer->refreshOptimizerStatus(_chosenOptimizer);
     }
 }
 
