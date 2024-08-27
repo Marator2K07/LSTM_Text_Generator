@@ -151,6 +151,11 @@ void ModelTrainingGroupBox::tryLoadModel(const QString modelPathAndName)
         QString("%1/%2_%3.txt")
             .arg(modelPathAndName, fileNameMainPart, LSTMModel::EMBEDDING_DATA_NAME)
         );
+    // проверяем на наличие уже созданную раннее модель
+    if (_loadedModel != nullptr) {
+        delete _loadedModel;
+        _loadedModel = nullptr;
+    }
     // инициализируем модель в случае ее существования
     if (currentModelLayersFile.exists() && currentModelEmbeddingFile.exists()) {
         _modelNameMainPart = fileNameMainPart;
@@ -171,12 +176,7 @@ void ModelTrainingGroupBox::tryLoadModel(const QString modelPathAndName)
             "Предупреждение",
             "По указанному пути не существует модели для обучения"
             );
-        // в любом случае удаляем модель
-        if (_loadedModel != nullptr) {
-            delete _loadedModel;
-            _loadedModel = nullptr;
-        }
-        // и тренера, если они были выбраны/созданы
+        // освобождаем тренера, если они был выбран/создан
         if (_trainer != nullptr) {
             disconnect(_trainer);
             delete _trainer;
