@@ -17,7 +17,7 @@ void LSTMLayer::saveHyperParams(const QString path)
     }
     // пишем гиперпараметры в файл
     file << _hiddenSize << " " << _outputSize << " " << _vocabSize << " "
-         << _sequenceSize << " " << _weightScale << " ";
+         << _sequenceSize << " " << _weightScale << " " << _firstStep;
 
     file.close();
 }
@@ -40,7 +40,7 @@ void LSTMLayer::loadHyperParams(const QString path)
     getline(file, line);
     istringstream rowStream(line);
     rowStream >> _hiddenSize >> _outputSize >> _vocabSize
-        >> _sequenceSize >> _weightScale;
+        >> _sequenceSize >> _weightScale >> _firstStep;
 
     cout << _hiddenSize << endl;
     cout << _outputSize << endl;
@@ -56,10 +56,10 @@ LSTMLayer::LSTMLayer(QString name, int hiddenSize, int outputSize, double weight
     , _hiddenSize{hiddenSize}
     , _outputSize{outputSize}
     , _weightScale{weightScale}
+    , _firstStep{true}
 {
     _startH = Matrix2d<double>::zeroM(1, hiddenSize);
     _startC = Matrix2d<double>::zeroM(1, hiddenSize);
-    _firstStep = true;
 }
 
 LSTMLayer::LSTMLayer(const QString path, const QString layerName)
@@ -265,8 +265,6 @@ void LSTMLayer::loadParams(const QString path)
         for (int i = 0; i < _sequenceSize; ++i) { /// ПОТОМ УБРАТЬ ХАРДКОД
             _cells.push_back(new LSTMNode());
         }
-        // сбрасываем метку первой инициализации
-        _firstStep = false;
     } catch (const MatrixException &e) {
         throw NeuralNetworkException(
             QString("Catch neural network params loading exception:\n[%1]\n")
