@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>390</width>
-    <height>485</height>
+    <width>404</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="font">
@@ -512,19 +512,19 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>65</width>
+            <width>90</width>
             <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>85</width>
+            <width>90</width>
             <height>16777215</height>
            </size>
           </property>
           <property name="baseSize">
            <size>
-            <width>65</width>
+            <width>90</width>
             <height>0</height>
            </size>
           </property>
@@ -655,19 +655,19 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>85</width>
+            <width>90</width>
             <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>105</width>
+            <width>95</width>
             <height>16777215</height>
            </size>
           </property>
           <property name="baseSize">
            <size>
-            <width>85</width>
+            <width>90</width>
             <height>0</height>
            </size>
           </property>
