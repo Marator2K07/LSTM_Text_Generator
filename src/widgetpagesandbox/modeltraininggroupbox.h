@@ -7,6 +7,7 @@
 #include <QThread>
 #include <QFile>
 
+#include "aboutcurmodelstatedialog.h"
 #include "softmaxcrossentropyloss.h"
 #include "consistenttrainer.h"
 #include "lstmmodel.h"
@@ -28,6 +29,7 @@ class ModelTrainingGroupBox : public QGroupBox
 
 private:
     Ui::ModelTrainingGroupBox *ui;
+    AboutCurModelStateDialog *_curModelTrainStateHelpDialog; // справка об обученности
     QString _modelNameMainPart; // основная часть имени загруженной модели
     IOptimizer *_chosenOptimizer; // выбранный на форме обучения оптимизатор
     LSTMModel *_loadedModel; // текущая загруженная модель нейронной сети

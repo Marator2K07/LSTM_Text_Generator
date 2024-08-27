@@ -323,6 +323,7 @@ void ModelTrainingGroupBox::stopTrainModel()
 ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     : QGroupBox(parent)
     , ui(new Ui::ModelTrainingGroupBox)
+    , _curModelTrainStateHelpDialog{new AboutCurModelStateDialog(this)}
     , _modelNameMainPart{QString()}
     , _loadedModel{nullptr}
     , _trainingRate{0.0}
@@ -333,6 +334,8 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     ui->setupUi(this);
     trainFormNotActiveState();
 
+    connect(ui->aboutCurModelTrainStateHelpBtn, SIGNAL(pressed()),
+            _curModelTrainStateHelpDialog, SLOT(show()));
     connect(ui->chooseCurrentModelButton, SIGNAL(pressed()),
             this, SLOT(chooseModelFolderPath()));
     connect(ui->currentModelLineEdit, SIGNAL(textChanged(QString)),
