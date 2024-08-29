@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>350</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,9 +23,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-312</y>
         <width>363</width>
-        <height>459</height>
+        <height>662</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -69,6 +69,36 @@
          </property>
          <property name="text">
           <string>AdaGrad (Adaptive Gradient) - это адаптивный метод оптимизации, который изменяет скорость обучения для каждого параметра независимо. Он уменьшает шаг обучения для параметров, которые имеют большой градиент, и увеличивает шаг для параметров с меньшим градиентом. Таким образом, AdaGrad может помочь в быстром обучении на нестационарных данных и улучшить сходимость алгоритма. Однако в некоторых случаях AdaGrad может слишком быстро снижать скорость обучения, что может замедлить обучение нейронной сети или вовсе привести ее в нерабочее состояние - полностью испортив значения весов и параметров сети.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>12</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>Скорость обучения:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="font">
+          <font>
+           <family>Segoe UI Light</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Скорость обучения (learning rate) является одним из наиболее важных гиперпараметров при обучении нейронных сетей. Она определяет величину шага, с которой параметры модели (веса) обновляются в процессе обучения. Низкая скорость обучения может привести к медленной сходимости и застреванию в локальных минимумах, тогда как слишком высокая скорость обучения может привести к нестабильности обучения и расходимости, а в некоторых случаях - приведение весов модели в необучаемое состояние.  </string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>

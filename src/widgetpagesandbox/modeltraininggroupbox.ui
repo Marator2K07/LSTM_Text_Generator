@@ -455,7 +455,7 @@
            </font>
           </property>
           <property name="text">
-           <string>с точностью:</string>
+           <string>со скоростью:</string>
           </property>
          </widget>
         </item>
