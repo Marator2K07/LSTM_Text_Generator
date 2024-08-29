@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AboutOptimizerDialog</class>
+ <widget class="QDialog" name="AboutOptimizerDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>363</width>
+        <height>398</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Выбор оптимизатора при обучении нейронной сети:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>SGD (Stochastic Gradient Descent) - это один из самых простых и широко используемых оптимизаторов для обучения нейронных сетей. Он одинакого обновляет веса нейронной сети в каждой итерации, используя градиент функции потерь по параметрам модели. SGD пытается найти минимум функции потерь, двигаясь в направлении, противоположном градиенту.  Однако этот метод может иметь проблемы с сходимостью, особенно в случае нестационарных функций потерь. Данный оптимизатор более стабилен, но менее быстр в сравнении с адаптивным.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>AdaGrad (Adaptive Gradient) - это адаптивный метод оптимизации, который изменяет скорость обучения для каждого параметра независимо. Он уменьшает шаг обучения для параметров, которые имеют большой градиент, и увеличивает шаг для параметров с меньшим градиентом. Таким образом, AdaGrad может помочь в быстром обучении на нестационарных данных и улучшить сходимость алгоритма. Однако в некоторых случаях AdaGrad может слишком быстро снижать скорость обучения, что может замедлить обучение нейронной сети или вовсе привести ее в нерабочее состояние - полностью испортив значения весов и параметров сети.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>AboutOptimizerDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
