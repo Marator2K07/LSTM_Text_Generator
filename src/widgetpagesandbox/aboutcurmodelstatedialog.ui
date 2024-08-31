@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>О текущем состоянии обученности модели</string>
+   <string>О текущем состоянии модели</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -143,11 +143,32 @@
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="minimumSize">
+      <size>
+       <width>35</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>35</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="baseSize">
+      <size>
+       <width>35</width>
+       <height>0</height>
+      </size>
+     </property>
      <property name="font">
       <font>
        <family>Bahnschrift SemiCondensed</family>
        <pointsize>12</pointsize>
       </font>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
