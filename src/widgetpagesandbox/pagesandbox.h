@@ -8,7 +8,7 @@
 /// \brief The WorkMode enum
 /// определение режима работы виджета
 enum class WorkMode {
-    EXISTING_MODEL = 0,
+    TRAIN_MODEL = 0,
     NEW_MODEL,
     NONE
 };
@@ -28,10 +28,12 @@ class PageSandbox : public QWidget
 private:
     Ui::PageSandbox *ui;
     WorkMode _currenWorkMode; // текущим режим работы виджета
-    QGroupBox *_currentModeGroupBox; // ссылка на текущий виджет режима работы
+    ModelTrainingGroupBox *_modelTrainGroupBox;
+    NewModelGroupBox *_newModelGroupBox;
 
 private slots:
     ///
+
 
 public:
     explicit PageSandbox(QWidget *parent = nullptr);
