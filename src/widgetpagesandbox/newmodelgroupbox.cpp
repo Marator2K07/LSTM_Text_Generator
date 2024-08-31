@@ -77,6 +77,18 @@ void NewModelGroupBox::newModelDataCheck()
             );
         return;
     }
+    // проверка на существование такой же модели(с таким же именем)
+    QDir possibleExistingModel(
+        ui->saveModelPathLineEdit->text() + "/" + ui->modelNameLineEdit->text()
+        );
+    if (possibleExistingModel.exists()) {
+        QMessageBox::warning(
+            this,
+            "Предупреждение",
+            "Модель с таким именем уже существует."
+            );
+        return;
+    }
     // если дошли до данной строчки, то можно создавать модель
     emit modelReadyToBeCreated();
 }
