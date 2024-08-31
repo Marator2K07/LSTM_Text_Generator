@@ -7,7 +7,7 @@ QString NewModelGroupBox::STANDART_FONT_NAME = "Bahnschrift SemiCondensed";
 double NewModelGroupBox::MIN_LAYER_SCALE = 0.001;
 double NewModelGroupBox::MAX_LAYER_SCALE = 0.01;
 double NewModelGroupBox::LAYER_SCALE_STEP = 0.001;
-int NewModelGroupBox::MODEL_SCALE_DECIMALS_COUNT = 3;
+int NewModelGroupBox::LAYER_SCALE_DECIMALS_COUNT = 3;
 int NewModelGroupBox::MIN_LAYER_HIDDEN_SIZE = 16;
 int NewModelGroupBox::MAX_LAYER_HIDDEN_SIZE = 512;
 long NewModelGroupBox::MIN_NAME_MODEL_LENGTH = 5;
@@ -160,16 +160,20 @@ void NewModelGroupBox::addNewLayer()
     QTableWidgetItem *initName
         = new QTableWidgetItem(QString("Layer%1").arg(LAYERS_CREATED++));
     QDoubleSpinBox *initScale = new QDoubleSpinBox();
-    initScale->setRange(0.001, 0.1);
-    initScale->setDecimals(3);
-    initScale->setSingleStep(0.001);
+    initScale->setRange(MIN_LAYER_SCALE, MAX_LAYER_SCALE);
+    initScale->setDecimals(LAYER_SCALE_DECIMALS_COUNT);
+    initScale->setSingleStep(LAYER_SCALE_STEP);
     QSpinBox *initHiddenSize = new QSpinBox();
-    initHiddenSize->setRange(16, 512);
+    initHiddenSize->setRange(MIN_LAYER_HIDDEN_SIZE, MAX_LAYER_HIDDEN_SIZE);
     // стоит также добавить кнопку для удаления данной строки
     QPushButton *deleteBtn = new QPushButton("Убрать");
-    deleteBtn->setFont(QFont("Bahnschrift SemiCondensed", 12));
-    deleteBtn->setSizePolicy(QSizePolicy::Maximum,
-                             QSizePolicy::Maximum);
+    deleteBtn->setFont(QFont(STANDART_FONT_NAME, STANDART_FONT_SIZE));
+    deleteBtn->setSizePolicy(QSizePolicy::Minimum,
+                             QSizePolicy::Minimum);
+    deleteBtn->setMaximumSize(LAYERS_COLUMN_DELETE_BUTTON_WIDTH,
+                              LAYERS_COLUMN_DELETE_BUTTON_HEIGHT);
+    deleteBtn->setBaseSize(LAYERS_COLUMN_DELETE_BUTTON_WIDTH,
+                           LAYERS_COLUMN_DELETE_BUTTON_HEIGHT);
     connect(deleteBtn, SIGNAL(pressed()),
             this, SLOT(deleteSelectedLayer())); // само удаление    
     // ставим их в столбцы
