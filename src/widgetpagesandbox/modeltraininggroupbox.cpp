@@ -325,6 +325,7 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
     , ui(new Ui::ModelTrainingGroupBox)
     , _curModelTrainStateHelpDialog{new AboutCurModelStateDialog(this)}
     , _optimizerHelpDialog{new AboutOptimizerDialog(this)}
+    , _trainingHelpDialog{new AboutTrainingDialog(this)}
     , _modelNameMainPart{QString()}
     , _loadedModel{nullptr}
     , _trainingRate{0.0}
@@ -339,6 +340,8 @@ ModelTrainingGroupBox::ModelTrainingGroupBox(QWidget *parent)
             _curModelTrainStateHelpDialog, SLOT(show()));
     connect(ui->aboutOptimizerHelpBtn, SIGNAL(pressed()),
             _optimizerHelpDialog, SLOT(show()));
+    connect(ui->aboutTrainingHelpBtn, SIGNAL(pressed()),
+            _trainingHelpDialog, SLOT(show()));
     connect(ui->chooseCurrentModelButton, SIGNAL(pressed()),
             this, SLOT(chooseModelFolderPath()));
     connect(ui->currentModelLineEdit, SIGNAL(textChanged(QString)),

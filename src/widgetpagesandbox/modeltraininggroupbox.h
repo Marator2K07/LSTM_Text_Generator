@@ -10,6 +10,7 @@
 #include "aboutcurmodelstatedialog.h"
 #include "softmaxcrossentropyloss.h"
 #include "aboutoptimizerdialog.h"
+#include "abouttrainingdialog.h"
 #include "consistenttrainer.h"
 #include "lstmmodel.h"
 #include "adagrad.h"
@@ -32,6 +33,7 @@ private:
     Ui::ModelTrainingGroupBox *ui;
     AboutCurModelStateDialog *_curModelTrainStateHelpDialog; // справка об обученности
     AboutOptimizerDialog *_optimizerHelpDialog; // справка о выборе оптимизатора
+    AboutTrainingDialog *_trainingHelpDialog; // справка о процессе обучения модели
     QString _modelNameMainPart; // основная часть имени загруженной модели
     IOptimizer *_chosenOptimizer; // выбранный на форме обучения оптимизатор
     LSTMModel *_loadedModel; // текущая загруженная модель нейронной сети
