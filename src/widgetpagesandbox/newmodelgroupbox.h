@@ -42,12 +42,21 @@ private:
     AboutLearningDataDialog *_learningDataHelpDialog; // справка об обуч. данных
     AboutModelDataDialog *_modelDataHelpDialog; // справка об основн. параметрах сети
     static long LAYERS_CREATED;
+    static int STANDART_FONT_SIZE;
+    static QString STANDART_FONT_NAME;
+    static double MIN_LAYER_SCALE; // минимальная точность создаваемого слоя модели
+    static double MAX_LAYER_SCALE; // максимальная точность создаваемого слоя модели
+    static double LAYER_SCALE_STEP; // шаг изменения точности слоя модели для виджета
+    static int LAYER_SCALE_DECIMALS_COUNT;
+    static int MIN_LAYER_HIDDEN_SIZE; // минимальный скрытый размер созд. слоя модели
+    static int MAX_LAYER_HIDDEN_SIZE; // максимальный скрытый размер созд. слоя модели
     static long MIN_NAME_MODEL_LENGTH;
     static long MIN_COUNT_MODEL_LAYERS;
     static int LAYERS_COLUMN_NAME_WIDTH;
     static int LAYERS_COLUMN_SCALE_WIDTH;
     static int LAYERS_COLUMN_HIDDEN_SIZE_WIDTH;
     static int LAYERS_COLUMN_DELETE_BUTTON_WIDTH;
+    static int LAYERS_COLUMN_DELETE_BUTTON_HEIGHT;
 
 private:
     ///

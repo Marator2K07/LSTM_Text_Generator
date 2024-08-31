@@ -2,12 +2,21 @@
 #include "ui_newmodelgroupbox.h"
 
 long NewModelGroupBox::LAYERS_CREATED = 0;
+int NewModelGroupBox::STANDART_FONT_SIZE = 12;
+QString NewModelGroupBox::STANDART_FONT_NAME = "Bahnschrift SemiCondensed";
+double NewModelGroupBox::MIN_LAYER_SCALE = 0.001;
+double NewModelGroupBox::MAX_LAYER_SCALE = 0.01;
+double NewModelGroupBox::LAYER_SCALE_STEP = 0.001;
+int NewModelGroupBox::MODEL_SCALE_DECIMALS_COUNT = 3;
+int NewModelGroupBox::MIN_LAYER_HIDDEN_SIZE = 16;
+int NewModelGroupBox::MAX_LAYER_HIDDEN_SIZE = 512;
 long NewModelGroupBox::MIN_NAME_MODEL_LENGTH = 5;
 long NewModelGroupBox::MIN_COUNT_MODEL_LAYERS = 1;
 int NewModelGroupBox::LAYERS_COLUMN_NAME_WIDTH = 65;
 int NewModelGroupBox::LAYERS_COLUMN_SCALE_WIDTH = 105;
 int NewModelGroupBox::LAYERS_COLUMN_HIDDEN_SIZE_WIDTH = 85;
-int NewModelGroupBox::LAYERS_COLUMN_DELETE_BUTTON_WIDTH = 65;
+int NewModelGroupBox::LAYERS_COLUMN_DELETE_BUTTON_WIDTH = 55;
+int NewModelGroupBox::LAYERS_COLUMN_DELETE_BUTTON_HEIGHT = 33;
 
 QList<INeuralNetworkLayer *> NewModelGroupBox::layersFromTable(int outputSize) const
 {
