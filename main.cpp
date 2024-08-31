@@ -2,7 +2,7 @@
 #include <QListView>
 #include <QStringListModel>
 
-#include "pageModels/pagemodel.h"
+#include "pagemodel.h"
 #include "modeltraininggroupbox.h"
 #include "newmodelgroupbox.h"
 #include "adagrad.h"
