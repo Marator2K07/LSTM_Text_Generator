@@ -5,7 +5,6 @@
 #include "pageModels/pagemodel.h"
 #include "modeltraininggroupbox.h"
 #include "newmodelgroupbox.h"
-#include "pagesandbox.h"
 #include "adagrad.h"
 #include "sgd.h"
 #include "lstmlayer.h"
@@ -21,11 +20,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-//    PageModel pageModel;
-//    pageModel.show();
-
-    //PageSandbox pageSandbox;
-    //pageSandbox.show();
+    PageModel pageModel;
+    pageModel.show();
 
     NewModelGroupBox newModelSand;
     newModelSand.show();
