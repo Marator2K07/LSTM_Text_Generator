@@ -1,18 +1,14 @@
-qt_add_library(pagesandbox STATIC
-    newmodelgroupbox.h newmodelgroupbox.cpp newmodelgroupbox.ui
-    aboutlayersdialog.h aboutlayersdialog.cpp aboutlayersdialog.ui
-    aboutlearningdatadialog.h aboutlearningdatadialog.cpp aboutlearningdatadialog.ui
-    aboutmodeldatadialog.h aboutmodeldatadialog.cpp aboutmodeldatadialog.ui
+qt_add_library(modeltrainwidget STATIC
     modeltraininggroupbox.h modeltraininggroupbox.cpp modeltraininggroupbox.ui
     aboutcurmodelstatedialog.h aboutcurmodelstatedialog.cpp aboutcurmodelstatedialog.ui
     aboutoptimizerdialog.h aboutoptimizerdialog.cpp aboutoptimizerdialog.ui
     abouttrainingdialog.h abouttrainingdialog.cpp abouttrainingdialog.ui
 )
-target_link_libraries(pagesandbox PRIVATE
+target_link_libraries(modeltrainwidget PRIVATE
     Qt6::Core
     Qt6::Widgets
 )
-target_link_libraries(pagesandbox PRIVATE
+target_link_libraries(modeltrainwidget PRIVATE
     activationfunctions
     randommanaging
     neuralnetwork
@@ -23,4 +19,4 @@ target_link_libraries(pagesandbox PRIVATE
     matrix
     loss
 )
-target_include_directories(pagesandbox PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(modeltrainwidget PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
