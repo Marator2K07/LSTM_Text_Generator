@@ -33,7 +33,13 @@ private:
 
 private slots:
     ///
-
+    /// \brief chooseModelTrain слот выбора виджета формы
+    /// тренировки уже ранее созданных моделей
+    void chooseModelTrain();
+    ///
+    /// \brief chooseNewModel слот выбора виджета формы
+    /// создания новой модели нейронной сети
+    void chooseNewModel();
 
 public:
     explicit PageSandbox(QWidget *parent = nullptr);
