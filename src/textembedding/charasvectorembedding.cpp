@@ -165,7 +165,16 @@ QList<int> CharAsVectorEmbedding::textToIndeces(const QString text)
 
 QList<QChar> CharAsVectorEmbedding::checkStrForCompatibility(const QString line)
 {
+    // подготовка
+    QList<QChar> missingСhars;
+    // проходимся по полученной строке и ищем отсутствующие символы
+    for (const QChar &symbol : line.toLower()) {
+        if (!_charToIdx.contains(symbol) && !missingСhars.contains(symbol)) {
+            missingСhars.push_back(symbol);
+        }
+    }
 
+    return missingСhars;
 }
 
 Matrix2d<double> CharAsVectorEmbedding::genTextIndices(int startPos)
