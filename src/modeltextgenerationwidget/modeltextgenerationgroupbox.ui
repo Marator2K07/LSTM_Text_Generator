@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PageModel</class>
- <widget class="QWidget" name="PageModel">
+ <class>ModelTextGenerationGroupBox</class>
+ <widget class="QGroupBox" name="ModelTextGenerationGroupBox">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -186,6 +185,4 @@
    </item>
   </layout>
  </widget>
- <resources/>
- <connections/>
 </ui>

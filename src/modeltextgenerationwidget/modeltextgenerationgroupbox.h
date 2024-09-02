@@ -1,9 +1,10 @@
-#ifndef PAGEMODEL_H
-#define PAGEMODEL_H
+#ifndef MODELTEXTGENERATIONGROUPBOX_H
+#define MODELTEXTGENERATIONGROUPBOX_H
 
 #include <QDirIterator>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QGroupBox>
 #include <QThread>
 #include <QWidget>
 #include <QDir>
@@ -13,18 +14,20 @@
 #include "directorymodelview.h"
 #include "lstmmodel.h"
 
-using namespace std;
-
 namespace Ui {
-class PageModel;
+class ModelTextGenerationGroupBox;
 }
 
-class PageModel : public QWidget
+///
+/// \brief The ModelTextGenerationGroupBox class
+/// виджет со всем необходимым содержимым для генерации
+/// текста с помощью существующей модели нейронной сети
+class ModelTextGenerationGroupBox : public QGroupBox
 {
     Q_OBJECT
 
 private:
-    Ui::PageModel *ui;
+    Ui::ModelTextGenerationGroupBox *ui;
     DirectoryModelView *_dirModelView; // текущая модель с папками моделей
     INeuralNetworkModel *_neuralNetworkModel; // выбранная модель нейронной сети
     NeuralNetworkTextGenerator *_textGenerator; // основной компонент виджета генерации
@@ -50,8 +53,8 @@ private slots:
     void adaptFormElements();
 
 public:
-    explicit PageModel(QWidget *parent = nullptr);
-    ~PageModel();
+    explicit ModelTextGenerationGroupBox(QWidget *parent = nullptr);
+    ~ModelTextGenerationGroupBox();
 
 signals:
     ///
@@ -65,4 +68,4 @@ signals:
 
 };
 
-#endif // PAGEMODEL_H
+#endif // MODELTEXTGENERATIONGROUPBOX_H

@@ -1,6 +1,6 @@
 qt_add_library(modeltextgenerationwidget STATIC
-    pagemodel.h pagemodel.cpp pagemodel.ui
     directorymodelview.h directorymodelview.cpp
+    modeltextgenerationgroupbox.h modeltextgenerationgroupbox.cpp modeltextgenerationgroupbox.ui
 )
 target_link_libraries(modeltextgenerationwidget PRIVATE
     Qt6::Core

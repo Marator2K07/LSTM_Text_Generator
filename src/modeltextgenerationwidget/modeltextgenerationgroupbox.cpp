@@ -1,7 +1,7 @@
-#include "pagemodel.h"
-#include "./ui_pagemodel.h"
+#include "modeltextgenerationgroupbox.h"
+#include "ui_modeltextgenerationgroupbox.h"
 
-void PageModel::openFolderWithModels()
+void ModelTextGenerationGroupBox::openFolderWithModels()
 {
     // открываем нужную папку с помощью менеджера
     QString directory = QFileDialog::getExistingDirectory();
@@ -24,7 +24,7 @@ void PageModel::openFolderWithModels()
     ui->modelsListView->setModel(_dirModelView);
 }
 
-void PageModel::selectNeuralNetworkModel(QModelIndex index)
+void ModelTextGenerationGroupBox::selectNeuralNetworkModel(QModelIndex index)
 {
     // подготовка
     QString modelPath
@@ -61,7 +61,7 @@ void PageModel::selectNeuralNetworkModel(QModelIndex index)
     emit neuralNetworkModelChanged();
 }
 
-void PageModel::generateWithModel()
+void ModelTextGenerationGroupBox::generateWithModel()
 {
     // только если прошлая генерация закончилась
     if (!_generateThread.isRunning()) {
@@ -76,7 +76,7 @@ void PageModel::generateWithModel()
     }
 }
 
-void PageModel::adaptFormElements()
+void ModelTextGenerationGroupBox::adaptFormElements()
 {
     // открываем/закрываем доступ к разделу генерации
     if (_neuralNetworkModel == nullptr) {
@@ -86,9 +86,9 @@ void PageModel::adaptFormElements()
     }
 }
 
-PageModel::PageModel(QWidget *parent)
-    : QWidget(parent)
-    , ui(new Ui::PageModel)
+ModelTextGenerationGroupBox::ModelTextGenerationGroupBox(QWidget *parent)
+    : QGroupBox(parent)
+    , ui(new Ui::ModelTextGenerationGroupBox)
     , _dirModelView{nullptr}
     , _neuralNetworkModel{nullptr}
     , _textGenerator{new NeuralNetworkTextGenerator()}
@@ -117,7 +117,7 @@ PageModel::PageModel(QWidget *parent)
     _textGenerator->moveToThread(&_generateThread);
 }
 
-PageModel::~PageModel()
+ModelTextGenerationGroupBox::~ModelTextGenerationGroupBox()
 {
     delete ui;
 }
