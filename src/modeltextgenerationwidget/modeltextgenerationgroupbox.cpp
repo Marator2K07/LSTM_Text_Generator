@@ -63,16 +63,34 @@ void ModelTextGenerationGroupBox::selectNeuralNetworkModel(QModelIndex index)
 
 void ModelTextGenerationGroupBox::generateWithModel()
 {
+    // подготовка
+    QString context = ui->sampleGenLineEdit->text();
+    QList<QChar> missingChars;
     // только если прошлая генерация закончилась
     if (!_generateThread.isRunning()) {
-        // преобразуем контекст в нужный вид
-        QList<int> convertedStr
-            = _neuralNetworkModel->embedding()->textToIndeces(
-                ui->sampleGenLineEdit->text()
+        missingChars
+            = _neuralNetworkModel->embedding()->checkStrForCompatibility(context);
+        // можем генерировать, если нет ни одного отсутствующего в эмбеддинге символа
+        if (missingChars.size() == 0) {
+            // преобразуем контекст в нужный вид
+            QList<int> convertedStr
+                = _neuralNetworkModel->embedding()->textToIndeces(context);
+            // обновляем данные для нового задания(генерации) и запускаем процесс
+            _textGenerator->applyAssignmentForGenerate(convertedStr);
+            _generateThread.start();
+        }
+        // иначе показываем какие символы не распознаются моделью
+        else {
+            QString errorSymbols;
+            for (const QChar &symbol : missingChars) {
+                errorSymbols.append("`").append(symbol).append("` ");
+            }
+            QMessageBox::warning(
+                this,
+                "Ошибка при попытке генерации",
+                "Данные символы не распознаются моделью:\n " + errorSymbols
                 );
-        // обновляем данные для нового задания(генерации) и запускаем процесс
-        _textGenerator->applyAssignmentForGenerate(convertedStr);
-        _generateThread.start();
+        }
     }
 }
 
