@@ -80,9 +80,9 @@ void ModelTextGenerationGroupBox::adaptFormElements()
 {
     // открываем/закрываем доступ к разделу генерации
     if (_neuralNetworkModel == nullptr) {
-        ui->genSampleGroupBox->setEnabled(false);
+        ui->generateFrame->setEnabled(false);
     } else {
-        ui->genSampleGroupBox->setEnabled(true);
+        ui->generateFrame->setEnabled(true);
     }
 }
 

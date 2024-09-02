@@ -43,9 +43,10 @@ private slots:
     /// нейронной сети из списка представления типа list view
     /// \param index выбранный индекс модели в представлении
     void selectNeuralNetworkModel(QModelIndex index);
-
+    ///
+    /// \brief generateWithModel главный метод-слот данного
+    /// виджета для генерации текста на основе выбранной модели
     void generateWithModel();
-
     ///
     /// \brief adaptFormElements анализ текущего
     /// состояния экземпляра обьекта данной формы
