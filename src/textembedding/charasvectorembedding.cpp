@@ -159,6 +159,10 @@ QList<int> CharAsVectorEmbedding::textToIndeces(const QString text)
         // а если все впорядке
         resultIndeces.push_back(_charToIdx[currentSymbol]);
     }
+    // в случае пустого присланного текста
+    if (resultIndeces.size() == 0) {
+        resultIndeces.push_back(QRandomGenerator::global()->bounded(0, _vocabSize));
+    }
 
     return resultIndeces;
 }

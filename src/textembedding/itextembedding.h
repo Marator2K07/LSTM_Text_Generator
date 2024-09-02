@@ -1,6 +1,7 @@
 #ifndef ITEXTEMBEDDING_H
 #define ITEXTEMBEDDING_H
 
+#include <QRandomGenerator>
 #include <QByteArray>
 #include <QFile>
 #include <QHash>
@@ -62,6 +63,8 @@ public:
     /// \brief textToIndeces замена текста вектором индексов словаря
     /// \param text текст для анализа
     /// \return список индексов(из словаря) букв текста
+    /// (если присланный текст - пустой, то вектор
+    /// состоит из одного случайного индекса символа)
     virtual QList<int> textToIndeces(const QString text) = 0;
     ///
     /// \brief checkStrForCompatibility проверка строки на совместимость
