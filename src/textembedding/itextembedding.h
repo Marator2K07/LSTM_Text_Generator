@@ -64,6 +64,12 @@ public:
     /// \return список индексов(из словаря) букв текста
     virtual QList<int> textToIndeces(const QString text) = 0;
     ///
+    /// \brief checkStrForCompatibility проверка строки на совместимость
+    /// для будущей генерации - поиск отсутствующих в словаре эмбеддинга символов
+    /// \param line строка для проверки символов
+    /// \return возможно не пустой список с отсутствующими символами
+    virtual QList<QChar> checkStrForCompatibility(const QString line) = 0;
+    ///
     /// \brief genTextIndices генерация 2д матрицы
     /// индексов символов для заданного текста
     /// \param startPos точка старта генерации

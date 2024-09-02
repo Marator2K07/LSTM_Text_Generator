@@ -163,6 +163,11 @@ QList<int> CharAsVectorEmbedding::textToIndeces(const QString text)
     return resultIndeces;
 }
 
+QList<QChar> CharAsVectorEmbedding::checkStrForCompatibility(const QString line)
+{
+
+}
+
 Matrix2d<double> CharAsVectorEmbedding::genTextIndices(int startPos)
 {
     // создаем матрицу нужных размеров

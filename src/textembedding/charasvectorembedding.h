@@ -60,6 +60,7 @@ public:
     QList<QChar> symbols() const override;
     QList<int> indeces() const override;
     QList<int> textToIndeces(const QString text) override;
+    QList<QChar> checkStrForCompatibility(const QString line) override;
     Matrix2d<double> genTextIndices(int startPos) override;
     Matrix3d<double> genTextBatch(Matrix2d<double> indices) override;
     //
