@@ -86,5 +86,10 @@ void NeuralNetworkTextGenerator::generate()
 
 void NeuralNetworkTextGenerator::applyAssignmentForGenerate(QList<int> context)
 {
+    // в случае превышения контекстом длины последовательности
+    while (context.size() > _neuralNetworkModel->embedding()->sequenceLength()) {
+        context.pop_front();
+    }
+
     _contextOnAssignment = context;
 }
