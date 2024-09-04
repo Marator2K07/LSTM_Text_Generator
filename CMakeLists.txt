@@ -14,6 +14,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 
 add_executable(LSTM_Text_Generator
     main.cpp
+    lstmgeneratormainwindow.h lstmgeneratormainwindow.cpp lstmgeneratormainwindow.ui
 )
 target_link_libraries(LSTM_Text_Generator PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
