@@ -6,25 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>420</width>
+    <width>412</width>
     <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>420</width>
+    <width>412</width>
     <height>0</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>420</width>
+    <width>412</width>
     <height>16777215</height>
    </size>
   </property>
   <property name="baseSize">
    <size>
-    <width>420</width>
+    <width>412</width>
     <height>0</height>
    </size>
   </property>
@@ -37,19 +37,19 @@
   <widget class="QWidget" name="centralwidget">
    <property name="minimumSize">
     <size>
-     <width>420</width>
+     <width>412</width>
      <height>0</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>420</width>
+     <width>412</width>
      <height>16777215</height>
     </size>
    </property>
    <property name="baseSize">
     <size>
-     <width>420</width>
+     <width>412</width>
      <height>0</height>
     </size>
    </property>
@@ -73,19 +73,19 @@
      <widget class="QTabWidget" name="tabWidget">
       <property name="minimumSize">
        <size>
-        <width>420</width>
+        <width>412</width>
         <height>0</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>420</width>
+        <width>412</width>
         <height>16777215</height>
        </size>
       </property>
       <property name="baseSize">
        <size>
-        <width>420</width>
+        <width>412</width>
         <height>0</height>
        </size>
       </property>
@@ -104,7 +104,7 @@
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideMiddle</enum>
@@ -148,7 +148,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>420</width>
+     <width>412</width>
      <height>22</height>
     </rect>
    </property>

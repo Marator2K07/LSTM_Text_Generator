@@ -10,6 +10,18 @@
     <height>500</height>
    </rect>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>412</width>
+    <height>16777215</height>
+   </size>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>412</width>
+    <height>0</height>
+   </size>
+  </property>
   <property name="font">
    <font>
     <family>Segoe UI Light</family>

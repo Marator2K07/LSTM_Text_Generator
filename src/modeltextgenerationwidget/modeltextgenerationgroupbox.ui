@@ -10,6 +10,18 @@
     <height>550</height>
    </rect>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>412</width>
+    <height>16777215</height>
+   </size>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>412</width>
+    <height>0</height>
+   </size>
+  </property>
   <property name="font">
    <font>
     <family>Segoe UI Light</family>
@@ -37,6 +49,12 @@
    </property>
    <item>
     <widget class="QLabel" name="folderWithModelsHeaderLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="font">
       <font>
        <family>Rockwell</family>
@@ -126,6 +144,12 @@
    </item>
    <item>
     <widget class="QLabel" name="chooseModelHeaderLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="font">
       <font>
        <family>Rockwell</family>
@@ -140,7 +164,7 @@
    <item>
     <widget class="QListView" name="modelsListView">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -180,6 +204,12 @@
       </property>
       <item>
        <widget class="QLabel" name="generationHeaderLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="font">
          <font>
           <family>Rockwell</family>
@@ -194,7 +224,7 @@
       <item>
        <widget class="QLabel" name="genSampleLabel">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
