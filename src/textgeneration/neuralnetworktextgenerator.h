@@ -15,6 +15,7 @@ class NeuralNetworkTextGenerator : public QObject,
 
 private:
     INeuralNetworkModel *_neuralNetworkModel;
+    bool _generateStoped; // флаг преждевременной остановки генерации
 
     // поле для работы метода generation в отдельном потоке
     QList<int> _contextOnAssignment; // полученный контекст по заданию

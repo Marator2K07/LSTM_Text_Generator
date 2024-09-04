@@ -12,6 +12,7 @@ NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(INeuralNetworkModel *neur
 
 NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(QObject *parent)
     : _neuralNetworkModel{nullptr}
+    , _generateStoped{false}
     , _contextOnAssignment{QList<int>()}
     , QObject{parent}
 {
@@ -29,7 +30,9 @@ void NeuralNetworkTextGenerator::setNeuralNetworkModel(INeuralNetworkModel *mode
 
 void NeuralNetworkTextGenerator::generate()
 {
-    // формируем начальные условия на основе контекста
+    // формируем начальные условия
+    QChar chosenSymbol;
+    _generateStoped = false;
     QList<int> lastCharsIdxs{_contextOnAssignment};
     // генерация начального контекста
     for (int simbolIndex : _contextOnAssignment) {
@@ -38,7 +41,7 @@ void NeuralNetworkTextGenerator::generate()
         emit showGenerationInfo(QString(symbol));
     }
     // генерация символов:
-    while(true) {
+    while(chosenSymbol != '.') {
         // начальная входная партия состоящая
         // из lastCharsIdxs.size() символов
         Matrix3d<double> inputCharBatch
@@ -66,22 +69,22 @@ void NeuralNetworkTextGenerator::generate()
             );
         // определяем возможный следующий символ(по его индексу) и пишем его
         int chosenIndex = Distributor::instance()->discrete(lastSoftSymbolPred);
-        QChar chosenSymbol = _neuralNetworkModel->embedding()->charForIndex(chosenIndex);
+        chosenSymbol = _neuralNetworkModel->embedding()->charForIndex(chosenIndex);
         lastCharsIdxs.push_back(chosenIndex);
         // смотрим, превышен ли размер контекста
         if (lastCharsIdxs.size() > _neuralNetworkModel->embedding()
                                        ->sequenceLength()) {
             lastCharsIdxs.erase(lastCharsIdxs.begin());
         }
-        // и наконец посылаем сигнал о готовом сгенерированном символе
+        // и посылаем сигнал о готовом сгенерированном символе
         emit showGenerationInfo(QString(chosenSymbol));
-        // в случае если символ = символу окончания вывода
-        if (chosenSymbol == '.') {
-            // даем сигнал завершения процесса и заканчиваем генерацию
-            emit generationStoped();
+        // в случае преждевременной остановки генерации
+        if (_generateStoped) {
             break;
         }
     }
+    // даем сигнал завершения процесса
+    emit generationStoped();
 }
 
 void NeuralNetworkTextGenerator::applyAssignmentForGenerate(QList<int> context)

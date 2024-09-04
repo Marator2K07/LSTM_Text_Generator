@@ -27,7 +27,7 @@ private:
     double _epochsCompleted; // количество пройденных эпох обучения с высокой точностью
     double _maxCalculatedLoss; // нужно для вычисления обученности модели
     double _totalLosses; // все накопленные потери за обучение
-    bool _trainStoped; // флаг преждевременной остановки обучения
+    bool _trainStoped;
 
     // поля для работы метода train в отдельном потоке
     int _iterCountOnAssignment; // количество шагов обучения по заданию
