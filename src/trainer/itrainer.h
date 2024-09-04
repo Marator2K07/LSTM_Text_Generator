@@ -31,7 +31,7 @@ public:
     /// текущей модели и ее степени обученности до
     /// первого символа окончания, по умолчанию точки
     /// \param endingChar конечный символ
-    virtual void sampleOutput(char endingChar = '.') = 0;
+    virtual void sampleOutput(const QChar endingChar) = 0;
     ///
     /// \brief train слот тренировки модели генерации текста по данным задания
     virtual void train() = 0;

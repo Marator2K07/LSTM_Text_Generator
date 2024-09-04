@@ -2,6 +2,7 @@
 #include "matrix2d.cpp"
 #include "matrix3d.cpp"
 
+QChar ConsistentTrainer::DEFAULT_ENDING_SYMBOL = '.';
 QString ConsistentTrainer::TRAINER_DATA_NAME = "trainerData";
 long long ConsistentTrainer::MODEL_POWER_FACTOR = 130211020800;
 
@@ -136,17 +137,18 @@ void ConsistentTrainer::load(const QString path)
     emit modelIsCorrect();
 }
 
-void ConsistentTrainer::sampleOutput(char endingChar)
+void ConsistentTrainer::sampleOutput(const QChar endingChar)
 {
-    // формируем начальные условия для последовательности
+    // формируем начальные условия
     vector<int> lastCharsIdxs;
+    QChar chosenSymbol;
     int startCharIdx = QRandomGenerator::global()
                            ->bounded(0, _embedding->vocabSize());
     lastCharsIdxs.push_back(startCharIdx);
     // вывод первого символа и предисловия:
     emit showLearningInfo(QString("sample["));
     emit showLearningInfo(QString(_embedding->charForIndex(startCharIdx)));
-    while (true) {
+    while (chosenSymbol != DEFAULT_ENDING_SYMBOL) {
         // начальная входная партия состоящая
         // из lastCharsIdxs.size() символов
         Matrix3d<double> inputCharBatch
@@ -169,7 +171,7 @@ void ConsistentTrainer::sampleOutput(char endingChar)
             );
         // определяем возможный следующий символ(по его индексу) и пишем его
         int chosenIndex = Distributor::instance()->discrete(lastSoftSymbolPred);
-        QChar chosenSymbol = _embedding->charForIndex(chosenIndex);
+        chosenSymbol = _embedding->charForIndex(chosenIndex);
         lastCharsIdxs.push_back(chosenIndex);
         // смотрим, превышен ли размер контекста
         if (lastCharsIdxs.size() > _sequenceLenght) {
@@ -177,10 +179,6 @@ void ConsistentTrainer::sampleOutput(char endingChar)
         }
         // и наконец выводим найденный символ
         emit showLearningInfo(QString(chosenSymbol));
-        // в случае если символ = символу окончания вывода
-        if (chosenSymbol == endingChar) {
-            break;
-        }
     }
     emit showLearningInfo(QString("]\n"));
 }

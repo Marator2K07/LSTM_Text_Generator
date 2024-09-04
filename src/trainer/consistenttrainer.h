@@ -44,6 +44,8 @@ private:
 public:
     ConsistentTrainer(INeuralNetworkModel *model, IOptimizer *optimizer);
 
+    // символ окончания генерации по умолчанию
+    static QChar DEFAULT_ENDING_SYMBOL;
     // суффикс именования файла с данными о тренировке модели
     static QString TRAINER_DATA_NAME;
     // коэффициент мощности("тяжеловесности") модели
@@ -56,7 +58,7 @@ public:
     IOptimizer *optimizer() const override;
     void save(const QString path = QDir::currentPath()) override;
     void load(const QString path = QDir::currentPath()) override;
-    void sampleOutput(char endingChar = '.') override;
+    void sampleOutput(const QChar endingChar = DEFAULT_ENDING_SYMBOL) override;
     void updateStatus() override;
     void refreshOptimizerStatus(IOptimizer *optimizer) override;
     //
