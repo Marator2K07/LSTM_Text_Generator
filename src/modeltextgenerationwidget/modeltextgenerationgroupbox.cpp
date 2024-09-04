@@ -94,6 +94,15 @@ void ModelTextGenerationGroupBox::generateWithModel()
     }
 }
 
+void ModelTextGenerationGroupBox::stopGenerateWithModel()
+{
+    // только если обучение еще продолжается
+    if (_generateThread.isRunning()) {
+        _textGenerator->stop();
+        ui->stopGenerateButton->setEnabled(false);
+    }
+}
+
 void ModelTextGenerationGroupBox::adaptFormElements()
 {
     // открываем/закрываем доступ к разделу генерации
@@ -120,6 +129,8 @@ ModelTextGenerationGroupBox::ModelTextGenerationGroupBox(QWidget *parent)
             this, SLOT(selectNeuralNetworkModel(QModelIndex)));
     connect(ui->genSampleButton, SIGNAL(pressed()),
             this, SLOT(generateWithModel()));
+    connect(ui->stopGenerateButton, SIGNAL(pressed()),
+            this, SLOT(stopGenerateWithModel()));
     connect(ui->cleanLogButton, SIGNAL(pressed()),
             ui->sampleOutputText, SLOT(clear()));
     connect(this, SIGNAL(neuralNetworkModelChanged()),
