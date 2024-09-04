@@ -2,6 +2,8 @@
 #include "matrix2d.cpp"
 #include "matrix3d.cpp"
 
+QChar NeuralNetworkTextGenerator::DEFAULT_ENDING_SYMBOL = '.';
+
 NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(INeuralNetworkModel *neuralNetworkModel,
                                                        QObject *parent)
     : _neuralNetworkModel{neuralNetworkModel}
@@ -41,7 +43,7 @@ void NeuralNetworkTextGenerator::generate()
         emit showGenerationInfo(QString(symbol));
     }
     // генерация символов:
-    while(chosenSymbol != '.') {
+    while(chosenSymbol != DEFAULT_ENDING_SYMBOL) {
         // начальная входная партия состоящая
         // из lastCharsIdxs.size() символов
         Matrix3d<double> inputCharBatch

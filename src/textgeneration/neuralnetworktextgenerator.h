@@ -25,6 +25,9 @@ public:
                                         QObject *parent = nullptr);
     explicit NeuralNetworkTextGenerator(QObject *parent = nullptr);
 
+    // символ окончания генерации по умолчанию
+    static QChar DEFAULT_ENDING_SYMBOL;
+
 public:
     // ITextGeneration interface
     INeuralNetworkModel *neuralNetworkModel() const override;
