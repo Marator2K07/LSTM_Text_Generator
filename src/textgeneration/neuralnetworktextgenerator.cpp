@@ -93,3 +93,8 @@ void NeuralNetworkTextGenerator::applyAssignmentForGenerate(QList<int> context)
 
     _contextOnAssignment = context;
 }
+
+void NeuralNetworkTextGenerator::stop()
+{
+    _generateStoped = true;
+}

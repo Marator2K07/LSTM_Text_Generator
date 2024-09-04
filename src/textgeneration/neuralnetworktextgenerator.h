@@ -34,6 +34,7 @@ public slots:
     // ITextGeneration interface
     void generate() override;
     void applyAssignmentForGenerate(QList<int> context) override;
+    void stop() override;
     //
 
 signals:

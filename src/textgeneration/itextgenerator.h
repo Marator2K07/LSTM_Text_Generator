@@ -32,6 +32,9 @@ public:
     /// параметров для начала корректной генерации текста на основе обученной модели
     /// \param context переданный текст(контекст) для генерации
     virtual void applyAssignmentForGenerate(QList<int> context) = 0;
+    ///
+    /// \brief stop преждевременная остановка генерации текста
+    virtual void stop() = 0;
 
 protected:
     ///
