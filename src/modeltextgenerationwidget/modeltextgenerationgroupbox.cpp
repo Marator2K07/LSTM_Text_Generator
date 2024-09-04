@@ -113,6 +113,28 @@ void ModelTextGenerationGroupBox::adaptFormElements()
     }
 }
 
+void ModelTextGenerationGroupBox::generateFormActiveState()
+{
+    ui->sampleGenLineEdit->setEnabled(true);
+    ui->modelsListView->setEnabled(true);
+    ui->genSampleButton->setEnabled(true);
+    ui->stopGenerateButton->setEnabled(false);
+    ui->generationHeaderLabel->setEnabled(true);
+    ui->genSampleLabel->setEnabled(true);
+    ui->chooseModelHeaderLabel->setEnabled(true);
+}
+
+void ModelTextGenerationGroupBox::generateFormNotActiveState()
+{
+    ui->sampleGenLineEdit->setEnabled(false);
+    ui->modelsListView->setEnabled(false);
+    ui->genSampleButton->setEnabled(false);
+    ui->stopGenerateButton->setEnabled(true);
+    ui->generationHeaderLabel->setEnabled(false);
+    ui->genSampleLabel->setEnabled(false);
+    ui->chooseModelHeaderLabel->setEnabled(false);
+}
+
 ModelTextGenerationGroupBox::ModelTextGenerationGroupBox(QWidget *parent)
     : QGroupBox(parent)
     , ui(new Ui::ModelTextGenerationGroupBox)
@@ -129,6 +151,8 @@ ModelTextGenerationGroupBox::ModelTextGenerationGroupBox(QWidget *parent)
             this, SLOT(selectNeuralNetworkModel(QModelIndex)));
     connect(ui->genSampleButton, SIGNAL(pressed()),
             this, SLOT(generateWithModel()));
+    connect(ui->genSampleButton, SIGNAL(pressed()),
+            this, SLOT(generateFormNotActiveState()));
     connect(ui->stopGenerateButton, SIGNAL(pressed()),
             this, SLOT(stopGenerateWithModel()));
     connect(ui->cleanLogButton, SIGNAL(pressed()),
@@ -140,6 +164,8 @@ ModelTextGenerationGroupBox::ModelTextGenerationGroupBox(QWidget *parent)
     // экстра важные связи связанные с многопоточкой
     connect(&_generateThread, SIGNAL(started()),
             _textGenerator, SLOT(generate()));
+    connect(_textGenerator, SIGNAL(generationStoped()),
+            this, SLOT(generateFormActiveState()));
     connect(_textGenerator, SIGNAL(generationStoped()),
             &_generateThread, SLOT(exit()));
     // не забываем поместить тренер в отдельный поток

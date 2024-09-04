@@ -56,6 +56,14 @@ private slots:
     /// состояния экземпляра обьекта данной формы
     /// и блокировка/разблокировка необходимых элементов
     void adaptFormElements();
+    ///
+    /// \brief generateFormActiveState приведение формы генерации текста
+    /// к состоянию неактивной генерации(разблокировка всех нужных виджетов)
+    void generateFormActiveState();
+    ///
+    /// \brief generateFormNotActiveState приведение формы генерации текста
+    /// к состоянию активной генерации(блокировка всех нужных виджетов)
+    void generateFormNotActiveState();
 
 public:
     explicit ModelTextGenerationGroupBox(QWidget *parent = nullptr);
