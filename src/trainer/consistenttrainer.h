@@ -50,6 +50,8 @@ public:
     static QString TRAINER_DATA_NAME;
     // коэффициент мощности("тяжеловесности") модели
     static long long MODEL_POWER_FACTOR;
+    // число для корректного сравнения double значений
+    static double COMPARISON_EPSILON;
 
     bool operator==(const ConsistentTrainer &trainer);
 

@@ -5,6 +5,7 @@
 QChar ConsistentTrainer::DEFAULT_ENDING_SYMBOL = '.';
 QString ConsistentTrainer::TRAINER_DATA_NAME = "trainerData";
 long long ConsistentTrainer::MODEL_POWER_FACTOR = 130211020800;
+double ConsistentTrainer::COMPARISON_EPSILON = 1e-2;
 
 void ConsistentTrainer::showFinalData()
 {
@@ -45,13 +46,16 @@ bool ConsistentTrainer::operator==(const ConsistentTrainer &trainer)
     if (_currentPos != trainer._currentPos) {
         return false;
     }
-    if (abs(_percentageOfTraining - trainer._percentageOfTraining) > 1e-3) {
+    if (abs(_percentageOfTraining -
+            trainer._percentageOfTraining) > COMPARISON_EPSILON) {
         return false;
     }
-    if (abs(_epochsCompleted - trainer._epochsCompleted) > 1e-5) {
+    if (abs(_epochsCompleted -
+            trainer._epochsCompleted) > COMPARISON_EPSILON) {
         return false;
     }
-    if (abs(_maxCalculatedLoss - trainer._maxCalculatedLoss) > 1e-2) {
+    if (abs(_maxCalculatedLoss -
+            trainer._maxCalculatedLoss) > COMPARISON_EPSILON) {
         return false;
     }
     if (optimizer()->type() != trainer.optimizer()->type() ||
