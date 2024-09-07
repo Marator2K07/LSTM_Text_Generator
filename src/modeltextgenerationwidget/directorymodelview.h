@@ -47,7 +47,7 @@ public:
     /// \param name путь до добавленной папки
     void addFolder(QString path, QString name);
 
-    // QAbstractItemModel interface
+    // QAbstractListModel interface
     int rowCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
     //
