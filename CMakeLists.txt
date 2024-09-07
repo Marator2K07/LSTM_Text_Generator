@@ -24,7 +24,7 @@ target_link_libraries(LSTM_Text_Generator PRIVATE
     modeltrainwidget
     newmodelwidget
     randommanaging
-    textgeneration
+    textgenerator
     neuralnetwork
     textembedding
     optimizer

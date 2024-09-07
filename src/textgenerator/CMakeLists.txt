@@ -1,12 +1,12 @@
-qt_add_library(textgeneration STATIC
+qt_add_library(textgenerator STATIC
     itextgenerator.h
     neuralnetworktextgenerator.h neuralnetworktextgenerator.cpp
 )
-target_link_libraries(textgeneration PRIVATE
+target_link_libraries(textgenerator PRIVATE
     Qt6::Core
     Qt6::Widgets
 )
-target_link_libraries(textgeneration PRIVATE
+target_link_libraries(textgenerator PRIVATE
     activationfunctions
     randommanaging
     neuralnetwork
@@ -16,4 +16,4 @@ target_link_libraries(textgeneration PRIVATE
     matrix
     loss
 )
-target_include_directories(textgeneration PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(textgenerator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

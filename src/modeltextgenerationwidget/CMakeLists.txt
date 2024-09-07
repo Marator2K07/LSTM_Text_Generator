@@ -7,9 +7,9 @@ target_link_libraries(modeltextgenerationwidget PRIVATE
     Qt6::Widgets
 )
 target_link_libraries(modeltextgenerationwidget PRIVATE
-    activationfunctions
-    textgeneration
+    activationfunctions    
     randommanaging
+    textgenerator
     neuralnetwork
     textembedding
     optimizer
