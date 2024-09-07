@@ -3,6 +3,7 @@
 #include "matrix3d.cpp"
 
 QChar NeuralNetworkTextGenerator::DEFAULT_ENDING_SYMBOL = '.';
+double NeuralNetworkTextGenerator::DEFAULT_BATCH_NUM = 1.0;
 
 NeuralNetworkTextGenerator::NeuralNetworkTextGenerator(INeuralNetworkModel *neuralNetworkModel,
                                                        QObject *parent)
@@ -54,7 +55,7 @@ void NeuralNetworkTextGenerator::generate()
                 );
         // заполняем начальную партию индексов
         for (int seqI = 0; seqI < lastCharsIdxs.size(); ++seqI) {
-            inputCharBatch.setValue(0, seqI, lastCharsIdxs[seqI], 1.0);
+            inputCharBatch.setValue(0, seqI, lastCharsIdxs[seqI], DEFAULT_BATCH_NUM);
         }
         // партия предсказания после прохода по нейронной сети
         Matrix3d<double> predictionBatch

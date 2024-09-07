@@ -25,8 +25,8 @@ public:
                                         QObject *parent = nullptr);
     explicit NeuralNetworkTextGenerator(QObject *parent = nullptr);
 
-    // символ окончания генерации по умолчанию
-    static QChar DEFAULT_ENDING_SYMBOL;
+    static QChar DEFAULT_ENDING_SYMBOL;// символ окончания генерации по умолчанию
+    static double DEFAULT_BATCH_NUM; // цифра по умолчанию для заполнения партии
 
 public:
     // ITextGeneration interface
