@@ -204,7 +204,7 @@ void ConsistentTrainer::train()
             this->save(_savePathOnAssignment);
             // даем знать об окончании эпохи обучения
             emit showLearningInfo(QString("end of an era\n"));
-            _currentPos = 0; // ради более стабильного обучения
+            _currentPos = numIter; // ради более стабильного обучения
         }
         // генерируем входные и целевые индексы, соотвественно
         Matrix2d<double> inputIndices = _embedding->genTextIndices(_currentPos);
