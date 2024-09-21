@@ -4,9 +4,7 @@
 #include "softmaxcrossentropyloss.h"
 #include "softmaxcrossentropyloss.cpp"
 #include "matrix2d.h"
-#include "matrix2d.cpp"
 #include "matrix3d.h"
-#include "matrix3d.cpp"
 
 using namespace std;
 

@@ -3,8 +3,6 @@
 #include <QMapIterator>
 
 #include "charasvectorembedding.h"
-#include "matrix2d.cpp"
-#include "matrix3d.cpp"
 
 using namespace std;
 

@@ -1,6 +1,4 @@
 #include "lstmlayer.h"
-#include "matrix2d.cpp"
-#include "matrix3d.cpp"
 
 void LSTMLayer::saveHyperParams(const QString path)
 {

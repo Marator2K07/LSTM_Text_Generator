@@ -1,6 +1,4 @@
 #include "consistenttrainer.h"
-#include "matrix2d.cpp"
-#include "matrix3d.cpp"
 
 QChar ConsistentTrainer::DEFAULT_ENDING_SYMBOL = '.';
 QString ConsistentTrainer::TRAINER_DATA_NAME = "trainerData";

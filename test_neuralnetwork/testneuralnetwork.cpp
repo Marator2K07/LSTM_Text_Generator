@@ -4,8 +4,6 @@
 
 #include "softmaxcrossentropyloss.h"
 #include "charasvectorembedding.h"
-#include "matrix2d.cpp"
-#include "matrix3d.cpp"
 #include "lstmnode.h"
 #include "lstmlayer.h"
 #include "lstmmodel.h"

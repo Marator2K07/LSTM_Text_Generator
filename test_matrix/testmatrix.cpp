@@ -2,9 +2,7 @@
 #include <QtTest/QtTest>
 
 #include "matrix2d.h"
-#include "matrix2d.cpp"
 #include "matrix3d.h"
-#include "matrix3d.cpp"
 
 class TestMatrix: public QObject
 {

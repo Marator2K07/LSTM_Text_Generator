@@ -1,6 +1,4 @@
 #include "neuralnetworktextgenerator.h"
-#include "matrix2d.cpp"
-#include "matrix3d.cpp"
 
 QChar NeuralNetworkTextGenerator::DEFAULT_ENDING_SYMBOL = '.';
 double NeuralNetworkTextGenerator::DEFAULT_BATCH_NUM = 1.0;

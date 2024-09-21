@@ -1,5 +1,4 @@
 #include "lstmnode.h"
-#include "matrix2d.cpp"
 #include "activationfunctions.cpp"
 
 void LSTMNode::cleanUp()

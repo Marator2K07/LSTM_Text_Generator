@@ -1,5 +1,4 @@
 #include "lstmmodel.h"
-#include "matrix3d.cpp"
 
 QString LSTMModel::LAYERS_DATA_NAME = "layersData";
 QString LSTMModel::EMBEDDING_DATA_NAME = "embeddingData";

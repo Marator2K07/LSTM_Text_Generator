@@ -1,6 +1,4 @@
 #include "charasvectorembedding.h"
-#include "matrix2d.cpp"
-#include "matrix3d.cpp"
 
 QList<QChar> CharAsVectorEmbedding::INVALID_CHARACTERS_WITHOUT_REPLACE {
     '~', '`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
